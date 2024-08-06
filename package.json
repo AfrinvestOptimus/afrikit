@@ -2,8 +2,8 @@
   "name": "afrikit",
   "version": "0.0.4",
   "description": "Afrinvest Design System",
-  "main": "src/index.js",
-  "types": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -19,13 +19,15 @@
   "devDependencies": {
     "@types/node": "^20.14.11",
     "tailwindcss": "^3.4.6",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "tsc-alias": "^1.6.8"
   },
   "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447",
   "dependencies": {
     "@radix-ui/colors": "^3.0.0"
   },
   "scripts": {
+    "build": "tsc && tsc-alias",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

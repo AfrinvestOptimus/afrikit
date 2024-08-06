@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "declaration": true,
-    "outDir": "./dist",
-    "strict": true,
-    "esModuleInterop": true
+    "outDir": "./dist",             // Output directory for compiled files
+    "rootDir": "./src",             // Root directory of your source files
+    "moduleResolution": "node",     // Module resolution strategy
+    "target": "ES5",                // Target ECMAScript version
+    "module": "CommonJS",           // Module system
+    "declaration": true,            // Generate .d.ts files
+    "declarationMap": true,         // Generate source maps for .d.ts files
+    "sourceMap": true               // Generate source maps for .js files
   },
-  "include": ["src"],
+  "include": ["src/**/*"]   ,        // Include all TypeScript files in the src directory
   "exclude": ["node_modules", "dist"]
 }
