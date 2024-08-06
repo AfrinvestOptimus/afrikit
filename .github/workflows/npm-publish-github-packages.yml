@@ -1,9 +1,8 @@
 name: Publish npm Package
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [created]
 
 jobs:
   publish:
@@ -24,7 +23,20 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Extract version from tag
+        id: extract_version
+        run: echo "::set-output name=VERSION::${GITHUB_REF#refs/tags/}"
+
+      - name: Update package.json with new version
+        run: |
+          jq --arg VERSION "${{ steps.extract_version.outputs.VERSION }}" '.version = $VERSION' package.json > tmp.$$.json && mv tmp.$$.json package.json
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+          git add package.json
+          git commit -m "Bump version to ${{ steps.extract_version.outputs.VERSION }}"
+          git push origin HEAD:main
+
       - name: Publish to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: yarn publish --non-interactive
+        run: yarn publish --non-interactive --new-version ${{ steps.extract_version.outputs.VERSION }}
