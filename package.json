@@ -1,6 +1,6 @@
 {
   "name": "afrikit",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Afrinvest Design System",
   "main": "index.js",
   "types": "index.ts",
