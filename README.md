@@ -9,7 +9,7 @@ To use this configuration in your Tailwind CSS project, follow these steps:
 1. Install this package in your project:
 
 ```bash
-npm install @afrinvest/afrikit
+npm i afrikit
 ```
 
 
