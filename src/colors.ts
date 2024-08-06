@@ -1,4 +1,4 @@
-const {
+import {
   tomato,
   red,
   crimson,
@@ -119,9 +119,23 @@ const {
   rubyDarkA,
   irisDarkA,
   jadeDarkA,
-} = require("@radix-ui/colors");
+} from '@radix-ui/colors';
 
-const opti = {
+type ColorSet = { [key: string]: string };
+
+type OptiColor = {
+  light: ColorSet;
+  dark: ColorSet;
+  alphaLight: ColorSet;
+  alphaDark: ColorSet;
+};
+
+type Opti = {
+  blue: OptiColor;
+  gray: OptiColor;
+};
+
+const opti: Opti = {
   blue: {
     light: {
       optiblue1: "#FBFDFF",
@@ -240,20 +254,15 @@ const opti = {
   },
 };
 
-const createColorScheme = (colorSource, prefix = "", sourcePrefix) => {
-  const colorScheme = {};
+const createColorScheme = (colorSource: ColorSet, prefix: string = "", sourcePrefix: string): ColorSet => {
+  const colorScheme: ColorSet = {};
   for (let i = 1; i <= 12; i++) {
     colorScheme[`${prefix}${i}`] = colorSource[`${sourcePrefix}${i}`];
   }
   return colorScheme;
 };
 
-const {
-  light: optiBlueLight,
-  dark: optiBlueDark,
-  alphaLight: optiBlueAlphaLight,
-  alphaDark: optiBlueAlphaDark,
-} = opti.blue;
+const { light: optiBlueLight, dark: optiBlueDark, alphaLight: optiBlueAlphaLight, alphaDark: optiBlueAlphaDark } = opti.blue;
 
 const accent = {
   light: createColorScheme(optiBlueLight, "accent", "optiblue"),
@@ -304,36 +313,64 @@ const semantics = {
   info,
 };
 
-const createColorState = (primary, hover, pressed) => ({
+const createColorState = (primary: string, hover: string, pressed: string) => ({
   DEFAULT: primary,
   hover,
   pressed,
 });
 
+type TextColorScheme = {
+  primary: string;
+  muted?: string;
+  placeholder?: string;
+  disabled?: string;
+  inverse: string;
+  bold?: string;
+};
+
 const createColorStateText = ({
-  primary,
-  muted,
-  placeholder,
-  disabled,
-  inverse,
-  bold,
-  isGray = false,
-}) => ({
+                                primary,
+                                muted,
+                                placeholder,
+                                disabled,
+                                inverse,
+                                bold,
+                                isGray = false,
+                              }: {
+  primary: string;
+  muted?: string;
+  placeholder?: string;
+  disabled?: string;
+  inverse: string;
+  bold?: string;
+  isGray?: boolean;
+}): TextColorScheme => ({
   DEFAULT: primary,
   inverse,
   ...(isGray ? { muted, placeholder, disabled } : { bold }),
 });
 
-const createTextColorScheme = ({ color, alpha, string, grayDef }) =>
-  createColorStateText({
-    primary: grayDef || alpha[`${string}A11`],
-    muted: color[`${string}11`],
-    placeholder: alpha[`${string}A9`],
-    disabled: alpha[`${string}A8`],
-    inverse: color[`${string}1`],
-    bold: color[`${string}12`],
-    isGray: !!grayDef,
-  });
+const createTextColorScheme = ({
+                                 color,
+                                 alpha,
+                                 string,
+                                 grayDef,
+                               }: {
+  color: ColorSet;
+  alpha: ColorSet;
+  string: string;
+  grayDef?: string;
+}): TextColorScheme =>
+    createColorStateText({
+      primary: grayDef || alpha[`${string}A11`],
+      muted: color[`${string}11`],
+      placeholder: alpha[`${string}A9`],
+      disabled: alpha[`${string}A8`],
+      inverse: color[`${string}1`],
+      bold: color[`${string}12`],
+      isGray: !!grayDef,
+    });
+
 const typeColors = {
   light: {
     gray: createTextColorScheme({
@@ -433,95 +470,93 @@ const typeColors = {
   },
 };
 
+type ColorStateBorder = {
+  DEFAULT: string;
+  light?: string;
+  lighter?: string;
+  strong: string;
+  subtle?: string;
+  hover?: string;
+  active?: string;
+};
+
 const createColorStateBorder = ({
-  primary,
-  light,
-  lighter,
-  strong,
-  subtle,
-  hover,
-  active,
-  isGray = false,
-}) => ({
+                                  primary,
+                                  light,
+                                  lighter,
+                                  strong,
+                                  subtle,
+                                  hover,
+                                  active,
+                                  isGray = false,
+                                }: {
+  primary: string;
+  light?: string;
+  lighter?: string;
+  strong: string;
+  subtle?: string;
+  hover?: string;
+  active?: string;
+  isGray?: boolean;
+}): ColorStateBorder => ({
   DEFAULT: primary,
   strong,
-  ...(isGray
-    ? { subtle, hover, active }
-    : {
-        light,
-        lighter,
-      }),
+  ...(isGray ? { subtle, hover, active } : { light, lighter }),
 });
-const createBorderColorScheme = ({ alpha, string, isGray = false }) =>
-  createColorStateBorder({
-    primary: isGray ? alpha[`${string}A6`] : alpha[`${string}A8`],
-    light: alpha[`${string}A7`],
-    lighter: alpha[`${string}A6`],
-    strong: alpha[`${string}A11`],
-    subtle: alpha[`${string}A5`],
-    hover: alpha[`${string}A8`],
-    active: alpha[`${string}A9`],
-    isGray,
-  });
 
-const createBgColorScheme = (colorVariant, alphaColorVariant, string) => ({
-  transparent: createColorState(
-    "rgba(252,252,253,0)",
-    alphaColorVariant[`${string}A3`],
-    alphaColorVariant[`${string}A4`]
-  ),
-  base: createColorState(
-    colorVariant[`${string}9`],
-    colorVariant[`${string}10`],
-    colorVariant[`${string}10`]
-  ),
-  light: createColorState(
-    alphaColorVariant[`${string}A3`],
-    alphaColorVariant[`${string}A4`],
-    alphaColorVariant[`${string}A5`]
-  ),
-  lighter: createColorState(
-    alphaColorVariant[`${string}A2`],
-    alphaColorVariant[`${string}A3`],
-    alphaColorVariant[`${string}A4`]
-  ),
-  bold: createColorState(
-    colorVariant[`${string}12`],
-    colorVariant[`${string}12`],
-    colorVariant[`${string}12`]
-  ),
+const createBorderColorScheme = ({ alpha, string, isGray = false }: { alpha: ColorSet; string: string; isGray?: boolean }): ColorStateBorder =>
+    createColorStateBorder({
+      primary: isGray ? alpha[`${string}A6`] : alpha[`${string}A8`],
+      light: alpha[`${string}A7`],
+      lighter: alpha[`${string}A6`],
+      strong: alpha[`${string}A11`],
+      subtle: alpha[`${string}A5`],
+      hover: alpha[`${string}A8`],
+      active: alpha[`${string}A9`],
+      isGray,
+    });
+
+type BgColorScheme = {
+  transparent: { DEFAULT: string; hover: string; pressed: string };
+  base: { DEFAULT: string; hover: string; pressed: string };
+  light: { DEFAULT: string; hover: string; pressed: string };
+  lighter: { DEFAULT: string; hover: string; pressed: string };
+  bold: { DEFAULT: string; hover: string; pressed: string };
+};
+
+const createBgColorScheme = (colorVariant: ColorSet, alphaColorVariant: ColorSet, string: string): BgColorScheme => ({
+  transparent: createColorState("rgba(252,252,253,0)", alphaColorVariant[`${string}A3`], alphaColorVariant[`${string}A4`]),
+  base: createColorState(colorVariant[`${string}9`], colorVariant[`${string}10`], colorVariant[`${string}10`]),
+  light: createColorState(alphaColorVariant[`${string}A3`], alphaColorVariant[`${string}A4`], alphaColorVariant[`${string}A5`]),
+  lighter: createColorState(alphaColorVariant[`${string}A2`], alphaColorVariant[`${string}A3`], alphaColorVariant[`${string}A4`]),
+  bold: createColorState(colorVariant[`${string}12`], colorVariant[`${string}12`], colorVariant[`${string}12`]),
 });
+
 const borderColors = {
   light: {
     disable: neutral.alphaLight.neutralA6,
     gray: createBorderColorScheme({
-      color: neutral.light,
       alpha: neutral.alphaLight,
       string: "neutral",
       isGray: true,
     }),
     accent: createBorderColorScheme({
-      color: accent.light,
       alpha: accent.alphaLight,
       string: "accent",
     }),
     success: createBorderColorScheme({
-      color: success.light,
       alpha: success.alphaLight,
       string: "success",
     }),
     error: createBorderColorScheme({
-      color: error.light,
       alpha: error.alphaLight,
       string: "error",
     }),
     warning: createBorderColorScheme({
-      color: warning.light,
       alpha: warning.alphaLight,
       string: "warning",
     }),
     info: createBorderColorScheme({
-      color: info.light,
       alpha: info.alphaLight,
       string: "info",
     }),
@@ -529,33 +564,27 @@ const borderColors = {
   dark: {
     disable: neutral.alphaDark.neutralA6,
     gray: createBorderColorScheme({
-      color: neutral.dark,
       alpha: neutral.alphaDark,
       string: "neutral",
       isGray: true,
     }),
     accent: createBorderColorScheme({
-      color: accent.dark,
       alpha: accent.alphaDark,
       string: "accent",
     }),
     success: createBorderColorScheme({
-      color: success.dark,
       alpha: success.alphaDark,
       string: "success",
     }),
     error: createBorderColorScheme({
-      color: error.dark,
       alpha: error.alphaDark,
       string: "error",
     }),
     warning: createBorderColorScheme({
-      color: warning.dark,
       alpha: warning.alphaDark,
       string: "warning",
     }),
     info: createBorderColorScheme({
-      color: info.dark,
       alpha: info.alphaDark,
       string: "info",
     }),
@@ -730,6 +759,7 @@ const light = {
   ...variables.light,
   ...themeColors.light,
 };
+
 const dark = {
   ...tomatoDark,
   ...redDark,
@@ -775,6 +805,7 @@ const dark = {
   ...variables.dark,
   ...themeColors.dark,
 };
+
 const alphaLight = {
   ...tomatoA,
   ...redA,
@@ -816,6 +847,7 @@ const alphaLight = {
   ...semantics.info.alphaLight,
   ...variables.alphaLight,
 };
+
 const alphaDark = {
   ...tomatoDarkA,
   ...redDarkA,
@@ -862,6 +894,7 @@ const darkColors = {
   ...dark,
   ...alphaDark,
 };
+
 const lightColors = {
   ...light,
   ...alphaLight,
@@ -872,6 +905,4 @@ const colors = {
   dark: { ...darkColors },
 };
 
-module.exports = {
-  colors,
-};
+export default colors;

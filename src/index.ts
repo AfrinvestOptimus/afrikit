@@ -3,6 +3,7 @@ import radius from "./radius";
 import fontSizes from "./fontSizes";
 import spacing from "./spacing";
 import tokens from "./tokens";
+// @ts-ignore
 import colors from "./colors";
 
 const config = {
