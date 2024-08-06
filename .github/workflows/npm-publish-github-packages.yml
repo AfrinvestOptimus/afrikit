@@ -30,8 +30,8 @@ jobs:
       - name: Update package.json with new version
         run: |
           jq --arg VERSION "${{ steps.extract_version.outputs.VERSION }}" '.version = $VERSION' package.json > tmp.$$.json && mv tmp.$$.json package.json
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
+          git config --global user.email "developers@afrinvest.com"
+          git config --global user.name "Afrinvest"
           git add package.json
           git commit -m "Bump version to ${{ steps.extract_version.outputs.VERSION }}"
           git push origin HEAD:main
