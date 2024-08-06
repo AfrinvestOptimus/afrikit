@@ -1,10 +1,11 @@
-// import plugin from "./plugin";
+// Import necessary modules
 import radius from "./radius";
 import fontSizes from "./fontSizes";
 import spacing from "./spacing";
 import tokens from "./tokens";
 import colors from "./colors";
 
+// Define the configuration
 const config = {
   theme: {
     colors: {
@@ -36,4 +37,5 @@ const config = {
   // plugins: [plugin],
 };
 
+// Export the configuration
 export default config;
