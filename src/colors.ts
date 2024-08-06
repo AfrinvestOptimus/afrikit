@@ -344,7 +344,7 @@ const createColorStateText = ({
   inverse: string;
   bold?: string;
   isGray?: boolean;
-}): TextColorScheme => ({
+}): { inverse: string; DEFAULT: string } => ({
   DEFAULT: primary,
   inverse,
   ...(isGray ? { muted, placeholder, disabled } : { bold }),
@@ -360,7 +360,7 @@ const createTextColorScheme = ({
   alpha: ColorSet;
   string: string;
   grayDef?: string;
-}): TextColorScheme =>
+}): { inverse: string; DEFAULT: string } =>
     createColorStateText({
       primary: grayDef || alpha[`${string}A11`],
       muted: color[`${string}11`],
