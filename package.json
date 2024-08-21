@@ -3,6 +3,7 @@
   "version": "0.0.8",
   "description": "Afrinvest Design System",
   "author": "afrinvest",
+  "private": true,
   "license": "MIT",
   "workspaces": [
     "packages/*"
