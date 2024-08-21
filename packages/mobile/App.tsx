@@ -13,15 +13,14 @@ export default function App() {
         "justify-center items-center flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4"
       }
     >
-      <Text className={"text-light-optiblue9 dark:text-dark-optiblue11"}>
-        Open up App.tsx to start working on your app!
-      </Text>
-
       <Icon
-        name="ri-bank-fill"
+        name="ri-home-wifi-line"
         size="24"
-        color={colorScheme === "light" ? colors.light.cyan9 : colors.dark.cyan9}
+        color={colorScheme === "light" ? colors.light.cyan9 : colors.dark.red9}
       />
+      <Text className={"text-light-optiblue9 dark:text-dark-optiblue11"}>
+        You can test your components on this screen!
+      </Text>
 
       <Pressable
         onPress={() =>
