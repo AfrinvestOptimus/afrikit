@@ -1,5 +1,5 @@
 {
-  "name": "Web components",
+  "name": "web-components",
   "version": "1.0.0",
   "description": "Houses all components used in the web application",
   "main": "index.js",
