@@ -2,33 +2,24 @@
   "name": "afrikit",
   "version": "0.0.8",
   "description": "Afrinvest Design System",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
+  "author": "afrinvest",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
   ],
+  "dependencies": {},
+  "devDependencies": {
+    "lerna": "^8.1.8"
+  },
   "keywords": [
     "afrinvest",
     "design"
   ],
-  "author": "afrinvest",
-  "license": "MIT",
-  "peerDependencies": {
-    "tailwindcss": "^3.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.14.11",
-    "tailwindcss": "^3.4.6",
-    "typescript": "^5.5.4",
-    "tsc-alias": "^1.6.8"
-  },
-  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447",
-  "dependencies": {
-    "@radix-ui/colors": "^3.0.0"
-  },
   "scripts": {
-    "build": "tsc && tsc-alias",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "lerna run start --stream",
+    "lint": "lerna run lint --since",
+    "tsc": "lerna run tsc --since",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
