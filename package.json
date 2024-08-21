@@ -21,12 +21,13 @@
     "@types/node": "^20.14.11",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.0.0",
-    "eslint": "^9.9.0",
+    "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^18.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.35.0",
+    "globals": "^15.9.0",
     "husky": "^8.0.0",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.6",
@@ -36,7 +37,8 @@
   },
   "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447",
   "dependencies": {
-    "@radix-ui/colors": "^3.0.0"
+    "@radix-ui/colors": "^3.0.0",
+    "react": "^18.3.1"
   },
   "scripts": {
     "build": "tsc && tsc-alias",
