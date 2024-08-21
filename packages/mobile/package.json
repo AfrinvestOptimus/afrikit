@@ -9,13 +9,17 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@gorhom/bottom-sheet": "^4.6.4",
     "expo": "~51.0.28",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
     "react-native": "0.74.5",
     "nativewind": "^4.0.1",
     "react-native-reanimated": "^3.15.0",
-    "tailwindcss": "^3.4.10"
+    "tailwindcss": "^3.4.10",
+    "react-native-svg": "^15.6.0",
+    "react-native-remix-icon": "^0.4.0",
+    "react-native-gesture-handler": "^2.18.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
