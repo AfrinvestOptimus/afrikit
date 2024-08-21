@@ -17,10 +17,21 @@
     "tailwindcss": "^3.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.9.0",
     "@types/node": "^20.14.11",
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^9.9.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.35.0",
+    "prettier": "^3.3.3",
     "tailwindcss": "^3.4.6",
+    "tsc-alias": "^1.6.8",
     "typescript": "^5.5.4",
-    "tsc-alias": "^1.6.8"
+    "typescript-eslint": "^8.2.0"
   },
   "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447",
   "dependencies": {
