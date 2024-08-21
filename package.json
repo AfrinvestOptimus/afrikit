@@ -16,7 +16,7 @@
     "design"
   ],
   "scripts": {
-    "start": "lerna run start --stream",
+    "start": "lerna run start",
     "lint": "lerna run lint --since",
     "tsc": "lerna run tsc --since",
     "prepare": "husky install"
