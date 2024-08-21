@@ -1,7 +1,7 @@
 {
-  "name": "afrikit",
-  "version": "0.0.8",
-  "description": "Afrinvest Design System",
+  "name": "shared",
+  "version": "0.2.0",
+  "description": "Houses all shared files",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [

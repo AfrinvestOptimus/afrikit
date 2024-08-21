@@ -7,6 +7,6 @@
   "author": "Afrinvest",
   "license": "MIT",
   "dependencies": {
-    "shared": "1.0.0"
+    "shared": "0.2.0"
   }
 }
