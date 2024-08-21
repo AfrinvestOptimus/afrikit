@@ -2,7 +2,8 @@
   "name": "mobile-components",
   "version": "1.0.0",
   "description": "Houses all components used in the mobile application",
-  "main": "index.js",
+  "private": true,
+  "main": "index.ts",
   "author": "Afrinvest",
   "license": "MIT",
   "dependencies": {
