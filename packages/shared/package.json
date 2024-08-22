@@ -1,0 +1,41 @@
+{
+  "name": "shared",
+  "version": "0.2.0",
+  "description": "Houses all shared files",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "afrinvest",
+    "design"
+  ],
+  "author": "afrinvest",
+  "license": "MIT",
+  "peerDependencies": {
+    "tailwindcss": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.11",
+    "tailwindcss": "^3.4.6",
+    "typescript": "^5.5.4",
+    "tsc-alias": "^1.6.8"
+  },
+  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447",
+  "dependencies": {
+    "@radix-ui/colors": "^3.0.0"
+  },
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AfrinvestOptimus/afrikit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AfrinvestOptimus/afrikit/issues"
+  },
+  "homepage": "https://github.com/AfrinvestOptimus/afrikit#readme"
+}
