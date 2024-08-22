@@ -12,7 +12,7 @@ export default [
   {
     rules: {
       'no-unused-vars': 'warn',
-      'no-undef': 'warn',
+      'no-undef': 'error',
       '@typescript-eslint/no-unused-vars': ['warn'], // Change from 'error' to 'warn'
     },
   },
