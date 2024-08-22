@@ -1,0 +1,13 @@
+// DO NOT TOUCH
+{
+  "editor.formatOnSave": true,
+  "files.insertFinalNewline": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+    "source.fixAll": "explicit"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
