@@ -1,8 +1,11 @@
-{
+module.exports = {
   "expo": {
     "name": "mobile-kit",
     "slug": "mobile-kit",
     "version": "1.0.0",
+    extra: {
+      storybookEnabled: process.env.STORYBOOK_ENABLED,
+    },
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",

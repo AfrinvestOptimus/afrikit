@@ -4,9 +4,14 @@ import "./global.css";
 import { useColorScheme } from "nativewind";
 import Icon from "react-native-remix-icon";
 import colors from "../shared/colors";
+import StorybookUIRoot from './.storybook';
 
 export default function App() {
   const { colorScheme, setColorScheme } = useColorScheme();
+  const SHOW_STORYBOOK = true;
+  if (SHOW_STORYBOOK) {
+    return <StorybookUIRoot />;
+  }
   return (
     <View
       className={
