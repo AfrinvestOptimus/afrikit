@@ -6,9 +6,8 @@ const { withNativeWind } = require("nativewind/metro");
 // generate({
 //     configPath: path.resolve(__dirname, './.storybook'),
 //   });
+/* eslint-disable */
 
-const config = getDefaultConfig(__dirname);
+const config = getDefaultConfig(__dirname)
 
-// config.transformer.unstable_allowRequireContext = true;
-
-module.exports = withNativeWind(config, { input: "./global.css" });
+module.exports = withNativeWind(config, { input: './global.css' })

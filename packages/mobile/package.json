@@ -1,7 +1,7 @@
 {
   "name": "mobile-kit",
   "version": "1.0.0",
-  "main": "expo/AppEntry.js",
+  "main": "entrance.ts",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
