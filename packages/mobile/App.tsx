@@ -1,18 +1,18 @@
-import { StatusBar } from "expo-status-bar";
-import { Pressable, Text, View } from "react-native";
-import "./global.css";
-import { useColorScheme } from "nativewind";
-import Icon from "react-native-remix-icon";
-import colors from "../shared/colors";
-import StorybookUIRoot from './.storybook';
+import { StatusBar } from 'expo-status-bar'
+import { Pressable, Text, View, Appearance } from 'react-native'
+import './global.css'
+import Icon from 'react-native-remix-icon'
+import colors from '../shared/colors'
+import StorybookUIRoot from './.storybook'
+import { useColorScheme } from 'nativewind'
 
 export default function App() {
-  const { colorScheme, setColorScheme } = useColorScheme();
-  const SHOW_STORYBOOK = true;
+  const { colorScheme } = useColorScheme()
+  const { setColorScheme } = Appearance
+  const SHOW_STORYBOOK = false
   if (SHOW_STORYBOOK) {
-    return <StorybookUIRoot />;
+    return <StorybookUIRoot />
   }
-
 
   return (
     <View
@@ -27,10 +27,7 @@ export default function App() {
       </Text>
 
       <Pressable
-        onPress={() => {
-          console.log('Setting colorscheme')
-          setColorScheme(colorScheme === 'light' ? 'dark' : 'light')
-        }}
+        onPress={() => setColorScheme(colorScheme === 'light' ? 'dark' : 'light')}
         className={'bg-light-error9 dark:bg-dark-accent9 px-md py-sm rounded-lg mt-2xl'}>
         <Text className="text-light-contrast-accent">Set Colorscheme</Text>
       </Pressable>
