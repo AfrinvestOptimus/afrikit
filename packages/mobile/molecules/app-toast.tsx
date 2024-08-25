@@ -60,7 +60,24 @@ export const showToastMessage = ({
     message,
     type: messageType as MessageType,
     backgroundColor: dictionary.color[type],
+    style: { justifyContent: 'center', alignItems: 'center', width: '100%' },
+    //@ts-expect-error fontSize should be a number
+    titleStyle: {
+      marginLeft: 5,
+      fontSize: fontSizes['subtitle2']?.[0],
+      lineHeight: fontSizes['subtitle2']?.[1],
+    },
     duration: 2000,
+    icon:
+      !!icon || showIcon
+        ? () => (
+            <View style={{ backgroundColor: 'transparent' }}>
+              <RemixIcon name={iconName} color={colors.light['white-to-dark']} size="20" />
+            </View>
+          )
+        : showIcon
+          ? (messageType as MessageType)
+          : 'none',
   })
 }
 
