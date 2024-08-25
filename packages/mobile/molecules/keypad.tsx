@@ -41,6 +41,25 @@ const KeyPad: React.FC<KeyPadProps> = ({
     keys[3] = [KEY_BIO, '0', KEY_BACKSPACE]
   }
 
+  useEffect(() => {
+    if (value.length === textLength) {
+      onDone?.(value)
+    }
+    onChange?.(value)
+  }, [value])
+
+  const handleKeyPress = (key: string) => {
+    if (key === KEY_BIO) {
+      onBiometric?.(key)
+    } else if (key === KEY_BACKSPACE) {
+      setValue(prev => prev.substring(0, prev.length - 1))
+    } else if (key) {
+      //TODO: Check against textLength
+      setValue(prev => prev.concat(key))
+      onKeyPress?.(key)
+    }
+  }
+
   return (
     <View className={`p-xs ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
       {keys.map((row, rowIndex) => (
@@ -48,6 +67,7 @@ const KeyPad: React.FC<KeyPadProps> = ({
           {row.map((key, keyIndex) => (
             <TouchableOpacity
               key={'key' + keyIndex}
+              onPress={() => handleKeyPress(key)}
               className={`w-[32%] h-5xl p-lg rounded-full justify-center items-center bg-['transparent']`}
             >
               {key === KEY_BIO ? (
