@@ -24,7 +24,7 @@ import {classNames} from "../utilities/classnames";
  */
 const AppText = ({
   size = 3,
-  color = "slate4",
+  color = "text-light-slate4",
   trim = "normal",
   weight = "light",
   highContrast = false,

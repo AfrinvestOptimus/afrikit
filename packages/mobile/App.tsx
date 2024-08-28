@@ -1,11 +1,9 @@
 import { StatusBar } from "expo-status-bar";
-import { Appearance, Text, View } from "react-native";
-import Icon from "react-native-remix-icon";
-import colors from "./../shared/colors";
+import { Appearance, View } from "react-native";
 import "./global.css";
 import StorybookUIRoot from "./.storybook";
 import { useColorScheme } from "nativewind";
-import AppText from "./atoms/AppText";
+import AppTitle from "./atoms/AppTitle";
 
 export default function App() {
   const { colorScheme } = useColorScheme();
@@ -21,30 +19,23 @@ export default function App() {
         "justify-center flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4 px-2xl"
       }
     >
-      <Icon
+      {/*<Icon
         name="ri-home-wifi-line"
         size="24"
         color={colorScheme === "light" ? colors.light.red9 : colors.dark.red9}
       />
       <Text className={"text-light-crimson9 dark:text-dark-crimson6 text-left"}>
         You can test your components on this screen!
-      </Text>
+      </Text>*/}
 
-      <AppText
-        onPress={() =>
-          setColorScheme(colorScheme === "light" ? "dark" : "light")
-        }
-        size={4}
-        color={
-          colorScheme === "light"
-            ? "text-light-crimson3"
-            : "text-dark-optiblue9"
-        }
-        weight={"normal"}
-        align={"center"}
-      >
-        A house
-      </AppText>
+      <AppTitle
+        title={"Title"}
+        align={"left"}
+        hasSubtitle={true}
+        subtitle="Subtitle"
+        spacing={1}
+        titlePosition="top"
+      />
 
       <StatusBar style="dark" backgroundColor="red" />
     </View>
