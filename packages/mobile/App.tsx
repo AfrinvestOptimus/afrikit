@@ -1,10 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import { Pressable, Text, View } from "react-native";
-import "./global.css";
 import { useColorScheme } from "nativewind";
+import { Pressable, Text, View } from "react-native";
 import Icon from "react-native-remix-icon";
 import colors from "../shared/colors";
 import StorybookUIRoot from './.storybook';
+import "./global.css";
 
 export default function App() {
   const { colorScheme, setColorScheme } = useColorScheme();
