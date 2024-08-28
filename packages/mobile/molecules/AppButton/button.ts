@@ -112,15 +112,25 @@ export const highContrastTextColors: Record<ButtonColor, Record<ButtonVariant, s
     ghost:  "text-light-type-error-bold dark:text-dark-type-error-bold",
   },
 };
+export const disabledColors:  Record<ButtonVariant, string> = {
+  solid:  "bg-light-background-disable2 border border-light-edge-disable",
+  soft: "bg-light-background-disable2 border border-light-edge-disable",
+  surface: "bg-transparent border border-light-edge-disable",
+  outline: "bg-transparent border border-light-edge-disable",
+  ghost: "bg-transparent border-none",
+}
 
-export const buttonStates: Record<ButtonState, string> = {
+
+export const buttonStates: Record<ButtonState, string | Record<ButtonVariant, string>> = {
   default: "",
   active: "opacity-70",
-  disabled: "bg-light-background-disable2",
+  disabled: disabledColors,
 };
+
+
 
 export const textStates: Record<ButtonState, string> = {
   default: "",
   active: "opacity-70",
-  disabled: "text-light-type-gray-disabled bg-light-background-disable2",
+  disabled: "text-light-type-gray-disabled",
 };

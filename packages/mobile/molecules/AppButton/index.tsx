@@ -15,7 +15,7 @@ import {
   textStates,
 } from './button';
 
-interface AppButtonProps {
+export interface AppButtonProps {
   size?: ButtonSize;
   variant?: ButtonVariant;
   color?: ButtonColor;
@@ -23,6 +23,7 @@ interface AppButtonProps {
   state?: ButtonState;
   iconStart?: boolean;
   iconEnd?: boolean;
+  iconName?: string;
   text: string;
   onPress?: (event: GestureResponderEvent) => void;
 }
@@ -35,6 +36,7 @@ const AppButton: React.FC<AppButtonProps> = ({
   state = 'default',
   iconStart = false,
   iconEnd = false,
+  iconName,
   text,
   onPress,
 }) => {
@@ -42,8 +44,15 @@ const AppButton: React.FC<AppButtonProps> = ({
   const textSize= textSizes[size];
   const colorVariantStyle = highContrast ? highContrastButtonColors[color][variant] : buttonColors[color][variant];
   const textStyle = highContrast ? highContrastTextColors[color][variant] : textColors[color][variant];
-  const buttonStateStyle = buttonStates[state];
   const textStateStyle = textStates[state];
+
+  const buttonStateStyle = useMemo(() => {
+    if(state === "disabled") {
+      return (buttonStates[state] as Record<ButtonVariant, string>)[variant]
+    }
+    return buttonStates[state]
+  }, [state, variant])
+
 
   const combinedButtonStyles = useMemo(() => [
     sizeStyle,
@@ -62,7 +71,6 @@ const AppButton: React.FC<AppButtonProps> = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      activeOpacity={state === 'active' ? 0.75 : 1}
       className={`flex items-center justify-center ${combinedButtonStyles}`}
     >
       <View className="flex items-center">
