@@ -56,6 +56,10 @@ const ListItem: React.FC<ListItemProps> = ({
     ${size === '1' ? 'text-sm' : 'text-base'}
     text-light-type-gray dark:text-dark-type-gray
     `
+  const subtitleClasses = `
+    ${size === '1' ? 'text-xs' : 'text-sm'}
+    text-light-type-gray-muted dark:text-dark-type-gray-muted
+    `
   const renderLeading = () => {
     if (leading === 'none') return null
     if (leadingContent) return leadingContent
@@ -74,7 +78,25 @@ const ListItem: React.FC<ListItemProps> = ({
       case 'switch':
         return <Switch value={false} onValueChange={() => {}} />
       case 'icon':
-        return <Text>→</Text>
+        return (
+          <RemixIcon
+            name={trailingIcon || 'inner-shadow'}
+            color={trailingIconColor || colors[isDarkMode ? 'dark' : 'light'].type.accent.DEFAULT}
+            size={24}
+          />
+        )
+      case 'button': //TODO: reference the Button component
+        return (
+          <Pressable
+            onPress={() => {
+              console.log('handle press')
+            }}
+            className={
+              'bg-light-background-neutral-bold dark:bg-dark-background-neutral-bold px-md py-sm rounded-lg'
+            }>
+            <Text className="text-light-contrast-accent">{trailingTitle || 'Button'}</Text>
+          </Pressable>
+        )
       default:
         return <Text className={`${isDarkMode ? 'text-white' : 'text-black'}`}>{trailing}</Text>
     }
@@ -88,8 +110,17 @@ const ListItem: React.FC<ListItemProps> = ({
           className={`${titleClasses} text-body2 text-light-type-gray dark:text-dark-type-gray `}>
           {title}
         </Text>
+        {(variant === '2-line' || variant === '3-line') && subtitle && (
+          <Text className={`${subtitleClasses} text-body2 dark:text-dark-type-gray-muted `}>
+            {subtitle}
+          </Text>
+        )}
+        {variant === '3-line' && supportingText && supportingTextContent && (
+          <Text className={`${subtitleClasses} mt-1`}>{supportingTextContent}</Text>
+        )}
       </View>
       {renderTrailing()}
+      {subTrigger && <Text className="ml-2">{'>'}</Text>}
     </TouchableOpacity>
   )
 }
