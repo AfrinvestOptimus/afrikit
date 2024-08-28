@@ -56,15 +56,40 @@ const ListItem: React.FC<ListItemProps> = ({
     ${size === '1' ? 'text-sm' : 'text-base'}
     text-light-type-gray dark:text-dark-type-gray
     `
+  const renderLeading = () => {
+    if (leading === 'none') return null
+    if (leadingContent) return leadingContent
+
+    // Placeholder for leading content
+    return (
+      <View className="bg-light-surface dark:bg-dark-surface w-3xl h-3xl rounded-full border-2 border-light-edge-gray dark:border-dark-edge-gray mr-lg self-start" />
+    )
+  }
+
+  const renderTrailing = () => {
+    if (trailing === 'none') return null
+    if (trailingContent) return trailingContent
+
+    switch (trailing) {
+      case 'switch':
+        return <Switch value={false} onValueChange={() => {}} />
+      case 'icon':
+        return <Text>→</Text>
+      default:
+        return <Text className={`${isDarkMode ? 'text-white' : 'text-black'}`}>{trailing}</Text>
+    }
+  }
 
   return (
     <TouchableOpacity onPress={onPress} className={`${containerClasses} py-xl mb-md`}>
+      {renderLeading()}
       <View className="flex-1">
         <Text
           className={`${titleClasses} text-body2 text-light-type-gray dark:text-dark-type-gray `}>
           {title}
         </Text>
       </View>
+      {renderTrailing()}
     </TouchableOpacity>
   )
 }
