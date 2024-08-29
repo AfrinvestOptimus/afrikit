@@ -1,6 +1,9 @@
-import { useColorScheme } from 'nativewind'
+import { cssInterop, useColorScheme } from 'nativewind'
 import React from 'react'
-import { Switch, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Pressable, Switch, Text, TouchableOpacity, View } from 'react-native'
+import RemixIcon from 'react-native-remix-icon'
+import colors from '../../shared/colors'
+
 
 type ListItemProps = {
   size?: '1' | '2'
@@ -22,13 +25,19 @@ type ListItemProps = {
   subTrigger?: boolean
   state?: 'enabled' | 'hovered' | 'focused' | 'pressed' | 'dragged'
   separator?: boolean
+  isChecked?: boolean
   title: string
   subtitle?: string
   overlineText?: string
   leadingContent?: React.ReactNode
   trailingContent?: React.ReactNode
   onPress?: () => void
-}
+cssInterop(RemixIcon, {
+  className: {
+    target: 'style',
+    nativeStyleToProp: {},
+  },
+})
 
 const ListItem: React.FC<ListItemProps> = ({
   size = '2',
@@ -40,6 +49,8 @@ const ListItem: React.FC<ListItemProps> = ({
   subTrigger = false,
   state = 'enabled',
   separator = false,
+  isChecked = false,
+  txStatus = 'default',
   title,
   subtitle,
   supportingText: supportingTextContent,
@@ -70,6 +81,19 @@ const ListItem: React.FC<ListItemProps> = ({
     ${size === '1' ? 'text-xs' : 'text-sm'}
     text-light-type-gray-muted dark:text-dark-type-gray-muted
     `
+  const [_isChecked, setIsChecked] = React.useState(isChecked)
+
+  React.useEffect(() => {
+    setIsChecked(isChecked)
+  }, [isChecked])
+
+  const handlePress = () => {
+    onPress?.()
+    if (['check', 'radio'].includes(leading) || ['switch'].includes(trailing)) {
+      setIsChecked(prev => !prev)
+    }
+  }
+
   const renderLeading = () => {
     if (leading === 'none') return null
     if (leadingContent) return leadingContent
@@ -83,8 +107,13 @@ const ListItem: React.FC<ListItemProps> = ({
         )
       case 'brand': //TODO: BrandLogos on the AppAvatar icon, passing a dummy
         return (
-          <View className="w-3xl h-3xl rounded-xs-max bg-light-surface dark:bg-dark-surface mr-lg border border-light-edge-gray dark:border-dark-edge-gray" />
+          <View className="w-3xl h-3xl rounded-xs-max bg-light-surface dark:bg-dark-surface border border-light-edge-gray dark:border-dark-edge-gray" />
         )
+        )
+      case 'check': //TODO: use Check component
+        return <CheckComponent isChecked={_isChecked} isSquare />
+      case 'radio': // TODO: use Radio component
+        return <CheckComponent isChecked={_isChecked} />
       default:
         return <Text className={`${isDarkMode ? 'text-white' : 'text-black'}`}>{trailing}</Text>
     }
@@ -95,7 +124,12 @@ const ListItem: React.FC<ListItemProps> = ({
 
     switch (trailing) {
       case 'switch':
-        return <Switch value={false} onValueChange={() => {}} />
+        return (
+          <Switch
+            value={_isChecked}
+            onValueChange={() => {}}
+          />
+        )
       case 'icon':
         return (
           <RemixIcon
@@ -122,7 +156,7 @@ const ListItem: React.FC<ListItemProps> = ({
   }
 
   return (
-    <TouchableOpacity onPress={onPress} className={`${containerClasses} py-xl mb-md`}>
+    <TouchableOpacity onPress={handlePress} className={`${containerClasses}`}>
       {renderLeading()}
       <View className="flex-1">
         <Text
@@ -144,4 +178,18 @@ const ListItem: React.FC<ListItemProps> = ({
   )
 }
 
+const CheckComponent = ({ isSquare = false, isChecked = false }) => (
+  <View
+    className={`
+      w-xl h-xl ${isSquare ? 'rounded-xs' : 'rounded-md-max'} 
+      self-start justify-center items-center 
+      ${
+        isChecked
+          ? 'bg-light-background-accent-base dark:bg-dark-background-accent-base'
+          : 'bg-light-surface-gray dark:bg-dark-surface-gray'
+      }
+         border border-light-edge-gray-subtle dark:border-dark-edge-gray-subtle`}>
+    <RemixIcon name="check-fill" size={20} color={'white'} />
+  </View>
+)
 export default ListItem
