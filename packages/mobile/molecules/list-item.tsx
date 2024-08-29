@@ -5,7 +5,17 @@ import { Switch, Text, TouchableOpacity, View } from 'react-native'
 type ListItemProps = {
   size?: '1' | '2'
   variant?: '1-line' | '2-line' | '3-line'
-  leading?: 'none' | 'avatar' | 'brand' | 'icon' | 'paymentMethod' | 'flag'
+  leading?:
+    | 'none'
+    | 'avatar'
+    | 'brand'
+    | 'icon'
+    | 'paymentMethod'
+    | 'flag'
+    | 'txStatus'
+    | 'productIcon'
+    | 'check'
+    | 'radio'
   trailing?: 'none' | 'textContent' | 'text' | 'link' | 'icon' | 'button' | 'switch'
   supportingText?: boolean
   overline?: boolean
@@ -64,15 +74,24 @@ const ListItem: React.FC<ListItemProps> = ({
     if (leading === 'none') return null
     if (leadingContent) return leadingContent
 
-    // Placeholder for leading content
-    return (
-      <View className="bg-light-surface dark:bg-dark-surface w-3xl h-3xl rounded-full border-2 border-light-edge-gray dark:border-dark-edge-gray mr-lg self-start" />
-    )
+    switch (leading) {
+      case 'avatar': //TODO: Dependent on the AppAvatar icon, passing a dummy
+        return (
+          <View className="w-3xl h-3xl rounded-xs-max justify-center items-center bg-light-background-accent-base dark:bg-dark-background-accent-base mr-lg">
+            <Text className="text-white">A</Text>
+          </View>
+        )
+      case 'brand': //TODO: BrandLogos on the AppAvatar icon, passing a dummy
+        return (
+          <View className="w-3xl h-3xl rounded-xs-max bg-light-surface dark:bg-dark-surface mr-lg border border-light-edge-gray dark:border-dark-edge-gray" />
+        )
+      default:
+        return <Text className={`${isDarkMode ? 'text-white' : 'text-black'}`}>{trailing}</Text>
+    }
   }
 
   const renderTrailing = () => {
     if (trailing === 'none') return null
-    if (trailingContent) return trailingContent
 
     switch (trailing) {
       case 'switch':
