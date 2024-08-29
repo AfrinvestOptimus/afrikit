@@ -4,6 +4,14 @@ import { Image, Pressable, Switch, Text, TouchableOpacity, View } from 'react-na
 import RemixIcon from 'react-native-remix-icon'
 import colors from '../../shared/colors'
 
+type TrailingProps = {
+  type?: string
+  trailingTitle?: string
+  trailingSubtitle?: string
+  trailingIcon?: string
+  trailingIconColor?: string
+  trailingContent?: string | React.ReactNode
+}
 
 type ListItemProps = {
   size?: '1' | '2'
@@ -28,10 +36,23 @@ type ListItemProps = {
   isChecked?: boolean
   title: string
   subtitle?: string
-  overlineText?: string
-  leadingContent?: React.ReactNode
-  trailingContent?: React.ReactNode
+  trailingTitle?: string
+  trailingSubtitle?: string
+  leadingContent?: string | React.ReactNode
+  trailingContent?: string | React.ReactNode
   onPress?: () => void
+} & TrailingProps
+
+const txStatusIcons = {
+  default: 'flashlight-line',
+  activity: 'flashlight-line',
+  swap: 'arrow-left-right-line',
+  moneyIn: 'add-line',
+  moneyOut: 'arrow-right-up-line',
+  directDebit: 'loop-right-line',
+  system: 'megaphone-line',
+  avatar: 'flashlight-line', //renders an avatar
+}
 cssInterop(RemixIcon, {
   className: {
     target: 'style',
@@ -53,8 +74,10 @@ const ListItem: React.FC<ListItemProps> = ({
   txStatus = 'default',
   title,
   subtitle,
-  supportingText: supportingTextContent,
-  overlineText,
+  trailingTitle,
+  trailingSubtitle,
+  trailingIcon,
+  trailingIconColor,
   leadingContent,
   trailingContent,
   onPress,
@@ -123,6 +146,35 @@ const ListItem: React.FC<ListItemProps> = ({
     if (trailing === 'none') return null
 
     switch (trailing) {
+      case 'text': //TODO: use AppText
+        return (
+          <>
+            <Text
+              className={`${titleClasses} text-body2 text-light-type-gray dark:text-dark-type-gray self-end `}>
+              {trailingTitle}
+            </Text>
+          </>
+        )
+      case 'textContent': //TODO: use AppText
+        return (
+          <>
+            <Text
+              className={`${titleClasses} text-body2 text-light-type-gray dark:text-dark-type-gray self-end`}>
+              {trailingTitle}
+            </Text>
+            <Text
+              className={`${subtitleClasses} text-body2 dark:text-dark-type-gray-muted self-end `}>
+              {trailingSubtitle}
+            </Text>
+          </>
+        )
+      case 'link': //TODO: pass text link
+        return (
+          <Text
+            className={`${subtitleClasses} text-body2 text-light-accentA11 dark:text-dark-accentA11`}>
+            {trailingTitle}
+          </Text>
+        )
       case 'switch':
         return (
           <Switch
@@ -151,6 +203,7 @@ const ListItem: React.FC<ListItemProps> = ({
           </Pressable>
         )
       default:
+        if (trailingContent) return trailingContent
         return <Text className={`${isDarkMode ? 'text-white' : 'text-black'}`}>{trailing}</Text>
     }
   }
