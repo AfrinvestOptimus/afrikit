@@ -48,9 +48,9 @@ const weightClasses = {
  */
 const AppText = ({
   size = 3,
-  color = 'slate4',
+  color = 'text-dark-slate4',
   trim = 'normal',
-  weight = 'light',
+  weight = 'regular',
   highContrast = false,
   align = 'left',
   children,
