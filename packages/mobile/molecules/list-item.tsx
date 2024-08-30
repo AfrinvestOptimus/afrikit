@@ -29,9 +29,10 @@ type ListItemProps = {
     | 'radio'
   trailing?: 'none' | 'textContent' | 'text' | 'link' | 'icon' | 'button' | 'switch'
   supportingText?: boolean
-  overline?: boolean
+  supportingTextContent?: string
   subTrigger?: boolean
   state?: 'enabled' | 'hovered' | 'focused' | 'pressed' | 'dragged'
+  txStatus?: TxStatus
   separator?: boolean
   isChecked?: boolean
   title: string
@@ -53,6 +54,9 @@ const txStatusIcons = {
   system: 'megaphone-line',
   avatar: 'flashlight-line', //renders an avatar
 }
+
+type TxStatus = keyof typeof txStatusIcons
+
 cssInterop(RemixIcon, {
   className: {
     target: 'style',
@@ -92,7 +96,7 @@ const ListItem: React.FC<ListItemProps> = ({
     ${state === 'focused' ? 'border border-blue-500' : ''}
     ${state === 'pressed' ? 'opacity-60' : ''}
     ${state === 'dragged' ? 'opacity-40' : ''}
-    ${separator ? 'border-b border-gray-200' : ''}
+    ${separator ? 'border-b border-b-light-edge-gray-subtle dark:border-b-dark-edge-gray-subtle' : ''}
   `
 
   const titleClasses = `
@@ -119,7 +123,7 @@ const ListItem: React.FC<ListItemProps> = ({
 
   const renderLeading = () => {
     if (leading === 'none') return null
-    if (leadingContent) return leadingContent
+    if (leadingContent && typeof leadingContent !== 'string') return leadingContent
 
     switch (leading) {
       case 'avatar': //TODO: Dependent on the AppAvatar icon, passing a dummy
@@ -288,8 +292,22 @@ const ListItem: React.FC<ListItemProps> = ({
           <Text className={`${subtitleClasses} mt-1`}>{supportingTextContent}</Text>
         )}
       </View>
-      {renderTrailing()}
-      {subTrigger && <Text className="ml-2">{'>'}</Text>}
+      {trailing !== 'none' && (
+        <View
+          className={`ml-lg justify-center" ${variant === '3-line' ? 'justify-start items-start self-start' : 'self-center items-center'}`}>
+          {renderTrailing()}
+        </View>
+      )}
+      {subTrigger && (
+        <View
+          className={`ml-sm justify-center" ${variant === '3-line' ? 'justify-start items-start self-start' : 'self-center items-center'}`}>
+          <RemixIcon
+            name="arrow-right-wide-fill"
+            color={colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
+            size={24}
+          />
+        </View>
+      )}
     </TouchableOpacity>
   )
 }
