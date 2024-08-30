@@ -1,7 +1,7 @@
 import { Text } from 'react-native'
 import { AppTextAtomProps } from '../types/atoms'
 import { useColorScheme } from 'nativewind'
-import { classNames } from '../utilities/classnames'
+import classNames from '../utilities/classnames'
 
 const sizeClasses = {
   1: 'xs',
@@ -65,11 +65,12 @@ const AppText = ({
   const finalClassName = classNames(
     alignmentClasses[align] || '',
     color || '',
-    `text-${textSize}`,
     `text-${textSize}-${textWeight}`,
     highContrast ? `text-${colorScheme}-type-gray-muted` : '',
     className || '',
   )
+
+  console.log('finalClassName', finalClassName)
 
   return (
     <Text
