@@ -1,18 +1,17 @@
-import { StatusBar } from "expo-status-bar";
-import { useColorScheme } from "nativewind";
-import { Pressable, Text, View } from "react-native";
-import Icon from "react-native-remix-icon";
-import colors from "../shared/colors";
-import StorybookUIRoot from './.storybook';
-import "./global.css";
+import { StatusBar } from 'expo-status-bar'
+import { useColorScheme } from 'nativewind'
+import { Pressable, Text, View } from 'react-native'
+import Icon from 'react-native-remix-icon'
+import colors from '../shared/colors'
+import StorybookUIRoot from './.storybook'
+import './global.css'
 
 export default function App() {
-  const { colorScheme, setColorScheme } = useColorScheme();
-  const SHOW_STORYBOOK = true;
+  const { colorScheme, setColorScheme } = useColorScheme()
+  const SHOW_STORYBOOK = true
   if (SHOW_STORYBOOK) {
-    return <StorybookUIRoot />;
+    return <StorybookUIRoot />
   }
-
 
   return (
     <View
