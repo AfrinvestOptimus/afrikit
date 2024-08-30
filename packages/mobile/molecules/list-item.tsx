@@ -132,6 +132,63 @@ const ListItem: React.FC<ListItemProps> = ({
         return (
           <View className="w-3xl h-3xl rounded-xs-max bg-light-surface dark:bg-dark-surface border border-light-edge-gray dark:border-dark-edge-gray" />
         )
+      case 'flag':
+        return (
+          <Image
+            className="w-3xl h-3xl rounded-sm-max"
+            source={{
+              uri:
+                (leadingContent as string) ||
+                'https://www.worldometers.info//img/flags/small/tn_cu-flag.gif',
+            }}
+            resizeMode="cover"
+          />
+        )
+      case 'icon': //TODO: Bawaiting the icon name
+        return (
+          <View className="w-3xl h-3xl rounded-sm-max bg-light-surface-gray dark:bg-dark-surface-gray gap-lg justify-center items-center">
+            <RemixIcon name={typeof leadingContent === 'string' ? leadingContent : 'user-6-line'} />
+          </View>
+        )
+      case 'paymentMethod':
+        return (
+          <Image
+            className="w-3xl h-3xl rounded-sm-max"
+            source={{
+              uri:
+                (leadingContent as string) ||
+                'https://www.worldometers.info//img/flags/small/tn_cu-flag.gif',
+            }}
+          />
+        )
+      case 'txStatus': //TODO: pass enum
+        return (
+          <View
+            className={`w-4xl h-4xl rounded-md-max gap-lg justify-center items-center ${txStatus === 'system' ? 'bg-light-background-accent-light dark:bg-dark-background-accent-light' : 'bg-light-surface-gray dark:bg-dark-surface-gray'}`}>
+            {txStatus === 'avatar' ? ( //TODO: return dummy avatar
+              <View className="w-3xl h-3xl rounded-xs-max justify-center items-center bg-light-background-accent-base dark:bg-dark-background-accent-base">
+                <Text className="text-white">A</Text>
+              </View>
+            ) : (
+              <RemixIcon
+                name={txStatusIcons[txStatus] || txStatusIcons.default}
+                color={
+                  txStatus === 'system'
+                    ? colors.light.type.accent.DEFAULT
+                    : colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT
+                }
+              />
+            )}
+          </View>
+        )
+      case 'productIcon': //TODO: Find proct icons or logos
+        return (
+          <View className="w-4xl h-4xl rounded-md-max border border-light-edge-gray-subtle dark:border-dark-edge-gray-subtle p-md justify-center items-center">
+            <Image
+              className="w-2xl h-2xl"
+              source={{ uri: 'https://www.worldometers.info//img/flags/small/tn_cu-flag.gif' }}
+            />
+          </View>
         )
       case 'check': //TODO: use Check component
         return <CheckComponent isChecked={_isChecked} isSquare />
@@ -211,6 +268,12 @@ const ListItem: React.FC<ListItemProps> = ({
   return (
     <TouchableOpacity onPress={handlePress} className={`${containerClasses}`}>
       {renderLeading()}
+      {leading !== 'none' && (
+        <View
+          className={`mr-lg  ${variant === '3-line' ? 'justify-start items-start self-start' : 'self-center items-center'}`}>
+          {renderLeading()}
+        </View>
+      )}
       <View className="flex-1">
         <Text
           className={`${titleClasses} text-body2 text-light-type-gray dark:text-dark-type-gray `}>
