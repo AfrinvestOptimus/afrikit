@@ -1,5 +1,6 @@
 // src/index.ts
 import radius from './radius'
+import fontSizes from './fontSizes'
 import spacing from './spacing'
 import tokens from './tokens'
 import colors from './colors'
@@ -26,6 +27,7 @@ const config = {
       '2xl-max': radius.full['6-max'],
       full: radius.full['6-max'],
     },
+    fontSize: { ...fontSizes },
     spacing: {
       ...spacing,
       ...tokens.space,
@@ -34,4 +36,4 @@ const config = {
   // plugins: [plugin],
 }
 
-export default config;
+export default config

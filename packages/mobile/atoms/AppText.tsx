@@ -1,7 +1,31 @@
-import {Text} from "react-native";
-import {AppTextAtomProps} from "../types/atoms";
-import {useColorScheme} from "nativewind";
-import {classNames} from "../utilities/classnames";
+import { Text } from 'react-native'
+import { AppTextAtomProps } from '../types/atoms'
+import { useColorScheme } from 'nativewind'
+import { classNames } from '../utilities/classnames'
+
+const sizeClasses = {
+  1: 'xs',
+  2: 'sm',
+  3: 'base',
+  4: 'lg',
+  5: 'xl',
+  6: '2xl',
+  7: '3xl',
+  8: '4xl',
+  9: '5xl',
+}
+const alignmentClasses = {
+  left: 'text-left',
+  center: 'text-center',
+  right: 'text-right',
+}
+
+const weightClasses = {
+  regular: 'body',
+  medium: 'title',
+  semibold: 'head',
+  bold: 'bold',
+}
 
 /**
  * React functional component for rendering text with customizable properties.
@@ -24,52 +48,38 @@ import {classNames} from "../utilities/classnames";
  */
 const AppText = ({
   size = 3,
-  color = "text-light-slate4",
-  trim = "normal",
-  weight = "light",
+  color = 'slate4',
+  trim = 'normal',
+  weight = 'light',
   highContrast = false,
-  align = "left",
+  align = 'left',
   children,
+  className,
   ...rest
 }: AppTextAtomProps) => {
-  const { colorScheme } = useColorScheme();
-  const sizeClasses = {
-    1: "text-one",
-    2: "text-two",
-    3: "text-three",
-    4: "text-four",
-    5: "text-five",
-    6: "text-six",
-    7: "text-seven",
-    8: "text-eight",
-    9: "text-nine",
-  };
-  const weightClasses = {
-    light: "font-light",
-    normal: "font-normal",
-    medium: "font-medium",
-    bold: "font-bold",
-  };
-  const alignmentClasses = {
-    left: "text-left",
-    center: "text-center",
-    right: "text-right",
-  };
+  const { colorScheme } = useColorScheme()
+
+  const textSize = sizeClasses[size] || 'base'
+  const textWeight = weightClasses[weight] || 'body'
+
+  const finalClassName = classNames(
+    alignmentClasses[align] || '',
+    color || '',
+    `text-${textSize}`,
+    `text-${textSize}-${textWeight}`,
+    highContrast ? `text-${colorScheme}-type-gray-muted` : '',
+    className || '',
+  )
 
   return (
     <Text
-      className={classNames(
-        alignmentClasses[align as keyof typeof alignmentClasses],
-        weightClasses[weight as keyof typeof weightClasses],
-        `${color}`,
-        sizeClasses[size as keyof typeof sizeClasses],
-        highContrast ? `text-${colorScheme}-type-gray-muted` : ""
-      )}
-      {...rest}
-    >
+      className={`
+        ${finalClassName}
+      `}
+      {...rest}>
       {children}
     </Text>
-  );
-};
+  )
+}
 
-export default AppText;
+export default AppText
