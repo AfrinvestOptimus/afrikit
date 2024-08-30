@@ -22,6 +22,7 @@ module.exports = {
         backgroundColor: "#ffffff",
       },
     },
+    plugins: ["expo-font"],
     web: {
       favicon: "./assets/favicon.png",
     },
