@@ -14,6 +14,7 @@ import { AppTopBar } from "./molecules/AppTopBar";
 
 import AppText from "./atoms/AppText";
 import AppTitle from "./atoms/AppTitle";
+import { AppModalLoader } from "./molecules/AppModalLoader";
 
 export default function App() {
   const { colorScheme } = useColorScheme();
@@ -70,6 +71,8 @@ export default function App() {
         onRightIconPress2={handleRightIconPress2}
         onRightIconPress3={handleRightIconPress3}
       />
+
+      <AppModalLoader visible={true} />
       <AppText
         size={2}
         color={"text-dark-red9"}
