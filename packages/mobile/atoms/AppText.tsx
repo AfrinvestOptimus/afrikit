@@ -1,7 +1,24 @@
-import { Text } from "react-native";
-import { AppTextAtomProps } from "../types/atoms";
 import { useColorScheme } from "nativewind";
+import React from "react";
+import { Text, TextProps } from "react-native";
 import { tv } from "tailwind-variants";
+
+// Define the types for the variants
+type Size = keyof typeof textVariants.variants.size;
+type Weight = keyof typeof textVariants.variants.weight;
+type Align = keyof typeof textVariants.variants.align;
+
+// Define the prop types
+export interface AppTextAtomProps extends TextProps {
+  size?: Size;
+  color?: string;
+  trim?: string;
+  weight?: Weight;
+  highContrast?: boolean;
+  align?: Align;
+  className?: string;
+  children?: React.ReactNode;
+}
 
 const textVariants = tv({
   base: "text-left",
@@ -31,7 +48,7 @@ const textVariants = tv({
   },
 });
 
-const AppText = ({
+const AppText: React.FC<AppTextAtomProps> = ({
   size = 3,
   color = "text-dark-slate4",
   trim = "normal",
@@ -41,14 +58,14 @@ const AppText = ({
   children,
   className,
   ...rest
-}: AppTextAtomProps) => {
+}) => {
   const { colorScheme } = useColorScheme();
 
   const highContrastClass = highContrast
     ? `text-${colorScheme}-type-gray-muted`
     : "";
 
-  const variantClasses = textVariants({ size, weight, align } as any);
+  const variantClasses = textVariants({ size, weight, align });
 
   return (
     <Text
