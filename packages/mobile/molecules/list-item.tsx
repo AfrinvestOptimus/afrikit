@@ -1,8 +1,10 @@
 import { cssInterop, useColorScheme } from 'nativewind'
 import React from 'react'
-import { Image, Pressable, Switch, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Switch, Text, TouchableOpacity, View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
 import colors from '../../shared/colors'
+import AppText from '../atoms/AppText'
+import AppButton from './AppButton'
 
 type TrailingProps = {
   type?: string
@@ -13,7 +15,7 @@ type TrailingProps = {
   trailingContent?: string | React.ReactNode
 }
 
-type ListItemProps = {
+export type ListItemProps = {
   size?: '1' | '2'
   variant?: '1-line' | '2-line' | '3-line'
   leading?:
@@ -128,7 +130,7 @@ const ListItem: React.FC<ListItemProps> = ({
     switch (leading) {
       case 'avatar': //TODO: Dependent on the AppAvatar icon, passing a dummy
         return (
-          <View className="w-3xl h-3xl rounded-xs-max justify-center items-center bg-light-background-accent-base dark:bg-dark-background-accent-base mr-lg">
+          <View className="w-3xl h-3xl rounded-xs-max justify-center items-center bg-light-background-accent-base dark:bg-dark-background-accent-base">
             <Text className="text-white">A</Text>
           </View>
         )
@@ -210,31 +212,31 @@ const ListItem: React.FC<ListItemProps> = ({
       case 'text': //TODO: use AppText
         return (
           <>
-            <Text
-              className={`${titleClasses} text-body2 text-light-type-gray dark:text-dark-type-gray self-end `}>
+            <AppText
+              className={`${titleClasses} text-sm-body text-light-type-gray dark:text-dark-type-gray self-end `}>
               {trailingTitle}
-            </Text>
+            </AppText>
           </>
         )
       case 'textContent': //TODO: use AppText
         return (
           <>
             <Text
-              className={`${titleClasses} text-body2 text-light-type-gray dark:text-dark-type-gray self-end`}>
+              className={`${titleClasses} text-sm-body text-light-type-gray dark:text-dark-type-gray self-end`}>
               {trailingTitle}
             </Text>
             <Text
-              className={`${subtitleClasses} text-body2 dark:text-dark-type-gray-muted self-end `}>
+              className={`${subtitleClasses} text-sm-body dark:text-dark-type-gray-muted self-end `}>
               {trailingSubtitle}
             </Text>
           </>
         )
       case 'link': //TODO: pass text link
         return (
-          <Text
-            className={`${subtitleClasses} text-body2 text-light-accentA11 dark:text-dark-accentA11`}>
+          <AppText
+            className={`${subtitleClasses} text-sm-body text-light-accentA11 dark:text-dark-accentA11`}>
             {trailingTitle}
-          </Text>
+          </AppText>
         )
       case 'switch':
         return (
@@ -253,15 +255,15 @@ const ListItem: React.FC<ListItemProps> = ({
         )
       case 'button': //TODO: reference the Button component
         return (
-          <Pressable
+          <AppButton
+            text={trailingTitle || 'Button'}
             onPress={() => {
               console.log('handle press')
             }}
-            className={
-              'bg-light-background-neutral-bold dark:bg-dark-background-neutral-bold px-md py-sm rounded-lg'
-            }>
-            <Text className="text-light-contrast-accent">{trailingTitle || 'Button'}</Text>
-          </Pressable>
+            // className={
+            //   'bg-light-background-neutral-bold dark:bg-dark-background-neutral-bold px-md py-sm rounded-lg'
+            // }
+          />
         )
       default:
         if (trailingContent) return trailingContent
@@ -271,7 +273,6 @@ const ListItem: React.FC<ListItemProps> = ({
 
   return (
     <TouchableOpacity onPress={handlePress} className={`${containerClasses}`}>
-      {renderLeading()}
       {leading !== 'none' && (
         <View
           className={`mr-lg  ${variant === '3-line' ? 'justify-start items-start self-start' : 'self-center items-center'}`}>
@@ -279,10 +280,10 @@ const ListItem: React.FC<ListItemProps> = ({
         </View>
       )}
       <View className="flex-1">
-        <Text
-          className={`${titleClasses} text-body2 text-light-type-gray dark:text-dark-type-gray `}>
+        <AppText
+          className={`${titleClasses} text-sm-body text-light-type-gray dark:text-dark-type-gray `}>
           {title}
-        </Text>
+        </AppText>
         {(variant === '2-line' || variant === '3-line') && subtitle && (
           <Text className={`${subtitleClasses} text-body2 dark:text-dark-type-gray-muted `}>
             {subtitle}
