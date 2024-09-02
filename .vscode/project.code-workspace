@@ -1,0 +1,30 @@
+{
+  "folders": [
+    {
+      "name": "Root",
+      "path": "../"
+    },
+    {
+      "name": "@afrikit/mobile",
+      "path": "../packages/mobile"
+    },
+    {
+      "name": "@afrikit/web",
+      "path": "../packages/web"
+    },
+  ],
+  "settings": {
+    "eslint.format.enable": true,
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "files.insertFinalNewline": true,
+    "editor.codeActionsOnSave": [
+      "source.organizeImports",
+      "source.fixAll.eslint"
+    ],
+    "files.exclude": {
+      "node_modules/": true,
+      "packages/": true,
+      "modules/": false
+    },
+  }
+}
