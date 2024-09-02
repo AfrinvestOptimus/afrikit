@@ -1,13 +1,33 @@
+import {
+  Manrope_400Regular,
+  Manrope_500Medium,
+  Manrope_600SemiBold,
+  Manrope_700Bold,
+  useFonts,
+} from '@expo-google-fonts/manrope'
 import { StatusBar } from 'expo-status-bar'
 import { useColorScheme } from 'nativewind'
 import { Appearance, View } from 'react-native'
 import StorybookUIRoot from './.storybook'
-import AppTitle from './atoms/AppTitle'
 import './global.css'
+
+import AppText from './atoms/AppText'
+import AppTitle from './atoms/AppTitle'
 
 export default function App() {
   const { colorScheme } = useColorScheme()
   const { setColorScheme } = Appearance
+  const [fontsLoaded, fontError] = useFonts({
+    Manrope400: Manrope_400Regular,
+    Manrope500: Manrope_500Medium,
+    Manrope600: Manrope_600SemiBold,
+    Manrope700: Manrope_700Bold,
+  })
+
+  if (!fontsLoaded || fontError) {
+    return null
+  }
+
   const SHOW_STORYBOOK = true
   if (SHOW_STORYBOOK) {
     return <StorybookUIRoot />
@@ -15,14 +35,15 @@ export default function App() {
 
   return (
     <View className={'justify-center flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4 px-2xl'}>
-      {/*<Icon
-        name="ri-home-wifi-line"
-        size="24"
-        color={colorScheme === "light" ? colors.light.red9 : colors.dark.red9}
-      />
-      <Text className={"text-light-crimson9 dark:text-dark-crimson6 text-left"}>
-        You can test your components on this screen!
-      </Text>*/}
+      <AppText
+        size={2}
+        color={'text-dark-red9'}
+        weight={'regular'}
+        align={'left'}
+        className={'mb-2xl'}
+        onPress={() => console.log('AppText pressed')}>
+        Small bold text involved
+      </AppText>
 
       <AppTitle
         title={'Title'}
