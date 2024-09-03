@@ -23,6 +23,7 @@
     "react-native-reanimated": "~3.10.1",
     "react-native-remix-icon": "^0.4.0",
     "react-native-svg": "15.2.0",
+    "remixicon-native": "^1.1.2",
     "tailwind-variants": "^0.2.1",
     "tailwindcss": "^3.4.10"
   },
