@@ -7,15 +7,17 @@ import {
 } from '@expo-google-fonts/manrope'
 import { StatusBar } from 'expo-status-bar'
 import { useColorScheme } from 'nativewind'
+import { Controller, useForm } from 'react-hook-form'
 import { Alert, Appearance, View } from 'react-native'
 import StorybookUIRoot from './.storybook'
 import './global.css'
 import { AppTopBar } from './molecules/AppTopBar'
+import { FormData } from './types/atoms'
 
 import AppText from './atoms/AppText'
 import AppTitle from './atoms/AppTitle'
 import { AppModalLoader } from './molecules/AppModalLoader'
-
+import AppPasswordInput from './molecules/AppPasswordInput'
 export default function App() {
   const { colorScheme } = useColorScheme()
   const { setColorScheme } = Appearance
@@ -25,6 +27,12 @@ export default function App() {
     Manrope600: Manrope_600SemiBold,
     Manrope700: Manrope_700Bold,
   })
+  const {
+    register,
+    setValue,
+    control,
+    formState: { errors },
+  } = useForm<FormData>()
 
   if (!fontsLoaded || fontError) {
     return null
@@ -53,7 +61,7 @@ export default function App() {
   }
 
   return (
-    <View className={'justify-center flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4'}>
+    <View className={'justify-center flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4 px-2xl'}>
       <AppTopBar
         variant="small"
         title="Products"
@@ -68,7 +76,7 @@ export default function App() {
         onRightIconPress3={handleRightIconPress3}
       />
 
-      <AppModalLoader visible={true} />
+      <AppModalLoader visible={false} />
       <AppText
         size={2}
         color={'text-dark-red9'}
@@ -87,7 +95,38 @@ export default function App() {
         spacing={1}
         titlePosition="top"
       />
-
+      <View>
+        {[
+          { label: 'Enter Email', key: 'email' },
+          { label: 'Enter name', key: 'name' },
+        ].map(item => (
+          <View
+            className='py-sm'
+          >
+            <Controller
+              rules={{
+                required: {
+                  value: true,
+                  message: `${item?.key} is compatible with the format `,
+                },
+              }}
+              control={control}
+              key={item.key}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <AppPasswordInput
+                  value={value}
+                  label={item?.label}
+                  autoFocus={false}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  error={`${item?.key}  compatible with the format on our system`}
+                />
+              )}
+              name={'email'}
+            />
+          </View>
+        ))}
+      </View>
       <StatusBar style="dark" backgroundColor="red" />
     </View>
   )
