@@ -12,9 +12,10 @@ import StorybookUIRoot from './.storybook'
 import './global.css'
 import { AppTopBar } from './molecules/AppTopBar'
 
+import colors from '../shared/colors'
 import AppText from './atoms/AppText'
 import AppTitle from './atoms/AppTitle'
-import { AppModalLoader } from './molecules/AppModalLoader'
+import Icon from './molecules/Icon'
 
 export default function App() {
   const { colorScheme } = useColorScheme()
@@ -68,7 +69,7 @@ export default function App() {
         onRightIconPress3={handleRightIconPress3}
       />
 
-      <AppModalLoader visible={true} />
+      {/* <AppModalLoader visible={true} /> */}
       <AppText
         size={2}
         color={'text-dark-red9'}
@@ -87,6 +88,9 @@ export default function App() {
         spacing={1}
         titlePosition="top"
       />
+      <View className="flex justify-center items-center">
+        <Icon name="fingerprint-fill" size="48" color={colors.dark.type.accent.DEFAULT} />
+      </View>
 
       <StatusBar style="dark" backgroundColor="red" />
     </View>
