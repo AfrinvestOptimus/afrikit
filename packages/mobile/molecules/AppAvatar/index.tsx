@@ -1,6 +1,6 @@
-// AppAvatar.tsx
 import React from 'react';
 import { Image, Text, View } from 'react-native';
+import classNames from '../../utilities/classnames';
 import { AppAvatarProps, avatarColors, highContrastAvatarColors, highContrastTextColors, sizeStyles, textColors, textSizes } from './avatar';
 
 
@@ -25,21 +25,22 @@ const AppAvatar: React.FC<AppAvatarProps> = ({
       case 'image':
         return imageUrl ?
           <>
-            <View className={`${avatarSizeStyle} flex items-center justify-center`}>
-              <Image source={{ uri: imageUrl }} />
+            <View className={`${avatarSizeStyle} border-r-dark-error1 border flex items-center justify-center`}>
+              <Image source={{ uri: imageUrl }} className={avatarSizeStyle}
+              resizeMode="cover" />
             </View>
           </>
 
           : null;
       case 'initials':
         return (
-          <View className={`${avatarSizeStyle} ${avatarColor} flex items-center justify-center`}>
-            <Text className={`${textSizeStyle} ${textColor}`}>{initials}</Text>;
+          <View className={`${classNames(avatarSizeStyle, avatarColor)}flex items-center justify-center`}>
+            <Text className={`${classNames(textSizeStyle, textColor)}`}>{initials}</Text>
           </View>
         )
       case 'icon':
         return (
-          <View className={`${avatarSizeStyle} ${avatarColor} flex items-center justify-center`}>
+          <View className={`${classNames(avatarSizeStyle, avatarColor)} flex items-center justify-center`}>
             {icon}
           </View>
         )
