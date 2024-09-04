@@ -20,7 +20,6 @@ interface AppTextOwnProps {
   className?: string
   children: string | ReactNode
 }
-
 type AppTextAtomProps = AppTextOwnProps & Omit<TextProps, keyof AppTextOwnProps>
 
 export type AppTitleAtomProps = {
@@ -68,3 +67,5 @@ export interface AppInputProps extends Omit<TextInputProps, 'placeholderTextColo
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
   onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
 }
+
+// export type FormFieldKeys = keyof FormValues;

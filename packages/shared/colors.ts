@@ -208,6 +208,7 @@ const opti: Opti = {
       optigray10: '#708696',
       optigray11: '#546774',
       optigray12: '#14212A',
+      optigray13: "#60646C"
     },
     dark: {
       optigray1: '#000000',
