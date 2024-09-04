@@ -11,7 +11,7 @@ import { AppTopBar } from './molecules/AppTopBar'
 import { StatusBar } from 'expo-status-bar'
 import { useColorScheme } from 'nativewind'
 import { Controller, useForm } from 'react-hook-form'
-import { Alert, Appearance, Button, View } from 'react-native'
+import { Alert, Appearance, Pressable, SafeAreaView, Text, View } from 'react-native'
 import StorybookUIRoot from './.storybook'
 import './global.css'
 import { FormData } from './types/atoms'
@@ -74,7 +74,7 @@ export default function App() {
   }
 
   return (
-    <View className={'justify-center flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4 px-2xl'}>
+    <SafeAreaView className="flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4">
       <AppTopBar
         variant="small"
         title="Products"
@@ -88,11 +88,6 @@ export default function App() {
         onRightIconPress2={handleRightIconPress2}
         onRightIconPress3={handleRightIconPress3}
       />
-
-      <View className="flex-1 justify-center items-center">
-        <Button title="Show Loader" onPress={handleOpenModal} />
-        <AppModalLoader visible={modalVisible} />
-      </View>
       <AppText
         size={2}
         color={'text-dark-red9'}
@@ -102,7 +97,12 @@ export default function App() {
         onPress={() => console.log('AppText pressed')}>
         Small bold text involved
       </AppText>
-
+      <View className="flex-1 items-center justify-center">
+        <Pressable onPress={handleOpenModal} className="px-4 py-2 bg-blue-600 rounded-lg">
+          <Text className="text-black font-bold">Show Loader</Text>
+        </Pressable>
+        <AppModalLoader visible={modalVisible} />
+      </View>
       <AppTitle
         title={'Title'}
         align={'left'}
@@ -153,6 +153,6 @@ export default function App() {
         ))}
       </View>
       <StatusBar style="dark" backgroundColor="red" />
-    </View>
+    </SafeAreaView>
   )
 }
