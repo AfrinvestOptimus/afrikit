@@ -1,5 +1,10 @@
 import { ReactNode } from 'react'
-import { NativeSyntheticEvent, TextInputFocusEventData, TextInputProps, TextProps } from 'react-native'
+import {
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
+  TextInputProps,
+  TextProps,
+} from 'react-native'
 import colors from './../../shared/colors'
 
 type TailwindColorKey = keyof typeof colors.light & keyof typeof colors.dark
@@ -15,8 +20,7 @@ interface AppTextOwnProps {
   className?: string
   children: string | ReactNode
 }
-
-type AppTextAtomProps = AppTextOwnProps & Omit<TextProps, keyof AppTextOwnProps>
+export type AppTextAtomPropss = AppTextOwnProps & Omit<TextProps, keyof AppTextOwnProps>
 
 export type AppTitleAtomProps = {
   title: string
@@ -41,27 +45,27 @@ export type AppTitleAtomProps = {
 )
 
 export type InputBlurProps = {
-  text: string,  
-  noDecimals:booleans, 
-  onChangeText :(input:string) => void,
+  text: string
+  noDecimals: booleans
+  onChangeText: (input: string) => void
 }
 
- export type FormData = {
+export type FormData = {
   email: string
   name: string
 }
 
 export interface AppInputProps extends Omit<TextInputProps, 'placeholderTextColor' | 'style'> {
-  label?: string;
-  placeholder?: string;
-  numberOfLines?: number;
-  type?: string;
-  value?: string,
+  label?: string
+  placeholder?: string
+  numberOfLines?: number
+  type?: string
+  value?: string
   FloatingLabel?: boolean
   multiline?: boolean
-  error?: string | boolean,
-  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-  onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  error?: string | boolean
+  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
+  onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
 }
 
 // export type FormFieldKeys = keyof FormValues;
