@@ -16,7 +16,7 @@ export interface AppAvatarProps {
   icon?: React.ReactNode;
 }
 
-export const sizeStyles: Record<AvatarSize, string | object> = {
+export const sizeStyles: Record<AvatarSize, string> = {
   1: "w-xl h-xl rounded-full",
   2: "w-2xl h-2xl rounded-full",
   3: "w-3xl h-3xl rounded-full",
@@ -42,55 +42,55 @@ export const textSizes: Record<AvatarSize, string> = {
 
 export const avatarColors: Record<AvatarColor, Record<AvatarVariant, string>>  = {
   accent: {
-    solid: "bg-light-background-accent-bold dark:bg-dark-background-accent-bold",
+    solid: "bg-light-background-accent-base dark:bg-dark-background-accent-base",
     soft: "bg-light-background-accent-lighter dark:bg-dark-background-accent-lighter"
   },
   neutral: {
-    solid: "bg-light-background-neutral-bold dark:bg-dark-background-neutral-bold",
+    solid: "bg-light-background-neutral-base dark:bg-dark-background-neutral-base",
     soft: "bg-light-background-neutral-light dark:bg-dark-background-neutral-light",
   },
   success: {
-    solid: "bg-light-background-success-bold dark:bg-dark-background-success-bold",
+    solid: "bg-light-background-success-base dark:bg-dark-background-success-base",
     soft: "bg-light-background-success-light dark:bg-dark-background-success-light",
   },
   error: {
-    solid: "bg-light-background-error-bold dark:bg-dark-background-error-bold",
+    solid: "bg-light-background-error-base dark:bg-dark-background-error-base",
     soft: "bg-light-background-error-light dark:bg-dark-background-error-light",
   },
   warning: {
-    solid: "bg-light-background-warning-bold dark:bg-dark-background-warning-bold",
+    solid: "bg-light-background-warning-base dark:bg-dark-background-warning-base",
     soft: "bg-light-background-warning-light dark:bg-dark-background-warning-light",
   },
   info: {
-    solid: "bg-light-background-info-bold dark:bg-dark-background-info-bold",
-    soft: "bg-light-background-info-light dark:bg-dark-background-info-light ",
+    solid: "bg-light-background-info-base dark:bg-dark-background-info-base",
+    soft: "bg-light-background-info-light dark:bg-dark-background-info-light",
   },
 };
 
 export const textColors: Record<AvatarColor, Record<AvatarVariant, string>>  = {
   accent: {
-    solid: "text-light-type-gray-inverse dark:text-dark-type-gray-inverse",
-    soft: "text-light-type-accent-bold dark:text-dark-type-accent-bold"
+    solid: "text-white",
+    soft: "text-light-type-accent dark:text-dark-type-accent"
   },
   neutral: {
-   solid: "text-light-type-gray-inverse dark:text-dark-type-gray-inverse",
-    soft: "text-light-type-gray dark:text-dark-type-gray ",
+   solid: "text-white",
+    soft: "text-light-type-gray-muted dark:text-dark-type-gray-muted",
   },
   success: {
    solid: "text-light-type-success-inverse dark:text-dark-type-success-inverse",
-    soft: "text-light-type-success-bold dark:text-dark-type-success-bold",
+    soft: "text-light-type-success dark:text-dark-type-success",
   },
   error: {
-   solid: "text-light-type-error-inverse  dark:text-dark-type-error-inverse",
-    soft: "text-light-type-error-bold dark:text-dark-type-error-bold",
+   solid: "text-white",
+    soft: "text-light-type-error dark:text-dark-type-error",
   },
   warning: {
-   solid: "text-light-type-warning-inverse dark:text-dark-type-warning-inverse",
-    soft: "text-light-type-warning-bold dark:text-dark-type-warning-bold ",
+   solid: "text-black",
+    soft: "text-light-type-warning dark:text-dark-type-warning",
   },
   info: {
-   solid: "text-light-type-info-inverse dark:text-dark-type-info-inverse",
-    soft: "text-light-type-info-bold dark:text-dark-type-info-bold",
+   solid: "text-black",
+    soft: "text-light-type-info dark:text-dark-type-info",
   },
 };
 
