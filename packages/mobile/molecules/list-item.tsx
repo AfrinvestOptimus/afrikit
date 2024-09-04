@@ -18,6 +18,7 @@ type TrailingProps = {
 export type ListItemProps = {
   size?: '1' | '2'
   variant?: '1-line' | '2-line' | '3-line'
+  density?: 'default' | 'relaxed' | 'compact'
   leading?:
     | 'none'
     | 'avatar'
@@ -41,6 +42,8 @@ export type ListItemProps = {
   subtitle?: string
   trailingTitle?: string
   trailingSubtitle?: string
+  topMeta?: string
+  bottomMeta?: string
   leadingContent?: string | React.ReactNode
   trailingContent?: string | React.ReactNode
   onPress?: () => void
@@ -57,6 +60,12 @@ const txStatusIcons = {
   avatar: 'flashlight-line', //renders an avatar
 }
 
+const densitySpacing = {
+  default: 'py-lg',
+  relaxed: 'py-xl',
+  compact: 'py-md',
+}
+
 type TxStatus = keyof typeof txStatusIcons
 
 cssInterop(RemixIcon, {
@@ -69,10 +78,9 @@ cssInterop(RemixIcon, {
 const ListItem: React.FC<ListItemProps> = ({
   size = '2',
   variant = '1-line',
+  density = 'default',
   leading = 'none',
   trailing = 'none',
-  supportingText = false,
-  overline = false,
   subTrigger = false,
   state = 'enabled',
   separator = false,
@@ -84,6 +92,8 @@ const ListItem: React.FC<ListItemProps> = ({
   trailingSubtitle,
   trailingIcon,
   trailingIconColor,
+  topMeta,
+  bottomMeta,
   leadingContent,
   trailingContent,
   onPress,
@@ -99,6 +109,7 @@ const ListItem: React.FC<ListItemProps> = ({
     ${state === 'pressed' ? 'opacity-60' : ''}
     ${state === 'dragged' ? 'opacity-40' : ''}
     ${separator ? 'border-b border-b-light-edge-gray-subtle dark:border-b-dark-edge-gray-subtle' : ''}
+    ${densitySpacing[density] || densitySpacing.default}
   `
 
   const titleClasses = `
@@ -243,13 +254,19 @@ const ListItem: React.FC<ListItemProps> = ({
           <Switch
             value={_isChecked}
             onValueChange={() => {}}
+            trackColor={{
+              false: colors.light.background.disable1,
+              true: colors.light.type.accent.DEFAULT,
+            }}
+            ios_backgroundColor={colors.light.background.disable1}
+            thumbColor={colors.light['contrast-white']}
           />
         )
       case 'icon':
         return (
           <RemixIcon
             name={trailingIcon || 'inner-shadow'}
-            color={trailingIconColor || colors[isDarkMode ? 'dark' : 'light'].type.accent.DEFAULT}
+            color={trailingIconColor || colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
             size={24}
           />
         )
@@ -280,18 +297,19 @@ const ListItem: React.FC<ListItemProps> = ({
         </View>
       )}
       <View className="flex-1">
+        {!!topMeta && <Text className={`${subtitleClasses} mb-xs`}>{topMeta}</Text>}
         <AppText
           className={`${titleClasses} text-sm-body text-light-type-gray dark:text-dark-type-gray `}>
           {title}
         </AppText>
         {(variant === '2-line' || variant === '3-line') && subtitle && (
-          <Text className={`${subtitleClasses} text-body2 dark:text-dark-type-gray-muted `}>
+          <Text
+            numberOfLines={variant === '2-line' ? 1 : undefined}
+            className={`${subtitleClasses} text-body2 dark:text-dark-type-gray-muted mt-xs `}>
             {subtitle}
           </Text>
         )}
-        {variant === '3-line' && supportingText && supportingTextContent && (
-          <Text className={`${subtitleClasses} mt-1`}>{supportingTextContent}</Text>
-        )}
+        {!!bottomMeta && <Text className={`${subtitleClasses} mt-xs`}>{bottomMeta}</Text>}
       </View>
       {trailing !== 'none' && (
         <View
