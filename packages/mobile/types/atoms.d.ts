@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { TextProps } from 'react-native'
+import { NativeSyntheticEvent, TextInputFocusEventData, TextInputProps, TextProps } from 'react-native'
 import colors from './../../shared/colors'
 
 type TailwindColorKey = keyof typeof colors.light & keyof typeof colors.dark
@@ -39,3 +39,29 @@ export type AppTitleAtomProps = {
       spacing?: 1 | 2 | 3
     }
 )
+
+export type InputBlurProps = {
+  text: string,  
+  noDecimals:booleans, 
+  onChangeText :(input:string) => void,
+}
+
+ export type FormData = {
+  email: string
+  name: string
+}
+
+export interface AppInputProps extends Omit<TextInputProps, 'placeholderTextColor' | 'style'> {
+  label?: string;
+  placeholder?: string;
+  numberOfLines?: number;
+  type?: string;
+  value?: string,
+  FloatingLabel?: boolean
+  multiline?: boolean
+  error?: string | boolean,
+  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+}
+
+// export type FormFieldKeys = keyof FormValues;
