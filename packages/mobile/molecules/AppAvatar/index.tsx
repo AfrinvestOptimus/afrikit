@@ -10,7 +10,6 @@ const AppAvatar: React.FC<AppAvatarProps> = ({
   color = 'neutral',
   highContrast = false,
   fallBack = 'initials',
-  status = false,
   initials = '',
   imageUrl,
   icon,
