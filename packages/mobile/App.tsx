@@ -5,19 +5,27 @@ import {
   Manrope_700Bold,
   useFonts,
 } from '@expo-google-fonts/manrope'
-import { StatusBar } from 'expo-status-bar'
-import { useColorScheme } from 'nativewind'
-import { Alert, Appearance, View } from 'react-native'
-import StorybookUIRoot from './.storybook'
 import './global.css'
 import { AppTopBar } from './molecules/AppTopBar'
 
+import { StatusBar } from 'expo-status-bar'
+import { useColorScheme } from 'nativewind'
+import { Controller, useForm } from 'react-hook-form'
+import { Alert, Appearance, Pressable, SafeAreaView, Text, View } from 'react-native'
+import StorybookUIRoot from './.storybook'
+import './global.css'
+import { FormData } from './types/atoms'
+
+import { useState } from 'react'
 import colors from '../shared/colors'
 import AppText from './atoms/AppText'
 import AppTitle from './atoms/AppTitle'
+import { AppModalLoader } from './molecules/AppModalLoader'
+import AppPasswordInput from './molecules/AppPasswordInput'
 import Icon from './molecules/Icon'
 
 export default function App() {
+  const [modalVisible, setModalVisible] = useState(false)
   const { colorScheme } = useColorScheme()
   const { setColorScheme } = Appearance
   const [fontsLoaded, fontError] = useFonts({
@@ -26,6 +34,12 @@ export default function App() {
     Manrope600: Manrope_600SemiBold,
     Manrope700: Manrope_700Bold,
   })
+  const {
+    register,
+    setValue,
+    control,
+    formState: { errors },
+  } = useForm<FormData>()
 
   if (!fontsLoaded || fontError) {
     return null
@@ -53,8 +67,16 @@ export default function App() {
     Alert.alert('Right icon 3 pressed')
   }
 
+  const handleOpenModal = () => {
+    setModalVisible(true)
+  }
+
+  const handleCloseModal = () => {
+    setModalVisible(false)
+  }
+
   return (
-    <View className={'justify-center flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4'}>
+    <SafeAreaView className="flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4">
       <AppTopBar
         variant="small"
         title="Products"
@@ -68,8 +90,6 @@ export default function App() {
         onRightIconPress2={handleRightIconPress2}
         onRightIconPress3={handleRightIconPress3}
       />
-
-      {/* <AppModalLoader visible={true} /> */}
       <AppText
         size={2}
         color={'text-dark-red9'}
@@ -79,7 +99,12 @@ export default function App() {
         onPress={() => console.log('AppText pressed')}>
         Small bold text involved
       </AppText>
-
+      <View className="flex-1 items-center justify-center">
+        <Pressable onPress={handleOpenModal} className="px-4 py-2 bg-blue-600 rounded-lg">
+          <Text className="text-black font-bold">Show Loader</Text>
+        </Pressable>
+        <AppModalLoader visible={modalVisible} />
+      </View>
       <AppTitle
         title={'Title'}
         align={'left'}
@@ -92,7 +117,47 @@ export default function App() {
         <Icon name="fingerprint-fill" size="48" color={colors.dark.type.accent.DEFAULT} />
       </View>
 
+      <View>
+        {[
+          { label: 'Enter Email', key: 'email' },
+          { label: 'Enter name', key: 'name' },
+        ].map(item => (
+          <>
+            <View className="py-sm">
+              <Controller
+                rules={{
+                  required: {
+                    value: true,
+                    message: `${item?.key} is compatible with the format `,
+                  },
+                }}
+                control={control}
+                key={item.key}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  //                 <AppInput
+                  //                     value={value}
+                  //                   label={item?.label}
+                  //                   autoFocus={false}
+                  //                   onBlur={onBlur}
+                  //                   onChangeText={onChange}
+                  //                   error={`${item?.key}  compatible with the format on our system`}/>
+
+                  <AppPasswordInput
+                    value={value}
+                    label={item?.label}
+                    autoFocus={false}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    error={`${item?.key}  compatible with the format on our system`}
+                  />
+                )}
+                name={'email'}
+              />
+            </View>
+          </>
+        ))}
+      </View>
       <StatusBar style="dark" backgroundColor="red" />
-    </View>
+    </SafeAreaView>
   )
 }
