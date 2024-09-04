@@ -99,11 +99,11 @@ const AppInput: React.FC<AppInputProps> =
 
     const getBorderStyle = () => {
       if (focused) {
-        return !!error
+        return error
           ? 'border-b-2 border-light-red9 rounded-t-xs' // show red bottom border when the input isn't valued
           : 'border-b-2 border-light-blue10 rounded-t-xs'; // show blue bottom border when the input is valid 
       }
-      return !!error
+      return error
         ? 'border-2 border-light-red9 rounded-xs' // show red border when the input isn't valued and the field isn't in a focused state
         : 'border-0 border-transparent rounded-xs'; // defaulting to rounded input when there's neither a focused state or error state on the input field
     };
