@@ -20,7 +20,7 @@ interface AppTextOwnProps {
   className?: string
   children: string | ReactNode
 }
-export type AppTextAtomPropss = AppTextOwnProps & Omit<TextProps, keyof AppTextOwnProps>
+type AppTextAtomProps = AppTextOwnProps & Omit<TextProps, keyof AppTextOwnProps>
 
 export type AppTitleAtomProps = {
   title: string
