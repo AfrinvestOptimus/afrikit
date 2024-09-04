@@ -23,6 +23,7 @@ import { AppModalLoader } from './molecules/AppModalLoader'
 import AppPasswordInput from './molecules/AppPasswordInput'
 
 export default function App() {
+  const [modalVisible, setModalVisible] = useState(false)
   const { colorScheme } = useColorScheme()
   const { setColorScheme } = Appearance
   const [fontsLoaded, fontError] = useFonts({
@@ -41,7 +42,6 @@ export default function App() {
   if (!fontsLoaded || fontError) {
     return null
   }
-  const [modalVisible, setModalVisible] = useState(false)
 
   const SHOW_STORYBOOK = false
   if (SHOW_STORYBOOK) {
