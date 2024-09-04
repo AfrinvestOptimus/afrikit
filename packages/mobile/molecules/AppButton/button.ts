@@ -121,11 +121,11 @@ export const disabledColors:  Record<ButtonVariant, string> = {
 }
 
 export const activeStateColors:  Record<ButtonVariant, string> = {
-  solid:  "bg-light-background-disable2",
-  soft: "bg-light-background-disable2",
-  surface: "bg-light-background-disable2 border border-light-edge-disable border border-light-edge-disable",
-  outline: "bg-light-background-disable2 border border-light-edge-disable border border-light-edge-disable",
-  ghost: "bg-light-background-disable2 border-none",
+  solid:  "bg-light-background-accent-base-pressed dark:bg-dark-background-accent-base-pressed",
+  soft: "bg-light-background-accent-light-pressed dark:bg-dark-background-accent-light-pressed",
+  surface: "bg-light-background-accent-light dark:bg-dark-background-accent-light border border-light-edge-accent dark:border-light-edge-accent",
+  outline: "bg-light-background-accent-light dark:bg-dark-background-accent-light border border-light-edge-accent dark:border-light-edge-accent",
+  ghost: "bg-light-background-accent-transparent-pressed  border-none",
 }
 
 export const buttonStates: Record<ButtonState, string | Record<ButtonVariant, string>> = {
@@ -133,8 +133,6 @@ export const buttonStates: Record<ButtonState, string | Record<ButtonVariant, st
   active: activeStateColors,
   disabled: disabledColors,
 };
-
-
 
 export const textStates: Record<ButtonState, string> = {
   default: "",
