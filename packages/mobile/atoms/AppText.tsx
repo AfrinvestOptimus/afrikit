@@ -1,24 +1,7 @@
+import { Text } from 'react-native'
+import { AppTextAtomProps } from '../types/atoms'
 import { useColorScheme } from 'nativewind'
-import React from 'react'
-import { Text, TextProps } from 'react-native'
 import { tv } from 'tailwind-variants'
-
-// Define the types for the variants
-type Size = keyof typeof textVariants.variants.size
-type Weight = keyof typeof textVariants.variants.weight
-type Align = keyof typeof textVariants.variants.align
-
-// Define the prop types
-export interface AppTextAtomProps extends TextProps {
-  size?: Size
-  color?: string
-  trim?: string
-  weight?: Weight
-  highContrast?: boolean
-  align?: Align
-  className?: string
-  children?: React.ReactNode
-}
 
 const textVariants = tv({
   base: 'text-left',
@@ -45,12 +28,16 @@ const textVariants = tv({
       center: 'text-center',
       right: 'text-right',
     },
+    contrast: {
+      true: 'text-opacity-100',
+      false: 'text-opacity-50',
+    },
   },
 })
 
-const AppText: React.FC<AppTextAtomProps> = ({
+const AppText = ({
   size = 3,
-  color = 'text-dark-slate4',
+  color = 'gray',
   trim = 'normal',
   weight = 'regular',
   highContrast = false,
@@ -58,17 +45,18 @@ const AppText: React.FC<AppTextAtomProps> = ({
   children,
   className,
   ...rest
-}) => {
+}: AppTextAtomProps) => {
   const { colorScheme } = useColorScheme()
 
-  const highContrastClass = highContrast ? `text-${colorScheme}-type-gray-muted` : ''
+  const appColor = `text-${colorScheme}-type-${color}`
 
-  const variantClasses = textVariants({ size, weight, align })
+  //console.log("appColor", appColor);
+  const highContrastClass = highContrast ? `${appColor}-bold` : `${appColor}`
+
+  const variantClasses = textVariants({ size, weight, align } as any)
 
   return (
-    <Text
-      className={`${variantClasses} ${color} ${highContrastClass} ${className || ''}`}
-      {...rest}>
+    <Text className={`${variantClasses} ${highContrastClass} ${className || ''}`} {...rest}>
       {children}
     </Text>
   )
