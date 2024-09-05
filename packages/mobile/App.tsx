@@ -6,21 +6,21 @@ import {
   useFonts,
 } from '@expo-google-fonts/manrope'
 import './global.css'
-import { AppTopBar } from './molecules/AppTopBar'
 
 import { StatusBar } from 'expo-status-bar'
 import { useColorScheme } from 'nativewind'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { Alert, Appearance, Pressable, SafeAreaView, Text, View } from 'react-native'
 import StorybookUIRoot from './.storybook'
-import './global.css'
 import { FormData } from './types/atoms'
 
 import { useState } from 'react'
 import AppText from './atoms/AppText'
 import AppTitle from './atoms/AppTitle'
-import { AppModalLoader } from './molecules/AppModalLoader'
 import AppPasswordInput from './molecules/AppPasswordInput'
+import AppBSheet from './molecules/AppBSheet'
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false)
@@ -74,85 +74,56 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4">
-      <AppTopBar
-        variant="small"
-        title="Products"
-        subtitle="Choose from a variety of products in our store"
-        showLeftIcon={true}
-        showRightIcon1={true}
-        showRightIcon2={false}
-        showRightIcon3={false}
-        onLeftIconPress={handleLeftIconPress}
-        onRightIconPress1={handleRightIconPress1}
-        onRightIconPress2={handleRightIconPress2}
-        onRightIconPress3={handleRightIconPress3}
-      />
-      <AppText
-        size={2}
-        color={'text-dark-red9'}
-        weight={'regular'}
-        align={'left'}
-        className={'mb-2xl'}
-        onPress={() => console.log('AppText pressed')}>
-        Small bold text involved
-      </AppText>
-      <View className="flex-1 items-center justify-center">
-        <Pressable onPress={handleOpenModal} className="px-4 py-2 bg-blue-600 rounded-lg">
-          <Text className="text-black font-bold">Show Loader</Text>
-        </Pressable>
-        <AppModalLoader visible={modalVisible} />
-      </View>
-      <AppTitle
-        title={'Title'}
-        align={'left'}
-        hasSubtitle={true}
-        subtitle="Subtitle"
-        spacing={1}
-        titlePosition="top"
-      />
+    <GestureHandlerRootView className={'flex-1'}>
+      <BottomSheetModalProvider>
+        <SafeAreaView className="flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4">
+          <View className="items-center justify-center flex-1">
+            <Pressable onPress={() => setModalVisible(!modalVisible)}>
+              <Text className="">App Bottom sheet</Text>
+            </Pressable>
+          </View>
 
-      <View>
-        {[
-          { label: 'Enter Email', key: 'email' },
-          { label: 'Enter name', key: 'name' },
-        ].map(item => (
-          <>
-            <View className="py-sm">
-              <Controller
-                rules={{
-                  required: {
-                    value: true,
-                    message: `${item?.key} is compatible with the format `,
-                  },
-                }}
-                control={control}
-                key={item.key}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  //                 <AppInput
-                  //                     value={value}
-                  //                   label={item?.label}
-                  //                   autoFocus={false}
-                  //                   onBlur={onBlur}
-                  //                   onChangeText={onChange}
-                  //                   error={`${item?.key}  compatible with the format on our system`}/>
-
-                  <AppPasswordInput
-                    value={value}
-                    label={item?.label}
-                    autoFocus={false}
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    error={`${item?.key}  compatible with the format on our system`}
-                  />
-                )}
-                name={'email'}
-              />
+          <AppBSheet
+            showModal={modalVisible}
+            setShowModal={setModalVisible}
+            index={4}
+            isSwipeable={true}
+            backdropClose={true}
+            title={{
+              text: 'Choose autosave sources',
+              align: 'left',
+              subtitle: 'We’ll try your wallet and other linked sources',
+            }}
+            actionButton={{
+              text: 'Got it',
+              action: () => {
+                setModalVisible(false)
+              },
+            }}>
+            <View>
+              <View className="">
+                <AppTitle title="App Bottom Sheet" />
+                <AppText
+                  size={1}
+                  align={'left'}
+                  color={'red9'}
+                  weight={'medium'}
+                  className={'pb-md'}>
+                  This is a bottom sheet modal that can be used to display content that is not
+                  critical to the user.
+                </AppText>
+                <AppPasswordInput
+                  control={control}
+                  register={register}
+                  setValue={setValue}
+                  errors={errors}
+                />
+              </View>
             </View>
-          </>
-        ))}
-      </View>
-      <StatusBar style="dark" backgroundColor="red" />
-    </SafeAreaView>
+          </AppBSheet>
+          <StatusBar style="dark" backgroundColor="red" />
+        </SafeAreaView>
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   )
 }
