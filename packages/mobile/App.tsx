@@ -8,24 +8,19 @@ import {
 import './global.css'
 
 import { StatusBar } from 'expo-status-bar'
-import { useColorScheme } from 'nativewind'
 import { useForm } from 'react-hook-form'
-import { Alert, Appearance, Pressable, SafeAreaView, Text, View } from 'react-native'
+import { Alert, Pressable, SafeAreaView, Text, View } from 'react-native'
 import StorybookUIRoot from './.storybook'
 import { FormData } from './types/atoms'
 
 import { useState } from 'react'
-import AppText from './atoms/AppText'
-import AppTitle from './atoms/AppTitle'
-import AppPasswordInput from './molecules/AppPasswordInput'
 import AppBSheet from './molecules/AppBSheet'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import Icon from 'react-native-remix-icon'
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false)
-  const { colorScheme } = useColorScheme()
-  const { setColorScheme } = Appearance
   const [fontsLoaded, fontError] = useFonts({
     Manrope400: Manrope_400Regular,
     Manrope500: Manrope_500Medium,
@@ -43,7 +38,7 @@ export default function App() {
     return null
   }
 
-  const SHOW_STORYBOOK = false
+  const SHOW_STORYBOOK = true
   if (SHOW_STORYBOOK) {
     return <StorybookUIRoot />
   }
@@ -86,41 +81,27 @@ export default function App() {
           <AppBSheet
             showModal={modalVisible}
             setShowModal={setModalVisible}
-            index={2}
             isSwipeable={true}
-            title={{
-              text: 'Choose autosave sources',
-              align: 'left',
-              subtitle: 'We’ll try your wallet and other linked sources',
-            }}
+            backdropClose={true}
+            isDetached={true}
+            title="You’ve reached 50% of your goal"
+            icon={<Icon name={'search-line'} size="76" color="#000" />}
+            content={
+              'What a satisfying feeling, and it doesn’t need to stop there. Keep going to hit your target.'
+            }
             actionButton={{
-              text: 'Got it',
+              text: 'Keep Going',
               action: () => {
                 setModalVisible(false)
               },
-            }}>
-            <View>
-              <View className="">
-                <AppTitle title="App Bottom Sheet" />
-                <AppText
-                  size={1}
-                  align={'left'}
-                  color={'red9'}
-                  weight={'medium'}
-                  className={'pb-md'}
-                  highContrast>
-                  This is a bottom sheet modal that can be used to display content that is not
-                  critical to the user.
-                </AppText>
-                <AppPasswordInput
-                  control={control}
-                  register={register}
-                  setValue={setValue}
-                  errors={errors}
-                />
-              </View>
-            </View>
-          </AppBSheet>
+            }}
+            secondaryActionButton={{
+              text: 'I got this',
+              action: () => {
+                setModalVisible(false)
+              },
+            }}
+          />
           <StatusBar style="dark" backgroundColor="red" />
         </SafeAreaView>
       </BottomSheetModalProvider>
