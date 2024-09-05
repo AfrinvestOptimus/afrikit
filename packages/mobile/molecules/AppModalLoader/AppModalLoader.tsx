@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 import { useColorScheme } from 'nativewind'
 import React, { useEffect } from 'react'
-import { Modal, Text, View } from 'react-native'
+import { Modal, Pressable, Text, View } from 'react-native'
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -12,15 +14,29 @@ import Icon from 'react-native-remix-icon'
 import Svg, { Defs, Mask, Rect, Stop, LinearGradient as SvgLinearGradient } from 'react-native-svg'
 
 export interface AppModalLoaderProps {
+  /**
+   * Toggles modal loader visibility(True, False).
+   */
   visible: boolean
+  /**
+   * Displays the modal loader loading text.
+   */
   text?: string
+  /**
+   * Takes different Remix icons name.
+   */
   iconName?: string
+  /**
+   * Callback function that is triggered when close modal button is pressed.
+   */
+  setCloseModal?: () => void
 }
 
 export const AppModalLoader: React.FC<AppModalLoaderProps> = ({
   visible,
   text = 'Loading...',
   iconName = 'ri-loader-4-line',
+  setCloseModal,
 }) => {
   const { colorScheme } = useColorScheme()
   const rotate = useSharedValue(0)
@@ -65,6 +81,9 @@ export const AppModalLoader: React.FC<AppModalLoaderProps> = ({
             {text}
           </Text>
         </View>
+        <Pressable onPress={setCloseModal} className="px-4 py-2 bg-blue-600 rounded-lg mt-2xl">
+          <Text className="text-black font-bold">Close Modal</Text>
+        </Pressable>
       </View>
     </Modal>
   )
