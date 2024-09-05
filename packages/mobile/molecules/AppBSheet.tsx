@@ -1,14 +1,34 @@
-import React, { memo, ReactNode, useCallback, useEffect, useMemo, useRef } from 'react'
-import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
+import React, { memo, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  BottomSheetBackdrop,
+  BottomSheetModal,
+  BottomSheetScrollView,
+  BottomSheetView,
+} from '@gorhom/bottom-sheet'
+import { Dimensions, Text, View } from 'react-native'
+import clsx from 'clsx'
+import AppButton from './AppButton'
+
+type ActionButtonProps = {
+  text: string
+  action: () => void
+}
+type TitleProps = {
+  text: string
+  align?: 'center' | 'left'
+  subtitle?: string
+}
 
 type LiBottomSheetProps = {
   showModal: boolean
   setShowModal: (showModal: boolean) => void
-  children?: React.ReactNode
+  children: React.ReactNode
   index?: number
   height?: number
   backdropClose?: boolean
   isSwipeable?: boolean
+  title?: TitleProps
+  actionButton?: ActionButtonProps
 }
 
 const LiBottomSheet = memo(
@@ -35,14 +55,19 @@ const LiBottomSheet = memo(
     isSwipeable = true,
     backdropClose = false,
     children,
-  }: LiBottomSheetProps): ReactNode {
+    title,
+    actionButton,
+  }: LiBottomSheetProps) {
     // ref
     const bottomSheetRef = useRef<BottomSheetModal>(null)
+    const screenHeight = Dimensions.get('window').height
+    const [contentHeight, setContentHeight] = useState(screenHeight)
+    const [isClosing, setIsClosing] = useState(false)
 
     // variables
     const snapPoints = useMemo(() => {
-      const snapPoints = ['10%', '25%', '35', '50%', '70%', '100%']
-      return height ? [height, ...snapPoints] : snapPoints
+      const defaultSnapPoints = ['10%', '25%', '35%', '50%', '70%', '100%']
+      return height ? [`${height}px`, ...defaultSnapPoints] : defaultSnapPoints
     }, [height])
 
     // callbacks
@@ -50,20 +75,42 @@ const LiBottomSheet = memo(
       bottomSheetRef.current?.present()
     }, [])
 
-    const handleSheetChanges = useCallback(() => {
-      // console.log("handleSheetChanges", index);
-    }, [])
+    const handleSheetChanges = useCallback(
+      (index: number) => {
+        if (index === -1) {
+          setIsClosing(true)
+          setShowModal(false)
+          return
+        }
+
+        const currentSnapPoint = snapPoints[index]
+        let newHeight: number
+
+        if (currentSnapPoint.endsWith('%')) {
+          const percentage = parseInt(currentSnapPoint, 10)
+          newHeight = (screenHeight * percentage) / 100
+        } else {
+          newHeight = parseInt(currentSnapPoint, 10)
+        }
+
+        setContentHeight(newHeight)
+      },
+      [snapPoints, screenHeight, setShowModal],
+    )
 
     // effects
     useEffect(() => {
-      // console.log("snapPoints", snapPoints);
-      if (showModal) {
-        handlePresentModalPress()
-      }
-      if (!showModal) {
+      if (showModal && !isClosing) {
+        bottomSheetRef.current?.present()
+      } else if (!showModal && !isClosing) {
         bottomSheetRef.current?.dismiss()
       }
-    }, [showModal])
+    }, [showModal, isClosing])
+
+    const handleDismiss = useCallback(() => {
+      setIsClosing(false)
+      setShowModal(false)
+    }, [setShowModal])
 
     // renders
 
@@ -74,6 +121,13 @@ const LiBottomSheet = memo(
           enableTouchThrough={false}
           pressBehavior={backdropClose ? 'close' : 'none'}
           disappearsOnIndex={-1}
+          appearsOnIndex={0}
+          style={[
+            props.style,
+            {
+              backgroundColor: 'rgba(0, 8, 47, 0.5)',
+            },
+          ]}
         />
       ),
       [backdropClose],
@@ -86,7 +140,7 @@ const LiBottomSheet = memo(
         index={index || 0}
         snapPoints={snapPoints}
         enableOverDrag={false}
-        enableDynamicSizing={true}
+        enableDynamicSizing={false}
         enableHandlePanningGesture={isSwipeable}
         enablePanDownToClose={true}
         enableDismissOnClose={true}
@@ -96,12 +150,41 @@ const LiBottomSheet = memo(
         enableContentPanningGesture={false}
         keyboardBehavior={'interactive'}
         keyboardBlurBehavior={'restore'}
-        onDismiss={() => {
-          setShowModal(false)
-          bottomSheetRef.current?.snapToIndex(-1)
-        }}>
-        <BottomSheetView className={'flex-1 items-center bg-white h-[500px]'}>
-          {children}
+        onDismiss={handleDismiss}>
+        <BottomSheetView style={{ height: contentHeight }} className={'pb-md'}>
+          <BottomSheetScrollView
+            className="flex-1 w-full bg-white px-md"
+            contentContainerStyle={{ flexGrow: 1 }}>
+            {title && (
+              <View className="pt-xl px-md pb-md">
+                <Text
+                  className={clsx(
+                    'text-left text-lg-bold text-light-type-gray dark:text-dark-type-gray',
+                    title.align === 'center' && 'text-center',
+                  )}>
+                  {title.text}
+                </Text>
+                {title.subtitle && (
+                  <Text className="text-left text-sm-body text-light-type-gray-muted dark:text-dark-type-gray-muted">
+                    {title.subtitle}
+                  </Text>
+                )}
+              </View>
+            )}
+            <View className="flex-1">{children}</View>
+          </BottomSheetScrollView>
+          {actionButton && (
+            <View className="w-full px-md bg-white mb-5xl">
+              <AppButton
+                size={4}
+                text={actionButton.text}
+                color={'neutral'}
+                variant={'solid'}
+                highContrast
+                onPress={actionButton.action}
+              />
+            </View>
+          )}
         </BottomSheetView>
       </BottomSheetModal>
     )
