@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 /* eslint-disable no-unused-vars */
 import { useColorScheme } from 'nativewind'
->>>>>>> f0a0747 (PROJ-2491 Design component for AppModalLoader)
 import React, { useEffect, useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-remix-icon'
