@@ -1,4 +1,3 @@
-import { useColorScheme } from 'nativewind'
 import React, { useEffect, useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-remix-icon'
@@ -11,6 +10,7 @@ type KeyPadProps = {
   onBiometric?: (key: string) => void
   onDone?: (value: string) => void
   onChange?: (value: string) => void
+  containerClassName?: string
 }
 
 const KEY_BIO = 'bio' //👆
@@ -23,10 +23,8 @@ const KeyPad: React.FC<KeyPadProps> = ({
   onChange,
   onDone,
   textLength = 4,
+  containerClassName,
 }) => {
-  const { colorScheme } = useColorScheme()
-  const isDarkMode = colorScheme === 'dark'
-
   const [value, setValue] = useState('')
 
   const keys = [
@@ -60,7 +58,7 @@ const KeyPad: React.FC<KeyPadProps> = ({
   }
 
   return (
-    <View className={`p-xs ${isDarkMode ? 'bg-black' : 'bg-white'}`}>
+    <View className={`p-xs bg-white dark:bg-black ${containerClassName}`}>
       {keys.map((row, rowIndex) => (
         <View key={rowIndex} className="flex-row w-full justify-between mb-btn-hg-1">
           {row.map((key, keyIndex) => (
@@ -71,10 +69,7 @@ const KeyPad: React.FC<KeyPadProps> = ({
               {key === KEY_BIO ? (
                 <Icon name="fingerprint-fill" color={colors.dark.type.accent.DEFAULT} size={20} />
               ) : (
-                <Text
-                  className={`text-h2 ${!isDarkMode ? 'text-black' : 'text-dark-contrast-white'}`}>
-                  {key}
-                </Text>
+                <Text className={`text-h2 text-black dark:text-dark-contrast-white`}>{key}</Text>
               )}
             </TouchableOpacity>
           ))}
