@@ -73,7 +73,7 @@ type Story = StoryObj<typeof AppText>
 
 const defaults: AppTextAtomProps = {
   size: 3,
-  color: 'text-light-optiblue9',
+  color: 'text-light-type-gray-muted',
   trim: 'normal',
   weight: 'regular',
   highContrast: false,

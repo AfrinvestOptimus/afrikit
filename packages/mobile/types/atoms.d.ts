@@ -9,12 +9,12 @@ import {
 } from 'react-native'
 import colors from './../../shared/colors'
 
-type TailwindColorKey = keyof typeof colors.light & keyof typeof colors.dark
+type TailwindColorKey = keyof typeof colors.light.type & keyof typeof colors.dark.type
 type colorScheme = 'light' | 'dark'
 
 interface AppTextOwnProps {
   size: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-  color: `text-${colorScheme}-${TailwindColorKey}`
+  color: `${TailwindColorKey}`
   trim?: 'normal' | 'start' | 'end' | 'both'
   weight: 'regular' | 'medium' | 'semibold' | 'bold'
   highContrast?: boolean
