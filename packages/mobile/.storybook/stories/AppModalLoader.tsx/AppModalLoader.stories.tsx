@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import React from 'react'
-import { View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Pressable, Text, View } from 'react-native'
 import { AppModalLoader, AppModalLoaderProps } from '../../../molecules/AppModalLoader'
 
 export default {
@@ -20,13 +20,43 @@ export default {
   },
 } as ComponentMeta<typeof AppModalLoader>
 
-const Template: ComponentStory<typeof AppModalLoader> = (args: AppModalLoaderProps) => (
-  <AppModalLoader {...args} />
-)
+const Template: ComponentStory<typeof AppModalLoader> = (args: AppModalLoaderProps) => {
+  const [isVisible, setIsVisible] = useState<boolean>(args.visible)
+
+  // Sync isVisible with args.visible whenever args.visible changes
+  useEffect(() => {
+    setIsVisible(args.visible)
+  }, [args.visible])
+
+  // Close modal function
+  const handleCloseModal = () => {
+    setIsVisible(false)
+  }
+
+  // Function to open modal manually (simulating visibility toggle)
+  const handleOpenModal = () => {
+    setIsVisible(true)
+  }
+
+  return (
+    <View>
+      {/* Button to open modal */}
+      <Pressable onPress={handleOpenModal}>
+        <Text>Show Modal</Text>
+      </Pressable>
+
+      <AppModalLoader
+        {...args}
+        visible={isVisible}
+        setCloseModal={handleCloseModal} // Close modal function passed to component
+      />
+    </View>
+  )
+}
 
 export const Default = Template.bind({})
 Default.args = {
-  visible: true,
+  visible: false, // Start with the modal closed
   text: 'Loading...',
   iconName: 'ri-loader-4-line',
 }
@@ -34,7 +64,7 @@ Default.args = {
 export const CustomText = Template.bind({})
 CustomText.args = {
   ...Default.args,
-  text: 'Please wait...',
+  text: 'Text...',
 }
 
 export const CustomIcon = Template.bind({})

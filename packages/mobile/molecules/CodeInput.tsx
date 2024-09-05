@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 import { useColorScheme } from 'nativewind'
 import { FC, useEffect, useMemo, useRef, useState, type RefObject } from 'react'
 import { TextInput, View } from 'react-native'
