@@ -1,11 +1,6 @@
 import React, { memo, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import {
-  BottomSheetBackdrop,
-  BottomSheetModal,
-  BottomSheetScrollView,
-  BottomSheetView,
-} from '@gorhom/bottom-sheet'
-import { Dimensions, Text, View } from 'react-native'
+import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
+import { Animated, Dimensions, ScrollView, Text, View } from 'react-native'
 import clsx from 'clsx'
 import AppButton from './AppButton'
 
@@ -63,6 +58,7 @@ const LiBottomSheet = memo(
     const screenHeight = Dimensions.get('window').height
     const [contentHeight, setContentHeight] = useState(screenHeight)
     const [isClosing, setIsClosing] = useState(false)
+    const buttonAnimation = useRef(new Animated.Value(0)).current
 
     // variables
     const snapPoints = useMemo(() => {
@@ -94,9 +90,20 @@ const LiBottomSheet = memo(
         }
 
         setContentHeight(newHeight)
+
+        // Animate button
+        Animated.spring(buttonAnimation, {
+          toValue: index / (snapPoints.length - 1),
+          useNativeDriver: true,
+        }).start()
       },
-      [snapPoints, screenHeight, setShowModal],
+      [snapPoints, screenHeight, setShowModal, buttonAnimation],
     )
+
+    const buttonTranslateY = buttonAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [50, 0], // Adjust these values to control the slide distance
+    })
 
     // effects
     useEffect(() => {
@@ -152,9 +159,10 @@ const LiBottomSheet = memo(
         keyboardBlurBehavior={'restore'}
         onDismiss={handleDismiss}>
         <BottomSheetView style={{ height: contentHeight }} className={'pb-md'}>
-          <BottomSheetScrollView
+          <ScrollView
             className="flex-1 w-full bg-white px-md"
-            contentContainerStyle={{ flexGrow: 1 }}>
+            contentContainerStyle={{ flexGrow: 1 }}
+            showsVerticalScrollIndicator={false}>
             {title && (
               <View className="pt-xl px-md pb-md">
                 <Text
@@ -172,9 +180,13 @@ const LiBottomSheet = memo(
               </View>
             )}
             <View className="flex-1">{children}</View>
-          </BottomSheetScrollView>
+          </ScrollView>
           {actionButton && (
-            <View className="w-full px-md bg-white mb-5xl">
+            <Animated.View
+              className="w-full px-md mb-5xl"
+              style={{
+                transform: [{ translateY: buttonTranslateY }],
+              }}>
               <AppButton
                 size={4}
                 text={actionButton.text}
@@ -183,7 +195,7 @@ const LiBottomSheet = memo(
                 highContrast
                 onPress={actionButton.action}
               />
-            </View>
+            </Animated.View>
           )}
         </BottomSheetView>
       </BottomSheetModal>
