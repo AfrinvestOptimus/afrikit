@@ -86,9 +86,8 @@ export default function App() {
           <AppBSheet
             showModal={modalVisible}
             setShowModal={setModalVisible}
-            index={4}
+            index={2}
             isSwipeable={true}
-            backdropClose={true}
             title={{
               text: 'Choose autosave sources',
               align: 'left',
@@ -108,7 +107,8 @@ export default function App() {
                   align={'left'}
                   color={'red9'}
                   weight={'medium'}
-                  className={'pb-md'}>
+                  className={'pb-md'}
+                  highContrast>
                   This is a bottom sheet modal that can be used to display content that is not
                   critical to the user.
                 </AppText>
