@@ -1,5 +1,6 @@
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { Pressable, Text, TextInput, View } from 'react-native'
+import classNames from '../utilities/classnames'
 
 export type AuthInputProps = {
   count: number
@@ -67,11 +68,14 @@ const AuthInput: FC<AuthInputProps> = ({
           <TextInput className="hidden" onChangeText={onChange} ref={KeyboardRef} />
           <Pressable className="flex justify-center" onPress={handlePress}>
             <View
-              className={`flex items-center justify-between w-fit h-[40] flex-row p-lg gap-x-md rounded-xs-max ${isError ? `${styles.backgroundError}` : `${styles.backgroundDefault}`}`}>
+              className={`flex items-center justify-between w-fit h-[40] flex-row p-lg rounded-xs-max ${isError ? `${styles.backgroundError}` : `${styles.backgroundDefault}`}`}>
               {codeKeys?.map((row, rowIndex) => (
                 <View
                   key={`${rowIndex + 1}`}
-                  className={`${row !== '' ? `${styles.pinBackgroundFilled}` : isError ? `${styles.pinBackgroundError}` : `${styles.pinBackgroundDefault}`} w-sm h-sm rounded-sm-max`}></View>
+                  className={classNames(
+                    `w-sm h-sm rounded-sm-max ${rowIndex == codeKeys.length - 1 ? 'mr-none' : 'mr-md'}`,
+                    `${row !== '' ? `${styles.pinBackgroundFilled}` : isError ? `${styles.pinBackgroundError}` : `${styles.pinBackgroundDefault}`}`,
+                  )}></View>
               ))}
             </View>
           </Pressable>

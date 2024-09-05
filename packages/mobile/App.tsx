@@ -17,10 +17,12 @@ import './global.css'
 import { FormData } from './types/atoms'
 
 import { useState } from 'react'
+import colors from '../shared/colors'
 import AppText from './atoms/AppText'
 import AppTitle from './atoms/AppTitle'
 import { AppModalLoader } from './molecules/AppModalLoader'
 import AppPasswordInput from './molecules/AppPasswordInput'
+import Icon from './molecules/Icon'
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false)
@@ -111,6 +113,9 @@ export default function App() {
         spacing={1}
         titlePosition="top"
       />
+      <View className="flex justify-center items-center">
+        <Icon name="fingerprint-fill" size="48" color={colors.dark.type.accent.DEFAULT} />
+      </View>
 
       <View>
         {[
