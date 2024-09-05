@@ -65,7 +65,6 @@ const densitySpacing = {
   relaxed: 'py-xl',
   compact: 'py-md',
 }
-
 type TxStatus = keyof typeof txStatusIcons
 
 cssInterop(RemixIcon, {

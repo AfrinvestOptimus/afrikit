@@ -61,7 +61,7 @@ const CodeInput: FC<OTPInputProps> = ({ count = 4, secureEntry, isError, onFullC
           secureTextEntry={secureEntry}
           autoComplete="one-time-code"
           enterKeyHint="next"
-          className={`text-md h-[56px] w-[43px] px-md py-1 text-center rounded-md focus:bg-light-optiblueA3 ${
+          className={`text-lg-head h-[56px] w-[43px] px-md py-1 text-center rounded-md focus:bg-light-optiblueA3 ${
             isError
               ? 'text-light-type-error dark:text-dark-type-error bg-light-background-error-light dark:bg-dark-background-error-light'
               : 'text-light-type-gray dark:text-dark-type-gray bg-light-surface-gray dark:bg-dark-surface-gray'

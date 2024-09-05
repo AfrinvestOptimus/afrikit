@@ -332,6 +332,7 @@ export default function App() {
         <AppToastBase position={'top'} />
         {/* </View> */}
       </ScrollView>
+
     </SafeAreaView>
   )
 }
