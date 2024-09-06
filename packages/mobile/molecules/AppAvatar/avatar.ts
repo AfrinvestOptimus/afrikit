@@ -3,6 +3,7 @@ export type AvatarSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 export type AvatarVariant = 'solid' | 'soft'
 export type AvatarColor = 'accent' | 'neutral' | 'success' | 'error' | 'warning' | 'info'
 export type AvatarFallback = 'image' | 'initials' | 'icon'
+export type NumberOfInitials = 1 | 2
 
 export interface AppAvatarProps {
   size?: AvatarSize
@@ -14,6 +15,7 @@ export interface AppAvatarProps {
   initials?: string
   imageUrl?: string
   icon?: React.ReactNode
+  numberOfInitials?: NumberOfInitials
 }
 
 export const sizeStyles: Record<AvatarSize, string> = {
@@ -38,6 +40,18 @@ export const textSizes: Record<AvatarSize, string> = {
   7: 'text-3xl font-medium leading-9',
   8: 'text-4xl font-medium leading-10',
   9: 'text-5xl font-medium leading-10',
+}
+
+export const iconSizes: Record<AvatarSize, number> = {
+  1: 16,
+  2: 16,
+  3: 16,
+  4: 18,
+  5: 20,
+  6: 24,
+  7: 24,
+  8: 32,
+  9: 40,
 }
 
 export const avatarColors: Record<AvatarColor, Record<AvatarVariant, string>> = {
@@ -123,19 +137,19 @@ export const highContrastAvatarColors: Record<AvatarColor, Record<AvatarVariant,
 
 export const highContrastTextColors: Record<AvatarColor, Record<AvatarVariant, string>> = {
   accent: {
-    solid: 'text-light-type-gray-inverse dark:text-dark-type-gray-inverse',
+    solid: 'text-light-type-accent-inverse dark:text-dark-type-accent-inverse',
     soft: 'text-light-type-accent-bold dark:text-dark-type-accent-bold',
   },
   neutral: {
     solid: 'text-light-type-gray-inverse dark:text-dark-type-gray-inverse',
-    soft: 'text-light-type-gray dark:text-dark-type-gray ',
+    soft: 'text-light-type-gray dark:text-dark-type-gray',
   },
   success: {
     solid: 'text-light-type-success-inverse dark:text-dark-type-success-inverse',
     soft: 'text-light-type-success-bold dark:text-dark-type-success-bold',
   },
   error: {
-    solid: 'text-light-type-error-inverse  dark:text-dark-type-error-inverse',
+    solid: 'text-light-type-error-inverse dark:text-dark-type-error-inverse',
     soft: 'text-light-type-error-bold dark:text-dark-type-error-bold',
   },
   warning: {
