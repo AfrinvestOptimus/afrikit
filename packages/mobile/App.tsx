@@ -9,7 +9,7 @@ import './global.css'
 
 import { StatusBar } from 'expo-status-bar'
 import { useForm } from 'react-hook-form'
-import { Alert, Pressable, SafeAreaView, Text, View } from 'react-native'
+import { Alert, Appearance, Pressable, SafeAreaView, Text, View } from 'react-native'
 import StorybookUIRoot from './.storybook'
 import { FormData } from './types/atoms'
 
@@ -17,7 +17,7 @@ import { useState } from 'react'
 import AppBSheet from './molecules/AppBSheet'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import Icon from 'react-native-remix-icon'
+import AppText from './atoms/AppText'
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false)
@@ -27,6 +27,7 @@ export default function App() {
     Manrope600: Manrope_600SemiBold,
     Manrope700: Manrope_700Bold,
   })
+  const { setColorScheme, getColorScheme } = Appearance
   const {
     register,
     setValue,
@@ -72,10 +73,14 @@ export default function App() {
     <GestureHandlerRootView className={'flex-1'}>
       <BottomSheetModalProvider>
         <SafeAreaView className="flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4">
-          <View className="items-center justify-center flex-1">
-            <Pressable onPress={() => setModalVisible(!modalVisible)}>
-              <Text className="">App Bottom sheet</Text>
+          <View className="justify-center flex-1 w-full">
+            <Pressable
+              onPress={() => setColorScheme(getColorScheme() === 'light' ? 'dark' : 'light')}>
+              <Text className="text-light-type-tomatobo text-sm-bold">Let him cook!</Text>
             </Pressable>
+            <AppText size={4} color="info" weight={'bold'} align={'center'} highContrast={false}>
+              Let him cook!!
+            </AppText>
           </View>
 
           <AppBSheet
@@ -83,25 +88,25 @@ export default function App() {
             setShowModal={setModalVisible}
             isSwipeable={true}
             backdropClose={true}
-            isDetached={true}
-            title="You’ve reached 50% of your goal"
-            icon={<Icon name={'search-line'} size="76" color="#000" />}
-            content={
-              'What a satisfying feeling, and it doesn’t need to stop there. Keep going to hit your target.'
-            }
+            index={2}
+            isDetached={false}
+            title={{
+              text: 'Let him cook!',
+              align: 'left',
+              subtitle: 'Subtitle',
+            }}
             actionButton={{
               text: 'Keep Going',
               action: () => {
                 setModalVisible(false)
               },
-            }}
-            secondaryActionButton={{
-              text: 'I got this',
-              action: () => {
-                setModalVisible(false)
-              },
-            }}
-          />
+            }}>
+            {Array.from({ length: 20 }).map((_, index) => (
+              <View key={index} className="flex py-4">
+                <Text className="text-light-type-gray text-sm-bold">Let him cook!</Text>
+              </View>
+            ))}
+          </AppBSheet>
           <StatusBar style="dark" backgroundColor="red" />
         </SafeAreaView>
       </BottomSheetModalProvider>
