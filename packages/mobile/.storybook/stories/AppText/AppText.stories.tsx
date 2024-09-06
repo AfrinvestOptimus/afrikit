@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import AppText from '../../../atoms/AppText'
-import { Appearance, Pressable } from 'react-native'
+import { Appearance, Pressable, View } from 'react-native'
 import { AppTextAtomProps } from '../../../types/atoms'
 
 const meta: Meta<typeof AppText> = {
@@ -28,26 +28,22 @@ const meta: Meta<typeof AppText> = {
     color: {
       control: 'select',
       options: [
-        'text-light-slate4',
-        'text-light-crimson9',
-        'text-light-optiblue9',
-        'text-light-optiblue11',
-        'text-dark-slate4',
-        'text-dark-crimson9',
-        'text-dark-optiblue9',
-        'text-dark-red9',
+        'gray',
+        'error',
+        'accent',
+        'cyan',
+        'info',
+        'success',
+        'tomato',
+        'violet',
+        'warning',
       ],
-      defaultValue: 'optiblue9',
-    },
-    trim: {
-      control: 'select',
-      options: ['normal', 'start', 'end', 'both'],
-      defaultValue: 'normal',
+      defaultValue: 'gray',
     },
     weight: {
       control: 'select',
       options: ['regular', 'medium', 'semibold', 'bold'],
-      defaultValue: 'light',
+      defaultValue: 'regular',
     },
     highContrast: {
       control: 'boolean',
@@ -73,8 +69,7 @@ type Story = StoryObj<typeof AppText>
 
 const defaults: AppTextAtomProps = {
   size: 3,
-  color: 'text-light-optiblue9',
-  trim: 'normal',
+  color: 'gray',
   weight: 'regular',
   highContrast: false,
   align: 'left',
@@ -85,48 +80,86 @@ export const Default: Story = {
   args: defaults,
 }
 
-export const LargeText: Story = {
-  args: {
-    ...defaults,
-    size: 6,
-    weight: 'bold',
-    children: 'This is a large, bold text',
-  },
+export const AllSizes: Story = {
+  render: args => (
+    <View>
+      {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(size => (
+        <AppText key={size} {...args} size={size}>
+          Size {size} Text
+        </AppText>
+      ))}
+    </View>
+  ),
+  args: defaults,
 }
 
-export const ColoredText: Story = {
-  args: {
-    ...defaults,
-    color: 'text-light-optiblue11',
-    children: 'This is a colored text',
-  },
+export const AllColors: Story = {
+  render: args => (
+    <View>
+      {['gray', 'error', 'accent', 'cyan', 'info', 'success', 'tomato', 'violet', 'warning'].map(
+        color => (
+          <AppText key={color} {...args} color={color as AppTextAtomProps['color']}>
+            {color.charAt(0).toUpperCase() + color.slice(1)} Text
+          </AppText>
+        ),
+      )}
+    </View>
+  ),
+  args: defaults,
 }
 
-export const CenteredText: Story = {
-  args: {
-    ...defaults,
-    align: 'center',
-    children: 'This is a centered text',
-  },
+export const AllWeights: Story = {
+  render: args => (
+    <View>
+      {['regular', 'medium', 'semibold', 'bold'].map(weight => (
+        <AppText key={weight} {...args} weight={weight as AppTextAtomProps['weight']}>
+          {weight.charAt(0).toUpperCase() + weight.slice(1)} Weight
+        </AppText>
+      ))}
+    </View>
+  ),
+  args: defaults,
 }
 
-export const HighContrastText: Story = {
-  args: {
-    ...defaults,
-    highContrast: true,
-    children: 'This is a high contrast text',
-  },
+export const HighContrastComparison: Story = {
+  render: args => (
+    <View>
+      <AppText {...args} highContrast={false}>
+        Normal Contrast Text
+      </AppText>
+      <AppText {...args} highContrast={true}>
+        High Contrast Text
+      </AppText>
+    </View>
+  ),
+  args: defaults,
 }
 
-export const AllProps: Story = {
+export const Alignments: Story = {
+  render: args => (
+    <View>
+      <AppText {...args} align="left">
+        Left Aligned Text
+      </AppText>
+      <AppText {...args} align="center">
+        Center Aligned Text
+      </AppText>
+      <AppText {...args} align="right">
+        Right Aligned Text
+      </AppText>
+    </View>
+  ),
+  args: defaults,
+}
+
+export const ComplexExample: Story = {
   args: {
     ...defaults,
     size: 5,
-    color: 'text-light-crimson9',
-    trim: 'both',
-    weight: 'medium',
+    color: 'accent',
+    weight: 'bold',
     highContrast: true,
     align: 'center',
-    children: 'Text with all props set',
+    children: 'Complex Example with Multiple Props',
   },
 }
