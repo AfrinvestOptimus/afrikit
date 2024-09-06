@@ -299,7 +299,7 @@ const ListItem: React.FC<ListItemProps> = ({
         </View>
       )}
       <View className="flex-1">
-        {!!topMeta && <Text className={`${subtitleClasses} mb-xs`}>{topMeta}</Text>}
+        {!!topMeta && <Text className={`${subtitleClasses} text-xs-body mb-xs`}>{topMeta}</Text>}
         <AppText
           // className={`${titleClasses} text-sm-body text-light-type-gray dark:text-dark-type-gray `}
           size={3}
@@ -355,10 +355,11 @@ const CheckComponent = ({ isSquare = false, isChecked = false }) => (
       ${
         isChecked
           ? 'bg-light-background-accent-base dark:bg-dark-background-accent-base'
-          : 'bg-light-surface-gray dark:bg-dark-surface-gray'
+          : 'bg-[transparent]'
+        // : 'bg-light-surface-gray dark:bg-dark-surface-gray'
       }
          border border-light-edge-gray-subtle dark:border-dark-edge-gray-subtle`}>
-    <RemixIcon name="check-fill" size={20} color={'white'} />
+    {isChecked && <RemixIcon name="check-fill" size={20} color={'white'} />}
   </View>
 )
 export default ListItem

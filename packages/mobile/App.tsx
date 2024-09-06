@@ -47,14 +47,7 @@ export default function App() {
     formState: { errors },
   } = useForm<FormData>()
 
-  if (!fontsLoaded || fontError) {
-    return null
-  }
-
   const SHOW_STORYBOOK = true
-  if (SHOW_STORYBOOK) {
-    return <StorybookUIRoot />
-  }
 
   // Define your icon press handlers
   const handleLeftIconPress = () => {
@@ -133,42 +126,42 @@ export default function App() {
           spacing={1}
           titlePosition="top"
         />
-      <AppTopBar
-        variant="large-centered"
-        title="Products"
-        subtitle="Choose from a variety of products in our store"
-        showLeftIcon={true}
-        showRightIcon1={false}
-        showRightIcon2={false}
-        showRightIcon3={false}
-        onLeftIconPress={handleLeftIconPress}
-        onRightIconPress1={handleRightIconPress1}
-        onRightIconPress2={handleRightIconPress2}
-        onRightIconPress3={handleRightIconPress3}
-      />
-      <AppText
-        size={2}
-        color={'text-dark-red9'}
-        weight={'regular'}
-        align={'left'}
-        className={'mb-2xl'}
-        onPress={() => console.log('AppText pressed')}>
-        Small bold text involved
-      </AppText>
-      <View className="flex-1 items-center justify-center">
-        <Pressable onPress={handleOpenModal} className="px-4 py-2 bg-blue-600 rounded-lg">
-          <Text className="text-black font-bold">Show Loader</Text>
-        </Pressable>
-        <AppModalLoader visible={modalVisible} setCloseModal={handleCloseModal} />
-      </View>
-      <AppTitle
-        title={'Title'}
-        align={'left'}
-        hasSubtitle={true}
-        subtitle="Subtitle"
-        spacing={1}
-        titlePosition="top"
-      />
+        <AppTopBar
+          variant="large-centered"
+          title="Products"
+          subtitle="Choose from a variety of products in our store"
+          showLeftIcon={true}
+          showRightIcon1={false}
+          showRightIcon2={false}
+          showRightIcon3={false}
+          onLeftIconPress={handleLeftIconPress}
+          onRightIconPress1={handleRightIconPress1}
+          onRightIconPress2={handleRightIconPress2}
+          onRightIconPress3={handleRightIconPress3}
+        />
+        <AppText
+          size={2}
+          color={'text-dark-red9'}
+          weight={'regular'}
+          align={'left'}
+          className={'mb-2xl'}
+          onPress={() => console.log('AppText pressed')}>
+          Small bold text involved
+        </AppText>
+        <View className="flex-1 items-center justify-center">
+          <Pressable onPress={handleOpenModal} className="px-4 py-2 bg-blue-600 rounded-lg">
+            <Text className="text-black font-bold">Show Loader</Text>
+          </Pressable>
+          <AppModalLoader visible={modalVisible} setCloseModal={handleCloseModal} />
+        </View>
+        <AppTitle
+          title={'Title'}
+          align={'left'}
+          hasSubtitle={true}
+          subtitle="Subtitle"
+          spacing={1}
+          titlePosition="top"
+        />
 
         <View>
           {[
