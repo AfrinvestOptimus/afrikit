@@ -4,6 +4,7 @@ import { Image, Switch, Text, TouchableOpacity, View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
 import colors from '../../shared/colors'
 import AppText from '../atoms/AppText'
+import AppAvatar from './AppAvatar'
 import AppButton from './AppButton'
 
 type TrailingProps = {
@@ -136,11 +137,17 @@ const ListItem: React.FC<ListItemProps> = ({
     if (leadingContent && typeof leadingContent !== 'string') return leadingContent
 
     switch (leading) {
-      case 'avatar': //TODO: Dependent on the AppAvatar icon, passing a dummy
+      case 'avatar':
         return (
-          <View className="w-3xl h-3xl rounded-xs-max justify-center items-center bg-light-background-accent-base dark:bg-dark-background-accent-base">
-            <Text className="text-white">A</Text>
-          </View>
+          <AppAvatar
+            size={3}
+            color="accent"
+            highContrast={false}
+            fallBack="initials"
+            initials={(leadingContent as string) || 'S'}
+            status={false}
+            variant="solid"
+          />
         )
       case 'brand': //TODO: BrandLogos on the AppAvatar icon, passing a dummy
         return (
@@ -220,8 +227,7 @@ const ListItem: React.FC<ListItemProps> = ({
       case 'text': //TODO: use AppText
         return (
           <>
-            <AppText
-              className={`${titleClasses} text-sm-body text-light-type-gray dark:text-dark-type-gray self-end `}>
+            <AppText size={3} align="right" color="text-light-type-gray dark:text-dark-type-gray">
               {trailingTitle}
             </AppText>
           </>
@@ -229,14 +235,16 @@ const ListItem: React.FC<ListItemProps> = ({
       case 'textContent': //TODO: use AppText
         return (
           <>
-            <Text
-              className={`${titleClasses} text-sm-body text-light-type-gray dark:text-dark-type-gray self-end`}>
+            <AppText
+              size={3}
+              align="right"
+              highContrast
+              color="text-light-type-gray dark:text-dark-type-gray">
               {trailingTitle}
-            </Text>
-            <Text
-              className={`${subtitleClasses} text-sm-body dark:text-dark-type-gray-muted self-end `}>
+            </AppText>
+            <AppText size={2} align="right" className={'mt-xs dark:text-dark-type-gray-muted'}>
               {trailingSubtitle}
-            </Text>
+            </AppText>
           </>
         )
       case 'link': //TODO: pass text link
@@ -267,16 +275,13 @@ const ListItem: React.FC<ListItemProps> = ({
             size={24}
           />
         )
-      case 'button': //TODO: reference the Button component
+      case 'button':
         return (
           <AppButton
             text={trailingTitle || 'Button'}
-            onPress={() => {
-              console.log('handle press')
-            }}
-            // className={
-            //   'bg-light-background-neutral-bold dark:bg-dark-background-neutral-bold px-md py-sm rounded-lg'
-            // }
+            onPress={handlePress}
+            color="neutral"
+            highContrast
           />
         )
       default:
@@ -296,17 +301,31 @@ const ListItem: React.FC<ListItemProps> = ({
       <View className="flex-1">
         {!!topMeta && <Text className={`${subtitleClasses} mb-xs`}>{topMeta}</Text>}
         <AppText
-          className={`${titleClasses} text-sm-body text-light-type-gray dark:text-dark-type-gray `}>
+          // className={`${titleClasses} text-sm-body text-light-type-gray dark:text-dark-type-gray `}
+          size={3}
+          color="text-light-type-gray dark:text-dark-type-gray"
+          weight="medium"
+          align="left"
+          highContrast>
           {title}
         </AppText>
         {(variant === '2-line' || variant === '3-line') && subtitle && (
-          <Text
+          <AppText
             numberOfLines={variant === '2-line' ? 1 : undefined}
-            className={`${subtitleClasses} text-body2 dark:text-dark-type-gray-muted mt-xs `}>
+            size={2}
+            weight="regular"
+            align="left"
+            highContrast={false}
+            color="text-light-type-gray-muted dark:text-dark-type-gray-muted"
+            className={`mt-xs`}
+            // className={`${subtitleClasses} text-body2 dark:text-dark-type-gray-muted mt-xs `}
+          >
             {subtitle}
-          </Text>
+          </AppText>
         )}
-        {!!bottomMeta && <Text className={`${subtitleClasses} mt-xs`}>{bottomMeta}</Text>}
+        {!!bottomMeta && (
+          <Text className={`${subtitleClasses} text-xs-body mt-xs`}>{bottomMeta}</Text>
+        )}
       </View>
       {trailing !== 'none' && (
         <View
