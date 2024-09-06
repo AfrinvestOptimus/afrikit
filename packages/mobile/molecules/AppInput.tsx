@@ -23,7 +23,13 @@ const AppInput: React.FC<AppInputProps> =
     onFocus,
     error,
     multiline,
-    type, label, numberOfLines, onChangeText: onChangeTextProp, value = '', ...props }) => {
+    type,
+    label,
+    numberOfLines,
+    onChangeText: onChangeTextProp,
+    value = '',
+    ...props
+  }) => {
     const textInputRef = React.useRef<TextInput>(null);
     const [localValue, setLocalValue] = React.useState<string>('');
     const [focused, setFocused] = React.useState<boolean>(false);
