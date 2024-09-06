@@ -1,16 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import { ReactNode } from 'react'
-import {
-  NativeSyntheticEvent,
-  TextInputFocusEventData,
-  TextInputProps,
-  TextProps,
-} from 'react-native'
+import {ReactNode} from 'react'
+import {NativeSyntheticEvent, TextInputFocusEventData, TextInputProps, TextProps,} from 'react-native'
 import colors from './../../shared/colors'
 
-type TailwindColorKey = keyof typeof colors.light.type & keyof typeof colors.dark.type
+type TailwindColorKey = keyof typeof colors.light.type
 type colorScheme = 'light' | 'dark'
+
+console.log('TailwindColorKey', colors.dark.type)
 
 interface AppTextOwnProps {
   size: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
@@ -48,7 +45,7 @@ export type AppTitleAtomProps = {
 
 export type InputBlurProps = {
   text: string
-  noDecimals: booleans
+  noDecimals: boolean
   onChangeText: (input: string) => void
 }
 
