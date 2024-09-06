@@ -125,7 +125,7 @@ function checkBottomSheetProps(props: AppBottomSheetProps<boolean>): DetachedPro
   }
 }
 
-const AppBSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
+const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
   const checkedProps = checkBottomSheetProps(props)
   // ref
   const bottomSheetRef = useRef<BottomSheetModal>(null)
@@ -351,4 +351,4 @@ const AppBSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
   )
 }
 
-export default memo(AppBSheet)
+export default memo(AppBottomSheet)

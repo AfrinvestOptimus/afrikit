@@ -14,10 +14,10 @@ import StorybookUIRoot from './.storybook'
 import { FormData } from './types/atoms'
 
 import { useState } from 'react'
-import AppBSheet from './molecules/AppBSheet'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import AppText from './atoms/AppText'
+import AppBottomSheet from './molecules/AppBottomSheet'
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false)
@@ -83,7 +83,7 @@ export default function App() {
             </AppText>
           </View>
 
-          <AppBSheet
+          <AppBottomSheet
             showModal={modalVisible}
             setShowModal={setModalVisible}
             isSwipeable={true}
@@ -106,7 +106,7 @@ export default function App() {
                 <Text className="text-light-type-gray text-sm-bold">Let him cook!</Text>
               </View>
             ))}
-          </AppBSheet>
+          </AppBottomSheet>
           <StatusBar style="dark" backgroundColor="red" />
         </SafeAreaView>
       </BottomSheetModalProvider>
