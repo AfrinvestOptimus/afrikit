@@ -1,13 +1,11 @@
-import { isValidElement, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
-import { Animated, Dimensions, ScrollView, Text, View } from 'react-native'
-import clsx from 'clsx'
-import AppButton from '../AppButton'
-import { AppBottomSheetProps, DetachedProps, RegularProps } from '../../types/molecules'
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet'
+import { Animated, Dimensions } from 'react-native'
+import { AppBottomSheetProps } from '../../types/molecules'
 import checkBottomSheetProps from './checkBottomSheetProps'
 import RenderedSheet from './RenderedSheet'
 
-const Index = <T extends boolean>(props: AppBottomSheetProps<T>) => {
+const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
   const checkedProps = checkBottomSheetProps(props)
   // ref
   const bottomSheetRef = useRef<BottomSheetModal>(null)
@@ -98,97 +96,6 @@ const Index = <T extends boolean>(props: AppBottomSheetProps<T>) => {
     [backdropClose],
   )
 
-  const renderContent = () => {
-    if (isDetached) {
-      const { title, subtitle, icon, content, secondaryActionButton } =
-        checkedProps as DetachedProps
-      return (
-        <BottomSheetView className={'px-md w-full flex-col justify-between pt-xl'}>
-          {icon && isValidElement(icon) && <View className="mb-xl items-center">{icon}</View>}
-          <View className="px-md items-center gap-y-sm">
-            <Text className="text-center text-2xl-bold text-light-type-gray dark:text-dark-type-gray">
-              {title}
-            </Text>
-            {content && (
-              <Text className="text-center text-sm-body text-light-type-gray-muted dark:text-dark-type-gray-muted">
-                {content}
-              </Text>
-            )}
-          </View>
-          {actionButton && (
-            <Animated.View className="w-full px-md mt-2xl mb-xl gap-y-md">
-              <AppButton
-                size={4}
-                text={actionButton.text}
-                color={'neutral'}
-                variant={'solid'}
-                highContrast
-                onPress={actionButton.action}
-              />
-              {secondaryActionButton && (
-                <AppButton
-                  size={4}
-                  text={secondaryActionButton.text}
-                  color={'neutral'}
-                  variant={'soft'}
-                  onPress={secondaryActionButton.action}
-                />
-              )}
-            </Animated.View>
-          )}
-        </BottomSheetView>
-      )
-    } else {
-      const { title, isSwipeable } = checkedProps as RegularProps
-      return (
-        <BottomSheetView style={{ height: contentHeight }}>
-          <ScrollView
-            className="w-full px-md"
-            contentContainerStyle={{ flexGrow: 1 }}
-            showsVerticalScrollIndicator={false}>
-            {title && (
-              <View className="pt-sm pb-lg gap-y-xs">
-                <Text
-                  className={clsx(
-                    'text-left text-lg-bold text-light-type-gray dark:text-dark-type-gray',
-                    title.align === 'center' ? 'text-center' : 'text-left',
-                  )}>
-                  {title.text}
-                </Text>
-                {title.subtitle && (
-                  <Text
-                    className={clsx(
-                      'text-left text-sm-body text-light-type-gray-muted dark:text-dark-type-gray-muted',
-                      title.align === 'center' ? 'text-center' : 'text-left',
-                    )}>
-                    {title.subtitle}
-                  </Text>
-                )}
-              </View>
-            )}
-            <View className="flex-1">{children}</View>
-          </ScrollView>
-          {actionButton && (
-            <Animated.View
-              className="w-full px-md mb-5xl"
-              style={{
-                transform: [{ translateY: buttonTranslateY }],
-              }}>
-              <AppButton
-                size={4}
-                text={actionButton.text}
-                color={'neutral'}
-                variant={'solid'}
-                highContrast
-                onPress={actionButton.action}
-              />
-            </Animated.View>
-          )}
-        </BottomSheetView>
-      )
-    }
-  }
-
   return (
     <BottomSheetModal
       ref={bottomSheetRef}
@@ -240,4 +147,4 @@ const Index = <T extends boolean>(props: AppBottomSheetProps<T>) => {
   )
 }
 
-export default memo(Index)
+export default memo(AppBottomSheet)
