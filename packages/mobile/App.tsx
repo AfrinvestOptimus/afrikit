@@ -292,8 +292,6 @@ export default function App() {
               variant="2-line"
               leading="avatar"
               density="relaxed"
-              supportingText={true}
-              supportingTextContent="another"
               trailing="icon"
               trailingTitle="SUbggggggggg"
               trailingSubtitle="extr"
@@ -340,8 +338,8 @@ export default function App() {
               title="List title"
               subtitle="Supporting line text lorem ipsum dolor sit amet"
               variant="3-line"
-              leading="txStatus"
-              txStatus="system"
+              leading="activity"
+              activity="system"
               trailing="link"
               trailingContent={<Text className="text-blue-500">Text</Text>}
             />
@@ -349,8 +347,8 @@ export default function App() {
               title="List title with trigger"
               subtitle="Supporting line text lorem ipsum dolor sit amet"
               variant="2-line"
-              leading="txStatus"
-              txStatus="moneyOut"
+              leading="activity"
+              activity="moneyOut"
               trailing="link"
               subTrigger
               separator
@@ -360,8 +358,8 @@ export default function App() {
               title="Trailing title"
               subtitle="Supporting line text lorem ipsum dolor sit amet"
               variant="3-line"
-              leading="txStatus"
-              txStatus="system"
+              leading="activity"
+              activity="system"
               trailing="textContent"
               trailingTitle="Link"
               trailingSubtitle="sub"
@@ -373,10 +371,8 @@ export default function App() {
           </View>
         </View>
         <View className="p-3xl" />
-        <AppToastBase position={'top'} />
-        {/* </View> */}
       </ScrollView>
-
+      <AppToastBase position={'top'} />
     </SafeAreaView>
   )
 }

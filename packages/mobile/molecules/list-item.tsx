@@ -26,16 +26,14 @@ export type ListItemProps = {
     | 'icon'
     | 'paymentMethod'
     | 'flag'
-    | 'txStatus'
+    | 'activity'
     | 'productIcon'
     | 'check'
     | 'radio'
   trailing?: 'none' | 'textContent' | 'text' | 'link' | 'icon' | 'button' | 'switch'
-  supportingText?: boolean
-  supportingTextContent?: string
   subTrigger?: boolean
   state?: 'enabled' | 'hovered' | 'focused' | 'pressed' | 'dragged'
-  txStatus?: TxStatus
+  activity?: ActivityStatus
   separator?: boolean
   isChecked?: boolean
   title: string
@@ -49,7 +47,7 @@ export type ListItemProps = {
   onPress?: () => void
 } & TrailingProps
 
-const txStatusIcons = {
+const activityStatusIcons = {
   default: 'flashlight-line',
   activity: 'flashlight-line',
   swap: 'arrow-left-right-line',
@@ -65,7 +63,7 @@ const densitySpacing = {
   relaxed: 'py-xl',
   compact: 'py-md',
 }
-type TxStatus = keyof typeof txStatusIcons
+type ActivityStatus = keyof typeof activityStatusIcons
 
 cssInterop(RemixIcon, {
   className: {
@@ -84,7 +82,7 @@ const ListItem: React.FC<ListItemProps> = ({
   state = 'enabled',
   separator = false,
   isChecked = false,
-  txStatus = 'default',
+  activity = 'default',
   title,
   subtitle,
   trailingTitle,
@@ -177,19 +175,19 @@ const ListItem: React.FC<ListItemProps> = ({
             }}
           />
         )
-      case 'txStatus': //TODO: pass enum
+      case 'activity': //TODO: create an activity icon
         return (
           <View
-            className={`w-4xl h-4xl rounded-md-max gap-lg justify-center items-center ${txStatus === 'system' ? 'bg-light-background-accent-light dark:bg-dark-background-accent-light' : 'bg-light-surface-gray dark:bg-dark-surface-gray'}`}>
-            {txStatus === 'avatar' ? ( //TODO: return dummy avatar
+            className={`w-3xl h-3xl rounded-md-max gap-lg justify-center items-center ${activity === 'system' ? 'bg-light-background-accent-light dark:bg-dark-background-accent-light' : 'bg-light-surface-gray dark:bg-dark-surface-gray'}`}>
+            {activity === 'avatar' ? ( //TODO: return dummy avatar
               <View className="w-3xl h-3xl rounded-xs-max justify-center items-center bg-light-background-accent-base dark:bg-dark-background-accent-base">
                 <Text className="text-white">A</Text>
               </View>
             ) : (
               <RemixIcon
-                name={txStatusIcons[txStatus] || txStatusIcons.default}
+                name={activityStatusIcons[activity] || activityStatusIcons.default}
                 color={
-                  txStatus === 'system'
+                  activity === 'system'
                     ? colors.light.type.accent.DEFAULT
                     : colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT
                 }
