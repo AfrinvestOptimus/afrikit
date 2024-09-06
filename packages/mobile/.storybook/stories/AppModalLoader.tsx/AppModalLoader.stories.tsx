@@ -17,6 +17,8 @@ export default {
     visible: { control: 'boolean' },
     text: { control: 'text' },
     iconName: { control: 'text' },
+    setCloseModal: { actions: 'control' },
+    loaderType: { control: 'modal' },
   },
 } as ComponentMeta<typeof AppModalLoader>
 
@@ -59,6 +61,7 @@ Default.args = {
   visible: false, // Start with the modal closed
   text: 'Loading...',
   iconName: 'ri-loader-4-line',
+  loaderType: 'modal',
 }
 
 export const CustomText = Template.bind({})
@@ -71,4 +74,10 @@ export const CustomIcon = Template.bind({})
 CustomIcon.args = {
   ...Default.args,
   iconName: 'ri-refresh-line',
+}
+
+export const CustomLoaderType = Template.bind({})
+CustomIcon.args = {
+  ...Default.args,
+  loaderType: 'modal',
 }

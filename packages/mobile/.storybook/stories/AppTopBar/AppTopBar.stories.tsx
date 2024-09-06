@@ -39,6 +39,27 @@ export const Default = (args: AppTopBarProps) => {
     setShowRightIcon3(args.showRightIcon3)
   }, [args.showRightIcon1, args.showRightIcon2, args.showRightIcon3])
 
+  // Handlers for icon clicks
+  const handleLeftIconClick = () => {
+    console.log('Left icon clicked!')
+    alert('Left icon clicked!')
+  }
+
+  const handleRightIcon1Click = () => {
+    console.log('Right icon 1 clicked!')
+    alert('Right icon 1 clicked!')
+  }
+
+  const handleRightIcon2Click = () => {
+    console.log('Right icon 2 clicked!')
+    alert('Right icon 2 clicked!')
+  }
+
+  const handleRightIcon3Click = () => {
+    console.log('Right icon 3 clicked!')
+    alert('Right icon 3 clicked!')
+  }
+
   return (
     <AppTopBar
       {...args}
@@ -46,6 +67,10 @@ export const Default = (args: AppTopBarProps) => {
       showRightIcon1={showRightIcon1} // Dynamically updating right icons
       showRightIcon2={showRightIcon2}
       showRightIcon3={showRightIcon3}
+      onLeftIconPress={handleLeftIconClick} // Attach click handler to the left icon
+      onRightIconPress1={handleRightIcon1Click} // Attach click handler to the first right icon
+      onRightIconPress2={handleRightIcon2Click} // Attach click handler to the second right icon
+      onRightIconPress3={handleRightIcon3Click} // Attach click handler to the third right icon
     />
   )
 }
@@ -61,14 +86,22 @@ Default.args = {
 }
 
 export const Centered = (args: AppTopBarProps) => {
-  // Use same logic for toggling in other variants
   const [showLeftIcon, setShowLeftIcon] = useState(args.showLeftIcon)
 
   useEffect(() => {
     setShowLeftIcon(args.showLeftIcon)
   }, [args.showLeftIcon])
 
-  return <AppTopBar {...args} showLeftIcon={showLeftIcon} />
+  return (
+    <AppTopBar
+      {...args}
+      showLeftIcon={showLeftIcon}
+      onLeftIconPress={() => alert('Left icon clicked!')}
+      onRightIconPress1={() => alert('Right icon 1 clicked!')}
+      onRightIconPress2={() => alert('Right icon 2 clicked!')}
+      onRightIconPress3={() => alert('Right icon 3 clicked!')}
+    />
+  )
 }
 
 Centered.args = {
@@ -79,14 +112,21 @@ Centered.args = {
 }
 
 export const Large = (args: AppTopBarProps) => {
-  // Similar logic for large variant
   const [showRightIcon1, setShowRightIcon1] = useState(args.showRightIcon1)
 
   useEffect(() => {
     setShowRightIcon1(args.showRightIcon1)
   }, [args.showRightIcon1])
 
-  return <AppTopBar {...args} showRightIcon1={showRightIcon1} />
+  return (
+    <AppTopBar
+      {...args}
+      showRightIcon1={showRightIcon1}
+      onRightIconPress1={() => alert('Right icon 1 clicked!')}
+      onRightIconPress2={() => alert('Right icon 2 clicked!')}
+      onRightIconPress3={() => alert('Right icon 3 clicked!')}
+    />
+  )
 }
 
 Large.args = {

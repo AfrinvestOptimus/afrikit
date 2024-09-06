@@ -26,6 +26,12 @@ export interface AppModalLoaderProps {
    * Takes different Remix icons name.
    */
   iconName?: string
+
+  /**
+   * Type of loader (modal, mobile, default)
+   */
+  loaderType?: 'default' | 'modal'
+
   /**
    * Callback function that is triggered when close modal button is pressed.
    */
@@ -35,7 +41,8 @@ export interface AppModalLoaderProps {
 export const AppModalLoader: React.FC<AppModalLoaderProps> = ({
   visible,
   text = 'Loading...',
-  iconName = 'ri-loader-4-line',
+  iconName = 'ri-loader-5-line',
+  loaderType = 'modal',
   setCloseModal,
 }) => {
   const { colorScheme } = useColorScheme()
@@ -51,7 +58,7 @@ export const AppModalLoader: React.FC<AppModalLoaderProps> = ({
   // Start the rotation animation
   useEffect(() => {
     rotate.value = withRepeat(
-      withTiming(360, {
+      withTiming(700, {
         duration: 2000,
         easing: Easing.linear,
       }),
@@ -59,32 +66,64 @@ export const AppModalLoader: React.FC<AppModalLoaderProps> = ({
     )
   }, [rotate])
 
-  return (
-    <Modal transparent={true} animationType="fade" visible={visible}>
-      <View className="flex-1 justify-center items-center bg-light-overlay-black11 ">
-        <View className="bg-white p-6 rounded-lg w-[94px] h-[90px] justify-center items-center">
-          <Animated.View style={animatedStyle}>
-            <Svg width={40} height={40}>
-              <Defs>
-                <SvgLinearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <Stop offset="0%" stopColor="#117ACA" />
-                  <Stop offset="100%" stopColor="#BE93E4" />
-                </SvgLinearGradient>
-                <Mask id="mask">
-                  <Icon name={iconName} size={40} color="#FFF" />
-                </Mask>
-              </Defs>
-              <Rect x="0" y="0" width="100%" height="100%" fill="url(#grad)" mask="url(#mask)" />
-            </Svg>
-          </Animated.View>
+  const appLoader = () => {
+    return (
+      <View className="bg-white p-6 rounded-lg w-[94px] h-[90px] justify-center items-center">
+        <Animated.View style={animatedStyle}>
+          <Svg width={40} height={40}>
+            <Defs>
+              <SvgLinearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <Stop offset="0%" stopColor="#117ACA" />
+                <Stop offset="100%" stopColor="#BE93E4" />
+              </SvgLinearGradient>
+              <Mask id="mask">
+                <Icon name={iconName} size={40} color="#FFF" />
+              </Mask>
+            </Defs>
+            <Rect x="0" y="0" width="100%" height="100%" fill="url(#grad)" mask="url(#mask)" />
+          </Svg>
+        </Animated.View>
+        {text && (
           <Text className="mt-4 text-sm text-center text-light-type-gray dark:text-gray-300">
             {text}
           </Text>
-        </View>
-        <Pressable onPress={setCloseModal} className="px-4 py-2 bg-blue-600 rounded-lg mt-2xl">
-          <Text className="text-black font-bold">Close Modal</Text>
-        </Pressable>
+        )}
       </View>
-    </Modal>
-  )
+    )
+  }
+
+  const appModalLoader = () => {
+    return (
+      <Modal transparent={true} animationType="fade" visible={visible}>
+        <View className="flex-1 justify-center items-center bg-light-overlay-black11 ">
+          <View className="bg-white p-6 rounded-lg w-[94px] h-[90px] justify-center items-center">
+            <Animated.View style={animatedStyle}>
+              <Svg width={40} height={40}>
+                <Defs>
+                  <SvgLinearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <Stop offset="0%" stopColor="#117ACA" />
+                    <Stop offset="100%" stopColor="#BE93E4" />
+                  </SvgLinearGradient>
+                  <Mask id="mask">
+                    <Icon name={iconName} size={40} color="#FFF" />
+                  </Mask>
+                </Defs>
+                <Rect x="0" y="0" width="100%" height="100%" fill="url(#grad)" mask="url(#mask)" />
+              </Svg>
+            </Animated.View>
+            {text && (
+              <Text className="mt-4 text-sm text-center text-light-type-gray dark:text-gray-300">
+                {text}
+              </Text>
+            )}
+          </View>
+          <Pressable onPress={setCloseModal} className="px-4 py-2 bg-blue-600 rounded-lg mt-2xl">
+            <Text className="text-black font-bold">Close Modal</Text>
+          </Pressable>
+        </View>
+      </Modal>
+    )
+  }
+
+  return loaderType === 'default' ? appLoader() : appModalLoader()
 }
