@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { View } from 'react-native'
 import FlashMessage, { MessageType, Position, showMessage } from 'react-native-flash-message'
 import RemixIcon from 'react-native-remix-icon'
