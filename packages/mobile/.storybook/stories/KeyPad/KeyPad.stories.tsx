@@ -9,6 +9,10 @@ const KeyPadMeta: Meta<typeof KeyPad> = {
   argTypes: {
     onKeyPress: { action: 'pressed the button' },
     onChange: { action: 'pressed the button' },
+    type: {
+      control: 'select',
+      options: ['decimal', 'nondecimal', 'biometric'],
+    },
   },
   args: {
     textLength: 4,
