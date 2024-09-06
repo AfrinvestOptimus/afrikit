@@ -47,7 +47,7 @@ const textVariants = tv({
     {
       color: 'gray',
       highContrast: true,
-      class: 'text-light-type-gray-bold dark:text-dark-type-gray-bold',
+      class: 'text-light-type-gray-muted dark:text-dark-type-gray-muted',
     },
     {
       color: 'error',
