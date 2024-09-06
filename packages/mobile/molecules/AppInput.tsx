@@ -17,25 +17,27 @@ import AppText from '../atoms/AppText'
 import { AppInputProps } from '../types/atoms'
 import { AppInputBlur } from '../utilities/validation'
 
-const AppInput: React.FC<AppInputProps> = ({
-  onBlur,
-  FloatingLabel = true,
-  onFocus,
-  error,
-  multiline,
-  type,
-  label,
-  numberOfLines,
-  onChangeText: onChangeTextProp,
-  value = '',
-  ...props
-}) => {
-  const textInputRef = React.useRef<TextInput>(null)
-  const [localValue, setLocalValue] = React.useState<string>('')
-  const [focused, setFocused] = React.useState<boolean>(false)
-  const [inputValue, setInputValue] = React.useState<string>(value)
-  const animatedIsFocused = React.useRef(new Animated.Value(value ? 1 : 0)).current
 
+  ({
+    onBlur,
+    FloatingLabel = true,
+    onFocus,
+    error,
+    multiline,
+    type,
+    label,
+    numberOfLines,
+    onChangeText: onChangeTextProp,
+    value = '',
+    ...props
+  }) => {
+    const textInputRef = React.useRef<TextInput>(null);
+    const [localValue, setLocalValue] = React.useState<string>('');
+    const [focused, setFocused] = React.useState<boolean>(false);
+    const [inputValue, setInputValue] = React.useState<string>(value);
+    const animatedIsFocused = React.useRef(new Animated.Value(value ? 1 : 0)).current;
+  
+  
   React.useEffect(() => {
     Animated.timing(animatedIsFocused, {
       toValue: focused || inputValue ? 1 : 0,
@@ -43,6 +45,7 @@ const AppInput: React.FC<AppInputProps> = ({
       useNativeDriver: false,
     }).start()
   }, [focused, animatedIsFocused, inputValue])
+
 
   // store init value
   const _text = useSharedValue(value)
