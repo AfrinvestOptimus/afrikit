@@ -224,7 +224,7 @@ const AppBSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
         <BottomSheetView className={'px-md w-full flex-col justify-between pt-xl'}>
           {icon && isValidElement(icon) && <View className="mb-xl items-center">{icon}</View>}
           <View className="px-md items-center gap-y-sm">
-            <Text className="text-center text-lg-bold text-light-type-gray dark:text-dark-type-gray">
+            <Text className="text-center text-2xl-bold text-light-type-gray dark:text-dark-type-gray">
               {title}
             </Text>
             {content && (
@@ -265,7 +265,7 @@ const AppBSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
             contentContainerStyle={{ flexGrow: 1 }}
             showsVerticalScrollIndicator={false}>
             {title && (
-              <View className="pt-xl px-md pb-md">
+              <View className="pt-sm pb-lg gap-y-xs">
                 <Text
                   className={clsx(
                     'text-left text-lg-bold text-light-type-gray dark:text-dark-type-gray',
@@ -274,7 +274,11 @@ const AppBSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
                   {title.text}
                 </Text>
                 {title.subtitle && (
-                  <Text className="text-left text-sm-body text-light-type-gray-muted dark:text-dark-type-gray-muted">
+                  <Text
+                    className={clsx(
+                      'text-left text-sm-body text-light-type-gray-muted dark:text-dark-type-gray-muted',
+                      title.align === 'center' ? 'text-center' : 'text-left',
+                    )}>
                     {title.subtitle}
                   </Text>
                 )}
