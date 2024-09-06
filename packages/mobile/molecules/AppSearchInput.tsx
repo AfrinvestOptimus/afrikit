@@ -20,7 +20,6 @@ const AppSearchInput: React.FC<AppInputProps> =
         onBlur,
         FloatingLabel = true,
         onFocus,
-        error,
         type,
         label,
         onChangeText: onChangeTextProp,
