@@ -74,8 +74,7 @@ export default function App() {
       <BottomSheetModalProvider>
         <SafeAreaView className="flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4">
           <View className="justify-center flex-1 w-full">
-            <Pressable
-              onPress={() => setColorScheme(getColorScheme() === 'light' ? 'dark' : 'light')}>
+            <Pressable onPress={() => setModalVisible(true)}>
               <Text className="text-light-type-tomatobo text-sm-bold">Let him cook!</Text>
             </Pressable>
             <AppText size={4} color="info" weight={'bold'} align={'center'} highContrast={false}>
@@ -88,13 +87,12 @@ export default function App() {
             setShowModal={setModalVisible}
             isSwipeable={true}
             backdropClose={true}
-            index={2}
-            isDetached={false}
-            title={{
-              text: 'Let him cook!',
-              align: 'left',
-              subtitle: 'Subtitle',
-            }}
+            index={0}
+            isDetached={true}
+            title={'Let him cook!'}
+            content={
+              'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda blanditiis dolor, ea et iste minus placeat reprehenderit suscipit unde.'
+            }
             actionButton={{
               text: 'Keep Going',
               action: () => {
