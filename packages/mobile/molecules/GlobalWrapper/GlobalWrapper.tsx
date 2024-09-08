@@ -1,25 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from 'react-native'
-import Icon from 'react-native-remix-icon'
+import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import FloatingButton from './FloatingButton'
 
 interface GlobalWrapperProps {
   children: React.ReactNode
   showFloatingButton?: boolean
   onFloatingButtonPress?: () => void
+  floatingButtonColor?: string
 }
 
 const GlobalWrapper: React.FC<GlobalWrapperProps> = ({
   children,
   showFloatingButton = true,
   onFloatingButtonPress,
+  floatingButtonColor = 'black',
 }) => {
   const [keyboardVisible, setKeyboardVisible] = useState(false)
 
@@ -41,12 +36,11 @@ const GlobalWrapper: React.FC<GlobalWrapperProps> = ({
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           className="flex-1">
           <View className="flex-1 p-4">{children}</View>
-          {showFloatingButton && (
-            <TouchableOpacity
-              onPress={onFloatingButtonPress}
-              className="absolute right-0 bottom-5 bg-black rounded-full w-14 h-14 items-center justify-center shadow-lg">
-              <Icon name="add-line" size={24} color="#FFFFFF" />
-            </TouchableOpacity>
+          {(showFloatingButton || keyboardVisible) && (
+            <FloatingButton
+              onPress={onFloatingButtonPress!}
+              backgroundColor={floatingButtonColor}
+            />
           )}
         </KeyboardAvoidingView>
       </ScrollView>
