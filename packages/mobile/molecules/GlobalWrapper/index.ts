@@ -1,3 +1,3 @@
-import GlobalWrapper from './GlobalWrapper'
+import { GlobalWrapper, GlobalWrapperProps } from './GlobalWrapper'
 
-export { GlobalWrapper }
+export { GlobalWrapper, GlobalWrapperProps }
