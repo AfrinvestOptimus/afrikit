@@ -5,7 +5,7 @@ import { Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-remix-icon'
 import colors from '../../shared/colors'
 
-type KeyPadProps = {
+export type KeyPadProps = {
   type: 'decimal' | 'nondecimal' | 'biometric'
   textLength?: number
   onKeyPress?: (key: string) => void
