@@ -211,9 +211,9 @@ const ListItem: React.FC<ListItemProps> = ({
             />
           </View>
         )
-      case 'check': //TODO: use Check component
+      case 'check':
         return <CheckComponent isChecked={_isChecked} isSquare />
-      case 'radio': // TODO: use Radio component
+      case 'radio':
         return <CheckComponent isChecked={_isChecked} />
       default:
         return <Text className={`${isDarkMode ? 'text-white' : 'text-black'}`}>{trailing}</Text>
@@ -249,10 +249,7 @@ const ListItem: React.FC<ListItemProps> = ({
         )
       case 'link': //TODO: pass text link
         return (
-          <AppText
-            className={`${subtitleClasses} text-sm-body text-light-accentA11 dark:text-dark-accentA11`}>
-            {trailingTitle}
-          </AppText>
+          <AppText color={`text-light-accentA11 dark:text-dark-accentA11`}>{trailingTitle}</AppText>
         )
       case 'switch':
         return (
