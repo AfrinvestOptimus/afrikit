@@ -3,23 +3,34 @@ import React from 'react'
 import { Image, Switch, Text, TouchableOpacity, View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
 import colors from '../../shared/colors'
-import AppText from '../atoms/AppText'
-import AppAvatar from './AppAvatar'
-import AppButton from './AppButton'
+import AppText, { AppTextAtomProps } from '../atoms/AppText'
+import { AppAvatar, AppAvatarProps, AppButton, AppButtonProps } from './index'
 
 type TrailingProps = {
   type?: string
   trailingTitle?: string
   trailingSubtitle?: string
+  trailingTitleProps?: AppTextAtomProps
+  trailingSubtitleProps?: AppTextAtomProps
+  buttonProps?: AppButtonProps
+  linkProps?: Pick<AppTextAtomProps, 'onPress' | 'color'>
   trailingIcon?: string
   trailingIconColor?: string
   trailingContent?: string | React.ReactNode
 }
 
+type LeadingProps = {
+  type?: string
+  avatarProps?: AppAvatarProps
+  leadingIcon?: string
+  leadingIconColor?: string
+  leadingContent?: string | React.ReactNode
+}
+
 export type ListItemProps = {
   size?: '1' | '2'
   variant?: '1-line' | '2-line' | '3-line'
-  density?: 'default' | 'relaxed' | 'compact'
+  density?: Density
   leading?:
     | 'none'
     | 'avatar'
@@ -34,19 +45,18 @@ export type ListItemProps = {
   trailing?: 'none' | 'textContent' | 'text' | 'link' | 'icon' | 'button' | 'switch'
   subTrigger?: boolean
   state?: 'enabled' | 'hovered' | 'focused' | 'pressed' | 'dragged'
-  activity?: ActivityStatus
   separator?: boolean
   isChecked?: boolean
   title: string
+  titleProps?: AppTextAtomProps
   subtitle?: string
-  trailingTitle?: string
-  trailingSubtitle?: string
+  subtitleProps?: AppTextAtomProps
+  activity?: ActivityStatus
   topMeta?: string
   bottomMeta?: string
-  leadingContent?: string | React.ReactNode
-  trailingContent?: string | React.ReactNode
   onPress?: () => void
-} & TrailingProps
+} & TrailingProps &
+  LeadingProps
 
 const activityStatusIcons = {
   default: 'flashlight-line',
@@ -64,6 +74,7 @@ const densitySpacing = {
   relaxed: 'py-xl',
   compact: 'py-md',
 }
+type Density = keyof typeof densitySpacing
 type ActivityStatus = keyof typeof activityStatusIcons
 
 cssInterop(RemixIcon, {
@@ -86,6 +97,13 @@ const ListItem: React.FC<ListItemProps> = ({
   activity = 'default',
   title,
   subtitle,
+  titleProps,
+  subtitleProps,
+  trailingTitleProps,
+  trailingSubtitleProps,
+  linkProps,
+  avatarProps,
+  buttonProps,
   trailingTitle,
   trailingSubtitle,
   trailingIcon,
@@ -95,6 +113,7 @@ const ListItem: React.FC<ListItemProps> = ({
   leadingContent,
   trailingContent,
   onPress,
+  ...props
 }) => {
   const { colorScheme } = useColorScheme()
   const isDarkMode = colorScheme === 'dark'
@@ -147,6 +166,7 @@ const ListItem: React.FC<ListItemProps> = ({
             initials={(leadingContent as string) || 'S'}
             status={false}
             variant="solid"
+            {...avatarProps}
           />
         )
       case 'brand': //TODO: BrandLogos on the AppAvatar icon, passing a dummy
@@ -224,32 +244,43 @@ const ListItem: React.FC<ListItemProps> = ({
     if (trailing === 'none') return null
 
     switch (trailing) {
-      case 'text': //TODO: use AppText
+      case 'text': 
         return (
           <>
-            <AppText size={3} align="right" color="text-light-type-gray dark:text-dark-type-gray">
+            <AppText
+              size={3}
+              align="right"
+              color="text-light-type-gray dark:text-dark-type-gray"
+              {...trailingTitleProps}>
               {trailingTitle}
             </AppText>
           </>
         )
-      case 'textContent': //TODO: use AppText
+      case 'textContent': 
         return (
           <>
             <AppText
               size={3}
               align="right"
               highContrast
-              color="text-light-type-gray dark:text-dark-type-gray">
+              color="text-light-type-gray dark:text-dark-type-gray"
+              {...trailingTitleProps}>
               {trailingTitle}
             </AppText>
-            <AppText size={2} align="right" className={'mt-xs dark:text-dark-type-gray-muted'}>
+            <AppText
+              size={2}
+              align="right"
+              className={'mt-xs dark:text-dark-type-gray-muted'}
+              {...trailingSubtitleProps}>
               {trailingSubtitle}
             </AppText>
           </>
         )
-      case 'link': //TODO: pass text link
+      case 'link':
         return (
-          <AppText color={`text-light-accentA11 dark:text-dark-accentA11`}>{trailingTitle}</AppText>
+          <AppText color={`text-light-accentA11 dark:text-dark-accentA11`} {...linkProps}>
+            {trailingTitle}
+          </AppText>
         )
       case 'switch':
         return (
@@ -298,12 +329,12 @@ const ListItem: React.FC<ListItemProps> = ({
       <View className="flex-1">
         {!!topMeta && <Text className={`${subtitleClasses} text-xs-body mb-xs`}>{topMeta}</Text>}
         <AppText
-          // className={`${titleClasses} text-sm-body text-light-type-gray dark:text-dark-type-gray `}
           size={3}
           color="text-light-type-gray dark:text-dark-type-gray"
           weight="medium"
           align="left"
-          highContrast>
+          highContrast
+          {...titleProps}>
           {title}
         </AppText>
         {(variant === '2-line' || variant === '3-line') && subtitle && (
@@ -315,8 +346,7 @@ const ListItem: React.FC<ListItemProps> = ({
             highContrast={false}
             color="text-light-type-gray-muted dark:text-dark-type-gray-muted"
             className={`mt-xs`}
-            // className={`${subtitleClasses} text-body2 dark:text-dark-type-gray-muted mt-xs `}
-          >
+            {...subtitleProps}>
             {subtitle}
           </AppText>
         )}
