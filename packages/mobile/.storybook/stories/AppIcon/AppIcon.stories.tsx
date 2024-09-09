@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { View } from 'react-native'
-import IconTemp from '../../../molecules/IconTemp'
+import AppIcon from '../../../molecules/AppIcon'
 
-const IconMeta: Meta<typeof IconTemp> = {
-  title: 'AppIconTemp',
-  component: IconTemp,
+const IconMeta: Meta<typeof AppIcon> = {
+  title: 'AppIcon',
+  component: AppIcon,
   argTypes: {
     name: {
       control: 'text',

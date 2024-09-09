@@ -43,6 +43,17 @@ module.exports = {
       '4xl': 1.26, // 44 / 35
       '5xl': 1, // 60 / 60
     },
+    letterSpacing: {
+      xs: '0.04px',
+      sm: '0',
+      base: '0.5px',
+      lg: '-0.04px',
+      xl: '-0.08px',
+      '2xl': '-0.1px',
+      '3xl': '-0.12px',
+      '4xl': '-0.16px',
+      '5xl': '-0.4px',
+    },
     extend: {},
   },
   plugins: [
@@ -64,6 +75,7 @@ module.exports = {
             fontSize: theme(`fontSize.${size}`),
             lineHeight: theme(`lineHeight.${size}`),
             fontFamily: theme(`fontFamily.${styleFontFamilyMap[style]}`),
+            letterSpacing: theme(`letterSpacing.${size}`),
           }
         })
       })

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useColorScheme, View } from 'react-native'
+import { SafeAreaView, useColorScheme, View } from 'react-native'
 import colors from '../../../shared/colors'
 import IconButton from '../../components/molecules/IconButton'
 import { topBarTitle, topBarTitle2 } from '../../components/molecules/TopBarTitle'
@@ -178,12 +178,12 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
   }
 
   return (
-    <View className="w-full py-lg bg-light-page-bg dark:bg-dark-page-bg">
+    <SafeAreaView className="w-full py-lg bg-light-page-bg dark:bg-dark-page-bg">
       <View className="flex-row h-[54px] justify-between">
         {renderLeftIcon()}
         {renderRightIcons()}
       </View>
       {renderTitle2()}
-    </View>
+    </SafeAreaView>
   )
 }

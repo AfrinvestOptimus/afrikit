@@ -1,38 +1,21 @@
-import { useColorScheme } from 'nativewind'
-import React from 'react'
-import { Text, TextProps } from 'react-native'
+import { Text } from 'react-native'
+import { AppTextAtomProps } from '../types/atoms'
 import { tv } from 'tailwind-variants'
-
-// Define the types for the variants
-type Size = keyof typeof textVariants.variants.size
-type Weight = keyof typeof textVariants.variants.weight
-type Align = keyof typeof textVariants.variants.align
-
-// Define the prop types
-export interface AppTextAtomProps extends TextProps {
-  size?: Size
-  color?: string
-  trim?: string
-  weight?: Weight
-  highContrast?: boolean
-  align?: Align
-  className?: string
-  children?: React.ReactNode
-}
+import { memo, useMemo } from 'react'
 
 const textVariants = tv({
   base: 'text-left',
   variants: {
     size: {
-      1: 'text-xs leading-xs',
-      2: 'text-sm leading-sm',
-      3: 'text-base leading-base',
-      4: 'text-lg leading-lg',
-      5: 'text-xl leading-xl',
-      6: 'text-2xl leading-2xl',
-      7: 'text-3xl leading-3xl',
-      8: 'text-4xl leading-4xl',
-      9: 'text-5xl leading-5xl',
+      1: 'text-xs leading-xs tracking-xs',
+      2: 'text-sm leading-sm tracking-sm',
+      3: 'text-base leading-base tracking-base',
+      4: 'text-lg leading-lg tracking-lg',
+      5: 'text-xl leading-xl tracking-xl',
+      6: 'text-2xl leading-2xl tracking-2xl',
+      7: 'text-3xl leading-3xl tracking-3xl',
+      8: 'text-4xl leading-4xl tracking-4xl',
+      9: 'text-5xl leading-5xl tracking-5xl',
     },
     weight: {
       regular: 'font-regular',
@@ -45,12 +28,80 @@ const textVariants = tv({
       center: 'text-center',
       right: 'text-right',
     },
+    color: {
+      gray: 'text-light-type-gray dark:text-dark-type-gray',
+      error: 'text-light-type-error dark:text-dark-type-error',
+      accent: 'text-light-type-accent dark:text-dark-type-accent',
+      cyan: 'text-light-type-cyan dark:text-dark-type-cyan',
+      info: 'text-light-type-info dark:text-dark-type-info',
+      success: 'text-light-type-success dark:text-dark-type-success',
+      tomato: 'text-light-type-tomato dark:text-dark-type-tomato',
+      violet: 'text-light-type-violet dark:text-dark-type-violet',
+      warning: 'text-light-type-warning dark:text-dark-type-warning',
+    },
+    highContrast: {
+      true: 'pointer-events-none',
+    },
+  },
+  compoundVariants: [
+    {
+      color: 'gray',
+      highContrast: true,
+      class: 'text-light-type-gray-muted dark:text-dark-type-gray-muted',
+    },
+    {
+      color: 'error',
+      highContrast: true,
+      class: 'text-light-type-error-bold dark:text-dark-type-error-bold',
+    },
+    {
+      color: 'accent',
+      highContrast: true,
+      class: 'text-light-type-accent-bold dark:text-dark-type-accent-bold',
+    },
+    {
+      color: 'cyan',
+      highContrast: true,
+      class: 'text-light-type-cyan-bold dark:text-dark-type-cyan-bold',
+    },
+    {
+      color: 'info',
+      highContrast: true,
+      class: 'text-light-type-info-bold dark:text-dark-type-info-bold',
+    },
+    {
+      color: 'success',
+      highContrast: true,
+      class: 'text-light-type-success-bold dark:text-dark-type-success-bold',
+    },
+    {
+      color: 'tomato',
+      highContrast: true,
+      class: 'text-light-type-tomato-bold dark:text-dark-type-tomato-bold',
+    },
+    {
+      color: 'violet',
+      highContrast: true,
+      className: 'text-light-type-violet-bold dark:text-dark-type-violet-bold',
+    },
+    {
+      color: 'warning',
+      highContrast: true,
+      className: 'text-light-type-warning-bold dark:text-dark-type-warning-bold',
+    },
+  ],
+  defaultVariants: {
+    size: '3',
+    weight: 'medium',
+    color: 'gray',
+    highContrast: false,
+    align: 'left',
   },
 })
 
-const AppText: React.FC<AppTextAtomProps> = ({
+const AppText = ({
   size = 3,
-  color = 'text-dark-slate4',
+  color = 'gray',
   trim = 'normal',
   weight = 'regular',
   highContrast = false,
@@ -58,20 +109,17 @@ const AppText: React.FC<AppTextAtomProps> = ({
   children,
   className,
   ...rest
-}) => {
-  const { colorScheme } = useColorScheme()
-
-  const highContrastClass = highContrast ? `text-${colorScheme}-type-gray-muted` : ''
-
-  const variantClasses = textVariants({ size, weight, align })
+}: AppTextAtomProps) => {
+  const variantClasses = useMemo(
+    () => textVariants({ size, weight, align, color, highContrast }),
+    [size, weight, align, color, highContrast],
+  )
 
   return (
-    <Text
-      className={`${variantClasses} ${color} ${highContrastClass} ${className || ''}`}
-      {...rest}>
+    <Text className={`${variantClasses} ${className || ''}`} {...rest}>
       {children}
     </Text>
   )
 }
 
-export default AppText
+export default memo(AppText)

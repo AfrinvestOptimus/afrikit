@@ -6,21 +6,24 @@ import {
   TextInputFocusEventData,
   TextInputProps,
   TextProps,
+  ViewStyle,
 } from 'react-native'
 import colors from './../../shared/colors'
 
-type TailwindColorKey = keyof typeof colors.light & keyof typeof colors.dark
+type TailwindColorKey = keyof typeof colors.light.type
 type colorScheme = 'light' | 'dark'
 
+console.log('TailwindColorKey', colors.dark.type)
+
 interface AppTextOwnProps {
-  size: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-  color: `text-${colorScheme}-${TailwindColorKey}`
+  size?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+  color?: `${TailwindColorKey}`
   trim?: 'normal' | 'start' | 'end' | 'both'
-  weight: 'regular' | 'medium' | 'semibold' | 'bold'
+  weight?: 'regular' | 'medium' | 'semibold' | 'bold'
   highContrast?: boolean
-  align: 'left' | 'center' | 'right'
+  align?: 'left' | 'center' | 'right'
   className?: string
-  children: string | ReactNode
+  children?: string | ReactNode
 }
 type AppTextAtomProps = AppTextOwnProps & Omit<TextProps, keyof AppTextOwnProps>
 
@@ -48,7 +51,7 @@ export type AppTitleAtomProps = {
 
 export type InputBlurProps = {
   text: string
-  noDecimals: booleans
+  noDecimals: boolean
   onChangeText: (input: string) => void
 }
 
@@ -66,8 +69,28 @@ export interface AppInputProps extends Omit<TextInputProps, 'placeholderTextColo
   FloatingLabel?: boolean
   multiline?: boolean
   error?: string | boolean
+  containerStyle?: ViewStyle
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
   onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
 }
 
+export interface AppPhoneInputProps extends Omit<TextInputProps, 'placeholderTextColor' | 'style'> {
+  label?: string
+  placeholder?: string
+  numberOfLines?: number
+  type?: string
+  value?: string
+  FloatingLabel?: boolean
+  multiline?: boolean
+  error?: string | boolean
+  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
+  onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
+  onCountryCodeChange?: () => void
+}
+export interface CountryItem {
+  dialCode: string
+  text: string
+  flag: string
+  value: string
+}
 // export type FormFieldKeys = keyof FormValues;
