@@ -79,6 +79,6 @@ CustomStyle.args = {
   type: 'default',
   showIcon: true,
   text: 'Custom styled hint text',
-  className: 'bg-blue-500 p-4',
+  className: 'bg-light-background-accent-bold p-4',
   accessibilityHintText: 'This hint has custom styles applied',
 }
