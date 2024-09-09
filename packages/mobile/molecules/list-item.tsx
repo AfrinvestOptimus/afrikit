@@ -222,11 +222,11 @@ const ListItem: React.FC<ListItemProps> = ({
             )}
           </View>
         )
-      case 'productIcon': //TODO: Find proct icons or logos
+      case 'productIcon': //TODO: Find product icons or logos
         return (
-          <View className="w-4xl h-4xl rounded-md-max border border-light-edge-gray-subtle dark:border-dark-edge-gray-subtle p-md justify-center items-center">
+          <View className="w-4xl h-4xl rounded-md-max border border-light-edge-gray-subtle dark:border-dark-edge-gray-subtle p-sm justify-center bg-dark-surface items-center">
             <Image
-              className="w-2xl h-2xl"
+              className="w-xl h-xl"
               source={{ uri: 'https://www.worldometers.info//img/flags/small/tn_cu-flag.gif' }}
             />
           </View>
@@ -244,7 +244,7 @@ const ListItem: React.FC<ListItemProps> = ({
     if (trailing === 'none') return null
 
     switch (trailing) {
-      case 'text': 
+      case 'text':
         return (
           <>
             <AppText
@@ -256,7 +256,7 @@ const ListItem: React.FC<ListItemProps> = ({
             </AppText>
           </>
         )
-      case 'textContent': 
+      case 'textContent':
         return (
           <>
             <AppText
