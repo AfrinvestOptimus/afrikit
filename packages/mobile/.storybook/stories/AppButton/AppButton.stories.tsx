@@ -23,6 +23,8 @@ export default {
     iconStart: { control: 'boolean' },
     iconEnd: { control: 'boolean' },
     text: { control: 'text' },
+    accessibilityLabel: { control: 'text' },
+    accessibilityHint: { control: 'text' },
   },
 } as Meta
 
@@ -37,6 +39,8 @@ AccentSolidVariant.args = {
   highContrast: false,
   state: 'default',
   text: 'Accent Solid Button',
+  accessibilityLabel: 'Accent Solid Button',
+  accessibilityHint: 'Press to select the accent solid button',
 }
 
 export const AccentSoftVariant = Template.bind({})
@@ -47,6 +51,8 @@ AccentSoftVariant.args = {
   highContrast: false,
   state: 'default',
   text: 'Accent Soft Button',
+  accessibilityLabel: 'Accent Soft Button',
+  accessibilityHint: 'Press to select the accent soft button',
 }
 
 export const AccentSurfaceVariant = Template.bind({})
@@ -57,6 +63,8 @@ AccentSurfaceVariant.args = {
   highContrast: false,
   state: 'default',
   text: 'Accent Surface Button',
+  accessibilityLabel: 'Accent Surface Button',
+  accessibilityHint: 'Press to select the accent surface button',
 }
 
 export const AccentOutlineVariant = Template.bind({})
@@ -67,6 +75,8 @@ AccentOutlineVariant.args = {
   highContrast: false,
   state: 'default',
   text: 'Accent Outline Button',
+  accessibilityLabel: 'Accent Outline Button',
+  accessibilityHint: 'Press to select the accent outline button',
 }
 
 export const AccentGhostVariant = Template.bind({})
@@ -77,6 +87,8 @@ AccentGhostVariant.args = {
   highContrast: false,
   state: 'default',
   text: 'Accent Ghost Button',
+  accessibilityLabel: 'Accent Ghost Button',
+  accessibilityHint: 'Press to select the accent ghost button',
 }
 
 // Neutral Variants
@@ -88,6 +100,8 @@ NeutralSolidVariant.args = {
   highContrast: false,
   state: 'default',
   text: 'Neutral Solid Button',
+  accessibilityLabel: 'Neutral Solid Button',
+  accessibilityHint: 'Press to select the neutral solid button',
 }
 
 export const NeutralSoftVariant = Template.bind({})
@@ -98,6 +112,8 @@ NeutralSoftVariant.args = {
   highContrast: false,
   state: 'default',
   text: 'Neutral Soft Button',
+  accessibilityLabel: 'Neutral Soft Button',
+  accessibilityHint: 'Press to select the neutral soft button',
 }
 
 export const NeutralSurfaceVariant = Template.bind({})
@@ -108,6 +124,8 @@ NeutralSurfaceVariant.args = {
   highContrast: false,
   state: 'default',
   text: 'Neutral Surface Button',
+  accessibilityLabel: 'Neutral Surface Button',
+  accessibilityHint: 'Press to select the neutral surface button',
 }
 
 export const NeutralOutlineVariant = Template.bind({})
@@ -118,6 +136,8 @@ NeutralOutlineVariant.args = {
   highContrast: false,
   state: 'default',
   text: 'Neutral Outline Button',
+  accessibilityLabel: 'Neutral Outline Button',
+  accessibilityHint: 'Press to select the neutral outline button',
 }
 
 export const NeutralGhostVariant = Template.bind({})
@@ -128,6 +148,8 @@ NeutralGhostVariant.args = {
   highContrast: false,
   state: 'default',
   text: 'Neutral Ghost Button',
+  accessibilityLabel: 'Neutral Ghost Button',
+  accessibilityHint: 'Press to select the neutral ghost button',
 }
 
 // Error Variants
@@ -139,6 +161,8 @@ ErrorSolidVariant.args = {
   highContrast: false,
   state: 'default',
   text: 'Error Solid Button',
+  accessibilityLabel: 'Error Solid Button',
+  accessibilityHint: 'Press to select the error solid button',
 }
 
 export const ErrorSoftVariant = Template.bind({})
@@ -149,6 +173,8 @@ ErrorSoftVariant.args = {
   highContrast: false,
   state: 'default',
   text: 'Error Soft Button',
+  accessibilityLabel: 'Error Soft Button',
+  accessibilityHint: 'Press to select the error soft button',
 }
 
 export const ErrorSurfaceVariant = Template.bind({})
@@ -159,6 +185,8 @@ ErrorSurfaceVariant.args = {
   highContrast: false,
   state: 'default',
   text: 'Error Surface Button',
+  accessibilityLabel: 'Error Surface Button',
+  accessibilityHint: 'Press to select the error surface button',
 }
 
 export const ErrorOutlineVariant = Template.bind({})
@@ -169,6 +197,8 @@ ErrorOutlineVariant.args = {
   highContrast: false,
   state: 'default',
   text: 'Error Outline Button',
+  accessibilityLabel: 'Error Outline Button',
+  accessibilityHint: 'Press to select the error outline button',
 }
 
 export const ErrorGhostVariant = Template.bind({})
@@ -179,9 +209,11 @@ ErrorGhostVariant.args = {
   highContrast: false,
   state: 'default',
   text: 'Error Ghost Button',
+  accessibilityLabel: 'Error Ghost Button',
+  accessibilityHint: 'Press to select the error ghost button',
 }
 
-/*  Button with icons story to be added after remix icon configurations*/
+// Button with icons stories to be added after remix icon configurations
 
 // export const WithIconStart = Template.bind({});
 // WithIconStart.args = {
@@ -192,6 +224,8 @@ ErrorGhostVariant.args = {
 //   state: 'default',
 //   iconStart: true,
 //   text: 'Button with Icon Start',
+//   accessibilityLabel: 'Button with Icon Start',
+//   accessibilityHint: 'Press to select the button with icon start',
 // };
 
 // export const WithIconEnd = Template.bind({});
@@ -203,4 +237,6 @@ ErrorGhostVariant.args = {
 //   state: 'default',
 //   iconEnd: true,
 //   text: 'Button with Icon End',
+//   accessibilityLabel: 'Button with Icon End',
+//   accessibilityHint: 'Press to select the button with icon end',
 // };
