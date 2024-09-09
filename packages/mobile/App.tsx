@@ -13,11 +13,11 @@ import { Alert, Appearance, Pressable, SafeAreaView, Text, View } from 'react-na
 import StorybookUIRoot from './.storybook'
 import { FormData } from './types/atoms'
 
-import { useState } from 'react'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import { useState } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import AppText from './atoms/AppText'
-import AppBottomSheet from './molecules/AppBottomSheet'
+import AppIcon from './molecules/AppIcon'
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false)
@@ -39,7 +39,7 @@ export default function App() {
     return null
   }
 
-  const SHOW_STORYBOOK = true
+  const SHOW_STORYBOOK = false
   if (SHOW_STORYBOOK) {
     return <StorybookUIRoot />
   }
@@ -105,6 +105,8 @@ export default function App() {
               </View>
             ))}
           </AppBottomSheet>
+          <AppIcon name="circle-line" size="16" color="red" />
+
           <StatusBar style="dark" backgroundColor="red" />
         </SafeAreaView>
       </BottomSheetModalProvider>
