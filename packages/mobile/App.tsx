@@ -7,17 +7,16 @@ import {
 } from '@expo-google-fonts/manrope'
 import './global.css'
 
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { StatusBar } from 'expo-status-bar'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Alert, Appearance, Pressable, SafeAreaView, Text, View } from 'react-native'
-import StorybookUIRoot from './.storybook'
-import { FormData } from './types/atoms'
-
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import { useState } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import StorybookUIRoot from './.storybook'
 import AppText from './atoms/AppText'
 import AppIcon from './molecules/AppIcon'
+import { FormData } from './types/atoms'
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false)
