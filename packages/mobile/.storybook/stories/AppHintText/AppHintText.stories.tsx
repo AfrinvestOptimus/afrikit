@@ -31,10 +31,19 @@ export default {
       description: 'Text to display in the hint',
       defaultValue: 'Info hint text',
     },
+    className: {
+      control: { type: 'text' },
+      description: 'For passing custom style classes',
+      defaultValue: '',
+    },
+    accessibilityHintText: {
+      control: 'text',
+      description: 'Provides additional information about the hint text for accessibility purposes',
+      defaultValue: '',
+    },
   },
 } as Meta
 
-// Template for the component stories
 const Template: Story<AppHintTextProps> = args => <AppHintText {...args} />
 
 // Default story
@@ -43,6 +52,7 @@ Default.args = {
   type: 'default',
   showIcon: true,
   text: 'This is a default hint',
+  accessibilityHintText: 'This is the default hint for accessibility purposes',
 }
 
 // Error story
@@ -51,6 +61,7 @@ Error.args = {
   type: 'error',
   showIcon: true,
   text: 'This is an error hint',
+  accessibilityHintText: 'This is an error hint for accessibility purposes',
 }
 
 // Without Icon story
@@ -59,4 +70,15 @@ WithoutIcon.args = {
   type: 'default',
   showIcon: false,
   text: 'Hint without an icon',
+  accessibilityHintText: 'Hint text without an icon',
+}
+
+// Custom Style story
+export const CustomStyle = Template.bind({})
+CustomStyle.args = {
+  type: 'default',
+  showIcon: true,
+  text: 'Custom styled hint text',
+  className: 'bg-blue-500 p-4',
+  accessibilityHintText: 'This hint has custom styles applied',
 }
