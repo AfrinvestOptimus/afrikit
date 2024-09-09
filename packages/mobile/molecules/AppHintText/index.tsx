@@ -9,12 +9,14 @@ export type AppHintTextProps = {
   type?: AppHintTextType
   showIcon?: boolean
   text: string
+  className?: string
 }
 
 const AppHintText: React.FC<AppHintTextProps> = ({
   type = 'default',
   showIcon = false,
   text = 'Info hint text',
+  className = '',
 }) => {
   const { colorScheme } = useColorScheme()
   const isDarkMode = colorScheme === 'dark'
@@ -29,7 +31,7 @@ const AppHintText: React.FC<AppHintTextProps> = ({
   }
 
   return (
-    <View className={`flex items-center flex-row ${showIcon ? 'gap-sm' : ''}`}>
+    <View className={`flex items-center flex-row ${showIcon ? 'gap-sm' : ''} ${className}`}>
       {showIcon && (
         <RemixIcon name="information-line" size={16} color={appHintTextIconColors[type]} />
       )}
