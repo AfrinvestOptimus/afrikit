@@ -1,19 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
-import { Pressable } from 'react-native'
 import AppText from '../../../atoms/AppText'
 import ListItem, { ListItemProps } from '../../../molecules/list-item'
 
 const meta: Meta<ListItemProps> = {
   title: 'ListItem',
   component: ListItem,
-  decorators: [
-    Story => (
-      <Pressable className="p-4">
-        <Story />
-      </Pressable>
-    ),
-  ],
+  decorators: [Story => <Story />],
   argTypes: {
     size: {
       control: 'select',
@@ -115,7 +108,7 @@ export default meta
 
 type Story = StoryObj<typeof ListItem>
 
-const defaults = {
+const defaults: ListItemProps = {
   size: '2',
   variant: '1-line',
   density: 'default',
@@ -123,8 +116,6 @@ const defaults = {
   separator: false,
   title: 'List Item Title',
   subtitle: 'List Item Subtitle',
-  // topMeta: 'Top Meta',
-  // bottomMeta: 'Bottom Meta',
   isChecked: false,
   leading: 'none',
   leadingContent: 'Leading Content',

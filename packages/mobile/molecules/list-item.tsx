@@ -3,7 +3,8 @@ import React from 'react'
 import { Image, Switch, Text, TouchableOpacity, View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
 import colors from '../../shared/colors'
-import AppText, { AppTextAtomProps } from '../atoms/AppText'
+import AppText from '../atoms/AppText'
+import { AppTextAtomProps } from '../types/atoms'
 import { AppAvatar, AppAvatarProps, AppButton, AppButtonProps } from './index'
 
 type TrailingProps = {
@@ -247,11 +248,7 @@ const ListItem: React.FC<ListItemProps> = ({
       case 'text':
         return (
           <>
-            <AppText
-              size={3}
-              align="right"
-              color="text-light-type-gray dark:text-dark-type-gray"
-              {...trailingTitleProps}>
+            <AppText size={3} align="right" color="gray" {...trailingTitleProps}>
               {trailingTitle}
             </AppText>
           </>
@@ -259,12 +256,7 @@ const ListItem: React.FC<ListItemProps> = ({
       case 'textContent':
         return (
           <>
-            <AppText
-              size={3}
-              align="right"
-              highContrast
-              color="text-light-type-gray dark:text-dark-type-gray"
-              {...trailingTitleProps}>
+            <AppText size={3} align="right" highContrast color="gray" {...trailingTitleProps}>
               {trailingTitle}
             </AppText>
             <AppText
@@ -278,7 +270,7 @@ const ListItem: React.FC<ListItemProps> = ({
         )
       case 'link':
         return (
-          <AppText color={`text-light-accentA11 dark:text-dark-accentA11`} {...linkProps}>
+          <AppText color={'accent'} {...linkProps}>
             {trailingTitle}
           </AppText>
         )
@@ -328,13 +320,7 @@ const ListItem: React.FC<ListItemProps> = ({
       )}
       <View className="flex-1">
         {!!topMeta && <Text className={`${subtitleClasses} text-xs-body mb-xs`}>{topMeta}</Text>}
-        <AppText
-          size={3}
-          color="text-light-type-gray dark:text-dark-type-gray"
-          weight="medium"
-          align="left"
-          highContrast
-          {...titleProps}>
+        <AppText size={3} color="gray" weight="medium" align="left" highContrast {...titleProps}>
           {title}
         </AppText>
         {(variant === '2-line' || variant === '3-line') && subtitle && (
@@ -344,7 +330,7 @@ const ListItem: React.FC<ListItemProps> = ({
             weight="regular"
             align="left"
             highContrast={false}
-            color="text-light-type-gray-muted dark:text-dark-type-gray-muted"
+            color="gray"
             className={`mt-xs`}
             {...subtitleProps}>
             {subtitle}
