@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   button: {
     position: 'absolute',
     right: 16,
-    top: '40%',
+    top: '50%',
     transform: [{ translateY: -28 }],
     borderRadius: 28,
     width: 56,

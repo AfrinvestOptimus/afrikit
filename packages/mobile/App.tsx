@@ -9,7 +9,7 @@ import './global.css'
 
 import { StatusBar } from 'expo-status-bar'
 import { useForm } from 'react-hook-form'
-import { Alert, Appearance, Pressable, SafeAreaView, Text, View } from 'react-native'
+import { Alert, Pressable, Text, View } from 'react-native'
 import StorybookUIRoot from './.storybook'
 import { FormData } from './types/atoms'
 
@@ -17,7 +17,11 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { useState } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import AppText from './atoms/AppText'
+import AppBottomSheet from './molecules/AppBottomSheet'
 import AppIcon from './molecules/AppIcon'
+import { AppModalLoader } from './molecules/AppModalLoader'
+import { AppTopBar } from './molecules/AppTopBar'
+import { GlobalWrapper } from './molecules/GlobalWrapper'
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false)
@@ -27,11 +31,7 @@ export default function App() {
     Manrope600: Manrope_600SemiBold,
     Manrope700: Manrope_700Bold,
   })
-  const { setColorScheme, getColorScheme } = Appearance
   const {
-    register,
-    setValue,
-    control,
     formState: { errors },
   } = useForm<FormData>()
 
@@ -39,7 +39,7 @@ export default function App() {
     return null
   }
 
-  const SHOW_STORYBOOK = true
+  const SHOW_STORYBOOK = false
   if (SHOW_STORYBOOK) {
     return <StorybookUIRoot />
   }
@@ -72,7 +72,21 @@ export default function App() {
   return (
     <GestureHandlerRootView className={'flex-1'}>
       <BottomSheetModalProvider>
-        <SafeAreaView className="flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4">
+        <GlobalWrapper showFloatingButton={true}>
+          <AppTopBar
+            variant="small"
+            title="Products"
+            subtitle="Choose from a variety of products in our store"
+            showLeftIcon={true}
+            showRightIcon1={true}
+            showRightIcon2={false}
+            showRightIcon3={false}
+            onLeftIconPress={handleLeftIconPress}
+            onRightIconPress1={handleRightIconPress1}
+            onRightIconPress2={handleRightIconPress2}
+            onRightIconPress3={handleRightIconPress3}
+          />
+          <AppModalLoader visible={modalVisible} />
           <View className="justify-center flex-1 w-full">
             <Pressable onPress={() => setModalVisible(true)}>
               <Text className="text-light-type-tomatobo text-sm-bold">Let him cook!</Text>
@@ -108,7 +122,7 @@ export default function App() {
           <AppIcon name="circle-line" size="16" color="red" />
 
           <StatusBar style="dark" backgroundColor="red" />
-        </SafeAreaView>
+        </GlobalWrapper>
       </BottomSheetModalProvider>
     </GestureHandlerRootView>
   )

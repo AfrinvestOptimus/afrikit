@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Animated, Dimensions } from 'react-native'
@@ -13,7 +15,7 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
   const [contentHeight, setContentHeight] = useState(screenHeight)
   const buttonAnimation = useRef(new Animated.Value(0)).current
 
-  const { isDetached, showModal, setShowModal, backdropClose, actionButton, children, height } =
+  const { isDetached, showModal, setShowModal, backdropClose, height } =
     checkedProps
 
   // variables
