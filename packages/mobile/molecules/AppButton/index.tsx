@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 import React, { useMemo } from 'react';
 import { GestureResponderEvent, Text, TouchableOpacity, View } from 'react-native';
 import {

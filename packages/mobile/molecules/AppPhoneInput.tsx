@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
 import { Animated, NativeSyntheticEvent, Pressable, TextInput, TextInputFocusEventData, TouchableWithoutFeedback, View } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
