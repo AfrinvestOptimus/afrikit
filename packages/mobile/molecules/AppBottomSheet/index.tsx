@@ -6,6 +6,8 @@ import { Animated, Dimensions } from 'react-native'
 import { AppBottomSheetProps } from '../../types/molecules'
 import checkBottomSheetProps from './checkBottomSheetProps'
 import RenderedSheet from './RenderedSheet'
+import { useColorScheme } from 'nativewind'
+import colors from '../../../shared/colors'
 
 const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
   const checkedProps = checkBottomSheetProps(props)
@@ -14,6 +16,7 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
   const screenHeight = Dimensions.get('window').height
   const [contentHeight, setContentHeight] = useState(screenHeight)
   const buttonAnimation = useRef(new Animated.Value(0)).current
+  const { colorScheme } = useColorScheme()
 
   const { isDetached, showModal, setShowModal, backdropClose, height } =
     checkedProps
@@ -90,12 +93,12 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
         style={[
           props.style,
           {
-            backgroundColor: 'rgba(0, 8, 47, 0.5)',
+            backgroundColor: colorScheme === 'dark' ? colors.dark.slateA8 : colors.light.slateA8,
           },
         ]}
       />
     ),
-    [backdropClose],
+    [backdropClose, colorScheme],
   )
 
   return (
@@ -114,6 +117,9 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
       enablePanDownToClose={!isDetached}
       backdropComponent={renderBackdrop}
       enableDynamicSizing={isDetached}
+      backgroundStyle={{
+        backgroundColor: colorScheme === 'dark' ? colors.dark['page-bg'] : colors.light['page-bg'],
+      }}
       handleIndicatorStyle={
         isDetached
           ? {

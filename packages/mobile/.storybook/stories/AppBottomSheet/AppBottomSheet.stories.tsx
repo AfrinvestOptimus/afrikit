@@ -75,7 +75,11 @@ export const Default: Story = {
     index: 2,
     title: { text: 'Default Bottom Sheet', align: 'center' },
     isSwipeable: true,
-    children: <Text>This is the content of the bottom sheet.</Text>,
+    children: (
+      <Text className={'text-light-type-gray-muted dark:text-dark-type-gray-muted'}>
+        This is the content of the bottom sheet.
+      </Text>
+    ),
     actionButton: {
       text: 'Close',
       action: () => {},
@@ -111,7 +115,11 @@ export const CustomHeightSheet: Story = {
     height: 400,
     title: { text: 'Custom Height Sheet', align: 'left' },
     isSwipeable: true,
-    children: <Text>This bottom sheet has a custom height of 400.</Text>,
+    children: (
+      <Text className={'text-light-type-accent dark:text-dark-type-accent-bold'}>
+        This bottom sheet has a custom height of 400.
+      </Text>
+    ),
   },
 }
 
@@ -123,7 +131,11 @@ export const NonSwipeableSheet: Story = {
     index: 3,
     title: { text: 'Non-Swipeable Sheet', align: 'center' },
     isSwipeable: false,
-    children: <Text>This bottom sheet cannot be swiped.</Text>,
+    children: (
+      <Text className={'text-light-type-accent dark:text-dark-type-accent-bold'}>
+        This bottom sheet cannot be swiped.
+      </Text>
+    ),
     actionButton: {
       text: 'Close',
       action: () => {},
@@ -143,6 +155,10 @@ export const SheetWithSubtitle: Story = {
       subtitle: 'This is a subtitle for the bottom sheet',
     },
     isSwipeable: true,
-    children: <Text>Content with a title and subtitle.</Text>,
+    children: (
+      <Text className={'text-light-type-accent dark:text-dark-type-accent-bold'}>
+        Content with a title and subtitle.
+      </Text>
+    ),
   },
 }
