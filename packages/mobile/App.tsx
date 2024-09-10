@@ -5,11 +5,11 @@ import {
   Manrope_700Bold,
   useFonts,
 } from '@expo-google-fonts/manrope'
-import './global.css'
-
 import { StatusBar } from 'expo-status-bar'
 import { Controller, useForm } from 'react-hook-form'
 import { Alert, Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native'
+import StorybookUIRoot from './.storybook'
+import './global.css'
 import { FormData } from './types/atoms'
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
@@ -92,7 +92,7 @@ export default function App() {
               />
               <AppText
                 size={2}
-                color={'text-dark-red9'}
+                color={'accent'}
                 weight={'regular'}
                 align={'left'}
                 className={'mb-2xl'}
