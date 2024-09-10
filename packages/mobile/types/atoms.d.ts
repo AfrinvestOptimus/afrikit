@@ -11,9 +11,6 @@ import {
 import colors from './../../shared/colors'
 
 type TailwindColorKey = keyof typeof colors.light.type
-type colorScheme = 'light' | 'dark'
-
-console.log('TailwindColorKey', colors.dark.type)
 
 interface AppTextOwnProps {
   size?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
