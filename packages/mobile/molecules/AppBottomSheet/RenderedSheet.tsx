@@ -14,10 +14,10 @@ function RenderedSheet({
   isDetached: boolean
   checkedProps: DetachedProps
   height: number
-  btnTranslateY: any
+  btnTranslateY: Animated.AnimatedInterpolation<number | string>
 }) {
   if (isDetached) {
-    const { title, subtitle, icon, content, secondaryActionButton, actionButton } =
+    const { title, icon, content, secondaryActionButton, actionButton } =
       checkedProps as DetachedProps
     return (
       <BottomSheetView className={'px-md w-full flex-col justify-between pt-xl'}>
@@ -56,7 +56,7 @@ function RenderedSheet({
       </BottomSheetView>
     )
   } else {
-    const { title, isSwipeable, children, actionButton } = checkedProps as RegularProps
+    const { title, children, actionButton } = checkedProps as RegularProps
     return (
       <BottomSheetView style={{ height }}>
         <ScrollView
