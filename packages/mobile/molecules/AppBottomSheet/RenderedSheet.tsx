@@ -14,10 +14,10 @@ function RenderedSheet({
   isDetached: boolean
   checkedProps: DetachedProps
   height: number
-  btnTranslateY: any
+  btnTranslateY: Animated.AnimatedInterpolation<number | string>
 }) {
   if (isDetached) {
-    const { title, subtitle, icon, content, secondaryActionButton, actionButton } =
+    const { title, icon, content, secondaryActionButton, actionButton } =
       checkedProps as DetachedProps
     return (
       <BottomSheetView className={'px-md w-full flex-col justify-between pt-xl'}>
@@ -56,7 +56,7 @@ function RenderedSheet({
       </BottomSheetView>
     )
   } else {
-    const { title, isSwipeable, children, actionButton } = checkedProps as RegularProps
+    const { title, children, actionButton } = checkedProps as RegularProps
     return (
       <BottomSheetView style={{ height }}>
         <ScrollView
@@ -64,7 +64,11 @@ function RenderedSheet({
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}>
           {title && (
-            <View className="pt-sm pb-lg gap-y-xs">
+            <View
+              className={clsx(
+                'pt-sm pb-lg gap-y-xs',
+                title.align === 'center' ? 'items-center' : '',
+              )}>
               <Text
                 className={clsx(
                   'text-left text-lg-bold text-light-type-gray dark:text-dark-type-gray',
@@ -87,7 +91,7 @@ function RenderedSheet({
         </ScrollView>
         {actionButton && (
           <Animated.View
-            className="w-full px-md mb-5xl"
+            className="w-full px-md mb-5xl pb-4xl"
             style={{
               transform: [{ translateY: btnTranslateY }],
             }}>

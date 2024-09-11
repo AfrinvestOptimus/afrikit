@@ -29,7 +29,7 @@ const textVariants = tv({
       right: 'text-right',
     },
     color: {
-      gray: 'text-light-type-gray dark:text-dark-type-gray',
+      gray: 'text-light-type-gray-muted dark:text-dark-type-gray-muted',
       error: 'text-light-type-error dark:text-dark-type-error',
       accent: 'text-light-type-accent dark:text-dark-type-accent',
       cyan: 'text-light-type-cyan dark:text-dark-type-cyan',
@@ -47,7 +47,7 @@ const textVariants = tv({
     {
       color: 'gray',
       highContrast: true,
-      class: 'text-light-type-gray-muted dark:text-dark-type-gray-muted',
+      class: 'text-light-type-gray dark:text-dark-type-gray',
     },
     {
       color: 'error',
