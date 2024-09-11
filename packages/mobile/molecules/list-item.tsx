@@ -4,21 +4,34 @@ import { Image, Switch, Text, TouchableOpacity, View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
 import colors from '../../shared/colors'
 import AppText from '../atoms/AppText'
-import AppButton from './AppButton'
+import { AppTextAtomProps } from '../types/atoms'
+import { AppAvatar, AppAvatarProps, AppButton, AppButtonProps } from './index'
 
 type TrailingProps = {
   type?: string
   trailingTitle?: string
   trailingSubtitle?: string
+  trailingTitleProps?: AppTextAtomProps
+  trailingSubtitleProps?: AppTextAtomProps
+  buttonProps?: AppButtonProps
+  linkProps?: Pick<AppTextAtomProps, 'onPress' | 'color'>
   trailingIcon?: string
   trailingIconColor?: string
   trailingContent?: string | React.ReactNode
 }
 
+type LeadingProps = {
+  type?: string
+  avatarProps?: AppAvatarProps
+  leadingIcon?: string
+  leadingIconColor?: string
+  leadingContent?: string | React.ReactNode
+}
+
 export type ListItemProps = {
   size?: '1' | '2'
   variant?: '1-line' | '2-line' | '3-line'
-  density?: 'default' | 'relaxed' | 'compact'
+  density?: Density
   leading?:
     | 'none'
     | 'avatar'
@@ -26,30 +39,27 @@ export type ListItemProps = {
     | 'icon'
     | 'paymentMethod'
     | 'flag'
-    | 'txStatus'
+    | 'activity'
     | 'productIcon'
     | 'check'
     | 'radio'
   trailing?: 'none' | 'textContent' | 'text' | 'link' | 'icon' | 'button' | 'switch'
-  supportingText?: boolean
-  supportingTextContent?: string
   subTrigger?: boolean
   state?: 'enabled' | 'hovered' | 'focused' | 'pressed' | 'dragged'
-  txStatus?: TxStatus
   separator?: boolean
   isChecked?: boolean
   title: string
+  titleProps?: AppTextAtomProps
   subtitle?: string
-  trailingTitle?: string
-  trailingSubtitle?: string
+  subtitleProps?: AppTextAtomProps
+  activity?: ActivityStatus
   topMeta?: string
   bottomMeta?: string
-  leadingContent?: string | React.ReactNode
-  trailingContent?: string | React.ReactNode
   onPress?: () => void
-} & TrailingProps
+} & TrailingProps &
+  LeadingProps
 
-const txStatusIcons = {
+const activityStatusIcons = {
   default: 'flashlight-line',
   activity: 'flashlight-line',
   swap: 'arrow-left-right-line',
@@ -65,7 +75,8 @@ const densitySpacing = {
   relaxed: 'py-xl',
   compact: 'py-md',
 }
-type TxStatus = keyof typeof txStatusIcons
+type Density = keyof typeof densitySpacing
+type ActivityStatus = keyof typeof activityStatusIcons
 
 cssInterop(RemixIcon, {
   className: {
@@ -84,9 +95,16 @@ const ListItem: React.FC<ListItemProps> = ({
   state = 'enabled',
   separator = false,
   isChecked = false,
-  txStatus = 'default',
+  activity = 'default',
   title,
   subtitle,
+  titleProps,
+  subtitleProps,
+  trailingTitleProps,
+  trailingSubtitleProps,
+  linkProps,
+  avatarProps,
+  buttonProps,
   trailingTitle,
   trailingSubtitle,
   trailingIcon,
@@ -96,6 +114,7 @@ const ListItem: React.FC<ListItemProps> = ({
   leadingContent,
   trailingContent,
   onPress,
+  ...props
 }) => {
   const { colorScheme } = useColorScheme()
   const isDarkMode = colorScheme === 'dark'
@@ -138,11 +157,18 @@ const ListItem: React.FC<ListItemProps> = ({
     if (leadingContent && typeof leadingContent !== 'string') return leadingContent
 
     switch (leading) {
-      case 'avatar': //TODO: Dependent on the AppAvatar icon, passing a dummy
+      case 'avatar':
         return (
-          <View className="w-3xl h-3xl rounded-xs-max justify-center items-center bg-light-background-accent-base dark:bg-dark-background-accent-base">
-            <Text className="text-white">A</Text>
-          </View>
+          <AppAvatar
+            size={3}
+            color="accent"
+            highContrast={false}
+            fallBack="initials"
+            initials={(leadingContent as string) || 'S'}
+            status={false}
+            variant="solid"
+            {...avatarProps}
+          />
         )
       case 'brand': //TODO: BrandLogos on the AppAvatar icon, passing a dummy
         return (
@@ -177,19 +203,19 @@ const ListItem: React.FC<ListItemProps> = ({
             }}
           />
         )
-      case 'txStatus': //TODO: pass enum
+      case 'activity': //TODO: create an activity icon
         return (
           <View
-            className={`w-4xl h-4xl rounded-md-max gap-lg justify-center items-center ${txStatus === 'system' ? 'bg-light-background-accent-light dark:bg-dark-background-accent-light' : 'bg-light-surface-gray dark:bg-dark-surface-gray'}`}>
-            {txStatus === 'avatar' ? ( //TODO: return dummy avatar
+            className={`w-3xl h-3xl rounded-md-max gap-lg justify-center items-center ${activity === 'system' ? 'bg-light-background-accent-light dark:bg-dark-background-accent-light' : 'bg-light-surface-gray dark:bg-dark-surface-gray'}`}>
+            {activity === 'avatar' ? ( //TODO: return dummy avatar
               <View className="w-3xl h-3xl rounded-xs-max justify-center items-center bg-light-background-accent-base dark:bg-dark-background-accent-base">
                 <Text className="text-white">A</Text>
               </View>
             ) : (
               <RemixIcon
-                name={txStatusIcons[txStatus] || txStatusIcons.default}
+                name={activityStatusIcons[activity] || activityStatusIcons.default}
                 color={
-                  txStatus === 'system'
+                  activity === 'system'
                     ? colors.light.type.accent.DEFAULT
                     : colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT
                 }
@@ -197,18 +223,18 @@ const ListItem: React.FC<ListItemProps> = ({
             )}
           </View>
         )
-      case 'productIcon': //TODO: Find proct icons or logos
+      case 'productIcon': //TODO: Find product icons or logos
         return (
-          <View className="w-4xl h-4xl rounded-md-max border border-light-edge-gray-subtle dark:border-dark-edge-gray-subtle p-md justify-center items-center">
+          <View className="w-4xl h-4xl rounded-md-max border border-light-edge-gray-subtle dark:border-dark-edge-gray-subtle p-sm justify-center bg-dark-surface items-center">
             <Image
-              className="w-2xl h-2xl"
+              className="w-xl h-xl"
               source={{ uri: 'https://www.worldometers.info//img/flags/small/tn_cu-flag.gif' }}
             />
           </View>
         )
-      case 'check': //TODO: use Check component
+      case 'check':
         return <CheckComponent isChecked={_isChecked} isSquare />
-      case 'radio': // TODO: use Radio component
+      case 'radio':
         return <CheckComponent isChecked={_isChecked} />
       default:
         return <Text className={`${isDarkMode ? 'text-white' : 'text-black'}`}>{trailing}</Text>
@@ -219,32 +245,32 @@ const ListItem: React.FC<ListItemProps> = ({
     if (trailing === 'none') return null
 
     switch (trailing) {
-      case 'text': //TODO: use AppText
+      case 'text':
         return (
           <>
-            <AppText
-              className={`${titleClasses} text-sm-body text-light-type-gray dark:text-dark-type-gray self-end `}>
+            <AppText size={3} align="right" color="gray" {...trailingTitleProps}>
               {trailingTitle}
             </AppText>
           </>
         )
-      case 'textContent': //TODO: use AppText
+      case 'textContent':
         return (
           <>
-            <Text
-              className={`${titleClasses} text-sm-body text-light-type-gray dark:text-dark-type-gray self-end`}>
+            <AppText size={3} align="right" highContrast color="gray" {...trailingTitleProps}>
               {trailingTitle}
-            </Text>
-            <Text
-              className={`${subtitleClasses} text-sm-body dark:text-dark-type-gray-muted self-end `}>
+            </AppText>
+            <AppText
+              size={2}
+              align="right"
+              className={'mt-xs dark:text-dark-type-gray-muted'}
+              {...trailingSubtitleProps}>
               {trailingSubtitle}
-            </Text>
+            </AppText>
           </>
         )
-      case 'link': //TODO: pass text link
+      case 'link':
         return (
-          <AppText
-            className={`${subtitleClasses} text-sm-body text-light-accentA11 dark:text-dark-accentA11`}>
+          <AppText color={'accent'} {...linkProps}>
             {trailingTitle}
           </AppText>
         )
@@ -269,16 +295,13 @@ const ListItem: React.FC<ListItemProps> = ({
             size={24}
           />
         )
-      case 'button': //TODO: reference the Button component
+      case 'button':
         return (
           <AppButton
             text={trailingTitle || 'Button'}
-            onPress={() => {
-              console.log('handle press')
-            }}
-            // className={
-            //   'bg-light-background-neutral-bold dark:bg-dark-background-neutral-bold px-md py-sm rounded-lg'
-            // }
+            onPress={handlePress}
+            color="neutral"
+            highContrast
           />
         )
       default:
@@ -296,19 +319,26 @@ const ListItem: React.FC<ListItemProps> = ({
         </View>
       )}
       <View className="flex-1">
-        {!!topMeta && <Text className={`${subtitleClasses} mb-xs`}>{topMeta}</Text>}
-        <AppText
-          className={`${titleClasses} text-sm-body text-light-type-gray dark:text-dark-type-gray `}>
+        {!!topMeta && <Text className={`${subtitleClasses} text-xs-body mb-xs`}>{topMeta}</Text>}
+        <AppText size={3} color="gray" weight="medium" align="left" highContrast {...titleProps}>
           {title}
         </AppText>
         {(variant === '2-line' || variant === '3-line') && subtitle && (
-          <Text
+          <AppText
             numberOfLines={variant === '2-line' ? 1 : undefined}
-            className={`${subtitleClasses} text-body2 dark:text-dark-type-gray-muted mt-xs `}>
+            size={2}
+            weight="regular"
+            align="left"
+            highContrast={false}
+            color="gray"
+            className={`mt-xs`}
+            {...subtitleProps}>
             {subtitle}
-          </Text>
+          </AppText>
         )}
-        {!!bottomMeta && <Text className={`${subtitleClasses} mt-xs`}>{bottomMeta}</Text>}
+        {!!bottomMeta && (
+          <Text className={`${subtitleClasses} text-xs-body mt-xs`}>{bottomMeta}</Text>
+        )}
       </View>
       {trailing !== 'none' && (
         <View
@@ -338,10 +368,11 @@ const CheckComponent = ({ isSquare = false, isChecked = false }) => (
       ${
         isChecked
           ? 'bg-light-background-accent-base dark:bg-dark-background-accent-base'
-          : 'bg-light-surface-gray dark:bg-dark-surface-gray'
+          : 'bg-[transparent]'
+        // : 'bg-light-surface-gray dark:bg-dark-surface-gray'
       }
          border border-light-edge-gray-subtle dark:border-dark-edge-gray-subtle`}>
-    <RemixIcon name="check-fill" size={20} color={'white'} />
+    {isChecked && <RemixIcon name="check-fill" size={20} color={'white'} />}
   </View>
 )
 export default ListItem
