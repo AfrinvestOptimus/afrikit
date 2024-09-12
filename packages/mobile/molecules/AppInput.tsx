@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
+import { useColorScheme } from 'nativewind';
 import * as React from 'react';
 import {
   Animated,
@@ -13,9 +14,9 @@ import {
 import { useSharedValue } from 'react-native-reanimated';
 import RemixIcon from 'react-native-remix-icon';
 import colors from '../../shared/colors';
-import AppText from '../atoms/AppText';
 import { AppInputProps } from '../types/atoms';
 import { AppInputBlur } from '../utilities/validation';
+import AppHintText from './AppHintText';
 
 
 const AppInput: React.FC<AppInputProps> =
@@ -37,7 +38,8 @@ const AppInput: React.FC<AppInputProps> =
     const [focused, setFocused] = React.useState<boolean>(false);
     const [inputValue, setInputValue] = React.useState<string>(value);
     const animatedIsFocused = React.useRef(new Animated.Value(value ? 1 : 0)).current;
-
+    const { colorScheme } = useColorScheme()
+    const isDarkMode = colorScheme === 'dark'
 
     React.useEffect(() => {
       Animated.timing(animatedIsFocused, {
@@ -108,12 +110,12 @@ const AppInput: React.FC<AppInputProps> =
     const getBorderStyle = () => {
       if (focused) {
         return error
-          ? 'border-b-2 border-light-red9 rounded-t-xs' // show red bottom border when the input isn't valued
-          : 'border-b-2 border-light-blue10 rounded-t-xs'; // show blue bottom border when the input is valid 
+          ? 'border-b-2 border-light-red9 dark:border-dark-red9 rounded-t-md' // show red bottom border when the input isn't valued
+          : 'border-b-2 border-light-blue10 dark:border-dark-blue10 rounded-t-md'; // show blue bottom border when the input is valid 
       }
       return error
-        ? 'border-2 border-light-red9 rounded-xs' // show red border when the input isn't valued and the field isn't in a focused state
-        : 'border-0 border-transparent rounded-xs'; // defaulting to rounded input when there's neither a focused state or error state on the input field
+        ? 'border-2 border-light-red9 dark:border-dark-red9 rounded-md' // show red border when the input isn't valued and the field isn't in a focused state
+        : 'border-0 border-transparent rounded-md'; // defaulting to rounded input when there's neither a focused state or error state on the input field
     };
 
     return (
@@ -126,12 +128,12 @@ const AppInput: React.FC<AppInputProps> =
           }}
         >
           <View
-            className={`px-sm items-center w-full flex-row bg-light-surface-gray h-[56px] ${getBorderStyle()} ${containerStyle}`}
+            className={`px-sm items-center w-full flex-row bg-light-surface-gray dark:bg-dark-surface-gray h-[56px] ${getBorderStyle()} ${containerStyle}`}
           >
             <View
-              className="flex-1">
+              className="flex-1 px-xs ">
               {FloatingLabel && (
-                <Animated.Text style={[floatLabelStyle]} className="gap-xs color-dark-gray1" allowFontScaling={false}>
+                <Animated.Text style={[floatLabelStyle]} className="gap-xs  dark:text-dark-type-gray-muted text-light-type-gray-muted text-sm-title" allowFontScaling={false}>
                   {label}
                 </Animated.Text>
               )}
@@ -144,26 +146,27 @@ const AppInput: React.FC<AppInputProps> =
                 autoFocus={focused}
                 numberOfLines={numberOfLines}
                 value={inputValue}
-                multiline={multiline}
+                selectionColor='text-light-type-gray'
+                className='text-light-type-gray dark:text-dark-type-gray'
               />
             </View>
             {inputValue.length > 0 && (
               <TouchableOpacity onPress={handleClear} className='justify-center pl-2'>
-                <RemixIcon name="close-circle-fill" size={24} color={colors.dark['white-to-dark']} />
+                <RemixIcon name="close-circle-fill" size={24}
+                  color={
+                    colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT
+                  } />
               </TouchableOpacity>
             )}
           </View>
         </TouchableWithoutFeedback>
         {!!error &&
           (typeof error === 'string' ? (
-            <AppText
-              size={2}
-              color={"text-dark-red9"}
-              weight={"regular"}
-              align={"left"}
-              className={"mb-5xl"}>
-              {error}
-            </AppText>
+            <AppHintText
+              type="error"
+              text={error}
+              className='py-xs'
+            />
           ) : undefined)
         }
       </View>
