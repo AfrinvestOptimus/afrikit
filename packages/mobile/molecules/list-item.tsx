@@ -20,16 +20,16 @@ export type ListItemProps = {
   variant?: '1-line' | '2-line' | '3-line'
   density?: 'default' | 'relaxed' | 'compact'
   leading?:
-    | 'none'
-    | 'avatar'
-    | 'brand'
-    | 'icon'
-    | 'paymentMethod'
-    | 'flag'
-    | 'txStatus'
-    | 'productIcon'
-    | 'check'
-    | 'radio'
+  | 'none'
+  | 'avatar'
+  | 'brand'
+  | 'icon'
+  | 'paymentMethod'
+  | 'flag'
+  | 'txStatus'
+  | 'productIcon'
+  | 'check'
+  | 'radio'
   trailing?: 'none' | 'textContent' | 'text' | 'link' | 'icon' | 'button' | 'switch'
   supportingText?: boolean
   supportingTextContent?: string
@@ -252,7 +252,7 @@ const ListItem: React.FC<ListItemProps> = ({
         return (
           <Switch
             value={_isChecked}
-            onValueChange={() => {}}
+            onValueChange={() => { }}
             trackColor={{
               false: colors.light.background.disable1,
               true: colors.light.type.accent.DEFAULT,
@@ -276,9 +276,9 @@ const ListItem: React.FC<ListItemProps> = ({
             onPress={() => {
               console.log('handle press')
             }}
-            // className={
-            //   'bg-light-background-neutral-bold dark:bg-dark-background-neutral-bold px-md py-sm rounded-lg'
-            // }
+          // className={
+          //   'bg-light-background-neutral-bold dark:bg-dark-background-neutral-bold px-md py-sm rounded-lg'
+          // }
           />
         )
       default:
@@ -335,10 +335,9 @@ const CheckComponent = ({ isSquare = false, isChecked = false }) => (
     className={`
       w-xl h-xl ${isSquare ? 'rounded-xs' : 'rounded-md-max'} 
       self-start justify-center items-center 
-      ${
-        isChecked
-          ? 'bg-light-background-accent-base dark:bg-dark-background-accent-base'
-          : 'bg-light-surface-gray dark:bg-dark-surface-gray'
+      ${isChecked
+        ? 'bg-light-background-accent-base dark:bg-dark-background-accent-base'
+        : 'bg-light-surface-gray dark:bg-dark-surface-gray'
       }
          border border-light-edge-gray-subtle dark:border-dark-edge-gray-subtle`}>
     <RemixIcon name="check-fill" size={20} color={'white'} />
