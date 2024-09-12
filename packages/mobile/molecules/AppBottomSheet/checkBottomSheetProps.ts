@@ -5,19 +5,7 @@ export default function checkBottomSheetProps(
 ): DetachedProps | RegularProps {
   if (props.isDetached) {
     // Check if the props satisfy the DetachedProps type
-    const {
-      showModal,
-      setShowModal,
-      children,
-      backdropClose,
-      actionButton,
-      isDetached,
-      title,
-      subtitle,
-      icon,
-      content,
-      ...rest
-    } = props
+    const { title, content, ...rest } = props
 
     // Ensure required props for detached mode are present
     if (typeof title !== 'string' || typeof content !== 'string') {
@@ -40,17 +28,7 @@ export default function checkBottomSheetProps(
     return props as DetachedProps
   } else {
     // Check if the props satisfy the RegularProps type
-    const {
-      showModal,
-      setShowModal,
-      children,
-      backdropClose,
-      actionButton,
-      isDetached,
-      title,
-      isSwipeable,
-      ...rest
-    } = props
+    const { title, ...rest } = props
 
     // Check title structure if present
     if (title && (typeof title !== 'object' || typeof title.text !== 'string')) {

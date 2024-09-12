@@ -1,19 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
-import { Pressable } from 'react-native'
 import AppText from '../../../atoms/AppText'
 import ListItem, { ListItemProps } from '../../../molecules/list-item'
 
 const meta: Meta<ListItemProps> = {
   title: 'ListItem',
   component: ListItem,
-  decorators: [
-    Story => (
-      <Pressable className="p-4">
-        <Story />
-      </Pressable>
-    ),
-  ],
+  decorators: [Story => <Story />],
   argTypes: {
     size: {
       control: 'select',
@@ -29,14 +22,6 @@ const meta: Meta<ListItemProps> = {
       control: 'select',
       options: ['default', 'relaxed', 'compact'],
       defaultValue: 'default',
-    },
-    supportingText: {
-      control: 'boolean',
-      defaultValue: false,
-    },
-    supportingTextContent: {
-      control: 'text',
-      defaultValue: 'Supporting Text',
     },
     subTrigger: {
       control: 'boolean',
@@ -76,7 +61,7 @@ const meta: Meta<ListItemProps> = {
         'icon',
         'paymentMethod',
         'flag',
-        'txStatus',
+        'activity',
         'productIcon',
         'check',
         'radio',
@@ -123,18 +108,14 @@ export default meta
 
 type Story = StoryObj<typeof ListItem>
 
-const defaults = {
+const defaults: ListItemProps = {
   size: '2',
   variant: '1-line',
   density: 'default',
-  supportingText: false,
-  supportingTextContent: '',
   subTrigger: false,
   separator: false,
   title: 'List Item Title',
   subtitle: 'List Item Subtitle',
-  topMeta: 'Top Meta',
-  bottomMeta: 'Bottom Meta',
   isChecked: false,
   leading: 'none',
   leadingContent: 'Leading Content',
@@ -197,17 +178,7 @@ export const WithAllProps: Story = {
     trailing: 'button',
     trailingTitle: 'Action',
     subtitle: 'This is a subtitle for the list item.',
-    supportingText: true,
-    supportingTextContent: 'Additional supporting text',
     separator: true,
-  },
-}
-
-export const WithSupportingText: Story = {
-  args: {
-    ...defaults,
-    supportingText: true,
-    supportingTextContent: 'This is some additional supporting text.',
   },
 }
 
@@ -234,10 +205,10 @@ export const WithTrailingContent: Story = {
 export const WithLinkAndSubTrigger: Story = {
   args: {
     ...defaults,
-    leading: 'txStatus',
+    leading: 'activity',
     trailing: 'link',
     trailingContent: <AppText className="text-blue-500">Link Text</AppText>,
     subTrigger: true,
-    txStatus: 'system',
+    activity: 'system',
   },
 }

@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
+import { useColorScheme } from 'nativewind'
 import React, { useEffect, useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-remix-icon'
 import colors from '../../shared/colors'
 
-type KeyPadProps = {
+export type KeyPadProps = {
   type: 'decimal' | 'nondecimal' | 'biometric'
   textLength?: number
   onKeyPress?: (key: string) => void
@@ -27,6 +28,9 @@ const KeyPad: React.FC<KeyPadProps> = ({
   containerClassName,
 }) => {
   const [value, setValue] = useState('')
+
+  const { colorScheme } = useColorScheme()
+  const mode = colorScheme === 'dark' ? 'dark' : 'light'
 
   const keys = [
     ['1', '2', '3'],
@@ -69,8 +73,12 @@ const KeyPad: React.FC<KeyPadProps> = ({
               className={`w-[32%] h-5xl p-lg rounded-full justify-center items-center bg-['transparent']`}>
               {key === KEY_BIO ? (
                 <Icon name="fingerprint-fill" color={colors.dark.type.accent.DEFAULT} size={20} />
+              ) : key === KEY_BACKSPACE ? (
+                <Icon name="arrow-left-line" color={colors[mode].type.gray.DEFAULT} size={20} />
               ) : (
-                <Text className={`text-h2 text-black dark:text-dark-contrast-white`}>{key}</Text>
+                <Text className={`text-2xl-head text-light-type-gray dark:text-dark-type-gray`}>
+                  {key}
+                </Text>
               )}
             </TouchableOpacity>
           ))}
