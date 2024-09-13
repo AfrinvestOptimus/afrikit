@@ -6,7 +6,7 @@ import AppPhoneInput from '../../../molecules/AppPhoneInput'; // Adjust the path
 import { AppPhoneInputProps } from '../../../types/atoms';
 
 export default {
-    title: 'Components/AppPhoneInput',
+    title: 'AppPhoneInput',
     component: AppPhoneInput,
     argTypes: {
         onBlur: { action: 'blurred' },

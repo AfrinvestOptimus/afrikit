@@ -8,6 +8,7 @@ import colors from '../../shared/colors';
 import AppText from '../atoms/AppText';
 import { AppPhoneInputProps } from '../types/atoms';
 import { AppInputBlur } from '../utilities/validation';
+import AppHintText from './AppHintText';
 
 const AppPhoneInput: React.FC<AppPhoneInputProps> =
     ({
@@ -99,17 +100,17 @@ const AppPhoneInput: React.FC<AppPhoneInputProps> =
         const getBorderStyle = () => {
             if (focused) {
                 return error
-                    ? 'border-b-2 border-light-red9 rounded-tr-sm' // show red bottom border when the input isn't valued
-                    : 'border-b-2 border-light-blue10 rounded-tr-sm'; // show blue bottom border when the input is valid 
+                    ? 'border-b-2 border-light-red9 dark:border-dark-red9 rounded-tr-sm' // show red bottom border when the input isn't valued
+                    : 'border-b-2 border-light-blue10 dark:border-dark-blue10 rounded-tr-sm'; // show blue bottom border when the input is valid 
             }
             return error
-                ? 'border-2 border-light-red9 rounded-r-md' // show red border when the input isn't valued and the field isn't in a focused state
+                ? 'border-2 border-light-red9 dark:border-dark-red9 rounded-r-md' // show red border when the input isn't valued and the field isn't in a focused state
                 : 'border-0 border-transparent rounded-r-md'; // defaulting to rounded input when there's neither a focused state or error state on the input field
         };
 
         return (
             <View>
-                <View className={'flex-row flex-1   px-md'}>
+                <View className={'flex-row px-md'}>
                     <Pressable
                         className={`px-sm mr-sm items-center flex-row bg-light-surface-gray h-[56px] rounded-l-md w-[101px]`}>
                         <View className='flex-row justify-between items-center'>
@@ -136,7 +137,7 @@ const AppPhoneInput: React.FC<AppPhoneInputProps> =
                             <View
                                 className="flex-1">
                                 {FloatingLabel && (
-                                    <Animated.Text style={[floatLabelStyle]} className="gap-xs color-dark-gray1" allowFontScaling={false}>
+                                    <Animated.Text style={[floatLabelStyle]} className="gap-xs dark:text-dark-type-gray-muted text-light-type-gray-muted" allowFontScaling={false}>
                                         {label}
                                     </Animated.Text>
                                 )}
@@ -149,7 +150,7 @@ const AppPhoneInput: React.FC<AppPhoneInputProps> =
                                     autoFocus={focused}
                                     numberOfLines={numberOfLines}
                                     value={inputValue}
-                                    multiline={multiline}
+                                    className='text-light-type-gray-muted dark:text-dark-type-gray-muted'
                                 />
                             </View>
 
@@ -157,15 +158,12 @@ const AppPhoneInput: React.FC<AppPhoneInputProps> =
                     </TouchableWithoutFeedback>
                 </View>
                 {!!error &&
-                    (typeof error === 'string' ? (
-                        <AppText
-                            size={2}
-                            color={'error'}
-                            weight={"regular"}
-                            align={"left"}
-                            className={"ml-lg mt-xs"}>
-                            {error}
-                        </AppText>
+                    (typeof error === "string" ? (
+                        <AppHintText
+                            type="error"
+                            text={error}
+                            className='py-xs px-lg'
+                        />
                     ) : undefined)
                 }
             </View>

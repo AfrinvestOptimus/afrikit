@@ -39,6 +39,7 @@ export type ListItemProps = {
     | 'icon'
     | 'paymentMethod'
     | 'flag'
+    | 'txStatus'
     | 'activity'
     | 'productIcon'
     | 'check'
@@ -278,7 +279,7 @@ const ListItem: React.FC<ListItemProps> = ({
         return (
           <Switch
             value={_isChecked}
-            onValueChange={() => {}}
+            onValueChange={() => { }}
             trackColor={{
               false: colors.light.background.disable1,
               true: colors.light.type.accent.DEFAULT,

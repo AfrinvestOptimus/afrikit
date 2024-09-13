@@ -1,3 +1,4 @@
+import { useColorScheme } from 'nativewind';
 import * as React from 'react';
 import {
     Animated,
@@ -11,9 +12,9 @@ import {
 import { useSharedValue } from 'react-native-reanimated';
 import RemixIcon from 'react-native-remix-icon';
 import colors from '../../shared/colors';
-import AppText from '../atoms/AppText';
 import { AppInputProps } from '../types/atoms';
 import { AppInputBlur } from '../utilities/validation';
+import AppHintText from './AppHintText';
 
 
 const AppPasswordInput: React.FC<AppInputProps> =
@@ -30,7 +31,8 @@ const AppPasswordInput: React.FC<AppInputProps> =
         const [inputValue, setInputValue] = React.useState<string>(value);
         const [passwordVisible, setIsPasswordVisible] = React.useState<boolean>()
         const animatedIsFocused = React.useRef(new Animated.Value(value ? 1 : 0)).current;
-
+        const { colorScheme } = useColorScheme()
+        const isDarkMode = colorScheme === 'dark'
 
         React.useEffect(() => {
             Animated.timing(animatedIsFocused, {
@@ -106,18 +108,20 @@ const AppPasswordInput: React.FC<AppInputProps> =
         const getBorderStyle = () => {
             if (focused) {
                 return !error
-                    ? 'border-b-2 border-light-edge-error-strong rounded-t-md' // show red bottom border when the input isn't valued
-                    : 'border-b-2 border-light-edge-accent-strong rounded-t-md'; // show blue bottom border when the input is valid 
+                    ? 'border-b-2 border-light-edge-error-strong dark:border-dark-edge-error-strong rounded-t-md' // show red bottom border when the input isn't valued
+                    : 'border-b-2 border-light-edge-accent-strong dark:border-dark-edge-accent-strong rounded-t-md'; // show blue bottom border when the input is valid 
             }
             return !error
-                ? `border-2 border-light-edge-error-strong rounded-md` // show red border when the input isn't valued and the field isn't in a focused state
+                ? `border-2 border-light-edge-error-strong dark:border-dark-edge-error-strong rounded-md` // show red border when the input isn't valued and the field isn't in a focused state
                 : 'border-0 border-transparent rounded-md'; // defaulting to rounded input when there's neither a focused state or error state on the input field
         };
 
         // handle Password Icon
         const rednerPasswordIcon = () => (
             <TouchableOpacity onPress={togglePasswordVisibility} className='justify-center pl-2'>
-                <RemixIcon name={passwordVisible ? 'eye-close-line' : 'eye-line'} size={20} color={colors.dark['white-to-dark']} />
+                <RemixIcon name={passwordVisible ? 'eye-close-line' : 'eye-line'} size={20} color={
+                    colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT
+                } />
             </TouchableOpacity>
         )
 
@@ -131,12 +135,12 @@ const AppPasswordInput: React.FC<AppInputProps> =
                     }}
                 >
                     <View
-                        className={`px-sm items-center w-full flex-row bg-light-surface-gray h-[56px] ${getBorderStyle()}`}
+                        className={`px-sm items-center w-full flex-row bg-light-surface-gray dark:bg-dark-surface-gray h-[56px] ${getBorderStyle()}`}
                     >
                         <View
-                            className="flex-1 px-xs">
+                            className="flex-1 px-xs ">
                             {FloatingLabel && (
-                                <Animated.Text style={[floatLabelStyle]} className="gap-xs color-dark-gray1 text-xs-body" allowFontScaling={false}>
+                                <Animated.Text style={[floatLabelStyle]} className=" text-sm-title dark:text-dark-type-gray-muted text-light-type-gray-muted" allowFontScaling={false}>
                                     {label}
                                 </Animated.Text>
                             )}
@@ -149,30 +153,29 @@ const AppPasswordInput: React.FC<AppInputProps> =
                                 autoFocus={focused}
                                 numberOfLines={numberOfLines}
                                 value={inputValue}
-                                multiline={multiline}
                                 secureTextEntry={passwordVisible}
-                                className='text-sm-head text-light-type-gray'
+                                className='text-sm-head text-light-type-gray dark:text-dark-type-gray-muted'
                             />
                         </View>
 
                         {inputValue.length > 0 && (
                             <TouchableOpacity onPress={handleClear} className='justify-center pl-2 px-sm'>
-                                <RemixIcon name="close-circle-fill" size={20} color={'#60646C'} />
+                                <RemixIcon name="close-circle-fill" size={20}
+                                    color={
+                                        colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT
+                                    } />
                             </TouchableOpacity>
                         )}
                         {rednerPasswordIcon()}
                     </View>
                 </TouchableWithoutFeedback>
-                {!error &&
+                {!!error &&
                     (typeof error === 'string' ? (
-                        <AppText
-                            size={2}
-                            color={"text-light-edge-error-strong"}
-                            weight={"regular"}
-                            align={"left"}
-                            className={"text-xs-title my-sm"}>
-                            {error}
-                        </AppText>
+                        <AppHintText
+                            type="error"
+                            text={error}
+                            className='py-xs'
+                        />
                     ) : undefined)
                 }
             </View>
