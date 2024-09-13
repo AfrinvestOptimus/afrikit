@@ -69,6 +69,8 @@ export interface AppInputProps extends Omit<TextInputProps, 'placeholderTextColo
   containerStyle?: ViewStyle
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
   onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
+  leftIcon: ReactNode
+  rightIcon: ReactNode
 }
 
 export interface AppPhoneInputProps extends Omit<TextInputProps, 'placeholderTextColor' | 'style'> {
