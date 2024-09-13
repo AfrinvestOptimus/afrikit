@@ -25,7 +25,7 @@ const IconTemp: FC<AppIconProps> = ({ name = 'cirle', color, size }) => {
       <RemixIcon
         name={name}
         size={getIconSize(size)}
-        color={color || colors[isDarkMode ? 'dark' : 'light'].type.accent.DEFAULT}
+        color={color || colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
       />
     </View>
   )
