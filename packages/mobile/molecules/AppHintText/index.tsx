@@ -23,12 +23,12 @@ const AppHintText: React.FC<AppHintTextProps> = ({
   const { colorScheme } = useColorScheme()
   const isDarkMode = colorScheme === 'dark'
   const appHintTextTypeStyles: Record<AppHintTextType, string> = {
-    default: 'text-light-type-gray-muted dark:text-dark-type-gray-muted',
-    error: 'text-light-type-error dark:text-dark-type-error',
+    default: 'text-light-type-gray-muted dark:text-dark-type-gray-muted text-sm-title',
+    error: 'text-light-type-error dark:text-dark-type-error text-sm-title',
   }
 
   const appHintTextIconColors: Record<AppHintTextType, string> = {
-    default: isDarkMode ? colors.light.type.gray.DEFAULT : colors.light.type.gray.DEFAULT,
+    default: isDarkMode ? colors.dark.type.gray.DEFAULT : colors.light.type.gray.DEFAULT,
     error: isDarkMode ? colors.dark.type.error.DEFAULT : colors.light.type.error.DEFAULT,
   }
 
