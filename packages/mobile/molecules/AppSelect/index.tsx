@@ -14,6 +14,7 @@ export type AppSelectProps = {
   state?: 'default' | 'disabled'
   hasError?: boolean
   errorText?: string
+  hintText?: string
   onValueChange?: (value: string) => void
   renderItem?: (option: { value: string; index: number }) => void
 }
@@ -21,9 +22,10 @@ export type AppSelectProps = {
 const AppSelect: React.FC<AppSelectProps> = ({
   label,
   options,
-  state = 'disabled',
+  state = 'default',
   hasError = false,
   errorText = '',
+  hintText = '',
   onValueChange,
   renderItem,
 }) => {
@@ -129,7 +131,22 @@ const AppSelect: React.FC<AppSelectProps> = ({
           </View>
         </TouchableOpacity>
         {hasError && errorText ? (
-          <AppHintText type="error" text={errorText} className="mt-sm" />
+          <AppHintText
+            type="error"
+            text={errorText}
+            accessibilityHintText={errorText}
+            showIcon
+            className="mt-sm"
+          />
+        ) : null}
+
+        {!!hintText ? (
+          <AppHintText
+            accessibilityHintText={hintText}
+            text={hintText}
+            showIcon
+            className="mt-sm"
+          />
         ) : null}
 
         <AppBottomSheet
