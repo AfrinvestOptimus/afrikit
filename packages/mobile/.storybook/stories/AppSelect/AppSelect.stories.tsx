@@ -15,7 +15,9 @@ export default {
       <GestureHandlerRootView>
         <BottomSheetModalProvider>
           <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1, width: '100%' }}>
-            <Story />
+            <View style={{ width: '80%' }}>
+              <Story />
+            </View>
           </View>
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
@@ -70,6 +72,15 @@ Default.args = {
   hasError: false,
 }
 
+// Hint Text  story
+export const WithHintText = Template.bind({})
+WithHintText.args = {
+  label: 'Select an option',
+  options: ['Option 1', 'Option 2', 'Option 3'],
+  state: 'default',
+  hintText: 'Info hint text',
+}
+
 // Disabled state story
 export const Disabled = Template.bind({})
 Disabled.args = {
@@ -86,7 +97,7 @@ WithError.args = {
   options: ['Option 1', 'Option 2', 'Option 3'],
   state: 'default',
   hasError: true,
-  errorText: 'This is an error message',
+  errorText: 'Error hint text',
 }
 
 // Custom item renderer story
@@ -97,8 +108,18 @@ CustomRenderer.args = {
   state: 'default',
   hasError: false,
   renderItem: ({ value, index }) => (
-    <View style={{ padding: 10, backgroundColor: 'lightgray', marginVertical: 5 }}>
-      <AppText>{`${index + 1}. ${value}`}</AppText>
+    <View style={{ flexDirection: 'row' }}>
+      <View style={{ width: 40, height: 40, borderWidth: 1, borderRadius: 20 }} />
+      <View style={{ marginLeft: 16 }}>
+        <AppText size={3} weight="medium" align="left" color="gray" highContrast>
+          {value}
+        </AppText>
+        <AppText
+          size={2}
+          weight="medium"
+          align="left"
+          color="gray">{`subtitle ${index + 1}`}</AppText>
+      </View>
     </View>
   ),
 }
