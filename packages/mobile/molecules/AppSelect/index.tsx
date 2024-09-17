@@ -8,7 +8,7 @@ import AppBottomSheet from '../AppBottomSheet'
 import AppHintText from '../AppHintText'
 import IconTemp from '../AppIcon'
 
-type AppSelectProps = {
+export type AppSelectProps = {
   label: string
   options: string[]
   state?: 'default' | 'disabled'
