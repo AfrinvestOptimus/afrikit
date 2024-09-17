@@ -15,6 +15,7 @@ export type AppSelectProps = {
   hasError?: boolean
   errorText?: string
   hintText?: string
+  className?: string
   onValueChange?: (value: string) => void
   renderItem?: (option: { value: string; index: number }) => void
 }
@@ -26,6 +27,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
   hasError = false,
   errorText = '',
   hintText = '',
+  className = '',
   onValueChange,
   renderItem,
 }) => {
@@ -109,63 +111,56 @@ const AppSelect: React.FC<AppSelectProps> = ({
   )
 
   return (
-    <>
-      <View>
-        <TouchableOpacity
-          className={`${hasError ? 'border border-light-edge-error-strong dark:border-dark-edge-error-strong' : 'border-none'}  p-md rounded-md  flex-row justify-between items-center h-[56px] ${getBackgroundStyles(state)}`}
-          onPress={handleOpenBottomSheet}
-          disabled={state === 'disabled'}>
-          <View className="flex justify-center">
-            <AppText className={`text-xs font-regular ${getTextStyles(state).label}`}>
-              {label}
+    <View className={className}>
+      <TouchableOpacity
+        className={`${hasError ? 'border border-light-edge-error-strong dark:border-dark-edge-error-strong' : 'border-none'}  p-md rounded-md  flex-row justify-between items-center h-[56px] ${getBackgroundStyles(state)}`}
+        onPress={handleOpenBottomSheet}
+        disabled={state === 'disabled'}>
+        <View className="flex justify-center">
+          <AppText className={`text-xs font-regular ${getTextStyles(state).label}`}>
+            {label}
+          </AppText>
+          {!!selectedValue && (
+            <AppText className={`text-sm font-semibold ${getTextStyles(state).selectedValue}`}>
+              {selectedValue}
             </AppText>
-            {!!selectedValue && (
-              <AppText className={`text-sm font-semibold ${getTextStyles(state).selectedValue}`}>
-                {selectedValue}
-              </AppText>
-            )}
-          </View>
+          )}
+        </View>
 
-          <View className="flex justify-center items-center">
-            <IconTemp name="arrow-down-s-line" size="24" color={getIconColor(state)} />
-          </View>
-        </TouchableOpacity>
-        {hasError && errorText ? (
-          <AppHintText
-            type="error"
-            text={errorText}
-            accessibilityHintText={errorText}
-            showIcon
-            className="mt-sm"
-          />
-        ) : null}
+        <View className="flex justify-center items-center">
+          <IconTemp name="arrow-down-s-line" size="24" color={getIconColor(state)} />
+        </View>
+      </TouchableOpacity>
+      {hasError && errorText ? (
+        <AppHintText
+          type="error"
+          text={errorText}
+          accessibilityHintText={errorText}
+          showIcon
+          className="mt-sm"
+        />
+      ) : null}
 
-        {!!hintText ? (
-          <AppHintText
-            accessibilityHintText={hintText}
-            text={hintText}
-            showIcon
-            className="mt-sm"
-          />
-        ) : null}
+      {!!hintText ? (
+        <AppHintText accessibilityHintText={hintText} text={hintText} showIcon className="mt-sm" />
+      ) : null}
 
-        <AppBottomSheet
-          backdropClose
-          index={3}
-          showModal={isBottomSheetOpen}
-          setShowModal={setIsBottomSheetOpen}
-          isDetached={false}>
-          {options.map((option, index) => (
-            <TouchableOpacity
-              key={index}
-              onPress={() => handleSelectOption(option)}
-              style={{ padding: 16 }}>
-              {renderItem?.({ value: option, index }) || renderDefaultItem(option)}
-            </TouchableOpacity>
-          ))}
-        </AppBottomSheet>
-      </View>
-    </>
+      <AppBottomSheet
+        backdropClose
+        index={3}
+        showModal={isBottomSheetOpen}
+        setShowModal={setIsBottomSheetOpen}
+        isDetached={false}>
+        {options.map((option, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={() => handleSelectOption(option)}
+            style={{ padding: 16 }}>
+            {renderItem?.({ value: option, index }) || renderDefaultItem(option)}
+          </TouchableOpacity>
+        ))}
+      </AppBottomSheet>
+    </View>
   )
 }
 
