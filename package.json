@@ -2,15 +2,12 @@
   "name": "afrikit",
   "version": "refs/heads/main",
   "description": "Afrinvest Design System",
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ],
-    "nohoist": [
-      "**/afrikit-shared",
-      "**/afrikit-shared/**"
-    ]
-  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "afrinvest",
     "design"
