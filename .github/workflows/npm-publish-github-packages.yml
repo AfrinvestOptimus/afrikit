@@ -4,7 +4,6 @@ on:
   release:
     types: [created]
 
-
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -29,7 +28,7 @@ jobs:
 
       # Step 4: Install dependencies (Lerna uses Yarn Workspaces)
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
@@ -43,26 +42,28 @@ jobs:
           git config --global user.email "developers@afrinvest.com"
           git config --global user.name "Afrinvest"
           git checkout main # Ensure we are on the main branch
-          npx lerna version --conventional-commits --yes --no-private
+          npx lerna version --conventional-commits --yes --no-private --create-release=github
           npx lerna publish from-package --yes --no-private
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Step 7: Push version changes and tags to GitHub only if there are changes
+      # Step 7: Check if there are version changes
       - name: Check if there are changes
         id: changes
         run: |
           if [[ -n $(git status --porcelain) ]]; then
             echo "changes"
+            echo "::set-output name=changes::changes"
           else
-            echo "no changes"
+            echo "::set-output name=changes::no changes"
           fi
 
+      # Step 8: Commit and push version changes if there are any
       - name: Commit and push version changes if there are any
         if: steps.changes.outputs.changes == 'changes'
         run: |
           git add .
-          git commit -m "Bump versions [skip ci]"
+          git commit -m "chore(release): bump version [skip ci]"
           git push origin HEAD:main
           git push --tags
         env:
