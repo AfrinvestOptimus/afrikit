@@ -1,5 +1,5 @@
 {
-  "name": "web-components",
+  "name": "afrikit-web",
   "version": "1.0.1",
   "description": "Houses all components used in the web application",
   "main": "index.ts",
