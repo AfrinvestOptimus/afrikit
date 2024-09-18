@@ -14158,7 +14158,7 @@ __metadata:
 
 "react-native-remix-icon@https://github.com/AfrinvestOptimus/react-native-remix-icon.git#upgrade-remix":
   version: 0.4.0
-  resolution: "react-native-remix-icon@git+ssh://git@github.com/AfrinvestOptimus/react-native-remix-icon.git#commit=e3f9b5bd2b550e006bf797f059831af197274146"
+  resolution: "react-native-remix-icon@https://github.com/AfrinvestOptimus/react-native-remix-icon.git#commit=e3f9b5bd2b550e006bf797f059831af197274146"
   peerDependencies:
     react-native-svg: "*"
   checksum: 10c0/3bc91dbea166ad8ed5c7c13c7d08328fec1253da8731f3e1da590aa4a92c6aab84ea4d311356793b103382a52f7e64ab9f12bae63ad15812341a9c1ab51d90f0
@@ -15057,7 +15057,6 @@ __metadata:
   dependencies:
     "@radix-ui/colors": "npm:^3.0.0"
     "@types/node": "npm:^20.14.11"
-    react-native-remix-icon: "https://github.com/AfrinvestOptimus/react-native-remix-icon.git#upgrade-remix"
     tailwindcss: "npm:^3.4.6"
     tsc-alias: "npm:^1.6.8"
     typescript: "npm:^5.5.4"

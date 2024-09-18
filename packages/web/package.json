@@ -2,7 +2,6 @@
   "name": "web-components",
   "version": "0.0.8",
   "description": "Houses all components used in the web application",
-  "private": true,
   "main": "index.ts",
   "author": "Afrinvest",
   "license": "MIT",
