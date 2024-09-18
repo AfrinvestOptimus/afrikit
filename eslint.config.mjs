@@ -10,6 +10,9 @@ export default [
   ...tseslint.configs.recommended,
   // pluginReact.configs.flat.recommended,
   {
+    ignores: ['dist/*'],
+  },
+  {
     rules: {
       'no-unused-vars': 'warn',
       'no-undef': 'error',
