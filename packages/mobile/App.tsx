@@ -25,6 +25,7 @@ import AppPasswordInput from './molecules/AppPasswordInput'
 import { AppTopBar } from './molecules/AppTopBar'
 import { GlobalWrapper } from './molecules/GlobalWrapper'
 import ListItem from './molecules/list-item'
+import React = require('react')
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false)

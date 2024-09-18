@@ -4,6 +4,7 @@ import { DetachedProps, RegularProps } from '../../types/molecules'
 import { BottomSheetView } from '@gorhom/bottom-sheet'
 import AppButton from '../AppButton'
 import clsx from 'clsx'
+import React from 'react'
 
 function RenderedSheet({
   isDetached,

@@ -8,6 +8,7 @@ import checkBottomSheetProps from './checkBottomSheetProps'
 import RenderedSheet from './RenderedSheet'
 import { useColorScheme } from 'nativewind'
 import colors from '../../../shared/colors'
+import React from 'react'
 
 const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
   const checkedProps = checkBottomSheetProps(props)

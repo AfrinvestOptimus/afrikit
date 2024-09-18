@@ -1,8 +1,27 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./",
     "strict": true,
+    "moduleResolution": "node",
     "types": ["nativewind/types"],
-    "jsx": "react-jsx"
-  }
+    "jsx": "react-jsx",
+    "module": "CommonJS",
+    "target": "ES6",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "baseUrl": "./",
+    "paths": {
+      "@components/*": ["packages/mobile/components/*"],
+      "@molecules/*": ["packages/mobile/molecules/*"],
+      "@atoms/*": ["packages/mobile/atoms/*"],
+      "@shared/*": ["packages/shared/*"]
+    }
+  },
+  "include": ["packages/**/*"]
 }

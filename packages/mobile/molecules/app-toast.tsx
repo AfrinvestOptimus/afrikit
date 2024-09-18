@@ -4,6 +4,7 @@ import FlashMessage, { MessageType, Position, showMessage } from 'react-native-f
 import RemixIcon from 'react-native-remix-icon'
 import colors from '../../shared/colors'
 import fontSizes from '../../shared/fontSizes'
+import React from 'react'
 
 export const showErrorMessage = (message: string = 'Something went wrong ') => {
   showMessage({

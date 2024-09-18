@@ -4,6 +4,7 @@ import { View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
 import colors from '../../shared/colors'
 import classNames from '../utilities/classnames'
+import React = require('react')
 
 type AppIconProps = {
   name: string
@@ -11,7 +12,7 @@ type AppIconProps = {
   size: '16' | '20' | '24' | '40' | '48'
 }
 
-const IconTemp: FC<AppIconProps> = ({ name = 'cirle', color, size }) => {
+const AppIcon: FC<AppIconProps> = ({ name = 'cirle', color, size }) => {
   const { colorScheme } = useColorScheme()
   const isDarkMode = colorScheme === 'dark'
   return (
@@ -39,4 +40,4 @@ const getIconSize = (size: string): string => {
   return size
 }
 
-export default IconTemp
+export default AppIcon

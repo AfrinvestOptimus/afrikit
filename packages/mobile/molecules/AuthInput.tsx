@@ -3,6 +3,7 @@
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { Pressable, Text, TextInput, View } from 'react-native'
 import classNames from '../utilities/classnames'
+import React from 'react'
 
 export type AuthInputProps = {
   count: number

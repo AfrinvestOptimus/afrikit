@@ -77,4 +77,5 @@ export const topBarTitle = (props: TopBarTitleProps) =>
 export const topBarTitle2 = (props: TopBarTitleProps) =>
   ['large2', 'large2-centered'].includes(props.variant) && <TopBarTitle2 {...props} />
 
-export { TopBarTitle, TopBarTitle2 }
+export default TopBarTitle;
+export { TopBarTitle2 }
