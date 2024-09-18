@@ -1,11 +1,16 @@
 {
   "name": "afrikit-web",
   "version": "1.0.1",
-  "description": "Houses all components used in the web application",
   "main": "index.ts",
   "author": "Afrinvest",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc && tsc-alias"
+  },
   "dependencies": {
-    "shared": "^1.0.1"
+    "afrikit-shared": "^1.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

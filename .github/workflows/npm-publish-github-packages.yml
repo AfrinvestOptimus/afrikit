@@ -27,7 +27,7 @@ jobs:
       - name: Configure npm to use the token
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
-      # Step 4: Install dependencies
+      # Step 4: Install dependencies (Lerna uses Yarn Workspaces)
       - name: Install dependencies
         run: yarn install
         env:
@@ -37,18 +37,18 @@ jobs:
       - name: Build project
         run: yarn build
 
-      # Step 6: Use Lerna to publish all updated packages to npm
+      # Step 6: Use Lerna to version and publish all updated packages to npm
       - name: Publish packages with Lerna
         run: |
           git config --global user.email "developers@afrinvest.com"
           git config --global user.name "Afrinvest"
           git checkout main # Ensure we are on the main branch
-          npx lerna version --conventional-commits --yes
-          npx lerna publish from-package --yes
+          npx lerna version --conventional-commits --yes --no-private
+          npx lerna publish from-package --yes --no-private
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Step 7: Push version changes to GitHub
+      # Step 7: Push version changes and tags to GitHub
       - name: Push version changes to GitHub
         run: |
           git add .
