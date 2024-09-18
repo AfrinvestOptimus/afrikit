@@ -11,6 +11,7 @@
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.2.3",
     "@gorhom/bottom-sheet": "^4.6.4",
+    "@react-native-community/datetimepicker": "^8.2.0",
     "expo": "~51.0.28",
     "expo-font": "~12.0.9",
     "expo-status-bar": "~1.12.1",
@@ -19,12 +20,13 @@
     "react": "18.2.0",
     "react-hook-form": "^7.53.0",
     "react-native": "0.74.5",
+    "react-native-date-picker": "^5.0.7",
     "react-native-flash-message": "^0.4.2",
-    "tailwind-variants": "^0.2.1",
     "react-native-gesture-handler": "^2.18.1",
     "react-native-reanimated": "~3.10.1",
     "react-native-remix-icon": "https://github.com/AfrinvestOptimus/react-native-remix-icon.git#upgrade-remix",
     "react-native-svg": "^15.6.0",
+    "tailwind-variants": "^0.2.1",
     "tailwindcss": "^3.4.10"
   },
   "devDependencies": {
