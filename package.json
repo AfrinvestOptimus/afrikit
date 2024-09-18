@@ -5,6 +5,7 @@
   "workspaces": [
     "packages/*"
   ],
+  "private": "true",
   "files": [
     "dist"
   ],
