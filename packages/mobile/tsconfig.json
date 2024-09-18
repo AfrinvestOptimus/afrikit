@@ -23,5 +23,6 @@
       "@shared/*": ["packages/shared/*"]
     }
   },
-  "include": ["packages/**/*"]
+  "include": ["packages/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
 }
