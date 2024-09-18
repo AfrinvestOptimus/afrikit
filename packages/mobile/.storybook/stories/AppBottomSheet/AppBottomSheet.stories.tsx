@@ -1,11 +1,12 @@
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import type { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Icon from 'react-native-remix-icon'
 import AppBottomSheet from '../../../molecules/AppBottomSheet'
 import AppButton from '../../../molecules/AppButton'
+import { AppBottomSheetProps } from '../../../types/molecules'
 
 const meta: Meta<typeof AppBottomSheet> = {
   title: 'AppBottomSheet',
@@ -46,7 +47,7 @@ export default meta
 
 type Story = StoryObj<typeof AppBottomSheet>
 
-const BottomSheetWrapper = (props: any) => {
+const BottomSheetWrapper = (props: AppBottomSheetProps<boolean>) => {
   const [showModal, setShowModal] = useState(false)
   return (
     <GestureHandlerRootView className={'flex-1'}>

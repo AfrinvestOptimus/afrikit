@@ -316,7 +316,7 @@ export default function App() {
                 backdropClose={true}
                 index={0}
                 isDetached={true}
-                title={'Let him cook!'}
+                title={{ text: 'Let him cook' }}
                 content={
                   'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda blanditiis dolor, ea et iste minus placeat reprehenderit suscipit unde.'
                 }

@@ -1,14 +1,12 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types'
+import { useColorScheme } from 'nativewind'
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, Dimensions } from 'react-native'
+import colors from '../../../shared/colors'
 import { AppBottomSheetProps } from '../../types/molecules'
 import checkBottomSheetProps from './checkBottomSheetProps'
 import RenderedSheet from './RenderedSheet'
-import { useColorScheme } from 'nativewind'
-import colors from '../../../shared/colors'
-import React from 'react'
 
 const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
   const checkedProps = checkBottomSheetProps(props)
@@ -19,8 +17,7 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
   const buttonAnimation = useRef(new Animated.Value(0)).current
   const { colorScheme } = useColorScheme()
 
-  const { isDetached, showModal, setShowModal, backdropClose, height } =
-    checkedProps
+  const { isDetached, showModal, setShowModal, backdropClose, height } = checkedProps
 
   // variables
   const snapPoints = useMemo(() => {
@@ -84,7 +81,7 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
   // renders
 
   const renderBackdrop = useCallback(
-    (props: any) => (
+    (props: BottomSheetDefaultBackdropProps) => (
       <BottomSheetBackdrop
         {...props}
         enableTouchThrough={false}

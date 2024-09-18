@@ -1,10 +1,9 @@
-import { isValidElement, memo } from 'react'
+import { BottomSheetView } from '@gorhom/bottom-sheet'
+import clsx from 'clsx'
+import React, { isValidElement, memo } from 'react'
 import { Animated, ScrollView, Text, View } from 'react-native'
 import { DetachedProps, RegularProps } from '../../types/molecules'
-import { BottomSheetView } from '@gorhom/bottom-sheet'
 import AppButton from '../AppButton'
-import clsx from 'clsx'
-import React from 'react'
 
 function RenderedSheet({
   isDetached,
@@ -13,7 +12,7 @@ function RenderedSheet({
   btnTranslateY,
 }: {
   isDetached: boolean
-  checkedProps: DetachedProps
+  checkedProps: DetachedProps | RegularProps
   height: number
   btnTranslateY: Animated.AnimatedInterpolation<number | string>
 }) {
