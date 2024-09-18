@@ -113,7 +113,16 @@ const AppSelect: React.FC<AppSelectProps> = ({
   return (
     <View className={className}>
       <TouchableOpacity
-        className={`${hasError ? 'border border-light-edge-error-strong dark:border-dark-edge-error-strong' : 'border-none'}  p-md rounded-md  flex-row justify-between items-center h-[56px] ${getBackgroundStyles(state)}`}
+        accessibilityLabel={label}
+        accessibilityRole="button"
+        accessibilityHint="Opens selection menu"
+        className={`${
+          hasError
+            ? 'border border-light-edge-error-strong dark:border-dark-edge-error-strong'
+            : 'border-none'
+        }  p-md rounded-md  flex-row justify-between items-center h-[56px] ${getBackgroundStyles(
+          state,
+        )}`}
         onPress={handleOpenBottomSheet}
         disabled={state === 'disabled'}>
         <View className="flex justify-center">
@@ -154,6 +163,9 @@ const AppSelect: React.FC<AppSelectProps> = ({
         {options.map((option, index) => (
           <TouchableOpacity
             key={index}
+            accessibilityRole="menuitem"
+            accessibilityLabel={option}
+            accessibilityHint={`Select ${option}`}
             onPress={() => handleSelectOption(option)}
             style={{ padding: 16 }}>
             {renderItem?.({ value: option, index }) || renderDefaultItem(option)}
