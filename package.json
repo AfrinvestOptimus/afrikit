@@ -76,6 +76,5 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint . --fix --max-warnings=100"
     ]
-  },
-  "packageManager": "yarn@4.5.0"
+  }
 }
