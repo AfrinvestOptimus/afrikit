@@ -22,6 +22,8 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
 
       - name: Build project
         run: yarn build
