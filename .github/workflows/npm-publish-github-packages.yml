@@ -48,8 +48,18 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Step 7: Push version changes and tags to GitHub
-      - name: Push version changes to GitHub
+      # Step 7: Push version changes and tags to GitHub only if there are changes
+      - name: Check if there are changes
+        id: changes
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "changes"
+          else
+            echo "no changes"
+          fi
+
+      - name: Commit and push version changes if there are any
+        if: steps.changes.outputs.changes == 'changes'
         run: |
           git add .
           git commit -m "Bump versions [skip ci]"
