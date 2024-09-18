@@ -15057,6 +15057,7 @@ __metadata:
   dependencies:
     "@radix-ui/colors": "npm:^3.0.0"
     "@types/node": "npm:^20.14.11"
+    react-native-remix-icon: "https://github.com/AfrinvestOptimus/react-native-remix-icon.git#upgrade-remix"
     tailwindcss: "npm:^3.4.6"
     tsc-alias: "npm:^1.6.8"
     typescript: "npm:^5.5.4"
