@@ -17,6 +17,7 @@ export type AppDateInputProps = {
   errorText?: string
   hintText?: string
   onDateChange?: (value: Date) => void
+  renderConfirmButton?: () => React.ReactNode
 }
 
 const AppDateInput: React.FC<AppDateInputProps> = ({
@@ -26,6 +27,7 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
   errorText = '',
   hintText = '',
   onDateChange,
+  renderConfirmButton, // Destructure the new prop
 }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
@@ -98,6 +100,10 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
           }  p-md rounded-md  flex-row justify-between items-center h-[56px] ${getBackgroundStyles(
             state,
           )}`}
+          accessibilityLabel={label}
+          accessibilityState={{ disabled: state === 'disabled' }}
+          accessibilityRole="button"
+          accessibilityHint="Double tap to open date picker"
           onPress={handleOpenBottomSheet}
           disabled={state === 'disabled'}>
           <View className="flex justify-center">
@@ -117,10 +123,17 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
         </TouchableOpacity>
 
         {hasError && errorText ? (
-          <AppHintText type="error" text={errorText} className="mt-sm" />
+          <AppHintText
+            type="error"
+            text={errorText}
+            className="mt-sm"
+            accessibilityHintText={errorText}
+          />
         ) : null}
 
-        {!!hintText ? <AppHintText text={hintText} className="mt-sm" /> : null}
+        {!!hintText ? (
+          <AppHintText text={hintText} className="mt-sm" accessibilityHintText={hintText} />
+        ) : null}
 
         <AppBottomSheet
           backdropClose
@@ -138,19 +151,25 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
                   onChange={handleDateChange}
                   disabled={state === 'disabled'}
                   themeVariant={isDarkMode ? 'dark' : 'light'}
+                  accessibilityLabel="Date Picker"
+                  accessibilityHint="Swipe up or down to adjust date"
                 />
 
-                <AppButton
-                  text="Confirm"
-                  accessibilityLabel="COnfirm Button"
-                  accessibilityHint="Press to select the confirm selected date"
-                  size={4}
-                  variant="solid"
-                  color="neutral"
-                  highContrast
-                  className="mt-3xl"
-                  onPress={handleConfirmDate}
-                />
+                {renderConfirmButton ? (
+                  renderConfirmButton()
+                ) : (
+                  <AppButton
+                    text="Confirm"
+                    accessibilityLabel="Confirm Button"
+                    accessibilityHint="Press to confirm selected date"
+                    size={4}
+                    variant="solid"
+                    color="neutral"
+                    highContrast
+                    className="mt-3xl"
+                    onPress={handleConfirmDate}
+                  />
+                )}
               </View>
             </View>
           )}
