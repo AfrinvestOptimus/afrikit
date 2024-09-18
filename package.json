@@ -1,6 +1,6 @@
 {
   "name": "afrikit",
-  "version": "refs/heads/main",
+  "version": "1.0.0",
   "private": true,
   "description": "Afrinvest Design System",
   "workspaces": [
