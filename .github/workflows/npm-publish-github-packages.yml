@@ -1,19 +1,18 @@
 name: Publish npm Packages
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - main
 
 jobs:
   publish:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the main branch (avoiding detached HEAD state)
+      # Step 1: Checkout the main branch
       - name: Checkout main branch
         uses: actions/checkout@v2
-        with:
-          ref: main
 
       # Step 2: Set up Node.js
       - name: Setup Node.js
@@ -26,9 +25,9 @@ jobs:
       - name: Configure npm to use the token
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
-      # Step 4: Install dependencies (Lerna uses Yarn Workspaces)
+      # Step 4: Install dependencies
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
@@ -41,29 +40,28 @@ jobs:
         run: |
           git config --global user.email "developers@afrinvest.com"
           git config --global user.name "Afrinvest"
-          git checkout main # Ensure we are on the main branch
-          npx lerna version --conventional-commits --yes --no-private --create-release=github
+          git checkout main
+          npx lerna version --conventional-commits --yes --no-private
           npx lerna publish from-package --yes --no-private
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
-      # Step 7: Check if there are version changes
+      # Step 7: Push version changes and tags to GitHub only if there are changes
       - name: Check if there are changes
         id: changes
         run: |
           if [[ -n $(git status --porcelain) ]]; then
             echo "changes"
-            echo "::set-output name=changes::changes"
           else
-            echo "::set-output name=changes::no changes"
+            echo "no changes"
           fi
 
-      # Step 8: Commit and push version changes if there are any
       - name: Commit and push version changes if there are any
         if: steps.changes.outputs.changes == 'changes'
         run: |
           git add .
-          git commit -m "chore(release): bump version [skip ci]"
+          git commit -m "Bump versions [skip ci]"
           git push origin HEAD:main
           git push --tags
         env:
