@@ -5,4 +5,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 1.0.1 (2024-09-18)
 
-**Note:** Version bump only for package shared
+**Note:** Version bump only for package afrikit

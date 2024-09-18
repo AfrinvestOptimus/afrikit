@@ -1,6 +1,6 @@
 {
-  "name": "afrikit-shared",
-  "version": "1.0.23",
+  "name": "shared",
+  "version": "1.0.1",
   "description": "Houses all shared files",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -28,8 +28,7 @@
   },
   "scripts": {
     "build": "tsc && tsc-alias",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublishOnly": "yarn build"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -38,8 +37,5 @@
   "bugs": {
     "url": "https://github.com/AfrinvestOptimus/afrikit/issues"
   },
-  "homepage": "https://github.com/AfrinvestOptimus/afrikit#readme",
-  "publishConfig": {
-    "access": "public"
-  }
+  "homepage": "https://github.com/AfrinvestOptimus/afrikit#readme"
 }
