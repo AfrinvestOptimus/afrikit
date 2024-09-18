@@ -1,17 +1,20 @@
 name: Publish npm Packages
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - main
 
 jobs:
   publish:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code
-      - name: Checkout code
+      # Step 1: Checkout the main branch (avoiding detached HEAD state)
+      - name: Checkout main branch
         uses: actions/checkout@v2
+        with:
+          ref: main
 
       # Step 2: Set up Node.js
       - name: Setup Node.js
@@ -30,23 +33,24 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
-      # Step 5: Build the project (this ensures TypeScript or other build steps run)
+      # Step 5: Build the project
       - name: Build project
         run: yarn build
 
       # Step 6: Use Lerna to publish all updated packages to npm
       - name: Publish packages with Lerna
         run: |
+          git config --global user.email "developers@afrinvest.com"
+          git config --global user.name "Afrinvest"
+          git checkout main # Ensure we are on the main branch
           npx lerna version --conventional-commits --yes
           npx lerna publish from-package --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Step 7: Push the updated package.json and tags back to the repository
+      # Step 7: Push version changes to GitHub
       - name: Push version changes to GitHub
         run: |
-          git config --global user.email "developers@afrinvest.com"
-          git config --global user.name "Afrinvest"
           git add .
           git commit -m "Bump versions [skip ci]"
           git push origin HEAD:main
