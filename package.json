@@ -17,24 +17,31 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@types/eslint-plugin-jsx-a11y": "^6",
     "@types/node": "^20.14.11",
+    "@types/react": "^18",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^18.0.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.30.0",
+    "eslint-plugin-jsx-a11y": "^6.10.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.35.0",
-    "react-hook-form": "^7.53.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "globals": "^15.9.0",
     "husky": "^8.0.0",
     "lerna": "^8.1.8",
     "lint-staged": "^15.2.9",
     "prettier": "^3.3.3",
+    "react": "^18.3.1",
+    "react-hook-form": "^7.53.0",
     "tsc-alias": "^1.6.8",
     "typescript": "^5.5.4",
-    "typescript-eslint": "^8.2.0"
+    "typescript-eslint": "^8.2.0",
+    "webpack": "^5.94.0"
   },
   "scripts": {
     "build": "tsc && tsc-alias",
@@ -64,5 +71,5 @@
       "eslint . --fix --max-warnings=100"
     ]
   },
-  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
+  "packageManager": "yarn@4.5.0"
 }
