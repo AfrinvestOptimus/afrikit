@@ -1,6 +1,6 @@
 name: Publish npm Package
 
-#one:
+#on:
 #  release:
 #    types: [created]
 
