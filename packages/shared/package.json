@@ -1,5 +1,5 @@
 {
-  "name": "shared",
+  "name": "afrikit-shared",
   "version": "1.0.1",
   "description": "Houses all shared files",
   "main": "dist/index.js",
