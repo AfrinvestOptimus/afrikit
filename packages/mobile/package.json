@@ -50,5 +50,8 @@
     "react-dom": "18.2.0",
     "react-native-safe-area-context": "4.10.5",
     "typescript": "~5.3.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

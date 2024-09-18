@@ -1,55 +1,55 @@
-name: Publish npm Package
+name: Publish npm Packages
 
 on:
   release:
     types: [created]
-
-#on:
-#  push:
-#    branches:
-#      - main
 
 jobs:
   publish:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v2
 
+      # Step 2: Set up Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '22'
+          cache: 'yarn'
 
+      # Step 3: Configure npm to use the authentication token
       - name: Configure npm to use the token
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
+      # Step 4: Install dependencies
       - name: Install dependencies
         run: yarn install
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
+      # Step 5: Build the project (this ensures TypeScript or other build steps run)
       - name: Build project
         run: yarn build
 
-      - name: Extract version from tag
-        id: extract_version
-        run: echo "::set-output name=VERSION::${GITHUB_REF#refs/tags/}"
-
-      - name: Update package.json with new version
+      # Step 6: Use Lerna to publish all updated packages to npm
+      - name: Publish packages with Lerna
         run: |
-          jq --arg VERSION "${{ steps.extract_version.outputs.VERSION }}" '.version = $VERSION' package.json > tmp.$$.json && mv tmp.$$.json package.json
-          git config --global user.email "developers@afrinvest.com"
-          git config --global user.name "Afrinvest"
-          git add package.json
-          git commit -m "Bump version to ${{ steps.extract_version.outputs.VERSION }}"
-          git push origin HEAD:main
-
-      - name: Publish to npm
+          npx lerna version --conventional-commits --yes
+          npx lerna publish from-package --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: yarn publish --non-interactive --new-version ${{ steps.extract_version.outputs.VERSION }}
 
-      - name: Push tags
-        run: git push --tags
+      # Step 7: Push the updated package.json and tags back to the repository
+      - name: Push version changes to GitHub
+        run: |
+          git config --global user.email "developers@afrinvest.com"
+          git config --global user.name "Afrinvest"
+          git add .
+          git commit -m "Bump versions [skip ci]"
+          git push origin HEAD:main
+          git push --tags
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
