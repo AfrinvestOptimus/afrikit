@@ -5,6 +5,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "afrinvest",
     "design"
