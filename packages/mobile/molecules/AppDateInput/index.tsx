@@ -1,5 +1,5 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import DateTimePicker from '@react-native-community/datetimepicker'
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker'
 import { useColorScheme } from 'nativewind'
 import React, { useCallback, useRef, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
@@ -52,7 +52,7 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
   }, [])
 
   const handleDateChange = useCallback(
-    (event: any, date?: Date) => {
+    (event: DateTimePickerEvent, date?: Date) => {
       setSelectedDate(date || new Date())
       onDateChange?.(date || new Date())
     },
@@ -131,7 +131,7 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
           />
         ) : null}
 
-        {!!hintText ? (
+        {hintText ? (
           <AppHintText text={hintText} className="mt-sm" accessibilityHintText={hintText} />
         ) : null}
 

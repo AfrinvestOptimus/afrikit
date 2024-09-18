@@ -1,7 +1,7 @@
+import React, { memo, useMemo } from 'react'
 import { Text } from 'react-native'
-import { AppTextAtomProps } from '../types/atoms'
 import { tv } from 'tailwind-variants'
-import { memo, useMemo } from 'react'
+import { AppTextAtomProps } from '../types/atoms'
 
 const textVariants = tv({
   base: 'text-left',
@@ -91,7 +91,7 @@ const textVariants = tv({
     },
   ],
   defaultVariants: {
-    size: '3',
+    size: 3,
     weight: 'medium',
     color: 'gray',
     highContrast: false,

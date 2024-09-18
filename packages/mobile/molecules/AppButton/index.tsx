@@ -24,6 +24,7 @@ export interface AppButtonProps {
   iconStart?: boolean
   iconEnd?: boolean
   iconName?: string
+  className?: string
   text: string
   onPress?: (event: GestureResponderEvent) => void
   accessibilityLabel?: string

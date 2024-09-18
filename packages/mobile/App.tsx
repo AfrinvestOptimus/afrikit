@@ -13,7 +13,7 @@ import './global.css'
 import { FormData } from './types/atoms'
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import AppText from './atoms/AppText'
 import AppTitle from './atoms/AppTitle'
@@ -25,7 +25,6 @@ import AppPasswordInput from './molecules/AppPasswordInput'
 import { AppTopBar } from './molecules/AppTopBar'
 import { GlobalWrapper } from './molecules/GlobalWrapper'
 import ListItem from './molecules/list-item'
-import React = require('react')
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false)
@@ -129,7 +128,7 @@ export default function App() {
               />
               <AppText
                 size={2}
-                color={'text-dark-red9'}
+                color={'error'}
                 weight={'regular'}
                 align={'left'}
                 className={'mb-2xl'}
