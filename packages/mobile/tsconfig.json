@@ -1,7 +1,9 @@
 {
-  "extends": "expo/tsconfig.base",
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "outDir": "./dist",
+    "allowJs": true,
+    "resolveJsonModule": true,
     "rootDir": "./",
     "strict": true,
     "moduleResolution": "node",
@@ -9,6 +11,7 @@
     "jsx": "react-jsx",
     "module": "CommonJS",
     "target": "ES6",
+    "lib": ["ES2016", "DOM"],
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
@@ -18,14 +21,14 @@
     "baseUrl": "./"
   },
   "include": [
-    "components/**/*",
-    "molecules/**/*",
-    "atoms/**/*",
-    "organisms/**/*",
-    "types/**/*",
-    "utilities/**/*",
-    "global.css",
-    "index.ts"
+    "./components/**/*",
+    "./molecules/**/*",
+    "./atoms/**/*",
+    "./organisms/**/*",
+    "./types/**/*",
+    "./utilities/**/*",
+    "./global.css",
+    "./index.ts"
   ],
   "exclude": ["node_modules"]
 }
