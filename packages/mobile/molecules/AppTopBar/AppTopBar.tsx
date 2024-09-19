@@ -1,6 +1,6 @@
 import React from 'react'
 import { SafeAreaView, useColorScheme, View } from 'react-native'
-import colors from 'afrikit-shared/colors';
+import colors from 'afrikit-shared/dist/colors';
 import IconButton from '../../components/molecules/IconButton'
 import { topBarTitle, topBarTitle2 } from '../../components/molecules'
 

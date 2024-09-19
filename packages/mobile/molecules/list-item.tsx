@@ -2,7 +2,7 @@ import { cssInterop, useColorScheme } from 'nativewind'
 import React from 'react'
 import { Image, Switch, Text, TouchableOpacity, View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
-import colors from '../../shared/colors'
+import colors from 'afrikit-shared/dist/colors';
 import AppText from '../atoms/AppText'
 import { AppTextAtomProps } from '../types/atoms'
 import { AppAvatar, AppAvatarProps, AppButton, AppButtonProps } from './index'

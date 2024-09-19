@@ -38,5 +38,6 @@
   "bugs": {
     "url": "https://github.com/AfrinvestOptimus/afrikit/issues"
   },
-  "homepage": "https://github.com/AfrinvestOptimus/afrikit#readme"
+  "homepage": "https://github.com/AfrinvestOptimus/afrikit#readme",
+  "gitHead": "0275b21d794e11ed31db4e99b546fc805efbe41e"
 }
