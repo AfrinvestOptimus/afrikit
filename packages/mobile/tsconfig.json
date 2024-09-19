@@ -27,5 +27,5 @@
     "./global.css",
     "./index.ts"
   ],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "./App.tsx"]
+  "exclude": ["node_modules", "**/*.test.ts", "./App.tsx"]
 }
