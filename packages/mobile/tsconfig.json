@@ -17,12 +17,21 @@
     "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
-      "@components/*": ["packages/mobile/components/*"],
-      "@molecules/*": ["packages/mobile/molecules/*"],
-      "@atoms/*": ["packages/mobile/atoms/*"],
-      "@shared/*": ["packages/shared/*"]
+      "@components/*": ["./components/*"],
+      "@molecules/*": ["./molecules/*"],
+      "@atoms/*": ["./atoms/*"],
+      "@shared/*": ["../shared/*"]
     }
   },
-  "include": ["packages/**/*"],
+  "include": [
+    "./components/**/*",
+    "./molecules/**/*",
+    "./atoms/**/*",
+    "./organisms/**/*",
+    "./types/**/*",
+    "./utilities/**/*",
+    "./App.tsx",
+    "./global.css"
+  ],
   "exclude": ["node_modules", "dist", "**/*.test.ts"]
 }
