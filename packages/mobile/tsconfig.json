@@ -17,6 +17,10 @@
     "skipLibCheck": true,
     "baseUrl": "./"
   },
+  "paths": {
+    "@shared/*": ["node_modules/afrikit-shared/dist/*"]
+  },
+
   "include": [
     "./components/**/*",
     "./molecules/**/*",
