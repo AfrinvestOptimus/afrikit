@@ -15,13 +15,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "baseUrl": "./",
-    "paths": {
-      "@components/*": ["./components/*"],
-      "@molecules/*": ["./molecules/*"],
-      "@atoms/*": ["./atoms/*"],
-      "@shared/*": ["../shared/*"]
-    }
+    "baseUrl": "./"
   },
   "include": [
     "./components/**/*",
@@ -31,7 +25,8 @@
     "./types/**/*",
     "./utilities/**/*",
     "./App.tsx",
-    "./global.css"
+    "./global.css",
+    "./index.ts"
   ],
   "exclude": ["node_modules", "dist", "**/*.test.ts"]
 }
