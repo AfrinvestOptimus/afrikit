@@ -17,9 +17,6 @@
     "skipLibCheck": true,
     "baseUrl": "./"
   },
-  "paths": {
-    "@shared/*": ["../../shared/*"]
-  },
   "include": [
     "./components/**/*",
     "./molecules/**/*",
@@ -28,8 +25,7 @@
     "./types/**/*",
     "./utilities/**/*",
     "./global.css",
-    "./index.ts",
-    "../../shared/**/*"
+    "./index.ts"
   ],
   "exclude": ["node_modules", "dist", "**/*.test.ts", "./App.tsx"]
 }
