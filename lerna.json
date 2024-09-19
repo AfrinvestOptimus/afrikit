@@ -8,9 +8,6 @@
       "allowBranch": ["main", "release/*"],
       "conventionalCommits": true,
       "message": "chore(release): publish"
-    },
-    "bootstrap": {
-      "hoist": "true"
     }
   }
 }
