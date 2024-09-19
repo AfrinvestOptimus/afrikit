@@ -107,3 +107,6 @@ Got ideas for improvements or found a bug? Submit an issue or open a pull reques
 ## 📝 License
 
 This project is licensed under the MIT License. See the [LICENSE.md](LICENSE.md) file for more details.
+
+## 😄 Final Words
+Afrikit Mobile is here to save your time, improve your app's UI, and bring consistency to your design workflow. Now, get back to doing what you do best: building awesome apps, and leave the design heavy-lifting to us! 💪
