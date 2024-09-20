@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  View,
+  SafeAreaView,
+} from 'react-native'
 import FloatingButton from '../../components/molecules/FloatingButton'
 
 export interface GlobalWrapperProps {
