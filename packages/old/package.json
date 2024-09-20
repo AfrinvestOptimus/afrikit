@@ -1,0 +1,17 @@
+{
+  "name": "afrikit-web",
+  "version": "1.0.18",
+  "main": "index.ts",
+  "author": "Afrinvest",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc && tsc-alias"
+  },
+  "dependencies": {
+    "afrikit-shared": "^1.0.18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "0275b21d794e11ed31db4e99b546fc805efbe41e"
+}
