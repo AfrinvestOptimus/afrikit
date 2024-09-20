@@ -66,7 +66,7 @@ export default function App() {
     return null
   }
 
-  const SHOW_STORYBOOK = false
+  const SHOW_STORYBOOK = true
   if (SHOW_STORYBOOK) {
     return <StorybookUIRoot />
   }

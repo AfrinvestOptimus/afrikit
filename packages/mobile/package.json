@@ -1,7 +1,7 @@
 {
   "name": "afrikit-mobile",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "entrance.ts",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
