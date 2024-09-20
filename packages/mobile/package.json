@@ -11,7 +11,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build": "tsc && tsc-alias"
+    "build": "tsc && tsc-alias",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.2.3",
