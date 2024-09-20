@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
 import AppText from '../../../atoms/AppText'
-import ListItem, { ListItemProps } from '../../../molecules/list-item'
+import { ListItemProps, AppListItem } from '../../../molecules'
 
 const meta: Meta<ListItemProps> = {
   title: 'ListItem',
-  component: ListItem,
+  component: AppListItem,
   decorators: [Story => <Story />],
   argTypes: {
     size: {
@@ -106,7 +106,7 @@ const meta: Meta<ListItemProps> = {
 
 export default meta
 
-type Story = StoryObj<typeof ListItem>
+type Story = StoryObj<typeof AppListItem>
 
 const defaults: ListItemProps = {
   size: '2',

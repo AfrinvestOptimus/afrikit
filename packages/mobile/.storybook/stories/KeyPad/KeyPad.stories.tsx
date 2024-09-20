@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
-import KeyPad from '../../../molecules/keypad'
+import { KeyPadProps, AppKeypad } from '../../../molecules'
 
-const KeyPadMeta: Meta<typeof KeyPad> = {
+const KeyPadMeta: Meta<typeof AppKeypad> = {
   title: 'KeyPad',
-  component: KeyPad,
+  component: AppKeypad,
   argTypes: {
     onKeyPress: { action: 'pressed the button' },
     onChange: { action: 'pressed the button' },
@@ -29,16 +29,16 @@ const KeyPadMeta: Meta<typeof KeyPad> = {
 
 export default KeyPadMeta
 
-export const Basic: StoryObj<typeof KeyPad> = {}
+export const Basic: StoryObj<typeof AppKeypad> = {}
 
-export const WithBiometric: StoryObj<typeof KeyPad> = {
+export const WithBiometric: StoryObj<typeof AppKeypad> = {
   render: args => {
     const [value, setValue] = useState('')
 
     return (
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
         <Text style={{ marginTop: 20, fontSize: 20 }}>Current Value: {value}</Text>
-        <KeyPad
+        <AppKeypad
           {...args}
           onChange={val => {
             console.log({ val })
@@ -53,13 +53,13 @@ export const WithBiometric: StoryObj<typeof KeyPad> = {
     type: 'biometric',
   },
 }
-export const WithDecimal: StoryObj<typeof KeyPad> = {
+export const WithDecimal: StoryObj<typeof AppKeypad> = {
   args: {
     onChange: val => console.log({ val }),
     type: 'decimal',
   },
 }
-export const WithNonDecimal: StoryObj<typeof KeyPad> = {
+export const WithNonDecimal: StoryObj<typeof AppKeypad> = {
   args: {
     onChange: val => console.log({ val }),
     type: 'nondecimal',
