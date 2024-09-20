@@ -40,7 +40,7 @@ export default function checkBottomSheetProps(
       throw new Error('Regular mode cannot have both index and height')
     }
 
-    if ('index' in rest && ![0, 1, 2, 3, 4, 5].includes(rest.index)) {
+    if ('index' in rest && ![0, 1, 2, 3, 4, 5].includes(rest.index as number)) {
       throw new Error('Regular mode index must be between 0 and 5')
     }
 
