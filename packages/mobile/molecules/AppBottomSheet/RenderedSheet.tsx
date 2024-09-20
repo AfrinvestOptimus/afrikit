@@ -1,9 +1,9 @@
 import { BottomSheetView } from '@gorhom/bottom-sheet'
-import clsx from 'clsx'
 import React, { isValidElement, memo } from 'react'
 import { Animated, ScrollView, Text, View } from 'react-native'
 import { DetachedProps, RegularProps } from '../../types/molecules'
 import AppButton from '../AppButton'
+import classNames from '../../utilities/classnames'
 
 function RenderedSheet({
   isDetached,
@@ -65,12 +65,12 @@ function RenderedSheet({
           showsVerticalScrollIndicator={false}>
           {title && (
             <View
-              className={clsx(
+              className={classNames(
                 'pt-sm pb-lg gap-y-xs',
                 title.align === 'center' ? 'items-center' : '',
               )}>
               <Text
-                className={clsx(
+                className={classNames(
                   'text-left text-lg-bold text-light-type-gray dark:text-dark-type-gray',
                   title.align === 'center' ? 'text-center' : 'text-left',
                 )}>
@@ -78,7 +78,7 @@ function RenderedSheet({
               </Text>
               {title.subtitle && (
                 <Text
-                  className={clsx(
+                  className={classNames(
                     'text-left text-sm-body text-light-type-gray-muted dark:text-dark-type-gray-muted',
                     title.align === 'center' ? 'text-center' : 'text-left',
                   )}>

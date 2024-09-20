@@ -1,6 +1,7 @@
 /* eslint-disable */
 /** @type {import('tailwindcss').Config} */
 const afrikitConfig = require('afrikit-shared/dist')
+console.log({ afrikitConfig })
 module.exports = {
   content: [
     './App.{js,jsx,ts,tsx}',
@@ -12,7 +13,7 @@ module.exports = {
   ],
   presets: [require('nativewind/preset')],
   theme: {
-    ...afrikitConfig.theme,
+    ...afrikitConfig.default.theme,
     fontFamily: {
       regular: ['Manrope400', 'sans-serif'],
       medium: ['Manrope500', 'sans-serif'],
