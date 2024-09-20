@@ -31,26 +31,18 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
-      # Step 5: Build and publish afrikit-shared first
-      - name: Build and publish afrikit-shared
-        run: |
-          git config --global user.email "developers@afrinvest.com"
-          git config --global user.name "Afrinvest"
-          git checkout main
-          npx lerna run build --scope=afrikit-shared
-          npx lerna publish from-package --scope=afrikit-shared --yes --no-private
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      # Step 5: Build the project
+      - name: Build project
+        run: yarn build
 
-      # Step 6: Build and publish other packages after afrikit-shared is published
-      - name: Build and publish other packages
+      # Step 6: Use Lerna to version and publish all updated packages to npm
+      - name: Publish packages with Lerna
         run: |
           git config --global user.email "developers@afrinvest.com"
           git config --global user.name "Afrinvest"
           git checkout main
-          npx lerna run build --ignore=afrikit-shared
-          npx lerna publish from-package --ignore=afrikit-shared --yes --no-private
+          npx lerna version --conventional-commits --yes --no-private
+          npx lerna publish from-package --yes --no-private
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}

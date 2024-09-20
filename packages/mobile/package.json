@@ -1,6 +1,6 @@
 {
   "name": "afrikit-mobile",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "main": "entrance.ts",
   "types": "dist/index.d.ts",
   "files": [
@@ -11,7 +11,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build": "tsc && tsc-alias"
+    "build": "tsc && tsc-alias",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.2.3",
