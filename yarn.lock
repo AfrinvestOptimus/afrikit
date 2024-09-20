@@ -4088,13 +4088,6 @@ add-stream@^1.0.0:
   resolved "https://registry.yarnpkg.com/add-stream/-/add-stream-1.0.0.tgz#6a7990437ca736d5e1288db92bd3266d5f5cb2aa"
   integrity sha512-qQLMr+8o0WC4FZGQTcJiKBVC59JylcPSrTtk6usvmIDFUOCKegapy1VHQwRbFMOFyb/inzUVqHs+eMYKDM1YeQ==
 
-afrikit-shared@^1.0.18:
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/afrikit-shared/-/afrikit-shared-1.0.18.tgz#d121e2d29735f434d6b9a6001bfdfe834b1aa5ed"
-  integrity sha512-9W3jcLZGwFJUqjvG3fczRUrbzvaHrS7th05H/ht+4OMrsBKmZhKwZ0ZnJBhrFVTa+QAF01SAVEbJiU4jUxwRzA==
-  dependencies:
-    "@radix-ui/colors" "^3.0.0"
-
 agent-base@6:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-6.0.2.tgz#49fff58577cfee3f37176feab4c22e00f86d7f77"
