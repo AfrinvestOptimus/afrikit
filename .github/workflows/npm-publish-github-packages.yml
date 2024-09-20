@@ -1,32 +1,40 @@
 name: Publish npm Packages
+
 on:
   push:
     branches:
       - main
+
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     steps:
       # Step 1: Checkout the main branch
       - name: Checkout main branch
         uses: actions/checkout@v2
+
       # Step 2: Set up Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '22'
           cache: 'yarn'
+
       # Step 3: Configure npm to use the authentication token
       - name: Configure npm to use the token
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
       # Step 4: Install dependencies
       - name: Install dependencies
         run: yarn install
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
+
       # Step 5: Build the project
       - name: Build project
         run: yarn build
+
       # Step 6: Use Lerna to version and publish all updated packages to npm
       - name: Publish packages with Lerna
         run: |
@@ -38,6 +46,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
       # Step 7: Push version changes and tags to GitHub only if there are changes
       - name: Check if there are changes
         id: changes
@@ -47,6 +56,7 @@ jobs:
           else
             echo "no changes"
           fi
+
       - name: Commit and push version changes if there are any
         if: steps.changes.outputs.changes == 'changes'
         run: |
@@ -56,5 +66,3 @@ jobs:
           git push --tags
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
-
-  has context menu
