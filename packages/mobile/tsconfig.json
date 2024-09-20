@@ -1,5 +1,5 @@
 {
-  "extends": "expo/tsconfig.base",
+//  "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./",
@@ -34,12 +34,17 @@
     }
   },
   "include": [
-    "packages/**/*",
+    "./components/**/*",
+    "./molecules/**/*",
+    "./atoms/**/*",
+    "./organisms/**/*",
+    "./types/**/*",
+    "./utilities/**/*",
+    "./global.css",
+    "./index.ts",
     "nativewind-env.d.ts"
   ],
   "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.test.ts"
+    "node_modules"
   ]
 }
