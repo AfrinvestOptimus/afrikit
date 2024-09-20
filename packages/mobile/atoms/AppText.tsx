@@ -2,6 +2,7 @@ import React, { memo, useMemo } from 'react'
 import { Text } from 'react-native'
 import { tv } from 'tailwind-variants'
 import { AppTextAtomProps } from '../types/atoms'
+import '../global.css'
 
 const textVariants = tv({
   base: 'text-left',
