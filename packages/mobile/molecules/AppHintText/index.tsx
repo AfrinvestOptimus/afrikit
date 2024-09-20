@@ -2,7 +2,7 @@ import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { Text, View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
-import colors from '../../../shared/colors'
+import colors from 'afrikit-shared/dist/colors'
 
 type AppHintTextType = 'default' | 'error'
 export type AppHintTextProps = {

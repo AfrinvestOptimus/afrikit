@@ -1,8 +1,7 @@
 /* eslint-disable */
 /** @type {import('tailwindcss').Config} */
-const afrikitConfig = require('../shared/index')
+const afrikitConfig = require('afrikit-shared/dist')
 module.exports = {
-  ...afrikitConfig,
   content: [
     './App.{js,jsx,ts,tsx}',
     'atoms/**/*.{js,jsx,ts,tsx}',

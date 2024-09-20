@@ -1,5 +1,5 @@
 {
-  "name": "shared",
+  "name": "afrikit-shared",
   "version": "0.2.0",
   "description": "Houses all shared files",
   "main": "dist/index.js",
@@ -37,5 +37,8 @@
   "bugs": {
     "url": "https://github.com/AfrinvestOptimus/afrikit/issues"
   },
-  "homepage": "https://github.com/AfrinvestOptimus/afrikit#readme"
+  "homepage": "https://github.com/AfrinvestOptimus/afrikit#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }

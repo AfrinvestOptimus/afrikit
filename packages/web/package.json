@@ -1,12 +1,14 @@
 {
-  "name": "web-components",
+  "name": "afrikit-web",
   "version": "0.0.8",
   "description": "Houses all components used in the web application",
-  "private": true,
   "main": "index.ts",
   "author": "Afrinvest",
   "license": "MIT",
   "dependencies": {
     "shared": "0.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

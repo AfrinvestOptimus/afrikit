@@ -5,7 +5,9 @@
     "rootDir": "./",
     "strict": true,
     "moduleResolution": "node",
-    "types": ["nativewind/types"],
+    "types": [
+      "nativewind/types"
+    ],
     "jsx": "react-jsx",
     "module": "CommonJS",
     "target": "ES6",
@@ -17,12 +19,27 @@
     "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
-      "@components/*": ["packages/mobile/components/*"],
-      "@molecules/*": ["packages/mobile/molecules/*"],
-      "@atoms/*": ["packages/mobile/atoms/*"],
-      "@shared/*": ["packages/shared/*"]
+      "@components/*": [
+        "packages/mobile/components/*"
+      ],
+      "@molecules/*": [
+        "packages/mobile/molecules/*"
+      ],
+      "@atoms/*": [
+        "packages/mobile/atoms/*"
+      ],
+      "@shared/*": [
+        "packages/shared/*"
+      ]
     }
   },
-  "include": ["packages/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+  "include": [
+    "packages/**/*",
+    "nativewind-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts"
+  ]
 }
