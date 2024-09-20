@@ -1,6 +1,6 @@
 {
   "name": "afrikit-shared",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "Houses all shared files",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
