@@ -1,6 +1,6 @@
 {
   "name": "afrikit-mobile",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -49,8 +49,8 @@
   },
   "peerDependencies": {
     "react": "^18.2.0",
-    "react-native": "^0.74.5",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-native": "^0.74.5"
   },
   "publishConfig": {
     "access": "public"
