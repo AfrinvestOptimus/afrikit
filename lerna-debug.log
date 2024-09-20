@@ -18,8 +18,7 @@
 8 verbose currentBranch main
 9 silly remoteBranchExists
 10 silly isBehindUpstream
-11 error Error: Command failed with exit code 1: git remote update
-11 error fatal: unable to access 'https://github.com/AfrinvestOptimus/afrikit.git/': Failed to connect to github.com port 443 after 75146 ms: Couldn't connect to server
+11 error Error: Command was killed with SIGINT (User interruption with CTRL-C): git remote update
 11 error     at makeError (/Users/InfinityPaul/Sites/afrikit/node_modules/lerna/node_modules/execa/lib/error.js:59:11)
 11 error     at module.exports.sync (/Users/InfinityPaul/Sites/afrikit/node_modules/lerna/node_modules/execa/index.js:186:17)
 11 error     at Object.execSync (/Users/InfinityPaul/Sites/afrikit/node_modules/lerna/dist/index.js:1579:31)
