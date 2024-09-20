@@ -1,10 +1,26 @@
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [isPending, startTransition] = useTransition()
+
+  const handleClick = () => {
+    // Urgent Update
+    setCount(count => count + 1)
+
+    // Start a non-urgent update
+    startTransition(() => {
+      // Simulating a heavy computation
+      const startTime = Date.now()
+      while (Date.now() - startTime < 100) {
+        // Artificial delay
+      }
+      setCount(count => count + 1)
+    })
+  }
 
   return (
     <>
