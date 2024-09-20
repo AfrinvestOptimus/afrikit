@@ -11736,7 +11736,7 @@ tailwind-variants@^0.2.1:
   dependencies:
     tailwind-merge "^2.2.0"
 
-tailwindcss@^3.4.10, tailwindcss@^3.4.6:
+tailwindcss@^3.4.10:
   version "3.4.12"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.4.12.tgz#fd3b67c6d2c04d9d7bfa13e3fc70ccef9fef0455"
   integrity sha512-Htf/gHj2+soPb9UayUNci/Ja3d8pTmu9ONTfh4QY8r3MATTZOzmv6UYWF7ZwikEIC8okpfqmGqrmDehua8mF8w==
