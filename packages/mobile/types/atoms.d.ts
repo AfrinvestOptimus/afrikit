@@ -8,7 +8,7 @@ import {
   TextProps,
   ViewStyle,
 } from 'react-native'
-import colors from 'afrikit-shared/dist/colors'
+import colors from 'afrikit-shared/colors'
 
 type TailwindColorKey = keyof typeof colors.light.type
 

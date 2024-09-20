@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, Text, View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
-import colors from 'afrikit-shared/dist/colors'
+import colors from 'afrikit-shared/colors'
 import classNames from '../../utilities/classnames'
 import getInitials from '../../utilities/getInitials'
 import {

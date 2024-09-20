@@ -1,5 +1,4 @@
 {
-//  "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./",
@@ -46,5 +45,6 @@
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "extends": "expo/tsconfig.base"
 }

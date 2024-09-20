@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import {useColorScheme} from 'nativewind'
-import React, {useEffect, useState} from 'react'
-import {Text, TouchableOpacity, View} from 'react-native'
+import { useColorScheme } from 'nativewind'
+import React, { useEffect, useState } from 'react'
+import { Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-remix-icon'
-import colors from 'afrikit-shared/dist/colors'
+import colors from 'afrikit-shared/colors'
 
 export type KeyPadProps = {
   type: 'decimal' | 'nondecimal' | 'biometric'

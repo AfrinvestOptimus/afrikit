@@ -3,7 +3,7 @@ import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typesc
 import { useColorScheme } from 'nativewind'
 import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, Dimensions } from 'react-native'
-import colors from 'afrikit-shared/dist/colors'
+import colors from 'afrikit-shared/colors'
 import { AppBottomSheetProps } from '../../types/molecules'
 import checkBottomSheetProps from './checkBottomSheetProps'
 import RenderedSheet from './RenderedSheet'
