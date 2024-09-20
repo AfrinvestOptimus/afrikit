@@ -3,7 +3,7 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 import { useColorScheme } from 'nativewind'
 import React, { useCallback, useRef, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import colors from 'afrikit-shared/colors'
+import colors from 'afrikit-shared/dist/colors'
 import AppText from '../../atoms/AppText'
 import AppBottomSheet from '../AppBottomSheet'
 import AppButton from '../AppButton'

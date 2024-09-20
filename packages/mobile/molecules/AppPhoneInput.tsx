@@ -12,7 +12,7 @@ import {
 } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import RemixIcon from 'react-native-remix-icon'
-import colors from 'afrikit-shared/colors'
+import colors from 'afrikit-shared/dist/colors'
 import AppText from '../atoms/AppText'
 import { AppPhoneInputProps } from '../types/atoms'
 import { AppInputBlur } from '../utilities/validation'
