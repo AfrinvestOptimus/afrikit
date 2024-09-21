@@ -5,7 +5,9 @@
   "types": "dist/index.d.ts",
   "style": "dist/global.css",
   "files": [
-    "dist"
+    "dist",
+    "tailwind.config.js",
+    "global.css"
   ],
   "scripts": {
     "start": "expo start",
@@ -13,7 +15,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "build": "tsc && tsc-alias && yarn build:css",
-    "build:css": "babel . --out-dir dist --extensions \\\".ts,.tsx\\\" --ignore \\\"node_modules,dist\\\" --source-maps inline",
+    "build:css": "postcss global.css -o dist/global.css && babel . --out-dir dist --extensions \".ts,.tsx\" --ignore \"node_modules,dist\" --source-maps inline",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
