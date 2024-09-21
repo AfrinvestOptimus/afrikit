@@ -1,6 +1,4 @@
-/* eslint-disable no-undef */
 import path from 'path'
-import fs from 'fs'
 import plugin from 'tailwindcss/plugin'
 
 interface PluginOptions {
@@ -15,22 +13,14 @@ const createPlugin = (options: PluginOptions = {}) => {
       // You can add any base styles, components, or utilities here if needed
     },
     {
-      content: (() => {
-        try {
-          const packagePath = path.dirname(require.resolve(`${packageName}/package.json`))
-          const componentFiles = [path.join(packagePath, 'dist/**/*.{js,jsx,ts,tsx}')]
-
-          console.log('packagePath', packagePath)
-          console.log('componentFiles', componentFiles)
-
-          return componentFiles.filter(file => fs.existsSync(file))
-        } catch (error) {
-          console.warn(
-            `Unable to resolve package: ${packageName}. Ensure it's installed correctly.`,
-          )
-          return []
-        }
-      })(),
+      content: {
+        files: [`./node_modules/${packageName}/dist/**/*.{js,jsx,ts,tsx}`],
+        transform: content => {
+          // You can transform the content here if needed
+          console.log('CONTENT: ', content)
+          return content
+        },
+      },
     },
   )
 }
