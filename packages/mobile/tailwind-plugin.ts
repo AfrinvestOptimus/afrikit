@@ -3,10 +3,17 @@ import plugin from 'tailwindcss/plugin'
 
 interface PluginOptions {
   packageName?: string
+  debug?: boolean
 }
 
 const createPlugin = (options: PluginOptions = {}) => {
-  const { packageName = 'afrikit-mobile' } = options
+  const { packageName = 'afrikit-mobile', debug = false } = options
+
+  const contentFiles = [`./node_modules/${packageName}/dist/**/*.{js,jsx,ts,tsx}`]
+
+  if (debug) {
+    console.log('AfrikitMobile Tailwind Plugin: Content files:', contentFiles)
+  }
 
   return plugin(
     ({ addBase, addComponents, addUtilities }) => {
@@ -14,10 +21,14 @@ const createPlugin = (options: PluginOptions = {}) => {
     },
     {
       content: {
-        files: [`./node_modules/${packageName}/dist/**/*.{js,jsx,ts,tsx}`],
+        files: contentFiles,
         transform: content => {
-          // You can transform the content here if needed
-          console.log('CONTENT: ', content)
+          if (debug) {
+            console.log(
+              'AfrikitMobile Tailwind Plugin: Transforming content:',
+              content.substring(0, 100) + '...',
+            )
+          }
           return content
         },
       },
