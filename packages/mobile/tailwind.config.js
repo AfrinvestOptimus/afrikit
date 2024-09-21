@@ -8,7 +8,6 @@ module.exports = {
     'molecules/**/*.{js,jsx,ts,tsx}',
     'organisms/**/*.{js,jsx,ts,tsx}',
     'templates/**/*.{js,jsx,ts,tsx}',
-    'dist/**/*.{js,jsx,ts,tsx}',
     '.storybook/**/*.{js,jsx,ts,tsx}',
   ],
   presets: [require('nativewind/preset')],
