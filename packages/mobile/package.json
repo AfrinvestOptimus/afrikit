@@ -15,8 +15,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build": "tsc && tsc-alias && yarn build:css",
-    "build:css": "postcss global.css -o dist/global.css && babel . --out-dir dist --extensions \".ts,.tsx\" --ignore \"node_modules,dist\" --source-maps inline",
+    "build": "tsc && tsc-alias && yarn build:css && yarn build:plugin",
+    "build:css": "postcss global.css -o dist/global.css",
+    "build:plugin": "babel tailwind-plugin.ts --out-file dist/tailwind-plugin.js --extensions \".ts,.tsx\" --source-maps inline",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
@@ -55,7 +56,8 @@
     "babel-loader": "^8.3.0",
     "postcss": "^8.4.47",
     "postcss-cli": "^11.0.0",
-    "typescript": "~5.3.3"
+    "typescript": "~5.3.3",
+    "@types/node": "^20.14.11"
   },
   "peerDependencies": {
     "nativewind": "^4.0.1",

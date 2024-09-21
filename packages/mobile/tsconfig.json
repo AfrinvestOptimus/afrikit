@@ -5,7 +5,8 @@
     "strict": true,
     "moduleResolution": "node",
     "types": [
-      "nativewind/types"
+      "nativewind/types",
+      "node"
     ],
     "jsx": "react-jsx",
     "module": "ESNext",
