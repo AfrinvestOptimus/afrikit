@@ -8,12 +8,8 @@
     "dist",
     "tailwind.config.js",
     "global.css",
-    "plugins"
+    "tailwind-plugin.js"
   ],
-  "exports": {
-    ".": "./dist/index.js",
-    "./tailwind-plugin": "./plugins/tailwind-plugin.js"
-  },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
