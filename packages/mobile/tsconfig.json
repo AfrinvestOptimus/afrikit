@@ -9,7 +9,7 @@
     ],
     "jsx": "react-jsx",
     "module": "CommonJS",
-    "target": "ES6",
+    "target": "ES2018",
     "lib": [
       "ES2016",
       "DOM"
@@ -45,7 +45,8 @@
     "./utilities/**/*",
     "./global.css",
     "./index.ts",
-    "nativewind-env.d.ts"
+    "nativewind-env.d.ts",
+    "tailwind-plugin.ts"
   ],
   "exclude": [
     "node_modules",
