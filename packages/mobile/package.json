@@ -13,7 +13,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "build": "tsc && tsc-alias && yarn build:css",
-    "build:css": "postcss global.css -o dist/global.css",
+    "build:css": "babel . --out-dir dist --extensions \\\".ts,.tsx\\\" --ignore \\\"node_modules,dist\\\" --source-maps inline",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
@@ -38,6 +38,7 @@
     "tailwindcss": "^3.4.10"
   },
   "devDependencies": {
+    "@babel/cli": "^7.25.6",
     "@babel/core": "^7.25.2",
     "@babel/preset-react": "^7.24.7",
     "@react-native-async-storage/async-storage": "1.23.1",
