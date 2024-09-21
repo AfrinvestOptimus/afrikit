@@ -18,7 +18,10 @@ const createPlugin = (options: PluginOptions = {}) => {
       content: (() => {
         try {
           const packagePath = path.dirname(require.resolve(`${packageName}/package.json`))
-          const componentFiles = [path.join(packagePath, 'dist/**/*.js')]
+          const componentFiles = [path.join(packagePath, 'dist/**/*.{js,jsx,ts,tsx}')]
+
+          console.log('packagePath', packagePath)
+          console.log('componentFiles', componentFiles)
 
           return componentFiles.filter(file => fs.existsSync(file))
         } catch (error) {
