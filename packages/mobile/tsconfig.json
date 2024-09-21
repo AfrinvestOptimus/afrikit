@@ -47,7 +47,6 @@
     "./global.css",
     "./index.ts",
     "nativewind-env.d.ts",
-    "tailwind-plugin.ts"
   ],
   "exclude": [
     "node_modules",
