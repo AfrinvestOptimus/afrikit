@@ -1,6 +1,6 @@
 {
   "name": "afrikit-mobile",
-  "version": "1.0.56",
+  "version": "1.0.57",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "style": "dist/global.css",
