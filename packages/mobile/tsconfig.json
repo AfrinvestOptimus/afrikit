@@ -7,11 +7,16 @@
     "rootDir": "./",
     "strict": true,
     "moduleResolution": "node",
-    "types": ["nativewind/types"],
+    "types": [
+      "nativewind/types"
+    ],
     "jsx": "react-jsx",
     "module": "CommonJS",
     "target": "ES6",
-    "lib": ["ES2016", "DOM"],
+    "lib": [
+      "ES2016",
+      "DOM"
+    ],
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
@@ -28,7 +33,11 @@
     "./types/**/*",
     "./utilities/**/*",
     "./global.css",
-    "./index.ts"
+    "./index.ts",
+    "nativewind-env.d.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ],
+  "extends": "expo/tsconfig.base"
 }
