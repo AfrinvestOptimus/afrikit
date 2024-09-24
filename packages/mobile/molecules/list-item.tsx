@@ -86,6 +86,98 @@ cssInterop(RemixIcon, {
   },
 })
 
+/**
+ * ListItem Component
+ * 
+ * The `ListItem` component is a versatile and customizable UI component for displaying items in a list format.
+ * It supports various configurations for leading and trailing content, density, interaction states, and more.
+ * This component can be used in various contexts, such as lists of contacts, messages, or any other itemized data.
+ * 
+ * ## Props:
+ * 
+ * - `size` (string): Determines the size of the text. Acceptable values are '1' (small) or '2' (default). Default is '2'.
+ * - `variant` (string): Specifies the layout of the text. Acceptable values are '1-line', '2-line', or '3-line'. Default is '1-line'.
+ * - `density` (Density): Defines the vertical spacing of the item. Default is 'default'.
+ * - `leading` (string): Determines the leading content (e.g., 'avatar', 'icon', etc.). Default is 'none'.
+ * - `trailing` (string): Defines the trailing content (e.g., 'text', 'button', etc.). Default is 'none'.
+ * - `subTrigger` (boolean): If true, displays a sub-trigger icon. Default is false.
+ * - `state` (string): Indicates the current state of the item. Acceptable values are 'enabled', 'hovered', 'focused', 'pressed', or 'dragged'. Default is 'enabled'.
+ * - `separator` (boolean): If true, adds a separator line below the item. Default is false.
+ * - `isChecked` (boolean): Indicates whether the item is checked (for checkboxes or radio buttons). Default is false.
+ * - `title` (string): The main title text of the item. This prop is required.
+ * - `subtitle` (string): The subtitle text of the item.
+ * - `activity` (ActivityStatus): Represents the activity status icon to display. Default is 'default'.
+ * - `topMeta` (string): Optional metadata to display at the top of the item.
+ * - `bottomMeta` (string): Optional metadata to display at the bottom of the item.
+ * - `onPress` (function): Callback function to handle item press events.
+ * - `trailingTitle` (string): Title for the trailing content (if applicable).
+ * - `trailingSubtitle` (string): Subtitle for the trailing content (if applicable).
+ * - `trailingTitleProps` (AppTextAtomProps): Additional props for the trailing title text.
+ * - `trailingSubtitleProps` (AppTextAtomProps): Additional props for the trailing subtitle text.
+ * - `linkProps` (Pick<AppTextAtomProps, 'onPress' | 'color'>): Props for link text in the trailing area.
+ * - `avatarProps` (AppAvatarProps): Props for customizing the avatar when leading content is an avatar.
+ * - `buttonProps` (AppButtonProps): Props for customizing the button when trailing content is a button.
+ * - `leadingContent` (string | React.ReactNode): Content to be displayed in the leading area (can be a string or node).
+ * - `trailingContent` (string | React.ReactNode): Content to be displayed in the trailing area (can be a string or node).
+ * 
+ * ## Usage Example:
+ * 
+ *
+
+```
+ * import React from 'react';
+ * import { View } from 'react-native';
+ * import ListItem from './path/to/ListItem';
+ * 
+ * const MyList = () => {
+ *   return (
+ *     <View>
+ *       <ListItem
+ *         title="Item Title"
+ *         subtitle="Item Subtitle"
+ *         leading="avatar"
+ *         trailing="text"
+ *         trailingTitle="More Info"
+ *         onPress={() => console.log('Item pressed')}
+ *       />
+ *     </View>
+ *   );
+ * };
+ * 
+ * export default MyList;
+ * ```
+ * 
+ * ## Activity Status Icons:
+ * 
+ * The `ListItem` component supports different activity status icons through the `activity` prop. The following statuses are recognized:
+ * - `default`: Displays a default icon.
+ * - `activity`: Displays an activity icon.
+ * - `swap`: Displays a swap icon.
+ * - `moneyIn`: Displays an icon indicating money coming in.
+ * - `moneyOut`: Displays an icon indicating money going out.
+ * - `directDebit`: Displays an icon for direct debit.
+ * - `system`: Displays a system notification icon.
+ * - `avatar`: Displays an avatar icon.
+ * 
+ * ## Density Spacing:
+ * 
+ * The `density` prop controls the vertical spacing of the item. The available options are:
+ * - `default`: Standard spacing.
+ * - `relaxed`: More spacing for a relaxed layout.
+ * - `compact`: Less spacing for a compact layout.
+ * 
+ * ## CheckComponent:
+ * 
+ * The `CheckComponent` is a sub-component used to render checkboxes or radio buttons within the `ListItem`. It accepts the following props:
+ * 
+ * - `isSquare` (boolean): If true, renders a square checkbox. Default is false.
+ * - `isChecked` (boolean): Indicates whether the checkbox is checked. Default is false.
+ * 
+ * ## Contributing:
+ * 
+ * If you would like to contribute to the `ListItem` component, please feel free to submit issues or pull requests. Your contributions are welcome!
+ */
+
 const ListItem: React.FC<ListItemProps> = ({
   size = '2',
   variant = '1-line',
