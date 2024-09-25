@@ -1,6 +1,6 @@
 {
   "name": "afrikit-shared",
-  "version": "1.0.23",
+  "version": "1.0.18",
   "description": "Houses all shared files",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -39,7 +39,5 @@
     "url": "https://github.com/AfrinvestOptimus/afrikit/issues"
   },
   "homepage": "https://github.com/AfrinvestOptimus/afrikit#readme",
-  "publishConfig": {
-    "access": "public"
-  }
+  "gitHead": "0275b21d794e11ed31db4e99b546fc805efbe41e"
 }

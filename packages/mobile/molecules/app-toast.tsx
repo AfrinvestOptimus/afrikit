@@ -2,7 +2,7 @@
 import { View } from 'react-native'
 import FlashMessage, { MessageType, Position, showMessage } from 'react-native-flash-message'
 import RemixIcon from 'react-native-remix-icon'
-import colors from 'afrikit-shared/dist/colors'
+import colors from 'afrikit-shared/dist/colors';
 import fontSizes from 'afrikit-shared/dist/fontSizes'
 import React from 'react'
 

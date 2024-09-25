@@ -6,3 +6,5 @@ node_modules
 /packages/mobile/dist
 /packages/shared/dist
 /packages/web/dist
+.yarn
+yarn.lock

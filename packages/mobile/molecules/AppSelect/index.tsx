@@ -2,7 +2,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useColorScheme } from 'nativewind'
 import React, { useCallback, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import colors from 'afrikit-shared/dist/colors'
+import colors from 'afrikit-shared/dist/colors';
 import AppText from '../../atoms/AppText'
 import AppBottomSheet from '../AppBottomSheet'
 import AppHintText from '../AppHintText'

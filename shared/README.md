@@ -1,3 +1,4 @@
+
 # afrikit-shared
 
 `afrikit-shared` is a utility package designed to extend your Tailwind configuration with custom tokens, colors, spacings, and more. This package helps you to easily manage a design system across your project by leveraging reusable configuration options.

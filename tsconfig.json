@@ -10,7 +10,14 @@
     "sourceMap": true,
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths" : {
+      "@components/*": ["./packages/mobile/components/*"],
+      "@molecules/*": ["./packages/mobile/molecules/*"],
+      "@atoms/*": ["./packages/mobile/atoms/*"],
+      "@shared/*": ["./packages/shared/*"],
+      "@web/*": ["./packages/web/*"],
+    }
   },
   "include": ["packages/**/*"],
   "exclude": ["node_modules", "dist", "**/*.test.ts"]
