@@ -1,4 +1,4 @@
-export { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+export { BottomSheetModalProvider as AppBottomSheetModalProvider } from '@gorhom/bottom-sheet'
 export { GestureHandlerRootView } from 'react-native-gesture-handler'
 export * from './atoms'
 export * from './components/molecules'
