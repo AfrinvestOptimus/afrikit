@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react'
 
 export interface AppInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -9,6 +10,12 @@ export interface AppInputProps extends React.InputHTMLAttributes<HTMLInputElemen
   error?: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   onClear?: () => void
+=======
+import React from 'react'
+
+const AppInput = () => {
+  return <></>
+>>>>>>> 8b46e3d (Update TypeScript and React configurations)
 }
 
 const AppInput = React.forwardRef<HTMLInputElement, AppInputProps>(

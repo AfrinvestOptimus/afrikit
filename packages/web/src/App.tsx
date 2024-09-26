@@ -1,6 +1,9 @@
 import { useState, useTransition } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import AppInput from './molecules/AppInput'
+import reactLogo from '@/assets/react.svg'
+import viteLogo from '/vite.svg'
+
 
 interface FormData {
   email: string

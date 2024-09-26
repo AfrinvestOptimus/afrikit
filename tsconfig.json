@@ -1,24 +1,44 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "packages",
+    "target": "ES6",
+    "module": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "jsx": "react-jsx",
     "moduleResolution": "node",
-    "target": "ES5",
-    "module": "CommonJS",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowJs": true,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "jsx": "react",
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "paths" : {
-      "@components/*": ["./packages/mobile/components/*"],
-      "@molecules/*": ["./packages/mobile/molecules/*"],
-      "@atoms/*": ["./packages/mobile/atoms/*"],
-      "@shared/*": ["./packages/shared/*"],
-      "@web/*": ["./packages/web/*"],
-    }
+    "baseUrl": ".",
+    "rootDir": "packages",
+    "outDir": "./dist",
+    "paths": {
+      "*": ["node_modules/*"],
+      "@components/*": ["packages/mobile/components/*"],
+      "@molecules/*": ["packages/mobile/molecules/*"],
+      "@atoms/*": ["packages/mobile/atoms/*"],
+      "@shared/*": ["packages/shared/*"],
+      "@web/*": ["packages/web/*"]
+    },
+    "types": ["react", "react-native", "jest", "node"]
   },
-  "include": ["packages/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+  "include": [
+    "packages/**/*",
+    "packages/web/src/vite-env.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
 }
