@@ -1,6 +1,6 @@
 {
   "name": "afrikit-mobile",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "main": "entrance.ts",
   "scripts": {
     "start": "expo start",
