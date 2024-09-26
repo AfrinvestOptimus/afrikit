@@ -1,6 +1,3 @@
-export { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-export { GestureHandlerRootView } from 'react-native-gesture-handler'
-export { AppInputProps, AppPhoneInputProps, AppTitleAtomProps, CountryItem } from '../types/atoms'
 export { AppToastBase, showErrorMessage, showSuccessMessage, showToastMessage } from './app-toast'
 export { default as AppAvatar } from './AppAvatar'
 export { AppAvatarProps } from './AppAvatar/avatar'
