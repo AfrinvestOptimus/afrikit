@@ -2,8 +2,4 @@ node_modules
 /.idea
 # /.vscode
 /.DS_Store
-/dist
-/packages/mobile/dist
-/packages/shared/dist
-/packages/web/dist
 .yarn
