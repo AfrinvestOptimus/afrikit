@@ -7,4 +7,3 @@ node_modules
 /packages/shared/dist
 /packages/web/dist
 .yarn
-yarn.lock
