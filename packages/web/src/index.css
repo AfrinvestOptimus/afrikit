@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .form-control {
-  @apply bg-light-surface-gray dark:bg-dark-surface-gray !text-light-type-gray dark:text-dark-type-gray rounded-sm outline-none focus:outline-none focus:z-10 appearance-none w-full min-w-[415px] px-md pb-lg !pt-2xl border-0 focus:ring-0 text-sm font-semibold;
+  @apply bg-light-surface-gray dark:bg-dark-surface-gray !text-light-type-gray dark:text-dark-type-gray rounded-sm outline-none focus:outline-none focus:z-10 appearance-none w-full min-w-[415px] h-[56px] px-md pb-lg !pt-2xl border-0 focus:ring-0 text-sm font-semibold;
 }
 
 .inputFocus:focus ~ label,

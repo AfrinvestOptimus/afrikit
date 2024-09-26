@@ -1,5 +1,5 @@
 import { useState, useTransition } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import AppInput from './molecules/AppInput'
 
 interface FormData {
@@ -43,16 +43,20 @@ function App() {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <form className="max-w-md mx-auto">
-        <AppInput
-          label="Testing"
-          control={control}
+        <Controller
           name="email"
-          rules={{ required: 'email is required' }}
-          placeholder="email"
-          type="email"
-          value={getValues('email')}
-          // error={errors.username?.message}
-          onClear={handleClearEmail}
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <AppInput
+              label="Testing"
+              type="email"
+              // placeholder="meeeee"
+              {...field} // Pass field props which includes value and onChange
+              // error={errors.email?.message}
+              onClear={handleClearEmail}
+            />
+          )}
         />
       </form>
     </div>
