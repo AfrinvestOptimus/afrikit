@@ -1,9 +1,9 @@
 import { useColorScheme } from 'nativewind'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
- //import colors from '../../shared/colors'
-import colors from 'afrikit-shared/dist/colors';
+//import colors from '../../shared/colors'
+import colors from 'afrikit-shared/dist/colors'
 import classNames from '../utilities/classnames'
 
 type AppIconProps = {
@@ -12,7 +12,7 @@ type AppIconProps = {
   size: '16' | '20' | '24' | '40' | '48'
 }
 
-const AppIcon: FC<AppIconProps> = ({ name = 'cirle', color, size }) => {
+const AppIcon: FC<AppIconProps> = ({ name = 'circle-line', color, size }) => {
   const { colorScheme } = useColorScheme()
   const isDarkMode = colorScheme === 'dark'
   return (
