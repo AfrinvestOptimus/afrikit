@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+import colors from 'afrikit-shared/dist/colors'
 import { ReactNode } from 'react'
 import {
   NativeSyntheticEvent,
@@ -8,11 +9,10 @@ import {
   TextProps,
   ViewStyle,
 } from 'react-native'
-import colors from 'afrikit-shared/dist/colors';
 
 type TailwindColorKey = keyof typeof colors.light.type
 
-interface AppTextOwnProps {
+export interface AppTextOwnProps {
   size?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
   color?: `${TailwindColorKey}`
   trim?: 'normal' | 'start' | 'end' | 'both'
