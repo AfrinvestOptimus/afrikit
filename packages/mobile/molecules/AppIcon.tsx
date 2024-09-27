@@ -6,7 +6,7 @@ import RemixIcon from 'react-native-remix-icon'
 import colors from 'afrikit-shared/dist/colors'
 import classNames from '../utilities/classnames'
 
-type AppIconProps = {
+export type AppIconProps = {
   name: string
   color?: string
   size: '16' | '20' | '24' | '40' | '48'

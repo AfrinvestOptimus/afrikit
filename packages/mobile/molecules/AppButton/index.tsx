@@ -1,3 +1,4 @@
+import AppIcon from 'molecules/AppIcon'
 import React, { useMemo } from 'react'
 import { GestureResponderEvent, Text, TouchableOpacity, View } from 'react-native'
 import {
@@ -10,6 +11,7 @@ import {
   ButtonVariant,
   highContrastButtonColors,
   highContrastTextColors,
+  iconSizes,
   textColors,
   textSizes,
   textStates,
@@ -23,7 +25,8 @@ export interface AppButtonProps {
   state?: ButtonState
   iconStart?: boolean
   iconEnd?: boolean
-  iconName?: string
+  iconStartName?: string
+  iconEndName?: string
   className?: string
   text: string
   onPress?: (event: GestureResponderEvent) => void
@@ -39,7 +42,8 @@ const AppButton: React.FC<AppButtonProps> = ({
   state = 'default',
   iconStart = false,
   iconEnd = false,
-  iconName,
+  iconStartName = 'circle-line',
+  iconEndName = 'user-6-line',
   text,
   onPress,
   accessibilityLabel,
@@ -84,15 +88,13 @@ const AppButton: React.FC<AppButtonProps> = ({
       <View className="flex items-center">
         {iconStart && (
           <View className="mr-2 ">
-            {' '}
-            {/* Icon Component - Will add the icon here after the remix icon setup */}{' '}
+            <AppIcon name={iconStartName} size={iconSizes[size]} />
           </View>
         )}
         <Text className={`font-semibold ${combinedTextStyle}`}>{text}</Text>
         {iconEnd && (
           <View className="ml-2">
-            {' '}
-            {/* Icon Component - Will add the icon here after the remix icon setup */}{' '}
+            <AppIcon name={iconEndName} size={iconSizes[size]} />
           </View>
         )}
       </View>
