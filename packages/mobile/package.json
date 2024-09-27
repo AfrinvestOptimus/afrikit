@@ -1,13 +1,21 @@
 {
   "name": "afrikit-mobile",
   "version": "1.0.59",
-  "main": "entrance.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "style": "dist/global.css",
+  "files": [
+    "dist",
+    "tailwind.config.js",
+    "global.css"
+  ],
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "build": "tsc && tsc-alias",
+    "build:css": "postcss global.css -o dist/global.css && babel . --out-dir dist --extensions \".ts,.tsx\" --ignore \"node_modules,dist\" --source-maps inline",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {

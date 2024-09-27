@@ -12,9 +12,6 @@
     ]
   },
   "private": "true",
-  "files": [
-    "dist"
-  ],
   "keywords": [
     "afrinvest",
     "design"
