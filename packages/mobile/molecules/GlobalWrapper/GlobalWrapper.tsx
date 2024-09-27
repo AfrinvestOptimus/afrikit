@@ -3,9 +3,9 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  SafeAreaView,
   ScrollView,
   View,
-  SafeAreaView,
 } from 'react-native'
 import FloatingButton from '../../components/molecules/FloatingButton'
 
@@ -14,13 +14,17 @@ export interface GlobalWrapperProps {
   showFloatingButton?: boolean
   onFloatingButtonPress?: () => void
   floatingButtonColor?: string
+  wrapperClassName?: string
+  childrenClassName?: string
 }
 
 export const GlobalWrapper: React.FC<GlobalWrapperProps> = ({
   children,
-  showFloatingButton = true,
+  showFloatingButton = false,
   onFloatingButtonPress,
   floatingButtonColor = 'black',
+  wrapperClassName,
+  childrenClassName,
 }) => {
   const [keyboardVisible, setKeyboardVisible] = useState(false)
 
@@ -34,14 +38,14 @@ export const GlobalWrapper: React.FC<GlobalWrapperProps> = ({
   }, [])
 
   return (
-    <SafeAreaView className="flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4">
+    <SafeAreaView className={`flex-1 bg-white dark:bg-white ${wrapperClassName}`}>
       <ScrollView
         contentContainerStyle={{ padding: 16, flexGrow: 1 }}
         keyboardShouldPersistTaps="handled">
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           className="flex-1 h-screen">
-          <View className="flex-1 p-4">{children}</View>
+          <View className={`flex-1 p-4 ${childrenClassName}`}>{children}</View>
           {(showFloatingButton || keyboardVisible) && (
             <FloatingButton
               onPress={onFloatingButtonPress!}
