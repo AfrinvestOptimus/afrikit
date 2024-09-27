@@ -1,3 +1,5 @@
+import { AppIconProps } from 'molecules/AppIcon'
+
 export type ButtonSize = 1 | 2 | 3 | 4
 export type ButtonVariant = 'solid' | 'soft' | 'surface' | 'outline' | 'ghost'
 export type ButtonColor = 'accent' | 'neutral' | 'error'
@@ -15,6 +17,13 @@ export const textSizes: Record<ButtonSize, string> = {
   2: 'text-sm-head',
   3: 'text-base-head',
   4: 'text-lg-head',
+}
+
+export const iconSizes: Record<ButtonSize, AppIconProps['size']> = {
+  1: '16',
+  2: '16',
+  3: '20',
+  4: '20',
 }
 
 export const buttonColors: Record<ButtonColor, Record<ButtonVariant, string>> = {
@@ -119,6 +128,7 @@ export const highContrastTextColors: Record<ButtonColor, Record<ButtonVariant, s
     ghost: 'text-light-type-error-bold dark:text-dark-type-error-bold',
   },
 }
+
 export const disabledColors: Record<ButtonVariant, string> = {
   solid: 'bg-light-background-disable2 dark:bg-dark-background-disable2',
   soft: 'bg-light-background-disable2 dark:bg-dark-background-disable2',
