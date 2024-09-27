@@ -1,2 +1,2 @@
-export * from '../types/atoms'
-export * from '../types/molecules'
+export * from './atoms'
+export * from './molecules'
