@@ -1,4 +1,5 @@
-import { AppIconProps } from 'molecules/AppIcon'
+import colors from 'afrikit-shared/dist/colors'
+import { AppIconProps } from '../AppIcon'
 
 export type ButtonSize = 1 | 2 | 3 | 4
 export type ButtonVariant = 'solid' | 'soft' | 'surface' | 'outline' | 'ghost'
@@ -126,6 +127,30 @@ export const highContrastTextColors: Record<ButtonColor, Record<ButtonVariant, s
     surface: 'text-light-type-error-bold dark:text-dark-type-error-bold',
     outline: 'text-light-type-error-bold dark:text-dark-type-error-bold',
     ghost: 'text-light-type-error-bold dark:text-dark-type-error-bold',
+  },
+}
+
+export const iconColors: Record<ButtonColor, Record<ButtonVariant, string>> = {
+  accent: {
+    solid: colors.light['contrast-white'],
+    soft: colors.light.type.accent.DEFAULT,
+    surface: colors.light.type.accent.DEFAULT,
+    outline: colors.light.type.accent.DEFAULT,
+    ghost: colors.light.type.accent.DEFAULT,
+  },
+  neutral: {
+    solid: colors.light['contrast-white'],
+    soft: colors.light.amber1,
+    surface: 'text-light-type-neutral dark:text-dark-type-neutral',
+    outline: 'text-light-type-neutral dark:text-dark-type-neutral',
+    ghost: 'text-light-type-neutral dark:text-dark-type-neutral',
+  },
+  error: {
+    solid: 'text-light-contrast-white dark:text-dark-contrast-white',
+    soft: ' text-light-type-error-bold dark:text-dark-type-error-bold',
+    surface: ' text-light-type-error-bold dark:text-dark-type-error-bold',
+    outline: ' text-light-type-error-bold dark:text-dark-type-error-bold',
+    ghost: ' text-light-type-error-bold dark:text-dark-type-error-bold',
   },
 }
 

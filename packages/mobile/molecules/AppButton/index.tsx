@@ -1,6 +1,6 @@
-import AppIcon from 'molecules/AppIcon'
 import React, { useMemo } from 'react'
 import { GestureResponderEvent, Text, TouchableOpacity, View } from 'react-native'
+import AppIcon from '../AppIcon'
 import {
   ButtonColor,
   buttonColors,
