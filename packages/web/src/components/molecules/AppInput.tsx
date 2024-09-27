@@ -65,5 +65,4 @@ const AppInput = React.forwardRef<HTMLInputElement, AppInputProps>(
     )
   },
 )
-
 export default AppInput
