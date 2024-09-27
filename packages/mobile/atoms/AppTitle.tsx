@@ -10,11 +10,10 @@ function AppTitle({
   titlePosition = 'top',
   spacing = 1,
 }: AppTitleAtomProps) {
-
   const spacingStyle = {
     1: '',
     2: 'gap-y-sm',
-    3: 'gap-y-lg'
+    3: 'gap-y-lg',
   }
 
   const titlePositionStyle = {
@@ -24,7 +23,7 @@ function AppTitle({
 
   const alignStyle = {
     center: 'items-center',
-    start: 'items-start',
+    left: 'items-start',
   }
 
   return (
