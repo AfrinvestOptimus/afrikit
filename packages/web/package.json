@@ -1,6 +1,6 @@
 {
   "name": "afrikit-web",
-  "version": "1.0.48",
+  "version": "1.0.49",
   "type": "module",
   "description": "Houses all components used in the web application",
   "author": "Afrinvest",
