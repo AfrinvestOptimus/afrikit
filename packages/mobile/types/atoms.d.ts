@@ -8,7 +8,7 @@ import {
   TextProps,
   ViewStyle,
 } from 'react-native'
-import colors from 'afrikit-shared/dist/colors';
+import colors from 'afrikit-shared/dist/colors'
 
 type TailwindColorKey = keyof typeof colors.light.type
 
@@ -66,6 +66,7 @@ export interface AppInputProps extends Omit<TextInputProps, 'placeholderTextColo
   FloatingLabel?: boolean
   multiline?: boolean
   error?: string | boolean
+  className?: string
   containerStyle?: ViewStyle
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
   onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void

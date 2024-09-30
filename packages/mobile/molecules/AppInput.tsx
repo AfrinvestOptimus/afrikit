@@ -13,7 +13,7 @@ import {
 } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import RemixIcon from 'react-native-remix-icon'
-import colors from 'afrikit-shared/dist/colors';
+import colors from 'afrikit-shared/dist/colors'
 import { AppInputProps } from '../types/atoms'
 import { AppInputBlur } from '../utilities/validation'
 import AppHintText from './AppHintText'
@@ -30,6 +30,7 @@ const AppInput: React.FC<AppInputProps> = ({
   onChangeText: onChangeTextProp,
   value = '',
   containerStyle,
+  className,
   ...props
 }) => {
   const textInputRef = React.useRef<TextInput>(null)
@@ -116,7 +117,7 @@ const AppInput: React.FC<AppInputProps> = ({
   }
 
   return (
-    <View>
+    <View className={className}>
       <TouchableWithoutFeedback
         onPress={() => {
           textInputRef.current?.focus()
