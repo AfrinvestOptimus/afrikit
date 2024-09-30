@@ -5,7 +5,7 @@ import React from 'react'
 import { FC, useEffect, useMemo, useRef, useState, type RefObject } from 'react'
 import { TextInput, View } from 'react-native'
 
-interface OTPInputProps {
+export interface OTPInputProps {
   count?: number
   secureEntry?: boolean
   isError?: boolean

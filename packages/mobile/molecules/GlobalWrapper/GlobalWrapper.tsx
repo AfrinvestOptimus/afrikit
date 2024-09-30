@@ -18,7 +18,7 @@ export interface GlobalWrapperProps {
 
 export const GlobalWrapper: React.FC<GlobalWrapperProps> = ({
   children,
-  showFloatingButton = true,
+  showFloatingButton = false,
   onFloatingButtonPress,
   floatingButtonColor = 'black',
 }) => {

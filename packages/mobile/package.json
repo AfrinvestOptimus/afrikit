@@ -62,7 +62,7 @@
     "react-dom": "^18.2.0",
     "react-native": "^0.74.5",
     "tailwind-variants": "^0.2.1",
-    "tailwindcss": "^3.4.10"
+    "tailwindcss": "^3.4.12"
   },
   "publishConfig": {
     "access": "public"
