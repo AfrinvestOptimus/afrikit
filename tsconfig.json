@@ -8,10 +8,16 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "jsx": "react-jsx",
+    "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true
   },
+  "paths" : {
+    "@components/*": ["packages/mobile/components/*"],
+    "@molecules/*": ["packages/mobile/molecules/*"],
+    "@atoms/*": ["packages/mobile/atoms/*"],
+    "@shared/*": ["packages/shared/*"]
+  },
   "include": ["packages/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/node_modules/*", "**/*.spec.ts"]
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
 }
