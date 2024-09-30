@@ -19,12 +19,13 @@ const AppButton: React.FC<AppButtonProps> = ({
   color = 'accent', // Default color of the button is 'accent'
   highContrast = false, // Flag for high contrast styles
   state = 'default', // Default state of the button
-  iconStart = true, // Flag to determine if the start icon should be displayed
-  iconEnd = true, // Flag to determine if the end icon should be displayed
+  iconStart = false, // Flag to determine if the start icon should be displayed
+  iconEnd = false, // Flag to determine if the end icon should be displayed
   iconStartName = 'ri-home-line', // Class name for the start icon
   iconEndName = 'ri-home-line', // Class name for the end icon
   text, // Text to display in the button
   onClick, // Function to call on button click
+  classname
 }) => {
   // Get the corresponding styles based on the provided props
   const sizeStyle = buttonSizes[size] // Get size styles
@@ -60,10 +61,10 @@ const AppButton: React.FC<AppButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`flex items-center ${combinedButtonStyles}`} // Set combined styles
+      className={`flex items-center ${combinedButtonStyles} ${classname}`} // Set combined styles
       disabled={state === 'disabled'} // Disable button based on state
     >
-      <div className="flex items-center justify-between space-x-lg">
+      <div className="flex items-center justify-between space-x-sm">
         {iconStart && ( // Conditionally render left icon
           <div>
             <i className={`${iconStartName} ${combinedTextStyle}`}></i>{' '}

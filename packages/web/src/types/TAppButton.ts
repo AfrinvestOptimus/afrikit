@@ -53,4 +53,6 @@ export interface AppButtonProps {
   iconStartName?: string
 
   iconEndName?: string
+
+  classname?: string
 }
