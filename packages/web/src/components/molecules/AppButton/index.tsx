@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react' // Import React and the useMemo hook for performance optimization
-import { AppButtonProps } from '../../../types/TAppButton' // Import the AppButtonProps interface for TypeScript type checking
+import React, { useMemo } from 'react'; // Import React and the useMemo hook for performance optimization
+import { AppButtonProps } from '../../../types/TAppButton'; // Import the AppButtonProps interface for TypeScript type checking
 import {
   buttonColors,
   buttonSizes,
@@ -9,8 +9,8 @@ import {
   highContrastTextColors,
   textColors,
   textSizes,
-  textStates,
-} from './button' // Import various styles and variants for button customization
+  textStates
+} from './button'; // Import various styles and variants for button customization
 
 // Define the AppButton functional component with props defined by AppButtonProps interface
 const AppButton: React.FC<AppButtonProps> = ({
@@ -63,16 +63,16 @@ const AppButton: React.FC<AppButtonProps> = ({
       className={`flex items-center ${combinedButtonStyles}`} // Set combined styles
       disabled={state === 'disabled'} // Disable button based on state
     >
-      <div className="flex items-center justify-between w-full space-x-lg">
+      <div className="flex items-center justify-between space-x-lg">
         {iconStart && ( // Conditionally render left icon
-          <div className="mr-2 ">
+          <div>
             <i className={`${iconStartName} ${combinedTextStyle}`}></i>{' '}
           </div>
         )}
         {/* Render the center  text */}
         <p className={`font-semibold ${combinedTextStyle}`}>{text}</p>{' '}
         {iconEnd && ( // Conditionally render right icon
-          <div className={`ml-2`}>
+          <div>
             <i className={`${iconEndName} ${combinedTextStyle}`}></i> {/* Render the end icon */}
           </div>
         )}
