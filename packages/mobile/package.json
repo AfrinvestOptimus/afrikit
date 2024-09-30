@@ -1,7 +1,7 @@
 {
   "name": "afrikit-mobile",
-  "version": "1.0.64",
-  "main": "dist/index.js",
+  "version": "1.0.58",
+  "main": "entrance.ts",
   "types": "dist/index.d.ts",
   "style": "dist/global.css",
   "files": [
@@ -14,35 +14,35 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build": "tsc && tsc-alias",
-    "build:css": "postcss global.css -o dist/global.css && babel . --out-dir dist --extensions \".ts,.tsx\" --ignore \"node_modules,dist\" --source-maps inline",
+    "build": "tsc && tsc-alias && yarn build:css",
+    "build:css": "babel . --out-dir dist --extensions \".ts,.tsx\" --ignore \"node_modules,dist\" --source-maps inline",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.2.3",
     "@gorhom/bottom-sheet": "^4.6.4",
-    "@react-native-community/datetimepicker": "8.0.1",
-    "afrikit-shared": "1.0.7",
+    "@react-native-community/datetimepicker": "^8.2.0",
+    "afrikit-shared": "^1.0.23",
     "expo": "~51.0.28",
     "expo-font": "~12.0.9",
     "expo-status-bar": "~1.12.1",
     "expo-updates": "~0.25.24",
     "nativewind": "^4.0.1",
-    "react": "18.2.0",
     "react-hook-form": "^7.53.0",
-    "react-native": "0.74.5",
     "react-native-date-picker": "^5.0.7",
     "react-native-flash-message": "^0.4.2",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-reanimated": "~3.10.1",
     "react-native-remix-icon": "https://github.com/AfrinvestOptimus/react-native-remix-icon.git#upgrade-remix",
+    "react-native-safe-area-context": "4.10.5",
     "react-native-svg": "15.2.0",
     "tailwind-variants": "^0.2.1",
-    "tailwindcss": "^3.4.10",
-    "webpack": "^5.94.0"
+    "tailwindcss": "^3.4.10"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
+    "@babel/cli": "^7.25.6",
+    "@babel/core": "^7.25.2",
+    "@babel/preset-react": "^7.24.7",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-community/slider": "4.5.2",
     "@storybook/addon-ondevice-actions": "^7.6.20",
@@ -50,14 +50,22 @@
     "@storybook/react-native": "^7.6.20",
     "@types/react": "~18.2.79",
     "@types/react-native": "^0.73.0",
+    "autoprefixer": "^10.4.20",
     "babel-loader": "^8.3.0",
-    "clsx": "^2.1.1",
-    "react-dom": "18.2.0",
-    "react-native-safe-area-context": "4.10.5",
+    "postcss": "^8.4.47",
+    "postcss-cli": "^11.0.0",
     "typescript": "~5.3.3"
+  },
+  "peerDependencies": {
+    "nativewind": "^4.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-native": "^0.74.5",
+    "tailwind-variants": "^0.2.1",
+    "tailwindcss": "^3.4.10"
   },
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "0275b21d794e11ed31db4e99b546fc805efbe41e"
+  "gitHead": "e773379f47700eb105e8c01c68e2a85168ed24cc"
 }
