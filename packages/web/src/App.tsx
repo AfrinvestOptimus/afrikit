@@ -66,6 +66,9 @@ function App() {
 
       <AppButton text="Continue" color="accent" />
       <DropdownMenu />
+      <div>
+        <AppButton text="Continue" color="accent" />
+      </div>
     </div>
   )
 }

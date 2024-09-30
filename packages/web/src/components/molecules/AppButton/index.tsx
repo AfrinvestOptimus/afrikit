@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react'; // Import React and the useMemo hook for performance optimization
-import { AppButtonProps } from '../../../types/TAppButton'; // Import the AppButtonProps interface for TypeScript type checking
+import React, { useMemo } from 'react' // Import React and the useMemo hook for performance optimization
+import { AppButtonProps } from '../../../types/TAppButton' // Import the AppButtonProps interface for TypeScript type checking
 import {
   buttonColors,
   buttonSizes,
@@ -9,8 +9,8 @@ import {
   highContrastTextColors,
   textColors,
   textSizes,
-  textStates
-} from './button'; // Import various styles and variants for button customization
+  textStates,
+} from './button' // Import various styles and variants for button customization
 
 // Define the AppButton functional component with props defined by AppButtonProps interface
 const AppButton: React.FC<AppButtonProps> = ({
@@ -25,7 +25,7 @@ const AppButton: React.FC<AppButtonProps> = ({
   iconEndName = 'ri-home-line', // Class name for the end icon
   text, // Text to display in the button
   onClick, // Function to call on button click
-  classname
+  classname,
 }) => {
   // Get the corresponding styles based on the provided props
   const sizeStyle = buttonSizes[size] // Get size styles
@@ -65,18 +65,20 @@ const AppButton: React.FC<AppButtonProps> = ({
       disabled={state === 'disabled'} // Disable button based on state
     >
       <div className="flex items-center justify-between space-x-sm">
-        {iconStart && ( // Conditionally render left icon
-          <div>
-            <i className={`${iconStartName} ${combinedTextStyle}`}></i>{' '}
-          </div>
-        )}
-        {/* Render the center  text */}
-        <p className={`font-semibold ${combinedTextStyle}`}>{text}</p>{' '}
-        {iconEnd && ( // Conditionally render right icon
-          <div>
-            <i className={`${iconEndName} ${combinedTextStyle}`}></i> {/* Render the end icon */}
-          </div>
-        )}
+        <div className="flex items-center justify-between space-x-lg">
+          {iconStart && ( // Conditionally render left icon
+            <div>
+              <i className={`${iconStartName} ${combinedTextStyle}`}></i>{' '}
+            </div>
+          )}
+          {/* Render the center  text */}
+          <p className={`font-semibold ${combinedTextStyle}`}>{text}</p>{' '}
+          {iconEnd && ( // Conditionally render right icon
+            <div>
+              <i className={`${iconEndName} ${combinedTextStyle}`}></i> {/* Render the end icon */}
+            </div>
+          )}
+        </div>
       </div>
     </button>
   )
