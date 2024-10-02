@@ -36,7 +36,7 @@ export type IAppTopBarProps = {
  * @param {string} [subtitle] - An optional subtitle for the top bar.
  * @returns {JSX.Element} The rendered top bar component.
  */
-export function AppTopBar({
+function AppTopbar({
   isOnboarding,
   pageTitle,
   theme = 'filled',
@@ -78,3 +78,5 @@ export function AppTopBar({
     </div>
   )
 }
+
+export default AppTopbar

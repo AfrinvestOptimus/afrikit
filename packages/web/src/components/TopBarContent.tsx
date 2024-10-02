@@ -1,7 +1,4 @@
-import * as React from 'react'
-import { NavItemBase } from './NavItemBase'
 import clsx from 'clsx'
-
 export interface ITopBarContentProps {
   user?: boolean
   search?: boolean
