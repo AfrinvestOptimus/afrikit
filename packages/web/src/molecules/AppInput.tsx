@@ -38,7 +38,7 @@ const AppInput = React.forwardRef<HTMLInputElement, AppInputProps>(
             autoComplete="off"
           />
           <label
-            className={`absolute inline-flex left-[11px] top-md transition-all duration-200 pt-xs
+            className={`absolute inline-flex left-[11px] top-md transition-all duration-200 pt-xs text-sm-title
                 ${value || isFocused || placeholder ? 'focusLabel' : '!text-light-type-gray-placeholder dark:text-dark-type-gray-placeholder '}`}>
             {label}
           </label>
