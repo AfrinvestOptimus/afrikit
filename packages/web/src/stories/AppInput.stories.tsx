@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from '@storybook/react'
 import { Controller, useForm } from 'react-hook-form'
-import AppInput from '../components/molecules/AppInput'
+import AppInput from '../molecules/AppInput'
 
 export default {
   title: 'AppInput',
