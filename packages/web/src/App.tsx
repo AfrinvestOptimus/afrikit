@@ -4,6 +4,7 @@ import AppInput from './components/molecules/AppInput'
 
 import 'remixicon/fonts/remixicon.css'
 import AppButton from './components/molecules/AppButton'
+import AppCodeInput from './components/molecules/AppCodeInput'
 import DropdownMenu from './components/molecules/AppDropdownMenu'
 
 interface FormData {
@@ -45,7 +46,7 @@ function App() {
     setValue('email', '') // Clear the email value
   }
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex flex-col justify-center items-center min-h-screen">
       <form className="max-w-md mx-auto">
         <Controller
           name="email"
@@ -63,6 +64,13 @@ function App() {
           )}
         />
       </form>
+
+      <AppCodeInput
+        length={6}
+        errorMessage=""
+        secureEntry
+        // onChange={handleCodeChange}
+      />
 
       <AppButton text="Continue" color="accent" />
       <DropdownMenu />
