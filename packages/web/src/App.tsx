@@ -5,6 +5,7 @@ import 'remixicon/fonts/remixicon.css'
 import AppButton from './components/molecules/AppButton'
 import AppCodeInput from './components/molecules/AppCodeInput'
 import DropdownMenu from './components/molecules/AppDropdownMenu'
+import { AppTopBar } from './molecules/AppTopBar'
 import AppPhoneInput from './components/molecules/AppPhoneInput'
 
 interface FormData {
@@ -12,24 +13,6 @@ interface FormData {
 }
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [isPending, startTransition] = useTransition()
-
-  const handleClick = () => {
-    // Urgent Update
-    setCount(count => count + 1)
-
-    // Start a non-urgent update
-    startTransition(() => {
-      // Simulating a heavy computation
-      const startTime = Date.now()
-      while (Date.now() - startTime < 100) {
-        // Artificial delay
-      }
-      setCount(count => count + 1)
-    })
-  }
-
   const {
     control,
     handleSubmit,
@@ -46,6 +29,13 @@ function App() {
     setValue('email', '') // Clear the email value
   }
   return (
+    <div className="flex justify-center items-center min-h-screen bg-light-page-bg2 dark:bg-dark-page-bg2 font-sans">
+      <AppTopBar
+        theme="ghost"
+        isOnboarding={false}
+        pageTitle="Page title"
+        subtitle="Find all your payment transactions here"
+      />
     <div className="flex flex-col justify-center items-center min-h-screen">
       <form className="max-w-md mx-auto">
         <Controller
