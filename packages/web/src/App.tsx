@@ -2,6 +2,10 @@ import { useState, useTransition } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import AppInput from './components/molecules/AppInput'
 
+import 'remixicon/fonts/remixicon.css'
+import AppButton from './components/molecules/AppButton'
+import DropdownMenu from './components/molecules/AppDropdownMenu'
+
 interface FormData {
   email: string
 }
@@ -59,6 +63,9 @@ function App() {
           )}
         />
       </form>
+
+      <AppButton text="Continue" color="accent" />
+      <DropdownMenu />
     </div>
   )
 }
