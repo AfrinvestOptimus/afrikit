@@ -1,3 +1,4 @@
+import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
 import * as React from 'react'
 import {
@@ -11,14 +12,13 @@ import {
 } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import RemixIcon from 'react-native-remix-icon'
-import colors from 'afrikit-shared/dist/colors'
 import { AppInputProps } from '../types/atoms'
 import { AppInputBlur } from '../utilities/validation'
 import AppHintText from './AppHintText'
 
 const AppPasswordInput: React.FC<AppInputProps> = ({
   onBlur,
-  FloatingLabel = true,
+  floatingLabel = true,
   onFocus,
   error,
   multiline,
@@ -82,7 +82,7 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
     onChangeText: onChangeText,
     onBlur: handleBlur,
     onFocus: handleFocus,
-    placeholder: FloatingLabel ? undefined : props.placeholder,
+    placeholder: floatingLabel ? undefined : props.placeholder,
   }
 
   const floatLabelStyle = {
@@ -109,17 +109,17 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
 
   const getBorderStyle = () => {
     if (focused) {
-      return !error
+      return error
         ? 'border-b-2 border-light-edge-error-strong dark:border-dark-edge-error-strong rounded-t-md' // show red bottom border when the input isn't valued
         : 'border-b-2 border-light-edge-accent-strong dark:border-dark-edge-accent-strong rounded-t-md' // show blue bottom border when the input is valid
     }
-    return !error
+    return error
       ? `border-2 border-light-edge-error-strong dark:border-dark-edge-error-strong rounded-md` // show red border when the input isn't valued and the field isn't in a focused state
       : 'border-0 border-transparent rounded-md' // defaulting to rounded input when there's neither a focused state or error state on the input field
   }
 
   // handle Password Icon
-  const rednerPasswordIcon = () => (
+  const renderPasswordIcon = () => (
     <TouchableOpacity onPress={togglePasswordVisibility} className="justify-center pl-2">
       <RemixIcon
         name={passwordVisible ? 'eye-close-line' : 'eye-line'}
@@ -140,7 +140,7 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
         <View
           className={`px-sm items-center w-full flex-row bg-light-surface-gray dark:bg-dark-surface-gray h-[56px] ${getBorderStyle()}`}>
           <View className="flex-1 px-xs ">
-            {FloatingLabel && (
+            {floatingLabel && (
               <Animated.Text
                 style={[floatLabelStyle]}
                 className=" text-sm-title dark:text-dark-type-gray-muted text-light-type-gray-muted"
@@ -171,7 +171,7 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
               />
             </TouchableOpacity>
           )}
-          {rednerPasswordIcon()}
+          {renderPasswordIcon()}
         </View>
       </TouchableWithoutFeedback>
       {!!error &&

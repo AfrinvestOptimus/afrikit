@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
+import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
 import * as React from 'react'
 import {
@@ -13,14 +14,13 @@ import {
 } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import RemixIcon from 'react-native-remix-icon'
-import colors from 'afrikit-shared/dist/colors'
 import { AppInputProps } from '../types/atoms'
 import { AppInputBlur } from '../utilities/validation'
 import AppHintText from './AppHintText'
 
 const AppInput: React.FC<AppInputProps> = ({
   onBlur,
-  FloatingLabel = true,
+  floatingLabel = true,
   onFocus,
   error,
   multiline,
@@ -83,7 +83,7 @@ const AppInput: React.FC<AppInputProps> = ({
     onChangeText: onChangeText,
     onBlur: handleBlur,
     onFocus: handleFocus,
-    placeholder: FloatingLabel ? undefined : props.placeholder,
+    placeholder: floatingLabel ? undefined : props.placeholder,
   }
 
   const floatLabelStyle = {
@@ -127,7 +127,7 @@ const AppInput: React.FC<AppInputProps> = ({
         <View
           className={`px-sm items-center w-full flex-row bg-light-surface-gray dark:bg-dark-surface-gray h-[56px] ${getBorderStyle()} ${containerStyle}`}>
           <View className="flex-1 px-xs ">
-            {FloatingLabel && (
+            {floatingLabel && (
               <Animated.Text
                 style={[floatLabelStyle]}
                 className="gap-xs  dark:text-dark-type-gray-muted text-light-type-gray-muted text-sm-title"
