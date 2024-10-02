@@ -1,3 +1,4 @@
-import AppInput from "./AppInput"
+import AppInput from './AppInput'
+import AppInputPassword from './AppInputPassword'
 
-export {AppInput}
+export { AppInput, AppInputPassword }
