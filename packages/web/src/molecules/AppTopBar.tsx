@@ -48,10 +48,10 @@ export function AppTopBar({
   return (
     <div
       className={clsx(
-        'bg-light-page-bg dark:bg-dark-page-bg w-full h-16 mx-lg',
+        'w-full h-16 mx-lg',
         theme === 'filled'
           ? 'bg-light-page-bg dark:bg-dark-page-bg'
-          : 'bg-light-background-info-transparent dark:bg-dark-background-info-transparent border-b border-light-edge-gray-subtle dark:border-dark-edge-gray-subtle',
+          : 'border-b border-light-edge-gray-subtle dark:border-dark-edge-gray-subtle',
       )}>
       {isOnboarding ? (
         <div className="flex flex-row items-center justify-between px-3xl">
