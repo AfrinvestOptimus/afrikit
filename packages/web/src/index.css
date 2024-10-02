@@ -1,6 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body {
+  @apply antialiased;
+}
 
 .form-control {
   @apply bg-light-surface-gray dark:bg-dark-surface-gray !text-light-type-gray dark:text-dark-type-gray rounded-sm outline-none focus:outline-none focus:z-10 appearance-none w-full min-w-[415px] h-[56px] px-md pb-lg !pt-2xl border-0 focus:ring-0 text-sm font-semibold;
