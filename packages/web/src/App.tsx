@@ -1,11 +1,10 @@
 import { useState, useTransition } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import AppInput from './components/molecules/AppInput'
-
 import 'remixicon/fonts/remixicon.css'
 import AppButton from './components/molecules/AppButton'
 import DropdownMenu from './components/molecules/AppDropdownMenu'
-import { AppTopBar } from './molecules/AppTopBar'
+import AppTopBar from './molecules/AppTopBar'
 
 interface FormData {
   email: string

@@ -1,6 +1,7 @@
 // import { StoryFn, Meta } from '@storybook/react'
 // import { Controller, useForm } from 'react-hook-form'
 // import AppInput from '../molecules/AppInput'
+// import 'remixicon/fonts/remixicon.css'
 
 // export default {
 //   title: 'AppInput',
