@@ -1,4 +1,4 @@
-import { ComponentStory, Meta } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import { Controller, useForm } from 'react-hook-form'
 import AppInput from '../components/molecules/AppInput'
 
@@ -23,9 +23,39 @@ export default {
   onClear: { action: 'cleared' },
 } as Meta<typeof AppInput>
 
-const Template: ComponentStory<typeof AppInput> = (args: any) => {
-  const { control } = useForm()
-  return <AppInput control={control} {...args} />
+const Template: StoryFn<typeof AppInput> = args => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+    setValue,
+  } = useForm({
+    defaultValues: {
+      email: '',
+    },
+  })
+
+  const handleClearEmail = () => {
+    setValue('email', '') // Clear the email value
+  }
+  return (
+    <Controller
+      name="email"
+      control={control}
+      defaultValue=""
+      render={({ field }) => (
+        <AppInput
+          label="Testing"
+          type="email"
+          // placeholder="meeeee"
+          {...field} // Pass field props which includes value and onChange
+          // error={errors.email?.message}
+          onClear={handleClearEmail}
+        />
+      )}
+    />
+  )
 }
 
 export const Default = Template.bind({})
@@ -48,7 +78,7 @@ clearButton.args = {
   onClear: () => console.log('Clear button clicked'),
 }
 
-export const WithClearFunctionality: ComponentStory<typeof AppInput> = () => {
+export const WithClearFunctionality: StoryFn<typeof AppInput> = () => {
   const {
     control,
     handleSubmit,
