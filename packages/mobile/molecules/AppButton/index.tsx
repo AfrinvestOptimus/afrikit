@@ -40,6 +40,7 @@ const AppButton: React.FC<AppButtonProps> = ({
   iconStart = false,
   iconEnd = false,
   iconName,
+  className,
   text,
   onPress,
   accessibilityLabel,
@@ -75,7 +76,7 @@ const AppButton: React.FC<AppButtonProps> = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      className={`flex items-center justify-center ${combinedButtonStyles}`}
+      className={`flex items-center justify-center ${combinedButtonStyles} ${className}`}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel || text}
       accessibilityHint={accessibilityHint}

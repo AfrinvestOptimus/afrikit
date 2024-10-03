@@ -1,4 +1,3 @@
-import React from 'react'
 import { memo } from 'react'
 import { Text, View } from 'react-native'
 import { AppTitleAtomProps } from '../types/atoms'
@@ -9,21 +8,35 @@ function AppTitle({
   subtitle,
   align,
   titlePosition = 'top',
-  spacing,
-  hasSubtitle = false,
+  spacing = 1,
 }: AppTitleAtomProps) {
+  const spacingStyle = {
+    1: '',
+    2: 'gap-y-sm',
+    3: 'gap-y-lg',
+  }
+
+  const titlePositionStyle = {
+    top: 'flex-col',
+    bottom: 'flex-col-reverse',
+  }
+
+  const alignStyle = {
+    center: 'items-center',
+    left: 'items-start',
+  }
   return (
     <View
       className={classNames(
         '',
-        align === 'center' ? 'items-center' : 'items-start',
-        titlePosition === 'top' ? 'flex-col' : titlePosition === 'bottom' ? 'flex-col-reverse' : '',
-        spacing === 2 ? 'gap-y-sm' : spacing === 3 ? 'gap-y-lg' : '',
+        alignStyle[align],
+        titlePositionStyle[titlePosition],
+        spacingStyle[spacing],
       )}>
       <Text className={classNames('text-light-type-gray dark:text-dark-type-gray text-2xl-bold')}>
         {title}
       </Text>
-      {hasSubtitle && (
+      {!!subtitle && (
         <Text className={'text-light-type-gray-muted dark:text-dark-type-gray-muted text-sm-body'}>
           {subtitle}
         </Text>
