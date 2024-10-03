@@ -4,6 +4,7 @@ import AppInput from './components/molecules/AppInput'
 
 import 'remixicon/fonts/remixicon.css'
 import AppButton from './components/molecules/AppButton'
+import AppCodeInput from './components/molecules/AppCodeInput'
 import DropdownMenu from './components/molecules/AppDropdownMenu'
 
 interface FormData {
@@ -63,6 +64,13 @@ function App() {
           )}
         />
       </form>
+
+      <AppCodeInput
+        length={6}
+        errorMessage=""
+        secureEntry
+        // onChange={handleCodeChange}
+      />
 
       <AppButton text="Continue" color="accent" />
       <DropdownMenu />
