@@ -1,11 +1,11 @@
 import { useState, useTransition } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import AppInput from './components/molecules/AppInput'
 
 import 'remixicon/fonts/remixicon.css'
 import AppButton from './components/molecules/AppButton'
 import AppCodeInput from './components/molecules/AppCodeInput'
 import DropdownMenu from './components/molecules/AppDropdownMenu'
+import AppPhoneInput from './components/molecules/AppPhoneInput'
 
 interface FormData {
   email: string
@@ -53,10 +53,16 @@ function App() {
           control={control}
           defaultValue=""
           render={({ field }) => (
-            <AppInput
+            <AppPhoneInput
               label="Testing"
-              type="email"
               // placeholder="meeeee"
+              onInput={e => {
+                // Cast EventTarget to HTMLInputElement
+                const input = e.target as HTMLInputElement
+                // Prevent non-numeric input
+                input.value = input.value.replace(/[^0-9]/g, '')
+                field.onChange(input.value) // Update the form value
+              }}
               {...field} // Pass field props which includes value and onChange
               // error={errors.email?.message}
               onClear={handleClearEmail}
