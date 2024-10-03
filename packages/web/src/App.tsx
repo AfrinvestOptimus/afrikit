@@ -45,7 +45,7 @@ function App() {
     setValue('email', '') // Clear the email value
   }
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex flex-col justify-center items-center min-h-screen">
       <form className="max-w-md mx-auto">
         <Controller
           name="email"
@@ -66,9 +66,6 @@ function App() {
 
       <AppButton text="Continue" color="accent" />
       <DropdownMenu />
-      <div>
-        <AppButton text="Continue" color="accent" />
-      </div>
     </div>
   )
 }
