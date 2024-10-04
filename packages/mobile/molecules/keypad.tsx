@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
+import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
 import React, { useEffect, useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-remix-icon'
-import colors from 'afrikit-shared/dist/colors';
 
 export type KeyPadProps = {
   type: 'decimal' | 'nondecimal' | 'biometric'
@@ -51,6 +51,7 @@ const KeyPad: React.FC<KeyPadProps> = ({
   }, [value])
 
   const handleKeyPress = (key: string) => {
+    onKeyPress?.(key)
     if (key === KEY_BIO) {
       onBiometric?.(key)
     } else if (key === KEY_BACKSPACE) {
@@ -58,7 +59,6 @@ const KeyPad: React.FC<KeyPadProps> = ({
     } else if (key) {
       //TODO: Check against textLength
       setValue(prev => prev.concat(key))
-      onKeyPress?.(key)
     }
   }
 
