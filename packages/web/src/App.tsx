@@ -28,12 +28,17 @@ function App() {
     setValue('email', '') // Clear the email value
   }
   return (
-    <div className="flex justify-center items-center min-h-screen bg-light-page-bg2 dark:bg-dark-page-bg2 font-sans">
+    <div className="flex justify-center items-center min-h-screen bg-light-page-bg2 dark:bg-dark-page-bg2 font-sans antialiased">
       <AppTopBar
         theme="ghost"
         isOnboarding={false}
         pageTitle="Page title"
         subtitle="Find all your payment transactions here"
+        actions={true}
+        buttonThree
+        buttonTwo
+        buttonOne={false}
+        backBtn
       />
     <div className="flex flex-col justify-center items-center min-h-screen">
       <form className="max-w-md mx-auto">
