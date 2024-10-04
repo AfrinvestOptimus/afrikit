@@ -1,5 +1,5 @@
 import { useColorScheme } from 'nativewind'
-import { FC } from 'react'
+import React, { FC } from 'react'
 import { View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
 //import colors from '../../shared/colors'
