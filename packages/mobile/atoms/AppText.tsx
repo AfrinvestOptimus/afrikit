@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react'
+import { memo, useMemo } from 'react'
 import { Text } from 'react-native'
 import { tv } from 'tailwind-variants'
 import { AppTextAtomProps } from '../types/atoms'
@@ -7,15 +7,15 @@ const textVariants = tv({
   base: 'text-left',
   variants: {
     size: {
-      1: 'text-xs leading-xs tracking-xs',
-      2: 'text-sm leading-sm tracking-sm',
-      3: 'text-base leading-base tracking-base',
-      4: 'text-lg leading-lg tracking-lg',
-      5: 'text-xl leading-xl tracking-xl',
-      6: 'text-2xl leading-2xl tracking-2xl',
-      7: 'text-3xl leading-3xl tracking-3xl',
-      8: 'text-4xl leading-4xl tracking-4xl',
-      9: 'text-5xl leading-5xl tracking-5xl',
+      1: 'text-xs leading-xs tracking-xs', // font-size: 12px
+      2: 'text-sm leading-sm tracking-sm', // font-size: 14px
+      3: 'text-base leading-base tracking-base', // font-size: 16px
+      4: 'text-lg leading-lg tracking-lg', // font-size: 18px
+      5: 'text-xl leading-xl tracking-xl', // font-size: 20px
+      6: 'text-2xl leading-2xl tracking-2xl', // font-size: 24px
+      7: 'text-3xl leading-3xl tracking-3xl', // font-size: 28px
+      8: 'text-4xl leading-4xl tracking-4xl', // font-size: 35px
+      9: 'text-5xl leading-5xl tracking-5xl', // font-size: 60px
     },
     weight: {
       regular: 'font-regular',
@@ -116,7 +116,7 @@ const AppText = ({
   )
 
   return (
-    <Text className={`${variantClasses} ${className || ''}`} {...rest}>
+    <Text className={`${variantClasses} ${className || ''} text-xl`} {...rest}>
       {children}
     </Text>
   )
