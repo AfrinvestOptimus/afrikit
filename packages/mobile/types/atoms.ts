@@ -26,7 +26,7 @@ export type AppTextAtomProps = AppTextOwnProps & Omit<TextProps, keyof AppTextOw
 
 export type AppTitleAtomProps = {
   title: string
-  align: 'left' | 'center'
+  align?: 'left' | 'center'
   subtitle?: string
   titlePosition?: 'top' | 'bottom'
   spacing?: 1 | 2 | 3

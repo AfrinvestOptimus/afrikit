@@ -6,7 +6,7 @@ import classNames from '../utilities/classnames'
 function AppTitle({
   title,
   subtitle,
-  align,
+  align = 'center',
   titlePosition = 'top',
   spacing = 1,
 }: AppTitleAtomProps) {
