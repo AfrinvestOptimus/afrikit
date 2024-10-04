@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react'
+import React,{ memo, useMemo } from 'react'
 import { Text } from 'react-native'
 import { tv } from 'tailwind-variants'
 import { AppTextAtomProps } from '../types/atoms'
@@ -116,7 +116,7 @@ const AppText = ({
   )
 
   return (
-    <Text className={`${variantClasses} ${className || ''} text-xl`} {...rest}>
+    <Text className={`${variantClasses} ${className || ''}`} {...rest}>
       {children}
     </Text>
   )
