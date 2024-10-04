@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-import React from 'react'
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { Pressable, Text, TextInput, View } from 'react-native'
 import classNames from '../utilities/classnames'
 
+export type KeyboardType = 'Custom' | 'Native'
 export type AuthInputProps = {
   count: number
   isError?: boolean
@@ -12,7 +12,7 @@ export type AuthInputProps = {
   onValueChange?: (value: string) => void
   isLoading?: boolean
   customValue?: string
-  keypad?: 'Custom' | 'Native'
+  keypad?: KeyboardType
 }
 
 const AuthInput: FC<AuthInputProps> = ({
