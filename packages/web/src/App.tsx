@@ -30,7 +30,7 @@ function App() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-light-page-bg2 dark:bg-dark-page-bg2 font-sans antialiased">
       <AppTopBar
-        theme="ghost"
+        theme="filled"
         isOnboarding={false}
         pageTitle="Page title"
         subtitle="Find all your payment transactions here"

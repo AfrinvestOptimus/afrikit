@@ -5,7 +5,6 @@ import { TAppTopBarProps } from '../types/TAppTopBarProps'
 import TopBarRightContent from '../components/TopBarRightContent'
 import AppButton from '../components/molecules/AppButton'
 
-
 /**
  * Component representing the top bar of the application.
  *
@@ -59,16 +58,18 @@ function AppTopbar(props: TAppTopBarProps): React.JSX.Element {
         <div className="px-2xl flex flex-row items-center justify-between py-lg">
           <div className="flex flex-row items-end space-x-sm">
             {backBtn && (
-              <AppButton
-                size={3}
-                variant="surface"
-                color="neutral"
-                highContrast
-                iconStart={false}
-                iconName="ri-arrow-left-wide-line"
-                iconEnd={false}
-                text=""
-              />
+              <div className="hidden md:inline-block">
+                <AppButton
+                  size={3}
+                  variant="surface"
+                  color="neutral"
+                  highContrast
+                  iconStart={false}
+                  iconName="ri-arrow-left-wide-line"
+                  iconEnd={false}
+                  text=""
+                />
+              </div>
             )}
             <div className="flex flex-col items-start gap-y-xs">
               <h2 className="text-xl-bold text-light-type-gray dark:text-dark-type-gray text-center">

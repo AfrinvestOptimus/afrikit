@@ -49,7 +49,7 @@ const ActionButtons = ({
   buttonTwo: boolean
   buttonThree: boolean
 }): React.JSX.Element => (
-  <div className="flex flex-row items-center space-x-lg">
+  <div className="flex-row items-center space-x-lg hidden md:flex">
     {buttonThree && (
       <AppButton
         variant="surface"
