@@ -1,6 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
-import AppButton from './molecules/AppButton'
+import AppButton from '../molecules/AppButton'
 export interface ITopBarContentProps {
   search?: boolean
   actions: boolean | undefined

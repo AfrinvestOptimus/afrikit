@@ -1,5 +1,5 @@
 import React from 'react'
-import { DropdownListItemProps } from '../../../types/TAppDropdownMenu'
+import { DropdownListItemProps } from '../../types/TAppDropdownMenu'
 
 const DropdownListItem: React.FC<DropdownListItemProps> = ({
   label = 'Label',

@@ -1,6 +1,6 @@
 import colors from 'afrikit-shared/dist/colors'
 import React, { useState } from 'react'
-import useDarkMode from '../../hooks/useDarkMode'
+import useDarkMode from '../hooks/useDarkMode'
 
 export interface AppPasswordInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string

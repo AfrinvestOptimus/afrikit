@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react'; // Import React and the useMemo hook for performance optimization
-import { AppButtonProps } from '../../../types/TAppButton'; // Import the AppButtonProps interface for TypeScript type checking
+import React, { useMemo } from 'react' // Import React and the useMemo hook for performance optimization
+import { AppButtonProps } from '../../types/TAppButton' // Import the AppButtonProps interface for TypeScript type checking
 import {
   buttonColors,
   buttonSizes,
@@ -9,8 +9,8 @@ import {
   highContrastTextColors,
   textColors,
   textSizes,
-  textStates
-} from './button'; // Import various styles and variants for button customization
+  textStates,
+} from './button' // Import various styles and variants for button customization
 
 // Define the AppButton functional component with props defined by AppButtonProps interface
 const AppButton: React.FC<AppButtonProps> = ({

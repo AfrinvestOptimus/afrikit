@@ -1,11 +1,6 @@
 // Importing button-related types like ButtonColor, ButtonSize, ButtonState, and ButtonVariant
 // from the AppButton component. These are likely used to define the button's appearance and behavior.
-import {
-  ButtonColor,
-  ButtonSize,
-  ButtonState,
-  ButtonVariant,
-} from '../components/molecules/AppButton/button'
+import { ButtonColor, ButtonSize, ButtonState, ButtonVariant } from '../molecules/AppButton/button'
 
 // Defining the AppButtonProps interface, which specifies the props for an AppButton component.
 // This interface ensures that any component using these props will have predictable types and behaviors.
