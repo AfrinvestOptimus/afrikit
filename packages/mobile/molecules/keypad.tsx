@@ -5,8 +5,9 @@ import React, { useEffect, useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-remix-icon'
 
+export type KeyPadInputType = 'decimal' | 'nondecimal' | 'biometric'
 export type KeyPadProps = {
-  type: 'decimal' | 'nondecimal' | 'biometric'
+  type: KeyPadInputType
   textLength?: number
   onKeyPress?: (key: string) => void
   onBiometric?: (key: string) => void
