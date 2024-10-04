@@ -1,4 +1,4 @@
-import React,{ memo, useMemo } from 'react'
+import React, { memo, useMemo } from 'react'
 import { Text } from 'react-native'
 import { tv } from 'tailwind-variants'
 import { AppTextAtomProps } from '../types/atoms'
