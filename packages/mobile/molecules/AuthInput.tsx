@@ -3,7 +3,6 @@
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { Pressable, Text, TextInput, View } from 'react-native'
 import classNames from '../utilities/classnames'
-import React from 'react'
 
 export type AuthInputProps = {
   count: number
@@ -11,6 +10,7 @@ export type AuthInputProps = {
   errorMessage?: string
   onValueChange?: (value: string) => void
   isLoading?: boolean
+  customValue?: string
   keypad?: 'Custom' | 'Native'
 }
 
@@ -20,12 +20,19 @@ const AuthInput: FC<AuthInputProps> = ({
   errorMessage,
   onValueChange,
   isLoading,
-  keypad,
+  customValue,
+  keypad = 'Native',
 }) => {
   const [value, setValue] = useState('')
   const [codeKeys, setCodeKeys] = useState<string[] | undefined>(undefined)
 
   const KeyboardRef = useRef<TextInput>(null)
+
+  useEffect(() => {
+    if (customValue !== undefined) {
+      onChange(customValue)
+    }
+  }, [customValue])
 
   useEffect(() => {
     if (keypad === 'Native') {
