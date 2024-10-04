@@ -1,9 +1,6 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "outDir": "./dist",
-    "allowJs": true,
-    "resolveJsonModule": true,
     "rootDir": "./",
     "strict": true,
     "moduleResolution": "node",
@@ -23,7 +20,21 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "paths": {
+      "@components/*": [
+        "packages/mobile/components/*"
+      ],
+      "@molecules/*": [
+        "packages/mobile/molecules/*"
+      ],
+      "@atoms/*": [
+        "packages/mobile/atoms/*"
+      ],
+      "@shared/*": [
+        "packages/shared/*"
+      ]
+    }
   },
   "include": [
     "./components/**/*",
@@ -37,7 +48,7 @@
     "nativewind-env.d.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ],
-  "extends": "expo/tsconfig.base"
 }

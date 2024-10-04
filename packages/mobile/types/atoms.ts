@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+import colors from 'afrikit-shared/dist/colors'
 import { ReactNode } from 'react'
 import {
   NativeSyntheticEvent,
@@ -8,7 +9,6 @@ import {
   TextProps,
   ViewStyle,
 } from 'react-native'
-import colors from 'afrikit-shared/dist/colors'
 
 type TailwindColorKey = keyof typeof colors.light.type
 
@@ -22,7 +22,7 @@ interface AppTextOwnProps {
   className?: string
   children?: string | ReactNode
 }
-type AppTextAtomProps = AppTextOwnProps & Omit<TextProps, keyof AppTextOwnProps>
+export type AppTextAtomProps = AppTextOwnProps & Omit<TextProps, keyof AppTextOwnProps>
 
 export type AppTitleAtomProps = {
   title: string
@@ -63,7 +63,7 @@ export interface AppInputProps extends Omit<TextInputProps, 'placeholderTextColo
   numberOfLines?: number
   type?: string
   value?: string
-  FloatingLabel?: boolean
+  floatingLabel?: boolean
   multiline?: boolean
   error?: string | boolean
   className?: string
@@ -78,7 +78,7 @@ export interface AppPhoneInputProps extends Omit<TextInputProps, 'placeholderTex
   numberOfLines?: number
   type?: string
   value?: string
-  FloatingLabel?: boolean
+  floatingLabel?: boolean
   multiline?: boolean
   error?: string | boolean
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void

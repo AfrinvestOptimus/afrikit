@@ -15,7 +15,7 @@ export default {
         error: { control: 'text' },
         label: { control: 'text' },
         value: { control: 'text' },
-        FloatingLabel: { control: 'boolean' },
+        floatingLabel: { control: 'boolean' },
         multiline: { control: 'boolean' },
     },
 } as Meta<typeof AppPhoneInput>;

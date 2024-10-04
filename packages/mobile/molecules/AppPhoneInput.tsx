@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import colors from 'afrikit-shared/dist/colors';
 import * as React from 'react';
 import { Animated, NativeSyntheticEvent, Pressable, TextInput, TextInputFocusEventData, TouchableWithoutFeedback, View } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
 import RemixIcon from 'react-native-remix-icon';
-import colors from 'afrikit-shared/dist/colors';
 import AppText from '../atoms/AppText';
 import { AppPhoneInputProps } from '../types/atoms';
 import { AppInputBlur } from '../utilities/validation';
@@ -13,7 +13,7 @@ import AppHintText from './AppHintText';
 const AppPhoneInput: React.FC<AppPhoneInputProps> =
     ({
         onBlur,
-        FloatingLabel = true,
+        floatingLabel = true,
         onFocus,
         error,
         multiline,
@@ -79,7 +79,7 @@ const AppPhoneInput: React.FC<AppPhoneInputProps> =
             onChangeText: onChangeText,
             onBlur: handleBlur,
             onFocus: handleFocus,
-            placeholder: FloatingLabel ? undefined : props.placeholder,
+            placeholder: floatingLabel ? undefined : props.placeholder,
         };
 
         const floatLabelStyle = {
@@ -136,7 +136,7 @@ const AppPhoneInput: React.FC<AppPhoneInputProps> =
                         >
                             <View
                                 className="flex-1">
-                                {FloatingLabel && (
+                                {floatingLabel && (
                                     <Animated.Text style={[floatLabelStyle]} className="gap-xs dark:text-dark-type-gray-muted text-light-type-gray-muted" allowFontScaling={false}>
                                         {label}
                                     </Animated.Text>

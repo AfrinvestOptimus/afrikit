@@ -14,6 +14,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "prebuild": "rm -rf dist",
     "build": "tsc && tsc-alias && yarn build:css",
     "build:css": "babel . --out-dir dist --extensions \".ts,.tsx\" --ignore \"node_modules,dist\" --source-maps inline",
     "prepublishOnly": "yarn build"
