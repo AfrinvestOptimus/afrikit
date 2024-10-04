@@ -1,19 +1,36 @@
+import colors from 'afrikit-shared/dist/colors'
 import React from 'react'
 import { Image, Text, View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
-import colors from 'afrikit-shared/dist/colors';
 import classNames from '../../utilities/classnames'
 import getInitials from '../../utilities/getInitials'
 import {
-  AppAvatarProps,
+  AvatarColor,
   avatarColors,
+  AvatarFallback,
+  AvatarSize,
+  AvatarVariant,
   highContrastAvatarColors,
   highContrastTextColors,
   iconSizes,
+  NumberOfInitials,
   sizeStyles,
   textColors,
   textSizes,
 } from './avatar'
+
+export interface AppAvatarProps {
+  size?: AvatarSize
+  variant?: AvatarVariant
+  color?: AvatarColor
+  highContrast?: boolean
+  fallBack?: AvatarFallback
+  status?: boolean
+  initials?: string
+  imageUrl?: string
+  icon?: React.ReactNode
+  numberOfInitials?: NumberOfInitials
+}
 
 const AppAvatar: React.FC<AppAvatarProps> = ({
   size = 4,

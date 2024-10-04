@@ -1,12 +1,12 @@
 import { useColorScheme } from 'nativewind'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
- //import colors from '../../shared/colors'
-import colors from 'afrikit-shared/dist/colors';
+//import colors from '../../shared/colors'
+import colors from 'afrikit-shared/dist/colors'
 import classNames from '../utilities/classnames'
 
-type AppIconProps = {
+export type AppIconProps = {
   name: string
   color?: string
   size: '16' | '20' | '24' | '40' | '48'
