@@ -28,7 +28,7 @@ function App() {
     setValue('email', '') // Clear the email value
   }
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-light-page-bg2 dark:bg-dark-page-bg2 font-sans antialiased container mx-auto">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-light-page-bg2 dark:bg-dark-page-bg2 font-sans antialiased mx-auto">
       <AppSidebar />
       {/* <AppTopBar
         theme="filled"

@@ -154,7 +154,7 @@ const links: ISideBarItem[] = [
 const AppSidebar: React.FC = (props: IAppSideBarProps) => {
   const [open, setOpen] = useState<boolean>(false)
   return (
-    <div className="w-[18rem] mx-auto h-screen bg-white py-xl flex flex-col">
+    <div className="w-[18rem] mr-auto h-screen bg-white py-xl flex flex-col">
       <div className="pt-xl pb-3xl px-lg">
         <img src={optimusLogo} className="" />
       </div>
