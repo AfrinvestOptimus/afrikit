@@ -5,7 +5,7 @@ import AppCodeInput from './molecules/AppCodeInput'
 import DropdownMenu from './molecules/AppDropdownMenu'
 import AppTopBar from './molecules/AppTopBar'
 import AppPhoneInput from './molecules/AppPhoneInput'
-import AppSideBar from './molecules/AppSideBar'
+import AppSidebar from './molecules/AppSideBar'
 
 interface FormData {
   email: string
@@ -29,7 +29,7 @@ function App() {
   }
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-light-page-bg2 dark:bg-dark-page-bg2 font-sans antialiased container mx-auto">
-      <AppSideBar />
+      <AppSidebar />
       {/* <AppTopBar
         theme="filled"
         isOnboarding={false}

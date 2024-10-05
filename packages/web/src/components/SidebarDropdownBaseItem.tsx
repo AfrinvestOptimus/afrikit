@@ -13,7 +13,7 @@ export default function SidebarDropdownBaseItem(props: ISidebarDropdownBaseItemP
     <button
       onClick={linkAction}
       className={clsx(
-        'flex-row flex items-center rounded-full px-md py-sm cursor-pointer group/dropdownItem flex-1 box-border border-2 border-light-background-neutral-transparent dark:border-dark-background-neutral-transparent transition-all duration-500 w-full space-x-xl',
+        'flex-row flex items-center rounded-full px-md py-sm cursor-pointer group/dropdownItem flex-1 box-border border-2 border-light-background-neutral-transparent dark:border-dark-background-neutral-transparent transition-all duration-500 w-full space-x-xl pl-[18px]',
         current
           ? 'hover:bg-light-background-neutral-light dark:hover:bg-dark-background-neutral-light'
           : 'hover:bg-light-background-neutral-transparent-hover dark:hover:bg-dark-background-neutral-transparent-hover focus:border-light-edge-info-light dark:focus:border-dark-edge-info-light',

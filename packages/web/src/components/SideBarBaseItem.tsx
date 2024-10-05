@@ -1,9 +1,7 @@
-import React from 'react'
-import useDarkMode from '../hooks/useDarkMode'
+import { useState } from 'react'
 import * as Collapsible from '@radix-ui/react-collapsible'
 import clsx from 'clsx'
 import SidebarDropdownBaseItem, { ISidebarDropdownBaseItemProps } from './SidebarDropdownBaseItem'
-import SidebarDropdownItem from './SidebarDropdownItem'
 
 export type ISideBarBaseItemProps = {
   color: 'accent' | 'neutral'
@@ -63,10 +61,11 @@ function hasBadge(
 }
 
 export default function SideBarBaseItem(props: ISideBarBaseItemProps) {
+  const [opendrop, setOpendrop] = useState<boolean>(false)
   const { text, color, iconOnly, dot, current, linkAction } = props
   return (
-    <Collapsible.Root>
-      <div className={clsx('flex-row items-center space-x-md', iconOnly ? '' : 'flex')}>
+    <Collapsible.Root onOpenChange={openState => setOpendrop(openState)}>
+      <div className={clsx('flex-row items-center space-x-md pr-lg', iconOnly ? '' : 'flex')}>
         {current && !iconOnly && (
           <div className="w-xs h-lg bg-light-background-accent-base rounded-tr-xs rounded-br-xs" />
         )}
@@ -77,7 +76,7 @@ export default function SideBarBaseItem(props: ISideBarBaseItemProps) {
 
             current
               ? 'bg-light-background-accent-light dark:bg-dark-background-accent-light focus:border-light-edge-info-lighter dark:focus:border-dark-edge-info-lighter'
-              : 'hover:bg-light-background-neutral-transparent-hover dark:hover:bg-dark-background-neutral-transparent-hover focus:border-light-optiblue9 dark:focus:border-dark-optiblue9',
+              : 'hover:bg-light-background-neutral-transparent-hover dark:hover:bg-dark-background-neutral-transparent-hover focus:border-light-optiblue9 dark:focus:border-dark-optiblue9 ml-lg',
           )}>
           {hasIcon(props) && (
             <div className="icon">
@@ -106,7 +105,7 @@ export default function SideBarBaseItem(props: ISideBarBaseItemProps) {
                   <i
                     className={clsx(
                       'text-lg transition-all duration-500',
-                      props.openDropdown ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line',
+                      opendrop ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line',
                     )}
                   />
                 </div>
@@ -128,7 +127,7 @@ export default function SideBarBaseItem(props: ISideBarBaseItemProps) {
       {hasDropdown(props) && (
         <div className="">
           <Collapsible.CollapsibleContent asChild className="CollapsibleContent">
-            <div className="flex flex-col ml-sm">
+            <div className="flex flex-col mx-lg">
               {props.dropDownElement?.map(element => (
                 <SidebarDropdownBaseItem
                   key={element.text}
