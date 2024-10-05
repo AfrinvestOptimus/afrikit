@@ -7,7 +7,6 @@ export type TSidebarDropdownBaseItemProps = {
 export type TSideBarBaseItemProps = {
   color: 'accent' | 'neutral'
   iconOnly?: boolean
-  dot?: boolean
   text: string
   current?: boolean
   linkAction?: () => void

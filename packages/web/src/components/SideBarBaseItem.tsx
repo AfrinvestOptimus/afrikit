@@ -2,7 +2,7 @@ import { useState } from 'react'
 import * as Collapsible from '@radix-ui/react-collapsible'
 import clsx from 'clsx'
 import SidebarDropdownBaseItem from './SidebarDropdownBaseItem'
-import { TSideBarBaseItemProps } from '../types';
+import { TSideBarBaseItemProps } from '../types'
 
 // Type guards
 function hasIcon(
@@ -22,9 +22,27 @@ function hasBadge(
   return props.badge === true
 }
 
+/**
+ * SideBarBaseItem component renders a sidebar item with optional dropdown functionality.
+ * It supports both icon-only and text-based items, and can indicate the current active item.
+ *
+ * @component
+ * @param {TSideBarBaseItemProps} props - The properties for the SideBarBaseItem component.
+ * @param {string} props.text - The text to display for the sidebar item.
+ * @param {string} props.color - The color of the sidebar item.
+ * @param {boolean} props.iconOnly - Whether the item should display only an icon.
+ * @param {boolean} props.dot - Whether to display a dot indicator.
+ * @param {boolean} props.current - Whether the item is the current active item.
+ * @param {Function} props.linkAction - The action to perform when the item is clicked.
+ * @param {string} props.iconName - The name of the icon to display.
+ * @param {Array} [props.dropDownElement] - The elements to display in the dropdown.
+ *
+ * @returns {JSX.Element} The rendered SideBarBaseItem component.
+ */
+
 export default function SideBarBaseItem(props: TSideBarBaseItemProps) {
   const [opendrop, setOpendrop] = useState<boolean>(false)
-  const { text, color, iconOnly, dot, current, linkAction } = props
+  const { text, color, iconOnly, current, linkAction } = props
   return (
     <Collapsible.Root onOpenChange={openState => setOpendrop(openState)}>
       <div className={clsx('flex-row items-center space-x-md pr-lg', iconOnly ? '' : 'flex')}>
