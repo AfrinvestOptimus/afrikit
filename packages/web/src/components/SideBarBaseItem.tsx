@@ -1,66 +1,28 @@
 import { useState } from 'react'
 import * as Collapsible from '@radix-ui/react-collapsible'
 import clsx from 'clsx'
-import SidebarDropdownBaseItem, { ISidebarDropdownBaseItemProps } from './SidebarDropdownBaseItem'
-
-export type ISideBarBaseItemProps = {
-  color: 'accent' | 'neutral'
-  iconOnly?: boolean
-  dot?: boolean
-  text: string
-  current?: boolean
-  linkAction?: () => void
-} & (
-  | {
-      icon: true
-      iconName: string
-    }
-  | {
-      icon: false
-      iconName?: never
-    }
-) &
-  (
-    | {
-        hasDropdown: true
-        openDropdown: boolean
-        dropDownElement: ISidebarDropdownBaseItemProps[]
-      }
-    | {
-        hasDropdown: false
-        openDropdown?: never
-      }
-  ) &
-  (
-    | {
-        badge: true
-        badgeText: number | string
-      }
-    | {
-        badge: false
-        badgeText?: never
-      }
-  )
+import SidebarDropdownBaseItem from './SidebarDropdownBaseItem'
+import { TSideBarBaseItemProps } from '../types';
 
 // Type guards
 function hasIcon(
-  props: ISideBarBaseItemProps,
-): props is ISideBarBaseItemProps & { icon: true; iconName: string } {
+  props: TSideBarBaseItemProps,
+): props is TSideBarBaseItemProps & { icon: true; iconName: string } {
   return props.icon === true
 }
 function hasDropdown(
-  props: ISideBarBaseItemProps,
-): props is ISideBarBaseItemProps & { hasDropdown: true; openDropdown: boolean } {
+  props: TSideBarBaseItemProps,
+): props is TSideBarBaseItemProps & { hasDropdown: true; openDropdown: boolean } {
   return props.hasDropdown === true
 }
 
 function hasBadge(
-  props: ISideBarBaseItemProps,
-): props is ISideBarBaseItemProps & { badge: true; badgeText: number | string } {
+  props: TSideBarBaseItemProps,
+): props is TSideBarBaseItemProps & { badge: true; badgeText: number | string } {
   return props.badge === true
 }
 
-export default function SideBarBaseItem(props: ISideBarBaseItemProps) {
+export default function SideBarBaseItem(props: TSideBarBaseItemProps) {
   const [opendrop, setOpendrop] = useState<boolean>(false)
   const { text, color, iconOnly, dot, current, linkAction } = props
   return (
@@ -104,8 +66,8 @@ export default function SideBarBaseItem(props: ISideBarBaseItemProps) {
                   <span className="text-base-head">{text}</span>
                   <i
                     className={clsx(
-                      'text-lg transition-all duration-500',
-                      opendrop ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line',
+                      'text-lg transition-all duration-500 ri-arrow-down-s-line',
+                      opendrop ? 'rotate-180' : '',
                     )}
                   />
                 </div>

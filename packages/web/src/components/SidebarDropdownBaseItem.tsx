@@ -1,13 +1,9 @@
 import React from 'react'
 import clsx from 'clsx'
+import { TSidebarDropdownBaseItemProps } from '../types'
 
-export type ISidebarDropdownBaseItemProps = {
-  current?: boolean
-  linkAction?: () => void
-  text: string
-}
 
-export default function SidebarDropdownBaseItem(props: ISidebarDropdownBaseItemProps) {
+export default function SidebarDropdownBaseItem(props: TSidebarDropdownBaseItemProps) {
   const { text, current, linkAction } = props
   return (
     <button
