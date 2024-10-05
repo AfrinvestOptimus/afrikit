@@ -71,37 +71,38 @@ export default function SideBarBaseItem(props: TSideBarBaseItemProps) {
               />
             </div>
           )}
-          {!iconOnly && hasDropdown(props) ? (
-            <div className="w-full flex flex-col items-start justify-start">
-              <Collapsible.CollapsibleTrigger asChild>
-                <div
-                  className={clsx(
-                    'flex flex-row items-center justify-between flex-1 relative w-full',
-                    current
-                      ? 'text-light-type-accent dark:text-dark-type-accent'
-                      : 'group-hover/item:text-light-type-gray dark:group-hover/item:text-dark-type-gray text-light-type-gray-muted dark:text-dark-type-gray-muted',
-                  )}>
-                  <span className="text-base-head">{text}</span>
-                  <i
+          {!iconOnly &&
+            (hasDropdown(props) ? (
+              <div className="w-full flex flex-col items-start justify-start">
+                <Collapsible.CollapsibleTrigger asChild>
+                  <div
                     className={clsx(
-                      'text-lg transition-all duration-500 ri-arrow-down-s-line',
-                      opendrop ? 'rotate-180' : '',
-                    )}
-                  />
-                </div>
-              </Collapsible.CollapsibleTrigger>
-            </div>
-          ) : (
-            <div
-              className={clsx(
-                'flex flex-row items-center justify-between flex-1 text-base-head',
-                current
-                  ? 'text-light-type-accent dark:text-dark-type-accent'
-                  : 'group-hover/item:text-light-type-gray dark:group-hover/item:text-dark-type-gray text-light-type-gray-muted dark:text-dark-type-gray-muted',
-              )}>
-              {text}
-            </div>
-          )}
+                      'flex flex-row items-center justify-between flex-1 relative w-full',
+                      current
+                        ? 'text-light-type-accent dark:text-dark-type-accent'
+                        : 'group-hover/item:text-light-type-gray dark:group-hover/item:text-dark-type-gray text-light-type-gray-muted dark:text-dark-type-gray-muted',
+                    )}>
+                    <span className="text-base-head">{text}</span>
+                    <i
+                      className={clsx(
+                        'text-lg transition-all duration-500 ri-arrow-down-s-line',
+                        opendrop ? 'rotate-180' : '',
+                      )}
+                    />
+                  </div>
+                </Collapsible.CollapsibleTrigger>
+              </div>
+            ) : (
+              <div
+                className={clsx(
+                  'flex flex-row items-center justify-between flex-1 text-base-head',
+                  current
+                    ? 'text-light-type-accent dark:text-dark-type-accent'
+                    : 'group-hover/item:text-light-type-gray dark:group-hover/item:text-dark-type-gray text-light-type-gray-muted dark:text-dark-type-gray-muted',
+                )}>
+                {text}
+              </div>
+            ))}
         </button>
       </div>
       {hasDropdown(props) && (

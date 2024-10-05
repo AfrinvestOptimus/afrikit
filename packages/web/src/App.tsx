@@ -22,7 +22,6 @@ const links: TSideBarItem[] = [
     position: 'top',
     badge: false,
     hasDropdown: false,
-    current: true,
   },
   {
     id: '2',
@@ -52,6 +51,7 @@ const links: TSideBarItem[] = [
     color: 'accent',
     position: 'top',
     badge: false,
+    current: true,
     hasDropdown: true,
     openDropdown: true,
     dropDownElement: [
