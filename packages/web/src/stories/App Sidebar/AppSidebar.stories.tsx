@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import 'remixicon/fonts/remixicon.css'
-import AppSidebar from '../../molecules/AppSidebar'
 import { TSideBarItem } from '../../types'
+import AppSidebar from '../../molecules/AppSideBar'
 
 const meta: Meta<typeof AppSidebar> = {
   title: 'Sidebar/AppSidebar',
