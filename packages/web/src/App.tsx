@@ -5,8 +5,8 @@ import AppCodeInput from './molecules/AppCodeInput'
 import DropdownMenu from './molecules/AppDropdownMenu'
 import AppTopBar from './molecules/AppTopBar'
 import AppPhoneInput from './molecules/AppPhoneInput'
-import AppSidebar from './molecules/AppSidebar'
 import { TSideBarItem } from './types'
+import AppSidebar from './molecules/AppSideBar'
 
 interface FormData {
   email: string
