@@ -1,12 +1,12 @@
-import { useState, useTransition } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import AppButton from './molecules/AppButton'
 import AppCodeInput from './molecules/AppCodeInput'
-import DropdownMenu from './molecules/AppDropdownMenu'
-import AppTopBar from './molecules/AppTopBar'
+import DropdownComponent from './molecules/AppDropdownMenu'
 import AppPhoneInput from './molecules/AppPhoneInput'
-import { TSideBarItem } from './types'
 import AppSidebar from './molecules/AppSideBar'
+import AppTopBar from './molecules/AppTopBar'
+import { TSideBarItem } from './types'
+import { DropdownItemProps } from './types/TAppDropdownMenu'
 
 interface FormData {
   email: string
@@ -152,6 +152,123 @@ const links: TSideBarItem[] = [
   },
 ]
 
+//Dropdown List Items With Avatar Image
+const items: DropdownItemProps[] = [
+  {
+    label: 'Item 1',
+    hasIcon: false,
+    hasAvatar: true,
+    showCheck: false,
+    state: 'active',
+    subLabel: 'SubLabel',
+  },
+  {
+    label: 'Item 2',
+    hasIcon: false,
+    hasAvatar: true,
+    showCheck: false,
+    state: 'active',
+    subLabel: 'SubLabel',
+    avatarSrc: 'images/jpg/avatar1.jpeg',
+    subContent: ['Sub menu 1', 'Sub menu 2'],
+  },
+  {
+    label: 'Item 3',
+    hasIcon: false,
+    hasAvatar: true,
+    showCheck: false,
+    state: 'active',
+    subLabel: 'SubLabel',
+    avatarSrc: 'images/jpg/avatar1.jpeg',
+    subContent: ['Sub menu 1', 'Sub menu 2'],
+  },
+  {
+    label: 'Item 4',
+    hasIcon: false,
+    hasAvatar: true,
+    showCheck: true,
+    subLabel: 'SubLabel',
+    state: 'active', // Must be 'active', 'disabled', or 'default'
+  },
+]
+//Dropdown List Items with Remix icon classes
+const items2: DropdownItemProps[] = [
+  {
+    label: 'Item 1',
+    hasIcon: true,
+    hasAvatar: false,
+    showCheck: false,
+    state: 'active',
+    subLabel: 'SubLabel',
+  },
+  {
+    label: 'Item 2',
+    hasIcon: true,
+    hasAvatar: false,
+    showCheck: false,
+    state: 'active',
+    subLabel: 'SubLabel',
+    avatarSrc: 'images/jpg/avatar1.jpeg',
+    subContent: ['Sub menu 1', 'Sub menu 2', 'Sub menu 3', 'Sub menu 4', 'Sub menu 5'],
+  },
+  {
+    label: 'Item 3',
+    hasIcon: true,
+    hasAvatar: false,
+    showCheck: false,
+    state: 'active',
+    subLabel: 'SubLabel',
+    avatarSrc: 'images/jpg/avatar1.jpeg',
+    subContent: ['Sub menu 1', 'Sub menu 2', 'Sub menu 3', 'Sub menu 4', 'Sub menu 5'],
+  },
+  {
+    label: 'Item 4',
+    hasIcon: true,
+    hasAvatar: false,
+    showCheck: true,
+    subLabel: 'SubLabel',
+    state: 'active', // Must be 'active', 'disabled', or 'default'
+  },
+]
+const items3: DropdownItemProps[] = [
+  {
+    label: 'Item 1',
+    hasIcon: true,
+    hasAvatar: false,
+    showCheck: false,
+    state: 'disabled',
+    subLabel: 'SubLabel',
+  },
+  {
+    label: 'Item 2',
+    hasIcon: true,
+    hasAvatar: false,
+    showCheck: false,
+    state: 'disabled',
+    subLabel: 'SubLabel',
+    avatarSrc: 'images/jpg/avatar1.jpeg',
+    subContent: ['Sub menu 1', 'Sub menu 2', 'Sub menu 3', 'Sub menu 4', 'Sub menu 5'],
+  },
+  {
+    label: 'Item 3',
+    hasIcon: true,
+    hasAvatar: false,
+    showCheck: false,
+    state: 'disabled',
+    subLabel: 'SubLabel',
+    avatarSrc: 'images/jpg/avatar1.jpeg',
+    subContent: ['Sub menu 1', 'Sub menu 2', 'Sub menu 3', 'Sub menu 4', 'Sub menu 5'],
+  },
+  {
+    label: 'Item 4',
+    hasIcon: true,
+    hasAvatar: false,
+    showCheck: true,
+    subLabel: 'SubLabel',
+    state: 'disabled', // Must be 'active', 'disabled', or 'default'
+  },
+]
+
 function App() {
   const {
     control,
@@ -171,7 +288,7 @@ function App() {
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-light-page-bg2 dark:bg-dark-page-bg2 font-sans antialiased mx-auto">
       <AppSidebar links={links} />
-      {/* <AppTopBar
+      <AppTopBar
         theme="filled"
         isOnboarding={false}
         pageTitle="Page title"
@@ -214,9 +331,32 @@ function App() {
           // onChange={handleCodeChange}
         />
 
-        <AppButton text="Continue" color="accent" />
-        <DropdownMenu />
-      </div> */}
+        <AppButton text="Continue" color="accent" size={4} />
+        <div className="flex flex-col space-y-lg mt-md">
+          <AppButton
+            text="Continue"
+            color="accent"
+            size={4}
+            onClick={() => console.log('Button click works!!!')}
+          />
+          {/* Dropdown List Items with Remix icon classes */}
+          <DropdownComponent items={items} separator={true} showArrow={true} variant="primary" />
+
+          {/* Dropdown List Items with Remix icon classes */}
+          <DropdownComponent items={items2} separator={true} showArrow={true} variant="primary" />
+
+          {/* Dropdown with custom trigger and Remix icon list  */}
+          <DropdownComponent
+            items={items2}
+            separator={true}
+            showArrow={true}
+            variant="primary"
+            trigger={<span className="cursor-pointer">Custom Trigger</span>}
+          />
+
+          <AppButton text="Continue" color="accent" />
+        </div>
+      </div>
     </div>
   )
 }

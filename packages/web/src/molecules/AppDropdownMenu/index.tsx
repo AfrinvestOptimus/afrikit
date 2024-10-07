@@ -1,94 +1,65 @@
-import React, { useState } from 'react'
-import DropdownListItem from './DropdownListItem'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import React from 'react'
+import { DropdownComponentProps } from '../../types/TAppDropdownMenu'
+import { buttonSizes, textSizes } from '../AppButton/button'
+import { DropdownItem, DropdownSubmenuItem } from './DropdownListItem'
 
-const DropdownMenu: React.FC = () => {
-  const [selectedItem, setSelectedItem] = useState<string | null>('option1')
-
-  const items = [
-    { label: 'Option 1', value: 'option1' },
-    { label: 'Option 2', value: 'option2' },
-    { label: 'Option 3', value: 'option3' },
-    { label: 'Option 4', value: 'option4' },
-    { label: 'Option 5', value: 'option5' },
-  ]
-
-  const itemsWithDescription = [
-    { label: 'Option 1', value: 'option1', description: 'Description for Option 1' },
-    { label: 'Option 2', value: 'option2', description: 'Description for Option 2' },
-    { label: 'Option 3', value: 'option3', description: 'Description for Option 3' },
-    { label: 'Option 4', value: 'option4', description: 'Description for Option 4' },
-    { label: 'Option 5', value: 'option5', description: 'Description for Option 5' },
-  ]
-
+const DropdownComponent: React.FC<DropdownComponentProps> = ({
+  items,
+  trigger,
+  children,
+  separator = false,
+  showArrow = false,
+  size,
+  variant,
+  alignment,
+}) => {
   return (
-    <div className="flex space-x-4 justify-between p-5xl">
-      {/* No icon variant */}
-      <div className="w-48 rounded shadow-sm">
-        {items.map(item => (
-          <DropdownListItem
-            key={item.value}
-            label={item.label}
-            iconStyle="none"
-            isSelected={selectedItem === item.value}
-            onClick={() => setSelectedItem(item.value)}
-          />
-        ))}
-      </div>
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>
+        {trigger ? (
+          trigger
+        ) : (
+          <button
+            className={`flex items-center justify-between ${buttonSizes[3]} ${textSizes[3]} text-light-gray10 bg-light-background-neutral-light dark:bg-dark-background-neutral-light border-light-edge-neutral rounded-xs-max shadow-sm hover:bg-light-background-accent-light dark:hover:bg-dark-background-accent-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-indigoA12`}>
+            <span>Open</span>
+            <i className="ri-arrow-down-s-line ml-2 text-lg" aria-hidden="true" />
+          </button>
+        )}
+      </DropdownMenu.Trigger>
 
-      {/* Dot icon variant */}
-      <div className="w-48 rounded shadow-sm">
-        {items.map(item => (
-          <DropdownListItem
-            key={item.value}
-            label={item.label}
-            iconStyle="dot"
-            isSelected={selectedItem === item.value}
-            onClick={() => setSelectedItem(item.value)}
-          />
-        ))}
-      </div>
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content className="w-[300px] mt-2 bg-white dark:bg-dark-background-neutral-light shadow-lg rounded-sm outline-none mt-sm">
+          {items &&
+            items.length > 0 &&
+            items.map((item, index) => (
+              <React.Fragment key={index}>
+                {/* Render DropdownItem if there's no subContent */}
+                {!item.subContent || item.subContent.length === 0 ? (
+                  <DropdownItem
+                    {...item} // Ensure all item props are passed
+                    size={size}
+                    variant={variant}
+                    alignment={alignment}
+                  />
+                ) : (
+                  <DropdownSubmenuItem
+                    item={item} // Pass the entire item
+                    size={size} // Ensure size is passed
+                    variant={variant} // Ensure variant is passed
+                    alignment={alignment} // Ensure alignment is passed
+                  />
+                )}
 
-      {/* Color dot icon variant */}
-      <div className="w-48 rounded shadow-sm">
-        {items.map(item => (
-          <DropdownListItem
-            key={item.value}
-            label={item.label}
-            iconStyle="colorDot"
-            isSelected={selectedItem === item.value}
-            onClick={() => setSelectedItem(item.value)}
-          />
-        ))}
-      </div>
-
-      {/* Circle icon variant */}
-      <div className="w-48  rounded shadow-sm">
-        {items.map(item => (
-          <DropdownListItem
-            key={item.value}
-            label={item.label}
-            iconStyle="circle"
-            isSelected={selectedItem === item.value}
-            onClick={() => setSelectedItem(item.value)}
-          />
-        ))}
-      </div>
-
-      {/* Check icon variant with description */}
-      <div className="w-64  rounded shadow-sm">
-        {itemsWithDescription.map(item => (
-          <DropdownListItem
-            key={item.value}
-            label={item.label}
-            description={item.description}
-            iconStyle="check"
-            isSelected={selectedItem === item.value}
-            onClick={() => setSelectedItem(item.value)}
-          />
-        ))}
-      </div>
-    </div>
+                {/* Render separator if prop is true */}
+                {separator && index < items.length - 1 && <DropdownMenu.Separator />}
+              </React.Fragment>
+            ))}
+          {children} {/* Render any custom Radix components here */}
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
   )
 }
 
-export default DropdownMenu
+export default DropdownComponent

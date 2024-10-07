@@ -20,7 +20,7 @@ const AppButton: React.FC<AppButtonProps> = ({
   highContrast = false, // Flag for high contrast styles
   state = 'default', // Default state of the button
   iconStart = true, // Flag to determine if the start icon should be displayed
-  iconEnd = true, // Flag to determine if the end icon should be displayed
+  iconEnd = false, // Flag to determine if the end icon should be displayed
   iconStartName = 'ri-home-line', // Class name for the start icon
   iconEndName = 'ri-home-line', // Class name for the end icon
   text, // Text to display in the button
