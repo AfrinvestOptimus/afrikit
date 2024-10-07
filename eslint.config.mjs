@@ -10,7 +10,7 @@ export default [
   ...tseslint.configs.recommended,
   // pluginReact.configs.flat.recommended,
   {
-    ignores: ['dist/*', 'packages/*/dist/*'],
+    ignores: ['dist/*', 'packages/*/dist/*', '**/storybook-static/*'],
   },
   {
     rules: {

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import AppCodeInput from '../components/molecules/AppCodeInput'
+import AppCodeInput from '../molecules/AppCodeInput'
 
 const AppCodeInputMeta: Meta<typeof AppCodeInput> = {
   title: 'AppCodeInput',

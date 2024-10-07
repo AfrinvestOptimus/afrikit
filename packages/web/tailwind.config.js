@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 import afrikitConfig from 'afrikit-shared/dist'
 export default {
+  darkMode: 'selector',
   content: [
     './src/**/*.{js,ts,tsx,jsx}',
     './stories/**/*.{js,ts,tsx,jsx}',
