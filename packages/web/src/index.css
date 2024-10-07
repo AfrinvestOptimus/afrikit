@@ -3,31 +3,30 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  @apply antialiased;
+.CollapsibleContent {
+  overflow: hidden;
+}
+.CollapsibleContent[data-state='open'] {
+  animation: slideDown 300ms ease-out;
+}
+.CollapsibleContent[data-state='closed'] {
+  animation: slideUp 300ms ease-out;
 }
 
-.form-control {
-  @apply bg-light-surface-gray dark:bg-dark-surface-gray !text-light-type-gray dark:text-dark-type-gray rounded-sm outline-none focus:outline-none focus:z-10 appearance-none w-full min-w-[415px] h-[56px] px-md pb-lg !pt-2xl border-0 focus:ring-0 text-sm-head;
+@keyframes slideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-collapsible-content-height);
+  }
 }
 
-.inputFocus2:focus ~ label {
-  transform-origin: top left;
-  transform: translate(0px, -12px) scale(1);
-  transition: 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-  /* transition: all 0.1s ease-in-out; */
-  color: #4e637a;
-  font-size: 12px;
-  z-index: 10;
-}
-
-/* Floating label onBlur ClassList */
-.focusLabel {
-  transform-origin: top left;
-  transform: translate(1px, -12px) scale(1);
-  transition: 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-  color: #4e637a;
-  font-size: 12px;
-  z-index: 1;
+@keyframes slideUp {
+  from {
+    height: var(--radix-collapsible-content-height);
+  }
+  to {
+    height: 0;
+  }
 }

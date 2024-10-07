@@ -25,7 +25,7 @@ const AppPhoneInput = React.forwardRef<HTMLInputElement, AppPhoneInputProps>(
       <div className="flex space-x-sm items-center">
         <div className="flex flex-col relative">
           <div
-            className={`flex align-baseline mb-lg pr-md rounded-r-[4px] ${isFocused && !error ? 'border-b-2 border-solid !border-light-edge-accent-strong dark:border-dark-edge-accent-strong rounded-b-[0px] transition-all duration-400' : ''} bg-light-surface-gray ${error ? 'border-b-2 border-solid rounded-b-[0px] border-light-type-error dark:border-dark-type-error' : ''}`}>
+            className={`flex align-baseline mb-lg pr-md rounded-r-md ${isFocused && !error ? 'border-b-2 border-solid !border-light-edge-accent-strong dark:border-dark-edge-accent-strong rounded-b-[0px] transition-all duration-400' : ''} bg-light-surface-gray ${error ? 'border-b-2 border-solid rounded-b-[0px] border-light-type-error dark:border-dark-type-error' : ''}`}>
             <input
               className={`
                 bg-light-surface-gray dark:bg-dark-surface-gray !text-light-type-gray dark:text-dark-type-gray outline-none focus:outline-none focus:z-10 appearance-none w-full min-w-[415px] h-[56px] px-md pb-lg !pt-2xl border-0 focus:ring-0 text-sm-head
