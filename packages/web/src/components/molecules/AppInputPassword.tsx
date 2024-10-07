@@ -90,12 +90,12 @@ const AppPasswordInput = React.forwardRef<HTMLInputElement, AppPasswordInputProp
               ${
                 value || isFocused || placeholder
                   ? 'transform origin-top-left translate-x-[1px] translate-y-[-12px] scale-100 transition duration-200 ease-[cubic-bezier(0,_0,_0.2,_1)] text-xs-body z-10 !text-light-type-gray-muted dark:text-dark-type-gray-muted '
-                  : '!text-light-type-gray-placeholder dark:text-dark-type-gray-placeholder '
+                  : 'text-light-type-gray-placeholder dark:text-dark-type-gray-placeholder '
               }`}>
             {label}
           </label>
           <div className="absolute right-sm top-[45%] transform -translate-y-1/2 z-20">
-            {VisibilityIcon(colors[!colorTheme ? 'dark' : 'light'].type.gray.DEFAULT)}
+            {VisibilityIcon(colors[colorTheme ? 'dark' : 'light'].type.gray.DEFAULT)}
           </div>
         </div>
         {error && <span className="text-light-type-error  text-sm">{error}</span>}
