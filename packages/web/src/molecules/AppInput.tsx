@@ -24,12 +24,11 @@ const AppInput = React.forwardRef<HTMLInputElement, AppInputProps>(
 
     return (
       <div className="flex flex-col relative">
-        <div
-          className={`flex align-baseline mb-lg pr-md rounded-[4px] ${isFocused && !error ? 'border-b-2 border-solid !border-light-edge-accent-strong dark:border-dark-edge-accent-strong rounded-b-[0px] transition-all duration-400' : ''} bg-light-surface-gray ${error ? 'border-b-2 rounded-b-[0px] border-solid border-light-type-error dark:border-dark-type-error' : ''}`}>
+        <div className={`flex align-baseline mb-lg`}>
           <input
-            className={`
-            bg-light-surface-gray dark:bg-dark-surface-gray !text-light-type-gray dark:text-dark-type-gray outline-none focus:outline-none focus:z-10 appearance-none w-full min-w-[415px] h-[56px] px-md pb-lg !pt-2xl border-0 focus:ring-0 text-sm-head
-              inputFocus2`}
+            className={` ${isFocused && !error ? 'border-b-2 border-solid border-light-edge-accent-strong dark:border-dark-edge-accent-strong rounded-b-[0px] transition-all duration-400' : ''} bg-light-surface-gray dark:bg-dark-surface-gray ${error !== undefined ? 'border-b-2 border-solid border-light-type-error rounded-b-[0px] dark:border-dark-type-error' : ''}
+               bg-light-surface-gray dark:bg-dark-surface-gray text-light-type-gray dark:text-dark-type-gray outline-none rounded-md focus:outline-none focus:z-10 appearance-none w-full min-w-[415px] h-[56px] px-md pb-lg !pt-2xl border-0 focus:ring-0 text-sm-head
+                peer`}
             placeholder={placeholder}
             value={value}
             onFocus={() => setIsFocused(true)}
@@ -51,8 +50,8 @@ const AppInput = React.forwardRef<HTMLInputElement, AppInputProps>(
               peer-focus:z-10
               ${
                 value || isFocused || placeholder
-                  ? 'transform origin-top-left translate-x-[1px] translate-y-[-12px] scale-100 transition duration-200 ease-[cubic-bezier(0,_0,_0.2,_1)] text-xs-body z-10 !text-light-type-gray-muted dark:text-dark-type-gray-muted '
-                  : '!text-light-type-gray-placeholder dark:text-dark-type-gray-placeholder '
+                  ? 'transform origin-top-left translate-x-[1px] translate-y-[-12px] scale-100 transition duration-200 ease-[cubic-bezier(0,_0,_0.2,_1)] text-xs-body z-10 text-light-type-gray-muted dark:text-dark-type-gray-muted '
+                  : 'text-light-type-gray-placeholder dark:text-dark-type-gray-placeholder '
               }`}>
             {label}
           </label>
@@ -74,7 +73,11 @@ const AppInput = React.forwardRef<HTMLInputElement, AppInputProps>(
             </div>
           )}
         </div>
-        {error && <span className="text-light-type-error  text-sm">{error}</span>}
+        {error && (
+          <span className="text-light-type-error dark:text-dark-type-error text-xs-body">
+            {error}
+          </span>
+        )}
       </div>
     )
   },

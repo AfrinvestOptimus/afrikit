@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { View } from 'react-native'
-import AppCodeInput from '../components/molecules/AppCodeInput'
+import AppCodeInput from '../molecules/AppCodeInput'
 
 const AppCodeInputMeta: Meta<typeof AppCodeInput> = {
   title: 'AppCodeInput',
@@ -20,13 +19,6 @@ const AppCodeInputMeta: Meta<typeof AppCodeInput> = {
       control: 'text',
     },
   },
-  decorators: [
-    Story => (
-      <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-        <Story />
-      </View>
-    ),
-  ],
 }
 
 export default AppCodeInputMeta
