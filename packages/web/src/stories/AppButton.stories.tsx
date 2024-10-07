@@ -1,11 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react'
-import AppButton from '../components/molecules/AppButton'
-import {
-  ButtonColor,
-  ButtonSize,
-  ButtonState,
-  ButtonVariant,
-} from '../components/molecules/AppButton/button'
+import AppButton from '../molecules/AppButton'
+import { ButtonColor, ButtonSize, ButtonState, ButtonVariant } from '../molecules/AppButton/button'
 
 // Meta configuration for the AppButton
 const meta: Meta<typeof AppButton> = {

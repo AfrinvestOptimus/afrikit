@@ -3,7 +3,7 @@ import optimusLogo from '../assets/optimusLogo.svg'
 import clsx from 'clsx'
 import { TAppTopBarProps } from '../types/TAppTopBarProps'
 import TopBarRightContent from '../components/TopBarRightContent'
-import AppButton from '../components/molecules/AppButton'
+import AppButton from './AppButton'
 
 /**
  * Component representing the top bar of the application.
