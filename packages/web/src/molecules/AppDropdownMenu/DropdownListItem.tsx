@@ -145,9 +145,12 @@ export const DropdownSubmenuItem: React.FC<DropdownSubmenuItemProps> = ({
           {item.subContent &&
             item.subContent.length > 0 &&
             item.subContent.map((subItem, index) => (
-              <DropdownMenu.Item key={index} className={`${submenuItemStyles()} p-sm`}>
-                {subItem}
-              </DropdownMenu.Item>
+              <>
+                <DropdownMenu.Item key={index} className={`${submenuItemStyles()} p-sm`}>
+                  {subItem}
+                </DropdownMenu.Item>
+                {/* <DropdownMenu.Separator className="my-2 h-[1px] bg-light-gray4" /> */}
+              </>
             ))}
           <DropdownMenu.Arrow />
         </DropdownMenu.SubContent>

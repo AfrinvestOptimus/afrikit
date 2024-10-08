@@ -340,15 +340,15 @@ function App() {
             onClick={() => console.log('Button click works!!!')}
           />
           {/* Dropdown List Items with Remix icon classes */}
-          <DropdownComponent items={items} separator={true} showArrow={true} variant="primary" />
+          <DropdownComponent items={items} separator={false} showArrow={true} variant="primary" />
 
           {/* Dropdown List Items with Remix icon classes */}
-          <DropdownComponent items={items2} separator={true} showArrow={true} variant="primary" />
+          <DropdownComponent items={items2} separator={false} showArrow={true} variant="primary" />
 
           {/* Dropdown with custom trigger and Remix icon list  */}
           <DropdownComponent
             items={items2}
-            separator={true}
+            separator={false}
             showArrow={true}
             variant="primary"
             trigger={<span className="cursor-pointer">Custom Trigger</span>}
