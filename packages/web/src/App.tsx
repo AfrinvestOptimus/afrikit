@@ -2,6 +2,7 @@ import { Controller, useForm } from 'react-hook-form'
 import AppButton from './molecules/AppButton'
 import AppCodeInput from './molecules/AppCodeInput'
 import DropdownComponent from './molecules/AppDropdownMenu'
+import AppFileUpload from './molecules/AppFileUpload'
 import AppPhoneInput from './molecules/AppPhoneInput'
 import AppSidebar from './molecules/AppSideBar'
 import AppTopBar from './molecules/AppTopBar'
@@ -269,6 +270,11 @@ const items3: DropdownItemProps[] = [
   },
 ]
 
+const handleUpload = async (file: File): Promise<string> => {
+  // Implement your file upload logic here
+  // Return the URL of the uploaded image
+}
+
 function App() {
   const {
     control,
@@ -323,14 +329,12 @@ function App() {
             )}
           />
         </form>
-
         <AppCodeInput
           length={6}
           errorMessage=""
           secureEntry
           // onChange={handleCodeChange}
         />
-
         <AppButton text="Continue" color="accent" size={4} />
         <div className="flex flex-col space-y-lg mt-md">
           <AppButton
@@ -356,6 +360,13 @@ function App() {
 
           <AppButton text="Continue" color="accent" />
         </div>
+        <AppFileUpload
+          maxSize={800 * 400}
+          allowedTypes={['image/svg+xml', 'image/png', 'image/jpeg', 'image/gif']}
+          onUpload={handleUpload}
+          width="400px"
+          height="160px"
+        />
       </div>
     </div>
   )
