@@ -17,7 +17,7 @@ export default {
     visible: { control: 'boolean' },
     text: { control: 'text' },
     iconName: { control: 'text' },
-    setCloseModal: { actions: 'control' },
+    onDismiss: { actions: 'control' },
     loaderType: { control: 'modal' },
   },
 } as ComponentMeta<typeof AppModalLoader>
@@ -50,7 +50,7 @@ const Template: ComponentStory<typeof AppModalLoader> = (args: AppModalLoaderPro
       <AppModalLoader
         {...args}
         visible={isVisible}
-        setCloseModal={handleCloseModal} // Close modal function passed to component
+        onDismiss={handleCloseModal} // Close modal function passed to component
       />
     </View>
   )
