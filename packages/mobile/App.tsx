@@ -5,9 +5,8 @@ import {
   Manrope_700Bold,
   useFonts,
 } from '@expo-google-fonts/manrope'
-import { StatusBar } from 'expo-status-bar'
-import { Controller, useForm } from 'react-hook-form'
-import { Alert, Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native'
+import { useForm } from 'react-hook-form'
+import { Alert, SafeAreaView, ScrollView, View } from 'react-native'
 import StorybookUIRoot from './.storybook'
 import './global.css'
 import { FormData } from './types/atoms'
@@ -31,6 +30,7 @@ export default function App() {
     Manrope600: Manrope_600SemiBold,
     Manrope700: Manrope_700Bold,
   })
+  const [code, setCode] = useState('')
   const {
     formState: { errors },
   } = useForm<FormData>()
@@ -63,9 +63,21 @@ export default function App() {
     return null
   }
 
-  const SHOW_STORYBOOK = true
+  const SHOW_STORYBOOK = false
   if (SHOW_STORYBOOK) {
     return <StorybookUIRoot />
+  }
+
+  const handleFullCode = (fullCode: string) => {
+    setCode(fullCode)
+  }
+
+  const handleKeyPressFromKeyPad = (key: string) => {
+    if (key === '←') {
+      setCode(prevCode => prevCode.slice(0, -1))
+    } else if (key !== '') {
+      setCode(prevCode => (prevCode.length < 6 ? prevCode + key : prevCode))
+    }
   }
 
   return (
