@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
+import { AppText } from 'atoms'
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { Pressable, Text, TextInput, View } from 'react-native'
 import classNames from '../utilities/classnames'
+import AppHintText from './AppHintText'
 
 export type KeyboardType = 'Custom' | 'Native'
 export type AuthInputProps = {
@@ -10,9 +12,11 @@ export type AuthInputProps = {
   isError?: boolean
   errorMessage?: string
   onValueChange?: (value: string) => void
+  onActionPress?: () => void
   isLoading?: boolean
   customValue?: string
   keypad?: KeyboardType
+  actionLabel?: string
 }
 
 const AuthInput: FC<AuthInputProps> = ({
@@ -23,6 +27,8 @@ const AuthInput: FC<AuthInputProps> = ({
   isLoading,
   customValue,
   keypad = 'Native',
+  actionLabel,
+  onActionPress,
 }) => {
   const [value, setValue] = useState('')
   const [codeKeys, setCodeKeys] = useState<string[] | undefined>(undefined)
@@ -90,11 +96,15 @@ const AuthInput: FC<AuthInputProps> = ({
               ))}
             </View>
           </Pressable>
-          {isError && (
-            <Text className="text-light-type-error dark:text-dark-type-error text-body2 font-semibold mt-md">
-              {errorMessage}
-            </Text>
-          )}
+          {isError ? (
+            <View className="flex-row items-center gap-sm justify-center">
+              <AppHintText text={errorMessage as string} type="error" />
+              <View className="w-xs h-xs rounded-full bg-light-background-neutral-transparent-pressed bg-li" />
+              <AppText size={2} weight="semibold" color="accent" onPress={onActionPress}>
+                {actionLabel}
+              </AppText>
+            </View>
+          ) : null}
         </>
       )}
     </>
