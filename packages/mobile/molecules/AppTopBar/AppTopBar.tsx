@@ -6,7 +6,7 @@ import { AppText } from '../../atoms'
 import AppIcon from '../../molecules/AppIcon'
 
 export interface AppTopBarProps {
-  title: string
+  title?: string
   onBackPress?: () => void
   actions?: Array<{ iconName: string; backIconColor: string; onPress: () => void }>
   backIconName?: string // Name for the back icon
