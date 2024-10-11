@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import { AppText } from 'atoms'
+import Loader from 'atoms/Loader'
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
-import { Pressable, Text, TextInput, View } from 'react-native'
+import { Pressable, TextInput, View } from 'react-native'
 import classNames from '../utilities/classnames'
 import AppHintText from './AppHintText'
 
@@ -76,9 +77,7 @@ const AuthInput: FC<AuthInputProps> = ({
     <>
       {isLoading ? (
         <>
-          <View className="animate-spin w-[40] h-[40] border-4 rounded-full border-b-[#BDC8FF17] bg-gra">
-            <Text>isLoading</Text>
-          </View>
+          <Loader />
         </>
       ) : (
         <>
