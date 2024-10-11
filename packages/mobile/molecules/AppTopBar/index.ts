@@ -1,4 +1,1 @@
-import { AppTopBar, AppTopBarProps } from "./AppTopBar";
-
-export { AppTopBar, AppTopBarProps };
-
+export { default as AppTopBar, type AppTopBarProps } from './AppTopBar'
