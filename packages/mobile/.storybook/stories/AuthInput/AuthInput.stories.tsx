@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import React from 'react'
 import { View } from 'react-native'
 import AuthInput from '../../../molecules/AuthInput'
 
@@ -61,5 +62,6 @@ export const ErrorMessage: Story = {
     isError: true,
     keypad: 'Native',
     errorMessage: 'Mismatch',
+    actionLabel: 'Retry',
   },
 }
