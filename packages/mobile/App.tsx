@@ -17,7 +17,7 @@ import React, { useState } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import AppText from './atoms/AppText'
 import AppTitle from './atoms/AppTitle'
-import { AppModalLoader, AppToastBase, AppTopBar, GlobalWrapper } from './molecules'
+import { AppModalLoader, AppToastBase, GlobalWrapper } from './molecules'
 import AppBottomSheet from './molecules/AppBottomSheet'
 import AppIcon from './molecules/AppIcon'
 import AppPasswordInput from './molecules/AppPasswordInput'
@@ -110,7 +110,7 @@ export default function App() {
                 spacing={1}
                 titlePosition="top"
               />
-              <AppTopBar
+              {/* <AppTopBar
                 variant="large-centered"
                 title="Products"
                 subtitle="Choose from a variety of products in our store"
@@ -122,7 +122,7 @@ export default function App() {
                 onRightIconPress1={handleRightIconPress1}
                 onRightIconPress2={handleRightIconPress2}
                 onRightIconPress3={handleRightIconPress3}
-              />
+              /> */}
               <AppText
                 size={2}
                 color={'error'}
@@ -136,12 +136,11 @@ export default function App() {
                 <Pressable onPress={handleOpenModal} className="px-4 py-2 bg-blue-600 rounded-lg">
                   <Text className="text-black font-bold">Show Loader</Text>
                 </Pressable>
-                <AppModalLoader visible={modalVisible} setCloseModal={handleCloseModal} />
+                <AppModalLoader visible={modalVisible} onDismiss={handleCloseModal} />
               </View>
               <AppTitle
                 title={'Title'}
                 align={'left'}
-                hasSubtitle={true}
                 subtitle="Subtitle"
                 spacing={1}
                 titlePosition="top"
@@ -189,7 +188,7 @@ export default function App() {
               </View>
 
               <View className={'justify-center items-center flex-1 bg-dark-red4'}>
-                <AppTopBar
+                {/* <AppTopBar
                   variant="small"
                   title="Products"
                   subtitle="Choose from a variety of products in our store"
@@ -201,7 +200,7 @@ export default function App() {
                   onRightIconPress1={handleRightIconPress1}
                   onRightIconPress2={handleRightIconPress2}
                   onRightIconPress3={handleRightIconPress3}
-                />
+                /> */}
                 <AppModalLoader visible={modalVisible} />
                 <View className="justify-center flex-1 w-full">
                   <Pressable onPress={() => setModalVisible(true)}>
