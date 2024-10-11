@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-import { AppText } from 'atoms'
-import Loader from 'atoms/Loader'
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { Pressable, TextInput, View } from 'react-native'
+import { AppText } from '../atoms'
+import Loader from '../atoms/Loader'
 import classNames from '../utilities/classnames'
 import AppHintText from './AppHintText'
 
