@@ -105,7 +105,6 @@ export default function App() {
               <AppTitle
                 title={'Title'}
                 align={'left'}
-                hasSubtitle={true}
                 subtitle="Subtitle"
                 spacing={1}
                 titlePosition="top"
