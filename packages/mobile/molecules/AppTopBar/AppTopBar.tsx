@@ -1,9 +1,9 @@
 import colors from 'afrikit-shared/dist/colors'
-import { AppText } from 'atoms'
-import AppIcon from 'molecules/AppIcon'
 import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { AppText } from '../../atoms'
+import AppIcon from '../../molecules/AppIcon'
 
 export interface AppTopBarProps {
   title: string

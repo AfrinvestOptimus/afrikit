@@ -13,17 +13,14 @@ import './global.css'
 import { FormData } from './types/atoms'
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import React, { useState } from 'react'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import AppText from './atoms/AppText'
 import AppTitle from './atoms/AppTitle'
-import { AppToastBase } from './molecules'
+import { AppModalLoader, AppToastBase, AppTopBar, GlobalWrapper } from './molecules'
 import AppBottomSheet from './molecules/AppBottomSheet'
 import AppIcon from './molecules/AppIcon'
-import { AppModalLoader } from './molecules'
 import AppPasswordInput from './molecules/AppPasswordInput'
-import { AppTopBar } from './molecules'
-import { GlobalWrapper } from './molecules'
 import ListItem from './molecules/list-item'
 
 export default function App() {
@@ -77,7 +74,7 @@ export default function App() {
         <GlobalWrapper showFloatingButton={true}>
           <SafeAreaView className="flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4">
             <ScrollView>
-              <AppTopBar
+              {/* <AppTopBar
                 variant="small"
                 title="Products"
                 subtitle="Choose from a variety of products in our store"
@@ -89,7 +86,7 @@ export default function App() {
                 onRightIconPress1={handleRightIconPress1}
                 onRightIconPress2={handleRightIconPress2}
                 onRightIconPress3={handleRightIconPress3}
-              />
+              /> */}
               <AppText
                 size={2}
                 color={'accent'}
