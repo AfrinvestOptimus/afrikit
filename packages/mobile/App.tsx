@@ -5,8 +5,8 @@ import {
   Manrope_700Bold,
   useFonts,
 } from '@expo-google-fonts/manrope'
-import { useForm } from 'react-hook-form'
-import { Alert, SafeAreaView, ScrollView, View } from 'react-native'
+import { Controller, useForm } from 'react-hook-form'
+import { Alert, Pressable, SafeAreaView, ScrollView, StatusBar, View } from 'react-native'
 import StorybookUIRoot from './.storybook'
 import './global.css'
 import { FormData } from './types/atoms'
