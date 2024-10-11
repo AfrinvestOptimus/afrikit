@@ -105,7 +105,7 @@ const AppTopBar: React.FC<AppTopBarProps> = ({
         renderCenter()
       ) : (
         <View style={styles.center}>
-          <AppText size={4} weight="bold" color="gray" align="center">
+          <AppText size={4} weight="bold" color="gray" align="center" highContrast>
             {title}
           </AppText>
           {subtitle && (
