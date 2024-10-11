@@ -18,6 +18,9 @@ const AuthInputMeta: Meta<typeof AuthInput> = {
       control: 'select',
       options: ['Custom', 'Native'],
     },
+    isLoading: {
+      control: 'boolean',
+    },
     onValueChange: {
       action: 'pressed the button',
     },
@@ -44,6 +47,7 @@ export const Basic: Story = {
     isError: false,
     keypad: 'Native',
     errorMessage: '',
+    isLoading: false,
   },
 }
 
@@ -53,6 +57,7 @@ export const CustomKeypad: Story = {
     isError: false,
     keypad: 'Custom',
     errorMessage: '',
+    isLoading: false,
   },
 }
 
@@ -63,5 +68,16 @@ export const ErrorMessage: Story = {
     keypad: 'Native',
     errorMessage: 'Mismatch',
     actionLabel: 'Retry',
+    isLoading: false,
+  },
+}
+
+export const LoadingState: Story = {
+  args: {
+    count: 4,
+    isError: false,
+    keypad: 'Native',
+    errorMessage: '',
+    isLoading: true,
   },
 }
