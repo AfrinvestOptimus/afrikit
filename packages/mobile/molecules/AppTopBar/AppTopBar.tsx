@@ -20,7 +20,7 @@ export interface AppTopBarProps {
   customBackButton?: React.ReactNode // Custom back button component
 }
 
-const AppTopBar: React.FC<AppTopBarProps> = ({
+export const AppTopBar: React.FC<AppTopBarProps> = ({
   title,
   subtitle,
   containerClassName,
@@ -127,5 +127,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 })
-
-export default AppTopBar
