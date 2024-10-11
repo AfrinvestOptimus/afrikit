@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-import Loader from 'atoms/Loader'
 import React, { useCallback } from 'react'
 import { Modal, Pressable, Text, View } from 'react-native'
+import Loader from '../../atoms/Loader'
 
 export interface AppModalLoaderProps {
   /**

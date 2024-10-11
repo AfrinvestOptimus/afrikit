@@ -3,7 +3,7 @@ import colors from 'afrikit-shared/dist/colors'
 import React from 'react'
 import { Alert, View } from 'react-native'
 import AppIcon from '../../../molecules/AppIcon'
-import AppTopBar, { AppTopBarProps } from '../../../molecules/AppTopBar/AppTopBar'
+import { AppTopBar, AppTopBarProps } from '../../../molecules/AppTopBar/AppTopBar'
 
 export default {
   title: 'AppTopBar',
