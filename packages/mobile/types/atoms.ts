@@ -82,7 +82,7 @@ export interface AppPhoneInputProps extends Omit<TextInputProps, 'placeholderTex
   onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
   onCountryCodeChange?: () => void
   onPress?: () => void
-  ImageClassName?: string | undefined
+  imageClassName?: string
 }
 export interface CountryItem {
   dialCode: string
