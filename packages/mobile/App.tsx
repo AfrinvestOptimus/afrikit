@@ -5,22 +5,22 @@ import {
   Manrope_700Bold,
   useFonts,
 } from '@expo-google-fonts/manrope'
-import { Controller, useForm } from 'react-hook-form'
-import { Alert, Pressable, SafeAreaView, ScrollView, StatusBar, View } from 'react-native'
-import StorybookUIRoot from './.storybook'
-import './global.css'
-import { FormData } from './types/atoms'
-
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import React, { useState } from 'react'
+import { StatusBar } from 'expo-status-bar'
+import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import { Pressable, SafeAreaView, ScrollView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import StorybookUIRoot from './.storybook'
 import AppText from './atoms/AppText'
 import AppTitle from './atoms/AppTitle'
+import './global.css'
 import { AppModalLoader, AppToastBase, GlobalWrapper } from './molecules'
 import AppBottomSheet from './molecules/AppBottomSheet'
 import AppIcon from './molecules/AppIcon'
 import AppPasswordInput from './molecules/AppPasswordInput'
 import ListItem from './molecules/list-item'
+import { FormData } from './types/atoms'
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false)
@@ -34,23 +34,6 @@ export default function App() {
   const {
     formState: { errors },
   } = useForm<FormData>()
-
-  // Define your icon press handlers
-  const handleLeftIconPress = () => {
-    Alert.alert('Left icon pressed')
-  }
-
-  const handleRightIconPress1 = () => {
-    Alert.alert('Right icon 1 pressed')
-  }
-
-  const handleRightIconPress2 = () => {
-    Alert.alert('Right icon 2 pressed')
-  }
-
-  const handleRightIconPress3 = () => {
-    Alert.alert('Right icon 3 pressed')
-  }
 
   const handleOpenModal = () => {
     setModalVisible(true)
@@ -66,10 +49,6 @@ export default function App() {
   const SHOW_STORYBOOK = false
   if (SHOW_STORYBOOK) {
     return <StorybookUIRoot />
-  }
-
-  const handleFullCode = (fullCode: string) => {
-    setCode(fullCode)
   }
 
   const handleKeyPressFromKeyPad = (key: string) => {
@@ -110,7 +89,7 @@ export default function App() {
               </AppText>
               <View className="flex-1 items-center justify-center">
                 <Pressable onPress={handleOpenModal} className="px-4 py-2 bg-blue-600 rounded-lg">
-                  <Text className="text-black font-bold">Show Loader</Text>
+                  <AppText className="text-black font-bold">Show Loader</AppText>
                 </Pressable>
                 <AppModalLoader visible={modalVisible} />
               </View>
@@ -145,7 +124,7 @@ export default function App() {
               </AppText>
               <View className="flex-1 items-center justify-center">
                 <Pressable onPress={handleOpenModal} className="px-4 py-2 bg-blue-600 rounded-lg">
-                  <Text className="text-black font-bold">Show Loader</Text>
+                  <AppText className="text-black font-bold">Show Loader</AppText>
                 </Pressable>
                 <AppModalLoader visible={modalVisible} onDismiss={handleCloseModal} />
               </View>
@@ -159,8 +138,8 @@ export default function App() {
 
               <View>
                 {[
-                  // { label: 'Enter Email', key: 'email' },
-                  // { label: 'Enter name', key: 'name' },
+                  { label: 'Enter Email', key: 'email' },
+                  { label: 'Enter name', key: 'name' },
                 ].map(item => (
                   <>
                     <View className="py-sm">
@@ -215,7 +194,9 @@ export default function App() {
                 <AppModalLoader visible={modalVisible} />
                 <View className="justify-center flex-1 w-full">
                   <Pressable onPress={() => setModalVisible(true)}>
-                    <Text className="text-light-type-tomatobo text-sm-bold">Let him cook!</Text>
+                    <AppText className="text-light-type-tomatobo text-sm-bold">
+                      Let him cook!
+                    </AppText>
                   </Pressable>
                   <AppText
                     size={4}
@@ -276,7 +257,7 @@ export default function App() {
                     variant="3-line"
                     leading="flag"
                     trailing="link"
-                    trailingContent={<Text className="text-blue-500">Text</Text>}
+                    trailingContent={<AppText className="text-blue-500">Text</AppText>}
                   />
                   <ListItem
                     title="List title"
@@ -285,7 +266,7 @@ export default function App() {
                     leading="activity"
                     activity="system"
                     trailing="link"
-                    trailingContent={<Text className="text-blue-500">Text</Text>}
+                    trailingContent={<AppText className="text-blue-500">Text</AppText>}
                   />
                   <ListItem
                     title="List title with trigger"
@@ -296,7 +277,7 @@ export default function App() {
                     trailing="link"
                     subTrigger
                     separator
-                    trailingContent={<Text className="text-blue-500">Text</Text>}
+                    trailingContent={<AppText className="text-blue-500">Text</AppText>}
                   />
                   <ListItem
                     title="Trailing title"
@@ -309,7 +290,7 @@ export default function App() {
                     trailingSubtitle="sub"
                     trailingIcon="ri-home-wifi-line"
                     subTrigger
-                    trailingContent={<Text className="text-blue-500">Text</Text>}
+                    trailingContent={<AppText className="text-blue-500">Text</AppText>}
                   />
                   {/* Add more ListItem components with different props as needed */}
                 </View>
@@ -335,7 +316,7 @@ export default function App() {
                 }}>
                 {Array.from({ length: 20 }).map((_, index) => (
                   <View key={index} className="flex py-4">
-                    <Text className="text-light-type-gray text-sm-bold">Let him cook!</Text>
+                    <AppText className="text-light-type-gray text-sm-bold">Let him cook!</AppText>
                   </View>
                 ))}
               </AppBottomSheet>

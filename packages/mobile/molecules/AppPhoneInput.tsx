@@ -31,7 +31,7 @@ const AppPhoneInput: React.FC<AppPhoneInputProps> = ({
   onChangeText: onChangeTextProp,
   onCountryCodeChange: defaultCountryChange,
   onPress,
-  ImageClassName,
+  imageClassName,
   value = '',
   ...props
 }) => {
@@ -128,7 +128,7 @@ const AppPhoneInput: React.FC<AppPhoneInputProps> = ({
           className={`px-sm mr-sm items-center flex-row bg-light-surface-gray h-[56px] rounded-l-md w-[101px]`}>
           <View className="flex-row justify-between items-center">
             {selectedCountry.flag.includes('http') ? (
-              <Image source={{ uri: selectedCountry.flag }} style={{ ImageClassName }} />
+              <Image source={{ uri: selectedCountry.flag }} className={imageClassName} />
             ) : (
               <AppText className="w-[22px] rounded-full">{selectedCountry.flag}</AppText>
             )}
