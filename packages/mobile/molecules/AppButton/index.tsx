@@ -39,7 +39,6 @@ const AppButton: React.FC<AppButtonProps> = ({
   state = 'default',
   iconStart = false,
   iconEnd = false,
-  iconName,
   className,
   text,
   onPress,
