@@ -1,9 +1,9 @@
 import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types'
+import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
-import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, Dimensions } from 'react-native'
-import colors from 'afrikit-shared/dist/colors';
 import { AppBottomSheetProps } from '../../types/molecules'
 import checkBottomSheetProps from './checkBottomSheetProps'
 import RenderedSheet from './RenderedSheet'
@@ -115,9 +115,13 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
       enablePanDownToClose={!isDetached}
       backdropComponent={renderBackdrop}
       enableDynamicSizing={isDetached}
-      backgroundStyle={{
-        backgroundColor: colorScheme === 'dark' ? colors.dark['page-bg'] : colors.light['page-bg'],
-      }}
+      backgroundStyle={[
+        {
+          backgroundColor:
+            colorScheme === 'dark' ? colors.dark['page-bg2'] : colors.light['page-bg2'],
+        },
+        props.backgroundStyle,
+      ]}
       handleIndicatorStyle={
         isDetached
           ? {
@@ -153,4 +157,4 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
   )
 }
 
-export default memo(AppBottomSheet)
+export default React.memo(AppBottomSheet)

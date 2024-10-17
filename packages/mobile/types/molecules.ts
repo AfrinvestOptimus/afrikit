@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { ReactNode } from 'react'
+import { StyleProp, ViewStyle } from 'react-native'
 
 export type ActionButtonProps = {
   text: string
@@ -11,6 +12,9 @@ export type CommonProps = {
   setShowModal: (showModal: boolean) => void
   backdropClose?: boolean
   actionButton?: ActionButtonProps
+  backgroundStyle?: StyleProp<
+  Omit<ViewStyle, 'position' | 'top' | 'left' | 'bottom' | 'right'>
+>;
 }
 
 export type AppBottomSheetProps<T extends boolean> = CommonProps & {
