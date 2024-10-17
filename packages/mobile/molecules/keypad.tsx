@@ -64,7 +64,7 @@ const KeyPad: React.FC<KeyPadProps> = ({
   }
 
   return (
-    <View className={`p-xs bg-white dark:bg-black ${containerClassName}`}>
+    <View className={`p-xs ${containerClassName}`}>
       {keys.map((row, rowIndex) => (
         <View key={rowIndex} className="flex-row w-full justify-between mb-btn-hg-1">
           {row.map((key, keyIndex) => (

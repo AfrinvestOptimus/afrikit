@@ -1,11 +1,11 @@
-import colors from 'afrikit-shared/dist/colors';
-import { cssInterop, useColorScheme } from 'nativewind';
-import React from 'react';
-import { Image, Switch, Text, TouchableOpacity, View } from 'react-native';
-import RemixIcon from 'react-native-remix-icon';
-import AppText from '../atoms/AppText';
-import { AppTextAtomProps } from '../types/atoms';
-import { AppAvatar, AppAvatarProps, AppButton, AppButtonProps } from './index';
+import colors from 'afrikit-shared/dist/colors'
+import { cssInterop, useColorScheme } from 'nativewind'
+import React from 'react'
+import { Image, Switch, Text, TouchableOpacity, View } from 'react-native'
+import RemixIcon from 'react-native-remix-icon'
+import AppText from '../atoms/AppText'
+import { AppTextAtomProps } from '../types/atoms'
+import { AppAvatar, AppAvatarProps, AppButton, AppButtonProps } from './index'
 
 type TrailingProps = {
   type?: string
@@ -56,6 +56,7 @@ export type ListItemProps = {
   activity?: ActivityStatus
   topMeta?: string
   bottomMeta?: string
+  containerClassName?: string
   onPress?: () => void
 } & TrailingProps &
   LeadingProps
@@ -206,6 +207,7 @@ const ListItem: React.FC<ListItemProps> = ({
   bottomMeta,
   leadingContent,
   trailingContent,
+  containerClassName,
   onPress,
   ...props
 }) => {
@@ -221,6 +223,7 @@ const ListItem: React.FC<ListItemProps> = ({
     ${state === 'dragged' ? 'opacity-40' : ''}
     ${separator ? 'border-b border-b-light-edge-gray-subtle dark:border-b-dark-edge-gray-subtle' : ''}
     ${densitySpacing[density] || densitySpacing.default}
+    ${containerClassName}
   `
 
   const titleClasses = `
@@ -371,7 +374,7 @@ const ListItem: React.FC<ListItemProps> = ({
         return (
           <Switch
             value={_isChecked}
-            onValueChange={() => { }}
+            onValueChange={() => {}}
             trackColor={{
               false: colors.light.background.disable1,
               true: colors.light.type.accent.DEFAULT,
