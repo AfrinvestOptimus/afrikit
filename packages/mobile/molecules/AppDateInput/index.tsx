@@ -1,22 +1,60 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker'
+import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
 import React, { useCallback, useRef, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import colors from 'afrikit-shared/dist/colors';
 import AppText from '../../atoms/AppText'
 import AppBottomSheet from '../AppBottomSheet'
 import AppButton from '../AppButton'
 import AppHintText from '../AppHintText'
 import IconTemp from '../AppIcon'
 
+/**
+ * Props for the AppDateInput component.
+ */
 export type AppDateInputProps = {
+  /**
+   * The label to display above the date input field.
+   * This is a required prop.
+   */
   label: string
+
+  /**
+   * The current state of the date input.
+   * Options are 'default' or 'disabled'.
+   * Default is 'default'.
+   */
   state?: 'default' | 'disabled'
+
+  /**
+   * Flag indicating if there is an error with the date input.
+   * Default is false.
+   */
   hasError?: boolean
+
+  /**
+   * The error message to display if hasError is true.
+   * Default is an empty string.
+   */
   errorText?: string
+
+  /**
+   * Optional hint text to provide additional information to the user.
+   * Default is an empty string.
+   */
   hintText?: string
+
+  /**
+   * Callback function that is called when the date is changed.
+   * Receives the new date as a parameter.
+   */
   onDateChange?: (value: Date) => void
+
+  /**
+   * Optional function to render a custom confirm button.
+   * If not provided, a default confirm button will be rendered.
+   */
   renderConfirmButton?: () => React.ReactNode
 }
 
