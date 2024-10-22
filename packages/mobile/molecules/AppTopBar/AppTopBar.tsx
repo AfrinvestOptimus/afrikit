@@ -8,7 +8,13 @@ import AppIcon from '../../molecules/AppIcon'
 export interface AppTopBarProps {
   title?: string
   onBackPress?: () => void
-  actions?: Array<{ iconName: string; backIconColor: string; onPress: () => void }>
+  actions?: Array<{
+    iconName: string
+    backIconColor: string
+    onPress: () => void
+    accessibilityLabel?: string
+    accessibilityHint?: string
+  }>
   backIconName?: string // Name for the back icon
   backIconColor?: string // Color for the back icon
   subtitle?: string // Optional subtitle below the title
@@ -18,6 +24,8 @@ export interface AppTopBarProps {
   renderLeft?: () => React.ReactNode // Optional custom left component
   renderCenter?: () => React.ReactNode // Optional custom center component
   customBackButton?: React.ReactNode // Custom back button component
+  accessibilityLabel?: string // Accessibility label for the whole component
+  accessibilityHint?: string // Accessibility hint for the whole component
 }
 
 export const AppTopBar: React.FC<AppTopBarProps> = ({
@@ -33,6 +41,8 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
   onBackPress,
   actions,
   customBackButton,
+  accessibilityLabel = 'Top Bar',
+  accessibilityHint = 'Navigation bar at the top of the screen',
 }) => {
   const { colorScheme } = useColorScheme()
   const isDarkMode = colorScheme === 'dark'
@@ -42,7 +52,10 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
     if (!onBackPress) return null
 
     return (
-      <TouchableOpacity onPress={onBackPress}>
+      <TouchableOpacity
+        onPress={onBackPress}
+        accessibilityLabel="Back"
+        accessibilityHint="Go back to the previous screen">
         {customBackButton ? (
           customBackButton
         ) : (
@@ -50,6 +63,8 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
             name={backIconName}
             size="24"
             color={backIconColor || colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
+            accessibilityLabel="Back"
+            accessibilityHint="Go back to the previous screen"
           />
         )}
       </TouchableOpacity>
@@ -83,11 +98,20 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
     if (!actions) return null
 
     return actions.map((action, index) => (
-      <TouchableOpacity key={index} onPress={action.onPress} className="ml-lg">
+      <TouchableOpacity
+        key={index}
+        onPress={action.onPress}
+        className="ml-lg"
+        accessibilityLabel={action.accessibilityLabel || `Action ${index + 1}`}
+        accessibilityHint={action.accessibilityHint || `Press to activate action ${index + 1}`}>
+        {' '}
+        // Default accessibilityHint
         <AppIcon
           name={action.iconName}
           size="24"
           color={action.backIconColor || colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
+          accessibilityLabel={action.accessibilityLabel || `Action ${index + 1}`}
+          accessibilityHint={action.accessibilityHint || `Press to activate action ${index + 1}`}
         />
       </TouchableOpacity>
     ))
@@ -95,7 +119,9 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
 
   return (
     <View
-      className={`flex-row items-center justify-between h-5xl px-xs py-sm ${containerClassName}`}>
+      className={`flex-row items-center justify-between h-5xl px-xs py-sm ${containerClassName}`}
+      accessibilityLabel={accessibilityLabel}
+      accessibilityHint={accessibilityHint}>
       <View className="flex-row items-center gap-xl">
         {renderBackButton()}
         {renderLeftSection()}
