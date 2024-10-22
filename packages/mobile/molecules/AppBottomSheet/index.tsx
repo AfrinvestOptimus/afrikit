@@ -24,7 +24,7 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
     if (isDetached) {
       return [height ?? 300] // Use provided height or default to 300
     }
-    const defaultSnapPoints = ['10%', '25%', '35%', '50%', '70%', '100%']
+    const defaultSnapPoints = ['10%', '25%', '35%', '50%', '70%', '95%']
     return 'height' in checkedProps && height ? [height, ...defaultSnapPoints] : defaultSnapPoints
   }, [isDetached, checkedProps, height])
 
