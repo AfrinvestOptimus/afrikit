@@ -33,6 +33,8 @@ const AppPhoneInput: React.FC<AppPhoneInputProps> = ({
   onPress,
   imageClassName,
   value = '',
+  hintText = '',
+  selectedCountry,
   ...props
 }) => {
   const textInputRef = React.useRef<TextInput>(null)
@@ -40,11 +42,17 @@ const AppPhoneInput: React.FC<AppPhoneInputProps> = ({
   const [focused, setFocused] = React.useState<boolean>(false)
   const [inputValue, setInputValue] = React.useState<string>(value)
   const animatedIsFocused = React.useRef(new Animated.Value(value ? 1 : 0)).current
-  const [selectedCountry, setSelectedCountry] = React.useState({
+  const [localSelectedCountry, setLocalSelectedCountry] = React.useState({
     code: '+234',
-    text: 'Nigeria',
+    name: 'Nigeria',
     flag: '🇳🇬',
   })
+
+  React.useEffect(() => {
+    if (selectedCountry?.code && selectedCountry?.code !== localSelectedCountry?.code) {
+      setLocalSelectedCountry(selectedCountry)
+    }
+  }, [selectedCountry, localSelectedCountry])
 
   React.useEffect(() => {
     Animated.timing(animatedIsFocused, {
@@ -125,15 +133,15 @@ const AppPhoneInput: React.FC<AppPhoneInputProps> = ({
       <View className={'flex-row'}>
         <Pressable
           onPress={handlePress}
-          className={`px-sm mr-sm items-center flex-row bg-light-surface-gray h-[56px] rounded-l-md w-[101px]`}>
+          className={`px-sm mr-sm items-center flex-row bg-light-surface-gray dark:bg-dark-surface-gray h-[56px] rounded-l-md w-[101px]`}>
           <View className="flex-row justify-between items-center">
-            {selectedCountry.flag.includes('http') ? (
-              <Image source={{ uri: selectedCountry.flag }} className={imageClassName} />
+            {localSelectedCountry?.flag?.includes('http') ? (
+              <Image source={{ uri: localSelectedCountry?.flag }} className={imageClassName} />
             ) : (
-              <AppText className="w-[22px] rounded-full">{selectedCountry.flag}</AppText>
+              <AppText className="w-[22px] rounded-full">{localSelectedCountry?.flag}</AppText>
             )}
             <AppText className="text-light-type-gray-default px-xs" size={2} color="gray">
-              {selectedCountry.code}
+              {localSelectedCountry?.code}
             </AppText>
             <RemixIcon name="arrow-down-s-fill" size={20} color={colors.dark['white-to-dark']} />
           </View>
@@ -143,7 +151,7 @@ const AppPhoneInput: React.FC<AppPhoneInputProps> = ({
             textInputRef.current?.focus()
           }}>
           <View
-            className={`px-sm items-center flex-grow flex-row bg-light-surface-gray h-[56px] ${getBorderStyle()}`}>
+            className={`px-sm items-center flex-grow flex-row bg-light-surface-gray dark:bg-dark-surface-gray h-[56px] ${getBorderStyle()}`}>
             <View className="flex-1">
               {floatingLabel && (
                 <Animated.Text
@@ -170,8 +178,11 @@ const AppPhoneInput: React.FC<AppPhoneInputProps> = ({
       </View>
       {!!error &&
         (typeof error === 'string' ? (
-          <AppHintText type="error" text={error} className="py-xs px-lg" />
+          <AppHintText type="error" text={error} className="py-xs" />
         ) : undefined)}
+      {hintText ? (
+        <AppHintText text={hintText} className="mt-sm" accessibilityHintText={hintText} />
+      ) : null}
     </View>
   )
 }

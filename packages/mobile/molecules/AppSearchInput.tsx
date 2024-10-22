@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import colors from 'afrikit-shared/dist/colors'
+import { useColorScheme } from 'nativewind'
 import * as React from 'react'
 import {
     Animated,
@@ -27,6 +28,7 @@ const AppSearchInput: React.FC<AppInputProps> = ({
   ...props
 }) => {
   const textInputRef = React.useRef<TextInput>(null)
+  const { colorScheme } = useColorScheme()
   const [values, setValues] = React.useState<string>('')
   const [focused, setFocused] = React.useState<boolean>(false)
   const [inputValue, setInputValue] = React.useState<string>(value)
@@ -84,7 +86,7 @@ const AppSearchInput: React.FC<AppInputProps> = ({
   }
 
   // handle Password Icon
-  const renderSearchIncon = () => (
+  const renderSearchIcon = () => (
     <TouchableOpacity className="justify-center align-middle px-xs">
       <RemixIcon name={'search-line'} size={20} color={colors.dark['white-to-dark']} />
     </TouchableOpacity>
@@ -97,8 +99,8 @@ const AppSearchInput: React.FC<AppInputProps> = ({
           textInputRef.current?.focus()
         }}>
         <View
-          className={`border-3 border-spacing-2xl border-dark-crimson10 px-md items-center w-full flex-row bg-light-surface-gray h-[45px] rounded-full`}>
-          {renderSearchIncon()}
+          className={`border-3 border-spacing-2xl border-dark-crimson10 px-md items-center w-full flex-row bg-light-surface-gray dark:bg-dark-surface-gray h-[45px] rounded-full`}>
+          {renderSearchIcon()}
           <View className="flex-1 px-xs">
             <TextInput
               {...addedProps}
@@ -109,7 +111,7 @@ const AppSearchInput: React.FC<AppInputProps> = ({
               autoFocus={focused}
               value={inputValue}
               placeholder="Search"
-              className="text-sm-head text-light-type-gray"
+              className="text-sm-head text-light-type-gray dark:text-dark-type-gray"
             />
           </View>
 

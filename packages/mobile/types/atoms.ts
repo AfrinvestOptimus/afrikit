@@ -64,6 +64,7 @@ export interface AppInputProps extends Omit<TextInputProps, 'placeholderTextColo
   multiline?: boolean
   error?: string | boolean
   className?: string
+  hintText?: string
   containerStyle?: ViewStyle
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
   onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
@@ -75,6 +76,8 @@ export interface AppPhoneInputProps extends Omit<TextInputProps, 'placeholderTex
   numberOfLines?: number
   type?: string
   value?: string
+  hintText?: string
+  selectedCountry?: {code: string; name: string; flag: string}
   floatingLabel?: boolean
   multiline?: boolean
   error?: string | boolean

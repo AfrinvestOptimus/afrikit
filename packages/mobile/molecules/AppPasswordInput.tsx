@@ -28,6 +28,7 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
   numberOfLines,
   onChangeText: onChangeTextProp,
   value = '',
+  hintText,
   ...props
 }) => {
   const textInputRef = React.useRef<TextInput>(null)
@@ -178,6 +179,9 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
         (typeof error === 'string' ? (
           <AppHintText type="error" text={error} className="py-xs" />
         ) : undefined)}
+      {hintText ? (
+        <AppHintText text={hintText} className="mt-sm" accessibilityHintText={hintText} />
+      ) : null}
     </View>
   )
 }
