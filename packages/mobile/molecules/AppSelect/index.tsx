@@ -1,25 +1,74 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
 import React, { useCallback, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import colors from 'afrikit-shared/dist/colors';
 import AppText from '../../atoms/AppText'
 import AppBottomSheet from '../AppBottomSheet'
 import AppHintText from '../AppHintText'
 import IconTemp from '../AppIcon'
 
+/**
+ * Props for the AppSelect component.
+ */
 export type AppSelectProps = {
+  /**
+   * The label that appears above the selection field.
+   */
   label: string
+
+  /**
+   * Array of options available for selection.
+   */
   options: string[]
+
+  /**
+   * The state of the select input. Can be 'default' or 'disabled'.
+   * Default is 'default'.
+   */
   state?: 'default' | 'disabled'
+
+  /**
+   * Flag indicating if there is an error with the input.
+   * Default is false.
+   */
   hasError?: boolean
+
+  /**
+   * The error message text to display when hasError is true.
+   * Default is an empty string.
+   */
   errorText?: string
+
+  /**
+   * Hint text that provides additional information for the user.
+   * Default is an empty string.
+   */
   hintText?: string
+
+  /**
+   * Additional class names for customizing the container styles.
+   */
   className?: string
+
+  /**
+   * Callback function that is triggered when an option is selected.
+   * Returns the selected value as a string.
+   */
   onValueChange?: (value: string) => void
+
+  /**
+   * Optional render function to customize how each option is displayed.
+   * Takes an option object with a `value` and `index`.
+   */
   renderItem?: (option: { value: string; index: number }) => React.JSX.Element | null
 }
 
+/**
+ * AppSelect is a functional component that allows users to select an option from a list
+ * displayed in a modal (bottom sheet). The component supports error states, hint text,
+ * and customizable render functions for displaying options.
+ */
 const AppSelect: React.FC<AppSelectProps> = ({
   label,
   options,
@@ -31,14 +80,18 @@ const AppSelect: React.FC<AppSelectProps> = ({
   onValueChange,
   renderItem,
 }) => {
+  // State to manage selected value and bottom sheet visibility
   const [selectedValue, setSelectedValue] = useState<string | null>(null)
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
 
+  // Determine if the app is in dark mode
   const { colorScheme } = useColorScheme()
   const isDarkMode = colorScheme === 'dark'
 
+  // Ref for controlling the bottom sheet modal
   const bottomSheetRef = React.useRef<BottomSheetModal>(null)
 
+  // Opens the bottom sheet if the select state is not 'disabled'
   const handleOpenBottomSheet = useCallback(() => {
     if (state !== 'disabled') {
       setIsBottomSheetOpen(true)
@@ -46,6 +99,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
     }
   }, [state])
 
+  // Handles the selection of an option
   const handleSelectOption = useCallback(
     (option: string) => {
       setSelectedValue(option)
@@ -56,6 +110,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
     [onValueChange],
   )
 
+  // Get background styles based on the component state
   const getBackgroundStyles = useCallback(
     (state: string) => {
       if (state === 'disabled') {
@@ -66,6 +121,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
     [state],
   )
 
+  // Get text styles based on the component state
   const getTextStyles = useCallback(
     (state: string) => {
       if (state === 'disabled') {
@@ -82,6 +138,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
     [state],
   )
 
+  // Get icon color based on the component state and dark mode
   const getIconColor = useCallback(
     (state: string) => {
       if (state === 'disabled') {
@@ -92,6 +149,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
     [isDarkMode, state],
   )
 
+  // Default render function for options if no custom render function is provided
   const renderDefaultItem = useCallback(
     (item: string) => (
       <View className="flex flex-row justify-between items-center">
@@ -140,6 +198,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
           <IconTemp name="arrow-down-s-line" size="24" color={getIconColor(state)} />
         </View>
       </TouchableOpacity>
+
       {hasError && errorText ? (
         <AppHintText
           type="error"
