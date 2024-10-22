@@ -1,20 +1,28 @@
+import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
-//import colors from '../../shared/colors'
-import colors from 'afrikit-shared/dist/colors'
 import classNames from '../utilities/classnames'
 
 export type AppIconProps = {
   name: string
   color?: string
   size: '16' | '20' | '24' | '40' | '48'
+  accessibilityLabel?: string
+  accessibilityHint?: string
 }
 
-const AppIcon: FC<AppIconProps> = ({ name = 'cirle', color, size }) => {
+const AppIcon: FC<AppIconProps> = ({
+  name = 'circle',
+  color,
+  size,
+  accessibilityLabel,
+  accessibilityHint,
+}) => {
   const { colorScheme } = useColorScheme()
   const isDarkMode = colorScheme === 'dark'
+
   return (
     <View
       className={classNames(
@@ -27,6 +35,8 @@ const AppIcon: FC<AppIconProps> = ({ name = 'cirle', color, size }) => {
         name={name}
         size={getIconSize(size)}
         color={color || colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
+        accessibilityLabel={accessibilityLabel}
+        accessibilityHint={accessibilityHint}
       />
     </View>
   )
