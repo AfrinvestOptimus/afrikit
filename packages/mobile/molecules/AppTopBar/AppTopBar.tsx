@@ -6,8 +6,24 @@ import { AppText } from '../../atoms'
 import AppIcon from '../../molecules/AppIcon'
 
 export interface AppTopBarProps {
+  /**
+   * The title displayed in the center of the top bar.
+   */
   title?: string
+
+  /**
+   * Callback function triggered when the back button is pressed.
+   */
   onBackPress?: () => void
+
+  /**
+   * An array of action buttons displayed on the right side of the top bar.
+   * Each action object contains:
+   * - `iconName`: Name of the icon to display.
+   * - `backIconColor`: Color of the action icon.
+   * - `onPress`: Callback function triggered when the action button is pressed.
+   * - `accessibilityLabel` and `accessibilityHint`: Optional accessibility labels and hints.
+   */
   actions?: Array<{
     iconName: string
     backIconColor: string
@@ -15,17 +31,61 @@ export interface AppTopBarProps {
     accessibilityLabel?: string
     accessibilityHint?: string
   }>
-  backIconName?: string // Name for the back icon
-  backIconColor?: string // Color for the back icon
-  subtitle?: string // Optional subtitle below the title
-  leftTitle?: string // Optional title on the left side
-  leftSubtitle?: string // Optional subtitle on the left side
-  containerClassName?: string // Custom class name for the top bar container
-  renderLeft?: () => React.ReactNode // Optional custom left component
-  renderCenter?: () => React.ReactNode // Optional custom center component
-  customBackButton?: React.ReactNode // Custom back button component
-  accessibilityLabel?: string // Accessibility label for the whole component
-  accessibilityHint?: string // Accessibility hint for the whole component
+
+  /**
+   * Name for the back icon. Defaults to `arrow-left-wide-line`.
+   */
+  backIconName?: string
+
+  /**
+   * Color for the back icon.
+   */
+  backIconColor?: string
+
+  /**
+   * Optional subtitle below the title in the center.
+   */
+  subtitle?: string
+
+  /**
+   * Optional title to be displayed on the left side of the top bar (typically used when a custom center component is rendered).
+   */
+  leftTitle?: string
+
+  /**
+   * Optional subtitle below the left title.
+   */
+  leftSubtitle?: string
+
+  /**
+   * Custom class name for the top bar container.
+   */
+  containerClassName?: string
+
+  /**
+   * Optional custom left component. If provided, it overrides the default left title/subtitle.
+   */
+  renderLeft?: () => React.ReactNode
+
+  /**
+   * Optional custom center component. If provided, it overrides the default title/subtitle in the center.
+   */
+  renderCenter?: () => React.ReactNode
+
+  /**
+   * Custom back button component. If provided, it overrides the default back icon.
+   */
+  customBackButton?: React.ReactNode
+
+  /**
+   * Accessibility label for the entire top bar. Defaults to `Top Bar`.
+   */
+  accessibilityLabel?: string
+
+  /**
+   * Accessibility hint for the entire top bar. Defaults to `Navigation bar at the top of the screen`.
+   */
+  accessibilityHint?: string
 }
 
 export const AppTopBar: React.FC<AppTopBarProps> = ({
