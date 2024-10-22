@@ -7,7 +7,7 @@ import {
 } from '@expo-google-fonts/manrope'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { StatusBar } from 'expo-status-bar'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Pressable, SafeAreaView, ScrollView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -15,7 +15,7 @@ import StorybookUIRoot from './.storybook'
 import AppText from './atoms/AppText'
 import AppTitle from './atoms/AppTitle'
 import './global.css'
-import { AppModalLoader, AppToastBase, GlobalWrapper } from './molecules'
+import { AppInput, AppModalLoader, AppToastBase, GlobalWrapper } from './molecules'
 import AppBottomSheet from './molecules/AppBottomSheet'
 import AppIcon from './molecules/AppIcon'
 import AppPasswordInput from './molecules/AppPasswordInput'
@@ -24,6 +24,7 @@ import { FormData } from './types/atoms'
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false)
+  const [loaderModalVisible, setLoaderModalVisible] = useState(false)
   const [fontsLoaded, fontError] = useFonts({
     Manrope400: Manrope_400Regular,
     Manrope500: Manrope_500Medium,
@@ -33,10 +34,14 @@ export default function App() {
   const [code, setCode] = useState('')
   const {
     formState: { errors },
+    control,
   } = useForm<FormData>()
 
-  const handleOpenModal = () => {
-    setModalVisible(true)
+  const handleOpenLoaderModal = () => {
+    setLoaderModalVisible(true)
+    setTimeout(() => {
+      setLoaderModalVisible(false)
+    }, 5000)
   }
 
   const handleCloseModal = () => {
@@ -88,45 +93,12 @@ export default function App() {
                 Small bold text involved
               </AppText>
               <View className="flex-1 items-center justify-center">
-                <Pressable onPress={handleOpenModal} className="px-4 py-2 bg-blue-600 rounded-lg">
+                <Pressable
+                  onPress={handleOpenLoaderModal}
+                  className="px-4 py-2 bg-blue-600 rounded-lg">
                   <AppText className="text-black font-bold">Show Loader</AppText>
                 </Pressable>
-                <AppModalLoader visible={modalVisible} />
-              </View>
-              <AppTitle
-                title={'Title'}
-                align={'left'}
-                subtitle="Subtitle"
-                spacing={1}
-                titlePosition="top"
-              />
-              {/* <AppTopBar
-                variant="large-centered"
-                title="Products"
-                subtitle="Choose from a variety of products in our store"
-                showLeftIcon={true}
-                showRightIcon1={false}
-                showRightIcon2={false}
-                showRightIcon3={false}
-                onLeftIconPress={handleLeftIconPress}
-                onRightIconPress1={handleRightIconPress1}
-                onRightIconPress2={handleRightIconPress2}
-                onRightIconPress3={handleRightIconPress3}
-              /> */}
-              <AppText
-                size={2}
-                color={'error'}
-                weight={'regular'}
-                align={'left'}
-                className={'mb-2xl'}
-                onPress={() => console.log('AppText pressed')}>
-                Small bold text involved
-              </AppText>
-              <View className="flex-1 items-center justify-center">
-                <Pressable onPress={handleOpenModal} className="px-4 py-2 bg-blue-600 rounded-lg">
-                  <AppText className="text-black font-bold">Show Loader</AppText>
-                </Pressable>
-                <AppModalLoader visible={modalVisible} onDismiss={handleCloseModal} />
+                <AppModalLoader visible={loaderModalVisible} />
               </View>
               <AppTitle
                 title={'Title'}
@@ -150,25 +122,30 @@ export default function App() {
                             message: `${item?.key} is compatible with the format `,
                           },
                         }}
-                        // control={control}
+                        control={control}
                         key={item.key}
                         render={({ field: { onChange, onBlur, value } }) => (
-                          //                 <AppInput
-                          //                     value={value}
-                          //                   label={item?.label}
-                          //                   autoFocus={false}
-                          //                   onBlur={onBlur}
-                          //                   onChangeText={onChange}
-                          //                   error={`${item?.key}  compatible with the format on our system`}/>
+                          <>
+                            <AppInput
+                              value={value}
+                              label={item?.label}
+                              autoFocus={false}
+                              onBlur={onBlur}
+                              onChangeText={onChange}
+                              hintText="my hint"
+                              error={`${item?.key}  compatible with the format on our system`}
+                            />
 
-                          <AppPasswordInput
-                            value={value}
-                            label={item?.label}
-                            autoFocus={false}
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            error={`${item?.key}  compatible with the format on our system`}
-                          />
+                            <AppPasswordInput
+                              value={value}
+                              label={item?.label}
+                              autoFocus={false}
+                              onBlur={onBlur}
+                              onChangeText={onChange}
+                              hintText="my hint"
+                              error={`${item?.key}  compatible with the format on our system`}
+                            />
+                          </>
                         )}
                         name={'email'}
                       />
@@ -178,20 +155,6 @@ export default function App() {
               </View>
 
               <View className={'justify-center items-center flex-1 bg-dark-red4'}>
-                {/* <AppTopBar
-                  variant="small"
-                  title="Products"
-                  subtitle="Choose from a variety of products in our store"
-                  showLeftIcon={true}
-                  showRightIcon1={true}
-                  showRightIcon2={false}
-                  showRightIcon3={false}
-                  onLeftIconPress={handleLeftIconPress}
-                  onRightIconPress1={handleRightIconPress1}
-                  onRightIconPress2={handleRightIconPress2}
-                  onRightIconPress3={handleRightIconPress3}
-                /> */}
-                <AppModalLoader visible={modalVisible} />
                 <View className="justify-center flex-1 w-full">
                   <Pressable onPress={() => setModalVisible(true)}>
                     <AppText className="text-light-type-tomatobo text-sm-bold">
@@ -302,9 +265,10 @@ export default function App() {
                 setShowModal={setModalVisible}
                 isSwipeable={true}
                 backdropClose={true}
-                index={0}
-                isDetached={true}
+                index={2}
+                isDetached={false}
                 title={{ text: 'Let him cook' }}
+                // title={'Let him cook'}
                 content={
                   'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda blanditiis dolor, ea et iste minus placeat reprehenderit suscipit unde.'
                 }
@@ -314,14 +278,15 @@ export default function App() {
                     setModalVisible(false)
                   },
                 }}>
-                {Array.from({ length: 20 }).map((_, index) => (
-                  <View key={index} className="flex py-4">
-                    <AppText className="text-light-type-gray text-sm-bold">Let him cook!</AppText>
-                  </View>
-                ))}
+                <View className="bg-light-page-bg dark:bg-dark-page-bg p-md rounded-md">
+                  {Array.from({ length: 20 }).map((_, index) => (
+                    <View key={index} className="flex py-4">
+                      <AppText className="text-light-type-gray text-sm-bold">Let him cook!</AppText>
+                    </View>
+                  ))}
+                </View>
               </AppBottomSheet>
               <AppIcon name="circle-line" size="16" color="red" />
-
               <StatusBar style="dark" backgroundColor="red" />
               <AppToastBase position={'top'} />
             </ScrollView>
