@@ -29,6 +29,7 @@ const AppInput: React.FC<AppInputProps> = ({
   numberOfLines,
   onChangeText: onChangeTextProp,
   value = '',
+  hintText = '',
   containerStyle,
   className,
   ...props
@@ -163,6 +164,9 @@ const AppInput: React.FC<AppInputProps> = ({
         (typeof error === 'string' ? (
           <AppHintText type="error" text={error} className="py-xs" />
         ) : undefined)}
+      {hintText ? (
+        <AppHintText text={hintText} className="mt-sm" accessibilityHintText={hintText} />
+      ) : null}
     </View>
   )
 }
