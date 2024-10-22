@@ -15,19 +15,92 @@ import {
   textStates,
 } from './button'
 
+/**
+ * Props for the AppButton component.
+ */
 export interface AppButtonProps {
+  /**
+   * The size of the button.
+   * Determines the button's dimensions and text size.
+   * Default is 2.
+   */
   size?: ButtonSize
+
+  /**
+   * The visual style of the button.
+   * Options include different styles like 'solid' or 'outline'.
+   * Default is 'solid'.
+   */
   variant?: ButtonVariant
+
+  /**
+   * The color scheme of the button.
+   * Options include 'accent', 'neutral', 'success', 'error', etc.
+   * Default is 'accent'.
+   */
   color?: ButtonColor
+
+  /**
+   * Flag indicating if the button should use high contrast colors.
+   * Default is false.
+   */
   highContrast?: boolean
+
+  /**
+   * The current state of the button.
+   * Options include 'default', 'hover', 'active', and 'disabled'.
+   * Default is 'default'.
+   */
   state?: ButtonState
+
+  /**
+   * Flag indicating if an icon should be displayed at the start of the button text.
+   * Default is false.
+   */
   iconStart?: boolean
+
+  /**
+   * Flag indicating if an icon should be displayed at the end of the button text.
+   * Default is false.
+   */
   iconEnd?: boolean
+
+  /**
+   * The name of the icon to display (if using an icon).
+   * This prop should be used with iconStart or iconEnd.
+   * Default is an empty string.
+   */
   iconName?: string
+
+  /**
+   * Optional custom classes for additional styling.
+   * Default is an empty string.
+   */
   className?: string
+
+  /**
+   * The text to be displayed inside the button.
+   * This is a required prop.
+   */
   text: string
+
+  /**
+   * Optional function to be called when the button is pressed.
+   * Receives a GestureResponderEvent as a parameter.
+   */
   onPress?: (event: GestureResponderEvent) => void
+
+  /**
+   * Accessibility label for the button, providing a description for screen readers.
+   * If not provided, the text prop will be used as the label.
+   * Default is an empty string.
+   */
   accessibilityLabel?: string
+
+  /**
+   * Accessibility hint for the button, providing additional context for screen readers.
+   * Default is an empty string.
+   */
   accessibilityHint?: string
 }
 
