@@ -1,6 +1,6 @@
 {
   "name": "afrikit-mobile",
-  "version": "1.0.73",
+  "version": "1.0.74",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "style": "dist/global.css",
@@ -62,8 +62,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-native": "^0.74.5",
-    "tailwind-variants": "^0.2.1",
     "react-native-reanimated": "^3.10.1",
+    "tailwind-variants": "^0.2.1",
     "tailwindcss": "^3.4.12"
   },
   "publishConfig": {
