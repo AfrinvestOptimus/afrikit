@@ -1,13 +1,15 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import colors from 'afrikit-shared/dist/colors'
+import AppSearchInput from 'molecules/AppSearchInput'
 import { useColorScheme } from 'nativewind'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import AppText from '../../atoms/AppText'
 import AppBottomSheet from '../AppBottomSheet'
 import AppHintText from '../AppHintText'
 import IconTemp from '../AppIcon'
 
+export type SelectItem = { value: string | number; label: string }
 /**
  * Props for the AppSelect component.
  */
@@ -20,7 +22,7 @@ export type AppSelectProps = {
   /**
    * Array of options available for selection.
    */
-  options: string[]
+  options: SelectItem[]
 
   /**
    * The state of the select input. Can be 'default' or 'disabled'.
@@ -33,6 +35,8 @@ export type AppSelectProps = {
    * Default is false.
    */
   hasError?: boolean
+  isSearchable?: boolean
+  title?: string
 
   /**
    * The error message text to display when hasError is true.
@@ -55,13 +59,13 @@ export type AppSelectProps = {
    * Callback function that is triggered when an option is selected.
    * Returns the selected value as a string.
    */
-  onValueChange?: (value: string) => void
+  onValueChange?: (value: SelectItem) => void
 
   /**
    * Optional render function to customize how each option is displayed.
    * Takes an option object with a `value` and `index`.
    */
-  renderItem?: (option: { value: string; index: number }) => React.JSX.Element | null
+  renderItem?: (option: SelectItem) => React.JSX.Element | null
 }
 
 /**
@@ -75,14 +79,17 @@ const AppSelect: React.FC<AppSelectProps> = ({
   state = 'default',
   hasError = false,
   errorText = '',
+  isSearchable = true,
   hintText = '',
+  title = '',
   className = '',
   onValueChange,
   renderItem,
 }) => {
   // State to manage selected value and bottom sheet visibility
-  const [selectedValue, setSelectedValue] = useState<string | null>(null)
+  const [selectedValue, setSelectedValue] = useState<SelectItem | null>(null)
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
   // Determine if the app is in dark mode
   const { colorScheme } = useColorScheme()
@@ -101,7 +108,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
 
   // Handles the selection of an option
   const handleSelectOption = useCallback(
-    (option: string) => {
+    (option: SelectItem) => {
       setSelectedValue(option)
       setIsBottomSheetOpen(false)
       onValueChange?.(option)
@@ -151,12 +158,12 @@ const AppSelect: React.FC<AppSelectProps> = ({
 
   // Default render function for options if no custom render function is provided
   const renderDefaultItem = useCallback(
-    (item: string) => (
+    (item: SelectItem) => (
       <View className="flex flex-row justify-between items-center">
         <AppText size={3} color="gray" highContrast align="left" weight="medium">
-          {item}
+          {item.label}
         </AppText>
-        {item === selectedValue ? (
+        {item.value === selectedValue?.value ? (
           <IconTemp
             size="24"
             name="check-line"
@@ -167,6 +174,15 @@ const AppSelect: React.FC<AppSelectProps> = ({
     ),
     [selectedValue],
   )
+
+  const filteredOptions = useMemo(() => {
+    if (isSearchable) {
+      return options.filter(option =>
+        option.label.toLowerCase().includes(searchQuery.toLowerCase()),
+      )
+    }
+    return options
+  }, [options, isSearchable, searchQuery])
 
   return (
     <View className={className}>
@@ -189,7 +205,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
           </AppText>
           {!!selectedValue && (
             <AppText className={`text-sm font-semibold ${getTextStyles(state).selectedValue}`}>
-              {selectedValue}
+              {selectedValue.label}
             </AppText>
           )}
         </View>
@@ -219,17 +235,40 @@ const AppSelect: React.FC<AppSelectProps> = ({
         showModal={isBottomSheetOpen}
         setShowModal={setIsBottomSheetOpen}
         isDetached={false}>
-        {options.map((option, index) => (
-          <TouchableOpacity
-            key={index}
-            accessibilityRole="menuitem"
-            accessibilityLabel={option}
-            accessibilityHint={`Select ${option}`}
-            onPress={() => handleSelectOption(option)}
-            style={{ padding: 16 }}>
-            {renderItem ? renderItem({ value: option, index }) : renderDefaultItem(option)}
-          </TouchableOpacity>
-        ))}
+        {title ? (
+          <AppText
+            size={3}
+            weight="bold"
+            color="gray"
+            highContrast
+            align="center"
+            className="mt-xs mb-lg">
+            {title}
+          </AppText>
+        ) : null}
+
+        {isSearchable ? (
+          <AppSearchInput
+            type="text"
+            placeholder="Search"
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            className="my-lg"
+          />
+        ) : null}
+        <View className="rounded-lg bg-light-white-to-dark dark:bg-dark-white-to-dark px-lg py-sm mt-lg">
+          {filteredOptions?.map((option, index) => (
+            <TouchableOpacity
+              key={`${option}-${index}`}
+              accessibilityRole="menuitem"
+              accessibilityLabel={option.label}
+              accessibilityHint={`Select ${option}`}
+              onPress={() => handleSelectOption(option)}
+              className="py-lg">
+              {renderItem ? renderItem(option) : renderDefaultItem(option)}
+            </TouchableOpacity>
+          ))}
+        </View>
       </AppBottomSheet>
     </View>
   )
