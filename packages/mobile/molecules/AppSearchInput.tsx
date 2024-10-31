@@ -4,13 +4,13 @@ import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
 import * as React from 'react'
 import {
-    Animated,
-    NativeSyntheticEvent,
-    TextInput,
-    TextInputFocusEventData,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    View,
+  Animated,
+  NativeSyntheticEvent,
+  TextInput,
+  TextInputFocusEventData,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
 } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import RemixIcon from 'react-native-remix-icon'
@@ -33,6 +33,8 @@ const AppSearchInput: React.FC<AppInputProps> = ({
   const [focused, setFocused] = React.useState<boolean>(false)
   const [inputValue, setInputValue] = React.useState<string>(value)
   const animatedIsFocused = React.useRef(new Animated.Value(value ? 1 : 0)).current
+
+  const isDarkMode = colorScheme === 'dark'
 
   React.useEffect(() => {
     Animated.timing(animatedIsFocused, {
@@ -88,7 +90,11 @@ const AppSearchInput: React.FC<AppInputProps> = ({
   // handle Password Icon
   const renderSearchIcon = () => (
     <TouchableOpacity className="justify-center align-middle px-xs">
-      <RemixIcon name={'search-line'} size={20} color={colors.dark['white-to-dark']} />
+      <RemixIcon
+        name={'search-line'}
+        size={20}
+        color={colors[isDarkMode ? 'dark' : 'light'].gray10}
+      />
     </TouchableOpacity>
   )
 
@@ -117,7 +123,11 @@ const AppSearchInput: React.FC<AppInputProps> = ({
 
           {inputValue.length > 0 && (
             <TouchableOpacity onPress={handleClear} className="justify-center pl-2 px-sm">
-              <RemixIcon name="close-circle-fill" size={20} color={'#60646C'} />
+              <RemixIcon
+                name="close-circle-fill"
+                size={20}
+                color={colors[isDarkMode ? 'dark' : 'light'].gray10}
+              />
             </TouchableOpacity>
           )}
         </View>

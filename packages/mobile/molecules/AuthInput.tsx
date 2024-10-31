@@ -116,6 +116,6 @@ const getDesignClasses = () => ({
   backgroundDefault: 'bg-light-surface-gray dark:bg-dark-surface-gray',
   backgroundError: 'bg-light-background-error-light dark:bg-dark-background-error-light',
   pinBackgroundDefault: 'bg-light-neutral8 dark:bg-dark-neutral8',
-  pinBackgroundFilled: 'bg-light-background-accent-base bg-dark-background-accent-base',
-  pinBackgroundError: 'bg-light-type-error bg-dark-type-error',
+  pinBackgroundFilled: 'bg-light-background-accent-base dark:bg-dark-background-accent-base',
+  pinBackgroundError: 'bg-light-type-error dark:bg-dark-type-error',
 })

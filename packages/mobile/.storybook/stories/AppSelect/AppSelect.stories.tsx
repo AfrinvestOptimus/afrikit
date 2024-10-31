@@ -67,7 +67,11 @@ const Template: Story<AppSelectProps> = args => <AppSelect {...args} />
 export const Default = Template.bind({})
 Default.args = {
   label: 'Select an option',
-  options: ['Option 1', 'Option 2', 'Option 3'],
+  options: [
+    { label: 'option 1', value: 'option 1' },
+    { label: 'option 2', value: 'option 2' },
+    { label: 'option 3', value: 'option 3' },
+  ],
   state: 'default',
   hasError: false,
 }
@@ -76,7 +80,11 @@ Default.args = {
 export const WithHintText = Template.bind({})
 WithHintText.args = {
   label: 'Select an option',
-  options: ['Option 1', 'Option 2', 'Option 3'],
+  options: [
+    { label: 'option 1', value: 'option 1' },
+    { label: 'option 2', value: 'option 2' },
+    { label: 'option 3', value: 'option 3' },
+  ],
   state: 'default',
   hintText: 'Info hint text',
 }
@@ -85,7 +93,11 @@ WithHintText.args = {
 export const Disabled = Template.bind({})
 Disabled.args = {
   label: 'Select an option',
-  options: ['Option 1', 'Option 2', 'Option 3'],
+  options: [
+    { label: 'option 1', value: 'option 1' },
+    { label: 'option 2', value: 'option 2' },
+    { label: 'option 3', value: 'option 3' },
+  ],
   state: 'disabled',
   hasError: false,
 }
@@ -94,7 +106,11 @@ Disabled.args = {
 export const WithError = Template.bind({})
 WithError.args = {
   label: 'Select an option',
-  options: ['Option 1', 'Option 2', 'Option 3'],
+  options: [
+    { label: 'option 1', value: 'option 1' },
+    { label: 'option 2', value: 'option 2' },
+    { label: 'option 3', value: 'option 3' },
+  ],
   state: 'default',
   hasError: true,
   errorText: 'Error hint text',
@@ -107,18 +123,14 @@ CustomRenderer.args = {
   options: ['Custom Option 1', 'Custom Option 2', 'Custom Option 3'],
   state: 'default',
   hasError: false,
-  renderItem: ({ value, index }) => (
+  renderItem: ({ label, value }) => (
     <View style={{ flexDirection: 'row' }}>
       <View style={{ width: 40, height: 40, borderWidth: 1, borderRadius: 20 }} />
       <View style={{ marginLeft: 16 }}>
         <AppText size={3} weight="medium" align="left" color="gray" highContrast>
-          {value}
+          {label}
         </AppText>
-        <AppText
-          size={2}
-          weight="medium"
-          align="left"
-          color="gray">{`subtitle ${index + 1}`}</AppText>
+        <AppText size={2} weight="medium" align="left" color="gray">{`subtitle ${value}`}</AppText>
       </View>
     </View>
   ),
