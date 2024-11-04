@@ -43,6 +43,9 @@ const CodeInput: FC<OTPInputProps> = ({
       updatedCodes.forEach((char, index) => {
         newCodes[index] = char
       })
+      if (updatedCodes.length === count) {
+        onFullCode?.(updatedCodes.join(''))
+      }
       return newCodes
     })
   }, [codeValue, count])
