@@ -58,8 +58,7 @@ const KeyPad: React.FC<KeyPadProps> = ({
     } else if (key === KEY_BACKSPACE) {
       setValue(prev => prev.substring(0, prev.length - 1))
     } else if (key) {
-      //TODO: Check against textLength
-      setValue(prev => prev.concat(key))
+      setValue(prev => (prev.length < textLength ? prev.concat(key) : prev))
     }
   }
 
