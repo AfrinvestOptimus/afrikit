@@ -13,7 +13,6 @@ import {
 import { useSharedValue } from 'react-native-reanimated'
 import RemixIcon from 'react-native-remix-icon'
 import { AppInputProps } from '../types/atoms'
-import { AppInputBlur } from '../utilities/validation'
 import AppHintText from './AppHintText'
 
 const AppPasswordInput: React.FC<AppInputProps> = ({
@@ -23,7 +22,6 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
   error,
   multiline,
   className,
-  type,
   label,
   numberOfLines,
   onChangeText: onChangeTextProp,
@@ -35,7 +33,7 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
   const [values, setValues] = React.useState<string>('')
   const [focused, setFocused] = React.useState<boolean>(false)
   const [inputValue, setInputValue] = React.useState<string>(value)
-  const [passwordVisible, setIsPasswordVisible] = React.useState<boolean>()
+  const [passwordVisible, setIsPasswordVisible] = React.useState<boolean>(true)
   const animatedIsFocused = React.useRef(new Animated.Value(value ? 1 : 0)).current
   const { colorScheme } = useColorScheme()
   const isDarkMode = colorScheme === 'dark'
@@ -64,9 +62,6 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
 
   // handle input not focused state
   const handleBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-    if (type) {
-      AppInputBlur(values, onChangeText, false)
-    }
     onBlur?.(e)
     setFocused(false)
   }
