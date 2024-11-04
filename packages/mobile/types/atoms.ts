@@ -68,6 +68,7 @@ export interface AppInputProps extends Omit<TextInputProps, 'placeholderTextColo
   containerStyle?: ViewStyle
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
   onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
+  onClear?: () => void
 }
 
 export interface AppPhoneInputProps extends Omit<TextInputProps, 'placeholderTextColor' | 'style'> {
@@ -77,7 +78,7 @@ export interface AppPhoneInputProps extends Omit<TextInputProps, 'placeholderTex
   type?: string
   value?: string
   hintText?: string
-  selectedCountry?: {code: string; name: string; flag: string}
+  selectedCountry?: { code: string; name: string; flag: string }
   floatingLabel?: boolean
   multiline?: boolean
   error?: string | boolean
