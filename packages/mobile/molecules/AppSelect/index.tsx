@@ -184,6 +184,10 @@ const AppSelect: React.FC<AppSelectProps> = ({
     return options
   }, [options, isSearchable, searchQuery])
 
+  const onClear = useCallback(() => {
+    setSearchQuery('')
+  }, [])
+
   return (
     <View className={className}>
       <TouchableOpacity
@@ -253,6 +257,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
             placeholder="Search"
             value={searchQuery}
             onChangeText={setSearchQuery}
+            onClear={onClear}
             className="my-lg"
           />
         ) : null}
