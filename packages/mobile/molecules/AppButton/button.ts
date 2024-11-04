@@ -55,11 +55,11 @@ export const highContrastButtonColors: Record<ButtonColor, Record<ButtonVariant,
   },
   neutral: {
     solid: 'bg-light-background-neutral-bold dark:bg-dark-background-neutral-bold',
-    soft: 'bg-light-background-neutral-light  dark:bg-light-background-neutral-light',
+    soft: 'bg-light-background-neutral-light  dark:bg-dark-background-neutral-light',
     surface:
-      'bg-light-background-neutral-light border border-light-edge-gray-hover dark:border-dark-edge-gray-hover',
+      'bg-light-background-neutral-light dark:bg-dark-background-neutral-light  border border-light-edge-gray-hover dark:border-dark-edge-gray-hover',
     outline:
-      'bg-light-background-neutral-light border border-light-edge-gray-strong dark:border-dark-edge-gray-strong',
+      'bg-light-background-neutral-light dark:bg-dark-background-neutral-light border border-light-edge-gray-strong dark:border-dark-edge-gray-strong',
     ghost: 'bg-light-background-neutral-transparent dark:bg-dark-background-neutral-transparent',
   },
   error: {
@@ -108,7 +108,7 @@ export const highContrastTextColors: Record<ButtonColor, Record<ButtonVariant, s
     solid: 'text-light-type-gray-inverse dark:text-dark-type-gray-inverse',
     soft: 'text-light-type-gray dark:text-dark-type-gray',
     surface: 'text-light-type-gray dark:text-dark-type-gray',
-    outline: 'text-light-type-gray dark: text-dark-type-gray',
+    outline: 'text-light-type-gray dark:text-dark-type-gray',
     ghost: 'text-light-type-gray dark:text-dark-type-gray',
   },
   error: {
@@ -125,8 +125,8 @@ export const disabledColors: Record<ButtonVariant, string> = {
   surface:
     'bg-light-background-disable2 border border-light-edge-disable dark:border-dark-edge-disable',
   outline:
-    'bg-light-background-disable2 border border-light-edge-disable dark:border-dark-edge-disable',
-  ghost: 'bg-light-background-disable2 border-none bg-dark-background-disable2',
+    'bg-light-background-disable2 dark:bg-dark-background-disable2 border border border-light-edge-disable dark:border-dark-edge-disable',
+  ghost: 'bg-light-background-disable2 dark:bg-dark-background-disable2 border-none',
 }
 
 export const activeStateColors: Record<ButtonVariant, string> = {
@@ -136,7 +136,8 @@ export const activeStateColors: Record<ButtonVariant, string> = {
     'bg-light-background-accent-light dark:bg-dark-background-accent-light border border-light-edge-accent dark:border-dark-edge-accent',
   outline:
     'bg-light-background-accent-light dark:bg-dark-background-accent-light border border-light-edge-accent dark:border-dark-edge-accent',
-  ghost: 'bg-light-background-accent-transparent-pressed  border-none',
+  ghost:
+    'bg-light-background-accent-transparent-pressed dark:bg-dark-background-accent-transparent-pressed  border-none',
 }
 
 export const buttonStates: Record<ButtonState, string | Record<ButtonVariant, string>> = {
