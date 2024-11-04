@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
-import * as React from 'react'
+import React, { useCallback } from 'react'
 import {
   Animated,
   NativeSyntheticEvent,
@@ -24,6 +24,7 @@ const AppSearchInput: React.FC<AppInputProps> = ({
   type,
   label,
   onChangeText: onChangeTextProp,
+  onClear,
   value = '',
   ...props
 }) => {
@@ -68,10 +69,10 @@ const AppSearchInput: React.FC<AppInputProps> = ({
   }
 
   // handle focus state for input field
-  const handleFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+  const handleFocus = useCallback((e: NativeSyntheticEvent<TextInputFocusEventData>) => {
     onFocus?.(e)
     setFocused(true)
-  }
+  }, [])
 
   // collate all props
   const addedProps = {
@@ -83,9 +84,10 @@ const AppSearchInput: React.FC<AppInputProps> = ({
   }
 
   // handle Clear Input
-  const handleClear = () => {
+  const handleClear = React.useCallback(() => {
     setInputValue('')
-  }
+    onClear?.()
+  }, [])
 
   // handle Password Icon
   const renderSearchIcon = () => (
