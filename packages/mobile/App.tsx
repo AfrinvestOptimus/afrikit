@@ -15,11 +15,18 @@ import StorybookUIRoot from './.storybook'
 import AppText from './atoms/AppText'
 import AppTitle from './atoms/AppTitle'
 import './global.css'
-import { AppInput, AppModalLoader, AppToastBase, GlobalWrapper } from './molecules'
+import {
+  AppBadge,
+  AppButton,
+  AppInput,
+  AppListItem,
+  AppModalLoader,
+  AppToastBase,
+  GlobalWrapper,
+} from './molecules'
 import AppBottomSheet from './molecules/AppBottomSheet'
 import AppIcon from './molecules/AppIcon'
 import AppPasswordInput from './molecules/AppPasswordInput'
-import ListItem from './molecules/list-item'
 import { FormData } from './types/atoms'
 
 export default function App() {
@@ -172,7 +179,7 @@ export default function App() {
                 </View>
 
                 <View className="px-3xl w-full bg-light-page-bg dark:bg-dark-page-bg">
-                  <ListItem
+                  <AppListItem
                     title="List title"
                     subtitle={
                       'Supporting line text lorem \nipsum dolor csadsadasdasasdasdasdsasxas \nsadsadasdasdasdas'
@@ -190,7 +197,7 @@ export default function App() {
                     // subTrigger
                     // bottomMeta="Bottom"
                   />
-                  <ListItem
+                  <AppListItem
                     title="List title"
                     subtitle="Supporting line text lorem ipsum dolor sit amet"
                     variant="2-line"
@@ -199,22 +206,26 @@ export default function App() {
                     // trailing="none"
                     // separator
                   />
-                  <ListItem
-                    title="List title product icon"
-                    subtitle="Supporting line text lorem ipsum dolor sit amet"
-                    variant="2-line"
-                    leading="check"
+                  <AppListItem
+                    title="Refer a friend"
+                    subtitle="Refer a friend, earn as much as N1000 on every referral"
+                    variant="3-line"
+                    leading="productIcon"
+                    // leading="paymentMethod"
+                    leadingComponent={{ name: 'user-line', size: '40' }}
+                    subTrigger
+                    badge={{ text: 'Up to 15% p.a', color: 'accent' }}
                     // trailing="none"
                     // separator
                   />
-                  <ListItem
+                  <AppListItem
                     title="List title"
                     subtitle="Supporting line text lorem ipsum dolor sit amet"
                     variant="2-line"
                     leading="radio"
                     separator
                   />
-                  <ListItem
+                  <AppListItem
                     title="List title"
                     subtitle="Supporting line text lorem ipsum dolor sit amet"
                     variant="3-line"
@@ -222,7 +233,7 @@ export default function App() {
                     trailing="link"
                     trailingContent={<AppText className="text-blue-500">Text</AppText>}
                   />
-                  <ListItem
+                  <AppListItem
                     title="List title"
                     subtitle="Supporting line text lorem ipsum dolor sit amet"
                     variant="3-line"
@@ -231,7 +242,7 @@ export default function App() {
                     trailing="link"
                     trailingContent={<AppText className="text-blue-500">Text</AppText>}
                   />
-                  <ListItem
+                  <AppListItem
                     title="List title with trigger"
                     subtitle="Supporting line text lorem ipsum dolor sit amet"
                     variant="2-line"
@@ -242,7 +253,7 @@ export default function App() {
                     separator
                     trailingContent={<AppText className="text-blue-500">Text</AppText>}
                   />
-                  <ListItem
+                  <AppListItem
                     title="Trailing title"
                     subtitle="Supporting line text lorem ipsum dolor sit amet"
                     variant="3-line"

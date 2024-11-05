@@ -3,9 +3,36 @@ import { cssInterop, useColorScheme } from 'nativewind'
 import React from 'react'
 import { Image, Switch, Text, TouchableOpacity, View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
-import AppText from '../atoms/AppText'
-import { AppTextAtomProps } from '../types/atoms'
-import { AppAvatar, AppAvatarProps, AppButton, AppButtonProps } from './index'
+import AppText from '../../atoms/AppText'
+import { AppTextAtomProps } from '../../types/atoms'
+import {
+  AppAvatar,
+  AppAvatarProps,
+  AppBadge,
+  AppBadgeProps,
+  AppButton,
+  AppButtonProps,
+  AppIcon,
+  AppIconProps,
+} from '../index'
+import ProductEarn from './product-earn.png'
+import ProductFlex from './product-flex.png'
+import ProductLock from './product-lock.png'
+import ProductTarget from './product-target.png'
+
+type LeadingOptions =
+  | 'none'
+  | 'avatar'
+  | 'brand'
+  | 'icon'
+  | 'paymentMethod'
+  | 'flag'
+  | 'txStatus'
+  | 'activity'
+  | 'productIcon'
+  | 'check'
+  | 'radio'
+type TrailingOptions = 'none' | 'textContent' | 'text' | 'link' | 'icon' | 'button' | 'switch'
 
 type TrailingProps = {
   type?: string
@@ -26,26 +53,30 @@ type LeadingProps = {
   leadingIcon?: string
   leadingIconColor?: string
   leadingContent?: string | React.ReactNode
+  // leadingComponent?: AppIconProps | AppAvatarProps | React.ReactNode
 }
 
-export type ListItemProps = {
+type LeadingComponentMap = {
+  none: React.ReactNode
+  avatar: AppAvatarProps
+  brand: React.ReactNode
+  icon: AppIconProps
+  paymentMethod: React.ReactNode
+  flag: React.ReactNode
+  txStatus: React.ReactNode
+  activity: React.ReactNode
+  productIcon: React.ReactNode
+  check: React.ReactNode
+  radio: React.ReactNode
+}
+export type ListItemProps<L extends LeadingOptions, T extends TrailingOptions> = {
   size?: '1' | '2'
   variant?: '1-line' | '2-line' | '3-line'
   density?: Density
-  leading?:
-    | 'none'
-    | 'avatar'
-    | 'brand'
-    | 'icon'
-    | 'paymentMethod'
-    | 'flag'
-    | 'txStatus'
-    | 'activity'
-    | 'productIcon'
-    | 'check'
-    | 'radio'
-  trailing?: 'none' | 'textContent' | 'text' | 'link' | 'icon' | 'button' | 'switch'
+  leading?: L // LeadingOptions
+  trailing?: T // TrailingOptions
   subTrigger?: boolean
+  badge?: AppBadgeProps
   state?: 'enabled' | 'hovered' | 'focused' | 'pressed' | 'dragged'
   separator?: boolean
   isChecked?: boolean
@@ -54,10 +85,12 @@ export type ListItemProps = {
   subtitle?: string
   subtitleProps?: AppTextAtomProps
   activity?: ActivityStatus
+  product?: ProductType
   topMeta?: string
   bottomMeta?: string
   containerClassName?: string
   onPress?: () => void
+  leadingComponent?: LeadingComponentMap[L]
 } & TrailingProps &
   LeadingProps
 
@@ -72,6 +105,14 @@ const activityStatusIcons = {
   avatar: 'flashlight-line', //renders an avatar
 }
 
+const productIcons = {
+  default: ProductEarn,
+  OptiFlex: ProductFlex,
+  OptiLock: ProductLock,
+  OptiTarget: ProductTarget,
+  Earn: ProductEarn,
+}
+
 const densitySpacing = {
   default: 'py-lg',
   relaxed: 'py-xl',
@@ -79,6 +120,7 @@ const densitySpacing = {
 }
 type Density = keyof typeof densitySpacing
 type ActivityStatus = keyof typeof activityStatusIcons
+type ProductType = keyof typeof productIcons
 
 cssInterop(RemixIcon, {
   className: {
@@ -179,7 +221,7 @@ cssInterop(RemixIcon, {
  * If you would like to contribute to the `ListItem` component, please feel free to submit issues or pull requests. Your contributions are welcome!
  */
 
-const ListItem: React.FC<ListItemProps> = ({
+const ListItem: React.FC<ListItemProps<LeadingOptions, TrailingOptions>> = ({
   size = '2',
   variant = '1-line',
   density = 'default',
@@ -190,6 +232,7 @@ const ListItem: React.FC<ListItemProps> = ({
   separator = false,
   isChecked = false,
   activity = 'default',
+  product = 'default',
   title,
   subtitle,
   titleProps,
@@ -199,6 +242,7 @@ const ListItem: React.FC<ListItemProps> = ({
   linkProps,
   avatarProps,
   buttonProps,
+  badge,
   trailingTitle,
   trailingSubtitle,
   trailingIcon,
@@ -206,6 +250,7 @@ const ListItem: React.FC<ListItemProps> = ({
   topMeta,
   bottomMeta,
   leadingContent,
+  leadingComponent,
   trailingContent,
   containerClassName,
   onPress,
@@ -282,11 +327,14 @@ const ListItem: React.FC<ListItemProps> = ({
             resizeMode="cover"
           />
         )
-      case 'icon': //TODO: Bawaiting the icon name
+      case 'icon':
         return (
-          <View className="w-3xl h-3xl rounded-sm-max bg-light-surface-gray dark:bg-dark-surface-gray gap-lg justify-center items-center">
-            <RemixIcon name={typeof leadingContent === 'string' ? leadingContent : 'user-6-line'} />
-          </View>
+          <AppIcon
+            // name={typeof leadingContent === 'string' ? leadingContent : 'user-6-line'}
+            // color={trailingIconColor || colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
+            {...(leadingComponent as AppIconProps)}
+            size={(leadingComponent as AppIconProps)?.size}
+          />
         )
       case 'paymentMethod':
         return (
@@ -303,10 +351,17 @@ const ListItem: React.FC<ListItemProps> = ({
         return (
           <View
             className={`w-3xl h-3xl rounded-md-max gap-lg justify-center items-center ${activity === 'system' ? 'bg-light-background-accent-light dark:bg-dark-background-accent-light' : 'bg-light-surface-gray dark:bg-dark-surface-gray'}`}>
-            {activity === 'avatar' ? ( //TODO: return dummy avatar
-              <View className="w-3xl h-3xl rounded-xs-max justify-center items-center bg-light-background-accent-base dark:bg-dark-background-accent-base">
-                <Text className="text-white">A</Text>
-              </View>
+            {activity === 'avatar' ? (
+              <AppAvatar
+                size={3}
+                color="accent"
+                highContrast={false}
+                fallBack="initials"
+                initials={(leadingContent as string) || 'A'}
+                status={false}
+                variant="solid"
+                {...avatarProps}
+              />
             ) : (
               <RemixIcon
                 name={activityStatusIcons[activity] || activityStatusIcons.default}
@@ -319,12 +374,12 @@ const ListItem: React.FC<ListItemProps> = ({
             )}
           </View>
         )
-      case 'productIcon': //TODO: Find product icons or logos
+      case 'productIcon': //TODO: Add more product icons and provide support for customizatioj
         return (
-          <View className="w-4xl h-4xl rounded-md-max border border-light-edge-gray-subtle dark:border-dark-edge-gray-subtle p-sm justify-center bg-dark-surface items-center">
+          <View className="w-4xl h-4xl rounded-md-max border border-light-edge-gray-subtle dark:border-dark-edge-gray-subtle justify-center items-center">
             <Image
-              className="w-xl h-xl"
-              source={{ uri: 'https://www.worldometers.info//img/flags/small/tn_cu-flag.gif' }}
+              className="w-2xl h-2xl"
+              source={productIcons[product] || activityStatusIcons.default}
             />
           </View>
         )
@@ -434,6 +489,14 @@ const ListItem: React.FC<ListItemProps> = ({
         )}
         {!!bottomMeta && (
           <Text className={`${subtitleClasses} text-xs-body mt-xs`}>{bottomMeta}</Text>
+        )}
+        {!!badge && (
+          <AppBadge
+            variant="soft"
+            color="success"
+            {...badge}
+            className={`mt-md self-start ${badge.className}`}
+          />
         )}
       </View>
       {trailing !== 'none' && (
