@@ -1,6 +1,6 @@
-import { FloatingButton } from 'components/molecules'
 import React, { useEffect, useState } from 'react'
 import { Keyboard, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView } from 'react-native'
+import { FloatingButton } from '../../components/molecules'
 
 export interface GlobalWrapperProps {
   children: React.ReactNode
