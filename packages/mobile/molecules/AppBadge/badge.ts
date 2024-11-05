@@ -1,6 +1,6 @@
 export type BadgeSize = 1 | 2 
 export type BadgeVariant = 'solid' | 'soft' | 'surface' | 'outline' | 'ghost'
-export type BadgeColor = 'accent' | 'neutral' | 'error' | 'succces'
+export type BadgeColor = 'accent' | 'neutral' | 'error' | 'success'
 export type BadgeState = 'default' | 'active' | 'disabled'
 
 export const badgeSizes: Record<BadgeSize, string> = {
@@ -22,7 +22,7 @@ export const badgeColors: Record<BadgeColor, Record<BadgeVariant, string>> = {
     outline: 'bg-transparent border border-light-edge-accent',
     ghost: 'bg-transparent',
   },
-  succces: {
+  success: {
     solid: 'bg-light-background-success-base dark:bg-dark-background-success-base',
     soft: 'bg-light-background-success-light dark:bg-dark-background-success-light',
     surface:
@@ -57,14 +57,14 @@ export const highContrastBadgeColors: Record<BadgeColor, Record<BadgeVariant, st
       'bg-light-background-accent-light border border-light-edge-gray-strong dark:border-dark-edge-gray-strong',
     ghost: 'bg-light-background-accent-transparent dark:bg-dark-background-accent-transparent',
   },
-  succces: {
-    solid: 'bg-light-background-succces-bold dark:bg-dark-background-succces-bold',
-    soft: 'bg-light-background-succces-light dark:bg-dark-background-succces-light',
+  success: {
+    solid: 'bg-light-background-success-bold dark:bg-dark-background-success-bold',
+    soft: 'bg-light-background-success-light dark:bg-dark-background-success-light',
     surface:
-      'bg-light-background-succces-light border border-light-edge-succces dark:border-dark-edge-succces',
+      'bg-light-background-success-light border border-light-edge-success dark:border-dark-edge-success',
     outline:
-      'bg-light-background-succces-light border border-light-edge-gray-strong dark:border-dark-edge-gray-strong',
-    ghost: 'bg-light-background-succces-transparent dark:bg-dark-background-succces-transparent',
+      'bg-light-background-success-light border border-light-edge-gray-strong dark:border-dark-edge-gray-strong',
+    ghost: 'bg-light-background-success-transparent dark:bg-dark-background-success-transparent',
   },
   neutral: {
     solid: 'bg-light-background-neutral-bold dark:bg-dark-background-neutral-bold',
@@ -94,12 +94,12 @@ export const textColors: Record<BadgeColor, Record<BadgeVariant, string>> = {
     outline: 'text-light-type-accent dark:text-dark-type-accent',
     ghost: 'text-light-type-accent dark:text-dark-type-accent',
   },
-  succces: {
+  success: {
     solid: 'text-light-contrast-white dark:text-dark-contrast-white',
-    soft: 'text-light-type-succces dark:text-dark-type-succces',
-    surface: 'text-light-type-succces dark:text-dark-type-succces',
-    outline: 'text-light-type-succces dark:text-dark-type-succces',
-    ghost: 'text-light-type-succces dark:text-dark-type-succces',
+    soft: 'text-light-type-success dark:text-dark-type-success',
+    surface: 'text-light-type-success dark:text-dark-type-success',
+    outline: 'text-light-type-success dark:text-dark-type-success',
+    ghost: 'text-light-type-success dark:text-dark-type-success',
   },
   neutral: {
     solid: 'text-light-contrast-white dark:text-dark-contrast-white',
@@ -124,12 +124,12 @@ export const highContrastTextColors: Record<BadgeColor, Record<BadgeVariant, str
     outline: 'text-light-type-accent dark:text-dark-type-accent',
     ghost: 'text-light-type-accent-bold dark:text-dark-type-accent-bold',
   },
-  succces: {
-    solid: 'text-light-type-succces-inverse dark:text-dark-type-succces-inverse',
-    soft: 'text-light-type-succces-bold dark:text-dark-type-accsucccesent-bold',
-    surface: 'text-light-type-succces dark:text-dark-type-succces ',
-    outline: 'text-light-type-succces dark:text-dark-type-succces',
-    ghost: 'text-light-type-succces-bold dark:text-dark-type-succces-bold',
+  success: {
+    solid: 'text-light-type-success-inverse dark:text-dark-type-success-inverse',
+    soft: 'text-light-type-success-bold dark:text-dark-type-accsuccessent-bold',
+    surface: 'text-light-type-success dark:text-dark-type-success ',
+    outline: 'text-light-type-success dark:text-dark-type-success',
+    ghost: 'text-light-type-success-bold dark:text-dark-type-success-bold',
   },
   neutral: {
     solid: 'text-light-type-gray-inverse dark:text-dark-type-gray-inverse',
