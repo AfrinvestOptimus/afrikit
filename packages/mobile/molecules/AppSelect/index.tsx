@@ -273,7 +273,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
             className="my-lg"
           />
         ) : null}
-        {isLoading && (
+        {!isLoading && (
           <View className="rounded-lg bg-light-white-to-dark dark:bg-dark-white-to-dark px-lg py-sm mt-lg">
             {filteredOptions?.map((option, index) => (
               <TouchableOpacity
@@ -289,7 +289,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
           </View>
         )}
 
-        {!isLoading && (
+        {isLoading && (
           <View className="rounded-lg bg-light-white-to-dark dark:bg-dark-white-to-dark px-lg py-sm mt-lg h-[280px] flex-row items-center justify-center">
             {customLoader ? (
               customLoader
