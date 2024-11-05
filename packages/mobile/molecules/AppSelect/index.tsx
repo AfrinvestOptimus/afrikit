@@ -189,8 +189,8 @@ const AppSelect: React.FC<AppSelectProps> = ({
 
   const filteredOptions = useMemo(() => {
     if (isSearchable) {
-      return options.filter(option =>
-        option.label.toLowerCase().includes(searchQuery.toLowerCase()),
+      return options?.filter(option =>
+        option?.label?.toLowerCase()?.includes(searchQuery?.toLowerCase()),
       )
     }
     return options
