@@ -60,11 +60,6 @@ export type AppDateInputProps = {
    * Initial date to display in the date picker.
    * This is optional and only used for the initial value.
    */
-  initialDate?: Date
-
-  /**
-   * Controlled date value, allowing the parent component to set the date.
-   */
   selectedDate?: Date
 }
 
@@ -76,12 +71,11 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
   hintText = '',
   onDateChange,
   renderConfirmButton,
-  initialDate,
   selectedDate,
 }) => {
   // Internal state for the date, using selectedDate or initialDate as initial value
   const [internalSelectedDate, setInternalSelectedDate] = useState<Date | null>(
-    selectedDate || initialDate || null,
+    selectedDate || null,
   )
 
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
