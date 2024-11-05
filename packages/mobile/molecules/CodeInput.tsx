@@ -39,10 +39,13 @@ const CodeInput: FC<OTPInputProps> = ({
   useEffect(() => {
     const updatedCodes = codeValue.split('').slice(0, count)
     setCodes(prevCodes => {
-      const newCodes = [...prevCodes]
+      const newCodes = Array(count).fill('')
       updatedCodes.forEach((char, index) => {
         newCodes[index] = char
       })
+      if (updatedCodes.length === count) {
+        onFullCode?.(updatedCodes.join(''))
+      }
       return newCodes
     })
   }, [codeValue, count])
