@@ -66,6 +66,16 @@ export type AppSelectProps = {
    * Takes an option object with a `value` and `index`.
    */
   renderItem?: (option: SelectItem) => React.JSX.Element | null
+  /**
+   * Flag to indicate if options are loading.
+   * Default is false.
+   */
+  isLoading?: boolean
+
+  /**
+   * Optional custom loader component that is displayed when isLoading is true.
+   */
+  customLoader?: React.JSX.Element
 }
 
 /**
@@ -83,6 +93,8 @@ const AppSelect: React.FC<AppSelectProps> = ({
   hintText = '',
   title = '',
   className = '',
+  isLoading = false,
+  customLoader,
   onValueChange,
   renderItem,
 }) => {
@@ -261,19 +273,33 @@ const AppSelect: React.FC<AppSelectProps> = ({
             className="my-lg"
           />
         ) : null}
-        <View className="rounded-lg bg-light-white-to-dark dark:bg-dark-white-to-dark px-lg py-sm mt-lg">
-          {filteredOptions?.map((option, index) => (
-            <TouchableOpacity
-              key={`${option}-${index}`}
-              accessibilityRole="menuitem"
-              accessibilityLabel={option.label}
-              accessibilityHint={`Select ${option}`}
-              onPress={() => handleSelectOption(option)}
-              className="py-lg">
-              {renderItem ? renderItem(option) : renderDefaultItem(option)}
-            </TouchableOpacity>
-          ))}
-        </View>
+        {isLoading && (
+          <View className="rounded-lg bg-light-white-to-dark dark:bg-dark-white-to-dark px-lg py-sm mt-lg">
+            {filteredOptions?.map((option, index) => (
+              <TouchableOpacity
+                key={`${option}-${index}`}
+                accessibilityRole="menuitem"
+                accessibilityLabel={option.label}
+                accessibilityHint={`Select ${option}`}
+                onPress={() => handleSelectOption(option)}
+                className="py-lg">
+                {renderItem ? renderItem(option) : renderDefaultItem(option)}
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+
+        {!isLoading && (
+          <View className="rounded-lg bg-light-white-to-dark dark:bg-dark-white-to-dark px-lg py-sm mt-lg h-[280px] flex-row items-center justify-center">
+            {customLoader ? (
+              customLoader
+            ) : (
+              <AppText align="center" size={2} color="gray" highContrast weight="medium">
+                Loading ....
+              </AppText>
+            )}
+          </View>
+        )}
       </AppBottomSheet>
     </View>
   )
