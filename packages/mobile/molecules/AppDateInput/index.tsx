@@ -2,7 +2,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker'
 import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import AppText from '../../atoms/AppText'
 import AppBottomSheet from '../AppBottomSheet'
@@ -16,7 +16,6 @@ import IconTemp from '../AppIcon'
 export type AppDateInputProps = {
   /**
    * The label to display above the date input field.
-   * This is a required prop.
    */
   label: string
 
@@ -56,6 +55,17 @@ export type AppDateInputProps = {
    * If not provided, a default confirm button will be rendered.
    */
   renderConfirmButton?: () => React.ReactNode
+
+  /**
+   * Initial date to display in the date picker.
+   * This is optional and only used for the initial value.
+   */
+  initialDate?: Date
+
+  /**
+   * Controlled date value, allowing the parent component to set the date.
+   */
+  selectedDate?: Date
 }
 
 const AppDateInput: React.FC<AppDateInputProps> = ({
@@ -65,15 +75,28 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
   errorText = '',
   hintText = '',
   onDateChange,
-  renderConfirmButton, // Destructure the new prop
+  renderConfirmButton,
+  initialDate,
+  selectedDate,
 }) => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  // Internal state for the date, using selectedDate or initialDate as initial value
+  const [internalSelectedDate, setInternalSelectedDate] = useState<Date | null>(
+    selectedDate || initialDate || null,
+  )
+
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
   const [showPicker, setShowPicker] = useState(false)
 
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const { colorScheme } = useColorScheme()
   const isDarkMode = colorScheme === 'dark'
+
+  useEffect(() => {
+    // Update internal state if selectedDate prop changes
+    if (selectedDate) {
+      setInternalSelectedDate(selectedDate)
+    }
+  }, [selectedDate])
 
   const handleOpenBottomSheet = useCallback(() => {
     if (state !== 'disabled') {
@@ -91,7 +114,7 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
 
   const handleDateChange = useCallback(
     (event: DateTimePickerEvent, date?: Date) => {
-      setSelectedDate(date || new Date())
+      setInternalSelectedDate(date || new Date())
       onDateChange?.(date || new Date())
     },
     [onDateChange],
@@ -135,7 +158,7 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
             hasError
               ? 'border border-light-edge-error-strong dark:border-dark-edge-error-strong'
               : 'border-none'
-          }  p-md rounded-md  flex-row justify-between items-center h-[56px] ${getBackgroundStyles(
+          }  p-md rounded-md flex-row justify-between items-center h-[56px] ${getBackgroundStyles(
             state,
           )}`}
           accessibilityLabel={label}
@@ -148,9 +171,9 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
             <AppText className={`text-xs font-regular ${getTextStyles(state).label}`}>
               {label}
             </AppText>
-            {!!selectedDate && (
+            {!!internalSelectedDate && (
               <AppText className={`text-sm font-semibold ${getTextStyles(state).selectedValue}`}>
-                {selectedDate.toDateString()}
+                {internalSelectedDate.toDateString()}
               </AppText>
             )}
           </View>
@@ -183,7 +206,7 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
             <View className="flex justify-center mt-md">
               <View>
                 <DateTimePicker
-                  value={selectedDate || new Date()}
+                  value={internalSelectedDate || new Date()}
                   mode="date"
                   display="spinner"
                   onChange={handleDateChange}
