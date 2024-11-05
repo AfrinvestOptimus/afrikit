@@ -1,6 +1,6 @@
 import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
-import * as React from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
   Animated,
   NativeSyntheticEvent,
@@ -29,57 +29,54 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
   hintText,
   ...props
 }) => {
-  const textInputRef = React.useRef<TextInput>(null)
-  const [values, setValues] = React.useState<string>('')
-  const [focused, setFocused] = React.useState<boolean>(false)
-  const [inputValue, setInputValue] = React.useState<string>(value)
-  const [passwordVisible, setIsPasswordVisible] = React.useState<boolean>(true)
-  const animatedIsFocused = React.useRef(new Animated.Value(value ? 1 : 0)).current
+  const textInputRef = useRef<TextInput>(null)
+  const [values, setValues] = useState<string>('')
+  const [focused, setFocused] = useState<boolean>(false)
+  const [inputValue, setInputValue] = useState<string>(value)
+  const [passwordVisible, setIsPasswordVisible] = useState<boolean>(true)
+  const animatedIsFocused = useRef(new Animated.Value(value ? 1 : 0)).current
   const { colorScheme } = useColorScheme()
   const isDarkMode = colorScheme === 'dark'
 
-  React.useEffect(() => {
+  useEffect(() => {
     Animated.timing(animatedIsFocused, {
       toValue: focused || inputValue ? 1 : 0,
       duration: 200,
       useNativeDriver: false,
     }).start()
-  }, [focused, animatedIsFocused, inputValue])
+  }, [focused, inputValue])
 
-  // store init value
+  // Store initial value
   const _text = useSharedValue(value)
 
   // handle input field change state at every steo
-  const onChangeText = React.useCallback(
+  const onChangeText = useCallback(
     (text: string) => {
       setInputValue(text)
       onChangeTextProp?.(text)
       setValues(text)
       _text.value = text
     },
-    [_text],
+    [_text, onChangeTextProp],
   )
 
   // handle input not focused state
-  const handleBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-    onBlur?.(e)
-    setFocused(false)
-  }
+  const handleBlur = useCallback(
+    (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+      onBlur?.(e)
+      setFocused(false)
+    },
+    [onBlur],
+  )
 
-  // handle focus state for input field
-  const handleFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-    onFocus?.(e)
-    setFocused(true)
-  }
-
-  // collate all props
-  const addedProps = {
-    ...props,
-    onChangeText: onChangeText,
-    onBlur: handleBlur,
-    onFocus: handleFocus,
-    placeholder: floatingLabel ? undefined : props.placeholder,
-  }
+  // Handle focus state
+  const handleFocus = useCallback(
+    (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+      onFocus?.(e)
+      setFocused(true)
+    },
+    [onFocus],
+  )
 
   const floatLabelStyle = {
     top: animatedIsFocused.interpolate({
@@ -95,44 +92,41 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
       outputRange: [12, 20],
     }),
   }
-  // handel toogle password visibility
-  const togglePasswordVisibility = () => setIsPasswordVisible(prevState => !prevState)
+  // handel toggle password visibility
+  const togglePasswordVisibility = () => setIsPasswordVisible(prev => !prev)
 
-  // handle Clear Input
-  const handleClear = () => {
+  const handleClear = useCallback(() => {
     setInputValue('')
-  }
+    onChangeText('')
+  }, [onChangeText])
 
-  const getBorderStyle = () => {
+  const getBorderStyle = useCallback(() => {
     if (focused) {
       return error
-        ? 'border-b-2 border-light-edge-error-strong dark:border-dark-edge-error-strong rounded-t-md' // show red bottom border when the input isn't valued
-        : 'border-b-2 border-light-edge-accent-strong dark:border-dark-edge-accent-strong rounded-t-md' // show blue bottom border when the input is valid
+        ? 'border-b-2 border-light-edge-error-strong dark:border-dark-edge-error-strong rounded-t-md'
+        : 'border-b-2 border-light-edge-accent-strong dark:border-dark-edge-accent-strong rounded-t-md'
     }
     return error
-      ? `border-2 border-light-edge-error-strong dark:border-dark-edge-error-strong rounded-md` // show red border when the input isn't valued and the field isn't in a focused state
-      : 'border-0 border-transparent rounded-md' // defaulting to rounded input when there's neither a focused state or error state on the input field
-  }
+      ? 'border-2 border-light-edge-error-strong dark:border-dark-edge-error-strong rounded-md'
+      : 'border-0 border-transparent rounded-md'
+  }, [error, focused])
 
-  // handle Password Icon
-  const renderPasswordIcon = () => (
-    <TouchableOpacity onPress={togglePasswordVisibility} className="justify-center pl-2">
-      <RemixIcon
-        name={passwordVisible ? 'eye-close-line' : 'eye-line'}
-        size={20}
-        color={colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
-      />
-    </TouchableOpacity>
+  const renderPasswordIcon = useCallback(
+    () => (
+      <TouchableOpacity onPress={togglePasswordVisibility} className="justify-center pl-2">
+        <RemixIcon
+          name={passwordVisible ? 'eye-close-line' : 'eye-line'}
+          size={20}
+          color={colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
+        />
+      </TouchableOpacity>
+    ),
+    [passwordVisible, isDarkMode],
   )
 
   return (
     <View className={className}>
-      <TouchableWithoutFeedback
-        onPress={() => {
-          textInputRef.current?.focus()
-          //TODO: to be motified
-          // props?.onPress?.();
-        }}>
+      <TouchableWithoutFeedback onPress={() => textInputRef.current?.focus()}>
         <View
           className={`px-sm items-center w-full flex-row bg-light-surface-gray dark:bg-dark-surface-gray h-[56px] ${getBorderStyle()}`}>
           <View className="flex-1 px-xs ">
@@ -145,16 +139,20 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
               </Animated.Text>
             )}
             <TextInput
-              {...addedProps}
+              {...props}
               ref={textInputRef}
-              allowFontScaling={false}
-              hitSlop={{ top: 10, bottom: 10, left: 40, right: 40 }}
-              returnKeyType="done"
-              autoFocus={focused}
-              numberOfLines={numberOfLines}
+              onChangeText={onChangeText}
+              onBlur={handleBlur}
+              onFocus={handleFocus}
               value={inputValue}
               secureTextEntry={passwordVisible}
               className="text-sm-head text-light-type-gray dark:text-dark-type-gray-muted"
+              returnKeyType="done"
+              allowFontScaling={false}
+              hitSlop={{ top: 10, bottom: 10, left: 40, right: 40 }}
+              autoFocus={focused}
+              numberOfLines={numberOfLines}
+              placeholder={floatingLabel ? undefined : props.placeholder}
             />
           </View>
 
@@ -170,13 +168,12 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
           {renderPasswordIcon()}
         </View>
       </TouchableWithoutFeedback>
-      {!!error &&
-        (typeof error === 'string' ? (
-          <AppHintText type="error" text={error} className="py-xs" />
-        ) : undefined)}
-      {hintText ? (
+      {!!error && typeof error === 'string' && (
+        <AppHintText type="error" text={error} className="py-xs" />
+      )}
+      {hintText && (
         <AppHintText text={hintText} className="mt-sm" accessibilityHintText={hintText} />
-      ) : null}
+      )}
     </View>
   )
 }
