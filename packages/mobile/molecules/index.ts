@@ -9,6 +9,7 @@ export { default as AppDateInput, type AppDateInputProps } from './AppDateInput'
 export { default as AppHintText, type AppHintTextProps } from './AppHintText'
 export { default as AppIcon, type AppIconProps } from './AppIcon'
 export { default as AppInput } from './AppInput'
+export { default as AppListItem, type ListItemProps } from './AppList'
 export { AppModalLoader, type AppModalLoaderProps } from './AppModalLoader'
 export { default as AppPasswordInput } from './AppPasswordInput'
 export { default as AppPhoneInput } from './AppPhoneInput'
@@ -19,5 +20,4 @@ export { default as AuthInput, type AuthInputProps, type KeyboardType } from './
 export { default as CodeInput, type OTPInputProps } from './CodeInput'
 export { GlobalWrapper, type GlobalWrapperProps } from './GlobalWrapper'
 export { default as AppKeypad, type KeyPadInputType, type KeyPadProps } from './keypad'
-export { default as AppListItem, type ListItemProps } from './list-item'
 

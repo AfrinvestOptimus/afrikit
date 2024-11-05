@@ -15,6 +15,10 @@ import {
   AppIcon,
   AppIconProps,
 } from '../index'
+import ProductEarn from './product-earn.png'
+import ProductFlex from './product-flex.png'
+import ProductLock from './product-lock.png'
+import ProductTarget from './product-target.png'
 
 type LeadingOptions =
   | 'none'
@@ -81,6 +85,7 @@ export type ListItemProps<L extends LeadingOptions, T extends TrailingOptions> =
   subtitle?: string
   subtitleProps?: AppTextAtomProps
   activity?: ActivityStatus
+  product?: ProductType
   topMeta?: string
   bottomMeta?: string
   containerClassName?: string
@@ -101,11 +106,11 @@ const activityStatusIcons = {
 }
 
 const productIcons = {
-  default: 'flashlight-line',
-  OptiFlex: 'flashlight-line',
-  OptiLock: 'arrow-left-right-line',
-  OptiTarget: 'add-line',
-  Earn: 'arrow-right-up-line',
+  default: ProductEarn,
+  OptiFlex: ProductFlex,
+  OptiLock: ProductLock,
+  OptiTarget: ProductTarget,
+  Earn: ProductEarn,
 }
 
 const densitySpacing = {
@@ -115,6 +120,7 @@ const densitySpacing = {
 }
 type Density = keyof typeof densitySpacing
 type ActivityStatus = keyof typeof activityStatusIcons
+type ProductType = keyof typeof productIcons
 
 cssInterop(RemixIcon, {
   className: {
@@ -226,6 +232,7 @@ const ListItem: React.FC<ListItemProps<LeadingOptions, TrailingOptions>> = ({
   separator = false,
   isChecked = false,
   activity = 'default',
+  product = 'default',
   title,
   subtitle,
   titleProps,
@@ -344,7 +351,7 @@ const ListItem: React.FC<ListItemProps<LeadingOptions, TrailingOptions>> = ({
         return (
           <View
             className={`w-3xl h-3xl rounded-md-max gap-lg justify-center items-center ${activity === 'system' ? 'bg-light-background-accent-light dark:bg-dark-background-accent-light' : 'bg-light-surface-gray dark:bg-dark-surface-gray'}`}>
-            {activity === 'avatar' ? ( //TODO: return dummy avatar
+            {activity === 'avatar' ? (
               <AppAvatar
                 size={3}
                 color="accent"
@@ -367,12 +374,12 @@ const ListItem: React.FC<ListItemProps<LeadingOptions, TrailingOptions>> = ({
             )}
           </View>
         )
-      case 'productIcon': //TODO: Find product icons or logos
+      case 'productIcon': //TODO: Add more product icons and provide support for customizatioj
         return (
           <View className="w-4xl h-4xl rounded-md-max border border-light-edge-gray-subtle dark:border-dark-edge-gray-subtle justify-center items-center">
             <Image
-              className="w-xl h-xl"
-              source={{ uri: 'https://www.worldometers.info//img/flags/small/tn_cu-flag.gif' }}
+              className="w-2xl h-2xl"
+              source={productIcons[product] || activityStatusIcons.default}
             />
           </View>
         )
