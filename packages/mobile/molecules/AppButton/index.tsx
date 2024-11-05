@@ -1,5 +1,11 @@
 import React, { useMemo } from 'react'
-import { GestureResponderEvent, Text, TouchableOpacity, View } from 'react-native'
+import {
+  ActivityIndicator,
+  GestureResponderEvent,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import {
   ButtonColor,
   buttonColors,
@@ -102,6 +108,13 @@ export interface AppButtonProps {
    * Default is an empty string.
    */
   accessibilityHint?: string
+
+  /**
+   * Indicates if the button is in a loading state.
+   * When true, the button text is replaced with a loading spinner.
+   * Default is false.
+   */
+  isLoading?: boolean
 }
 
 const AppButton: React.FC<AppButtonProps> = ({
@@ -112,6 +125,7 @@ const AppButton: React.FC<AppButtonProps> = ({
   state = 'default',
   iconStart = false,
   iconEnd = false,
+  isLoading = false,
   className,
   text,
   onPress,
@@ -161,7 +175,11 @@ const AppButton: React.FC<AppButtonProps> = ({
             {/* Icon Component - Will add the icon here after the remix icon setup */}{' '}
           </View>
         )}
-        <Text className={`font-semibold ${combinedTextStyle}`}>{text}</Text>
+        {isLoading ? (
+          <ActivityIndicator animating size="small" color={combinedTextStyle} />
+        ) : (
+          <Text className={`font-semibold ${combinedTextStyle}`}>{text}</Text>
+        )}
         {iconEnd && (
           <View className="ml-2">
             {' '}
