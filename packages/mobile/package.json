@@ -7,8 +7,7 @@
   "files": [
     "dist",
     "tailwind.config.js",
-    "global.css",
-    "assets"
+    "global.css"
   ],
   "scripts": {
     "start": "expo start",
@@ -19,7 +18,7 @@
     "build": "tsc && tsc-alias && yarn build:css && yarn copy-assets",
     "build:css": "babel . --out-dir dist --extensions \".ts,.tsx\" --ignore \"node_modules,dist\" --source-maps inline",
     "prepublishOnly": "yarn build",
-    "copy-assets": "mkdir -p dist/assets && cp -R assets/* dist/assets/"
+    "copy-assets": "mkdir -p packages/mobile/dist/assets && cp -R ./assets/* dist/assets/"
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.2.3",

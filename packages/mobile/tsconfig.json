@@ -46,6 +46,7 @@
     "./utilities/**/*",
     "./global.css",
     "./index.ts",
+    "./assets/**/*",
     "nativewind-env.d.ts"
   ],
   "exclude": [
