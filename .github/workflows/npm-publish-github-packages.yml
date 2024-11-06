@@ -35,7 +35,13 @@ jobs:
       - name: Build project
         run: yarn build
 
-      # Step 6: Use Lerna to version and publish all updated packages to npm
+      # Step 6: Copy assets to dist folder
+      - name: Copy assets to dist
+        run: |
+          mkdir -p dist/assets
+          cp -R mobile/assets/* dist/assets/
+
+      # Step 7: Use Lerna to version and publish all updated packages to npm
       - name: Publish packages with Lerna
         run: |
           git config --global user.email "developers@afrinvest.com"
@@ -47,7 +53,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
-      # Step 7: Push version changes and tags to GitHub only if there are changes
+      # Step 8: Push version changes and tags to GitHub only if there are changes
       - name: Check if there are changes
         id: changes
         run: |
