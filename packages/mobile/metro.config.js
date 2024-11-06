@@ -22,7 +22,7 @@ config.resolver.assetExts = [
 ];
 
 config.watchFolders = [
-    path.resolve(__dirname, '../assets'),
+    path.resolve(__dirname, './assets'),
 ];
 
 module.exports = withNativeWind(config, { input: './global.css' })
