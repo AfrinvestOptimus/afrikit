@@ -15,13 +15,11 @@ import {
 import { useSharedValue } from 'react-native-reanimated'
 import RemixIcon from 'react-native-remix-icon'
 import { AppInputProps } from '../types/atoms'
-import { AppInputBlur } from '../utilities/validation'
 
 const AppSearchInput: React.FC<AppInputProps> = ({
   onBlur,
   floatingLabel = true,
   onFocus,
-  type,
   label,
   onChangeText: onChangeTextProp,
   onClear,
@@ -61,9 +59,6 @@ const AppSearchInput: React.FC<AppInputProps> = ({
 
   // handle input not focused state
   const handleBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-    if (type) {
-      AppInputBlur(values, onChangeText, false)
-    }
     onBlur?.(e)
     setFocused(false)
   }
