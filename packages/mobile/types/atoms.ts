@@ -29,6 +29,7 @@ export type AppTitleAtomProps = {
   align?: 'left' | 'center'
   subtitle?: string
   titlePosition?: 'top' | 'bottom'
+  containerClassName?: string
   spacing?: 1 | 2 | 3
 } & (
   | {

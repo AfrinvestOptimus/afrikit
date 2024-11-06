@@ -8,6 +8,7 @@ function AppTitle({
   subtitle,
   align = 'center',
   titlePosition = 'top',
+  containerClassName,
   spacing = 1,
 }: AppTitleAtomProps) {
   const spacingStyle = {
@@ -27,12 +28,12 @@ function AppTitle({
   }
   return (
     <View
-      className={classNames(
+      className={`${classNames(
         '',
         alignStyle[align],
         titlePositionStyle[titlePosition],
         spacingStyle[spacing],
-      )}>
+      )} ${containerClassName}`}>
       <Text className={classNames('text-light-type-gray dark:text-dark-type-gray text-2xl-bold')}>
         {title}
       </Text>
