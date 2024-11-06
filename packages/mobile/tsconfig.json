@@ -42,6 +42,7 @@
     "./atoms/**/*",
     "./organisms/**/*",
     "./types/**/*",
+    "./assets/**/*",
     "./utilities/**/*",
     "./global.css",
     "./index.ts",
