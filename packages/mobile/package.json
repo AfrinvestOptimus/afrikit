@@ -18,7 +18,8 @@
     "build": "tsc && tsc-alias && yarn build:css && yarn copy-assets",
     "build:css": "babel . --out-dir dist --extensions \".ts,.tsx\" --ignore \"node_modules,dist\" --source-maps inline",
     "prepublishOnly": "yarn build",
-    "copy-assets": "node copyAssets.js"
+    "copy-assets": "mkdir -p dist/assets && cp -R assets/* dist/assets/"
+
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.2.3",
