@@ -5,6 +5,14 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { AppText } from '../../atoms'
 import AppIcon from '../../molecules/AppIcon'
 
+type ActionObject = {
+  iconName: string
+  backIconColor: string
+  onPress: () => void
+  accessibilityLabel?: string
+  accessibilityHint?: string
+}
+
 export interface AppTopBarProps {
   /**
    * The title displayed in the center of the top bar.
@@ -24,13 +32,7 @@ export interface AppTopBarProps {
    * - `onPress`: Callback function triggered when the action button is pressed.
    * - `accessibilityLabel` and `accessibilityHint`: Optional accessibility labels and hints.
    */
-  actions?: Array<{
-    iconName: string
-    backIconColor: string
-    onPress: () => void
-    accessibilityLabel?: string
-    accessibilityHint?: string
-  }>
+  actions?: Array<ActionObject | React.ReactNode>
 
   /**
    * Name for the back icon. Defaults to `arrow-left-wide-line`.
@@ -130,6 +132,11 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
       </TouchableOpacity>
     )
   }
+  const isActionObject = (action: ActionObject | React.ReactNode): action is ActionObject => {
+    return (
+      typeof action === 'object' && action !== null && 'iconName' in action && 'onPress' in action
+    )
+  }
 
   // Render left section
   const renderLeftSection = () => {
@@ -157,24 +164,35 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
   const renderRightActions = () => {
     if (!actions) return null
 
-    return actions.map((action, index) => (
-      <TouchableOpacity
-        key={index}
-        onPress={action.onPress}
-        className="ml-lg"
-        accessibilityLabel={action.accessibilityLabel || `Action ${index + 1}`}
-        accessibilityHint={action.accessibilityHint || `Press to activate action ${index + 1}`}>
-        {' '}
-        // Default accessibilityHint
-        <AppIcon
-          name={action.iconName}
-          size="24"
-          color={action.backIconColor || colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
-          accessibilityLabel={action.accessibilityLabel || `Action ${index + 1}`}
-          accessibilityHint={action.accessibilityHint || `Press to activate action ${index + 1}`}
-        />
-      </TouchableOpacity>
-    ))
+    return actions.map((action, index) => {
+      if (isActionObject(action)) {
+        // Render action as a button with icon if it's an action object
+        return (
+          <TouchableOpacity
+            key={index}
+            onPress={action.onPress}
+            className="ml-lg"
+            accessibilityLabel={action.accessibilityLabel || `Action ${index + 1}`}
+            accessibilityHint={action.accessibilityHint || `Press to activate action ${index + 1}`}>
+            <AppIcon
+              name={action.iconName}
+              size="24"
+              color={
+                action.backIconColor || colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT
+              }
+              accessibilityLabel={action.accessibilityLabel || `Action ${index + 1}`}
+              accessibilityHint={
+                action.accessibilityHint || `Press to activate action ${index + 1}`
+              }
+            />
+          </TouchableOpacity>
+        )
+      } else if (React.isValidElement(action)) {
+        // Render directly if it’s a ReactNode
+        return <React.Fragment key={index}>{action}</React.Fragment>
+      }
+      return null
+    })
   }
 
   return (
