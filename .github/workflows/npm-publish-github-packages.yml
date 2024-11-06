@@ -39,7 +39,7 @@ jobs:
       - name: Copy assets to dist
         run: |
           mkdir -p dist/assets
-          cp -R mobile/assets/* dist/assets/
+          cp -R packages/mobile/assets/* dist/assets/
 
       # Step 7: Use Lerna to version and publish all updated packages to npm
       - name: Publish packages with Lerna
