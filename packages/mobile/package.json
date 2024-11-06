@@ -7,7 +7,8 @@
   "files": [
     "dist",
     "tailwind.config.js",
-    "global.css"
+    "global.css",
+    "assets"
   ],
   "scripts": {
     "start": "expo start",
