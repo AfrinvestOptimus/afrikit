@@ -16,9 +16,10 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "prebuild": "rm -rf dist",
-    "build": "tsc && tsc-alias && yarn build:css",
+    "build": "tsc && tsc-alias && yarn build:css && yarn copy-assets",
     "build:css": "babel . --out-dir dist --extensions \".ts,.tsx\" --ignore \"node_modules,dist\" --source-maps inline",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "copy-assets": "mkdir -p dist/assets && cp -R assets/* dist/assets/"
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.2.3",
