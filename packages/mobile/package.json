@@ -20,6 +20,7 @@
     "prepublishOnly": "yarn build",
     "copy-assets": "mkdir -p dist/assets && cp -R assets/* dist/assets/"
 
+
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.2.3",
