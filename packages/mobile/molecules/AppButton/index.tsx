@@ -115,6 +115,7 @@ export interface AppButtonProps {
    * Default is false.
    */
   isLoading?: boolean
+  textClassName?: string
 }
 
 const AppButton: React.FC<AppButtonProps> = ({
@@ -129,6 +130,7 @@ const AppButton: React.FC<AppButtonProps> = ({
   className,
   text,
   onPress,
+  textClassName,
   accessibilityLabel,
   accessibilityHint,
 }) => {
@@ -178,7 +180,7 @@ const AppButton: React.FC<AppButtonProps> = ({
         {isLoading ? (
           <ActivityIndicator animating size="small" color={combinedTextStyle} />
         ) : (
-          <Text className={`font-semibold ${combinedTextStyle}`}>{text}</Text>
+          <Text className={`font-semibold ${combinedTextStyle} ${textClassName}`}>{text}</Text>
         )}
         {iconEnd && (
           <View className="ml-2">
