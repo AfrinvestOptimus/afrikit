@@ -1,4 +1,5 @@
 import colors from 'afrikit-shared/dist/colors'
+import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { Image, Text, View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
@@ -108,6 +109,9 @@ const AppAvatar: React.FC<AppAvatarProps> = ({
   numberOfInitials = 1,
   accessibilityLabel = '',
 }) => {
+  const { colorScheme } = useColorScheme()
+  const isDarkMode = colorScheme === 'dark'
+
   const avatarSizeStyle = sizeStyles[size]
   const textColor = highContrast
     ? highContrastTextColors[color][variant]
@@ -152,7 +156,11 @@ const AppAvatar: React.FC<AppAvatarProps> = ({
             className={`${classNames(avatarSizeStyle, avatarColor)} flex items-center justify-center`}
             accessibilityLabel={accessibilityLabel}
             accessibilityRole="image">
-            <RemixIcon name="user-6-line" size={iconSize} color={colors.light.amber1} />
+            <RemixIcon
+              name="user-6-line"
+              size={iconSize}
+              color={colors[isDarkMode ? 'dark' : 'light'].amber1}
+            />
           </View>
         )
       default:
