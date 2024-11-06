@@ -3,6 +3,10 @@ import { cssInterop, useColorScheme } from 'nativewind'
 import React from 'react'
 import { Image, Switch, Text, TouchableOpacity, View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
+import ProductEarn from '../../assets/product-earn.png'
+import ProductFlex from '../../assets/product-flex.png'
+import ProductLock from '../../assets/product-lock.png'
+import ProductTarget from '../../assets/product-target.png'
 import AppText from '../../atoms/AppText'
 import { AppTextAtomProps } from '../../types/atoms'
 import {
@@ -15,10 +19,6 @@ import {
   AppIcon,
   AppIconProps,
 } from '../index'
-import ProductEarn from './product-earn.png'
-import ProductFlex from './product-flex.png'
-import ProductLock from './product-lock.png'
-import ProductTarget from './product-target.png'
 
 type LeadingOptions =
   | 'none'
