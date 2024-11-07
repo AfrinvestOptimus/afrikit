@@ -1,7 +1,7 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import AppText from '../../atoms/AppText'
 import AppSearchInput from '../../molecules/AppSearchInput'
@@ -10,6 +10,7 @@ import AppHintText from '../AppHintText'
 import IconTemp from '../AppIcon'
 
 export type SelectItem = { value: string | number; label: string }
+
 /**
  * Props for the AppSelect component.
  */
@@ -35,8 +36,23 @@ export type AppSelectProps = {
    * Default is false.
    */
   hasError?: boolean
+
+  /**
+   * Allows users to search within the options list.
+   * Default is true.
+   */
   isSearchable?: boolean
+
+  /**
+   * The title displayed at the top of the options list modal.
+   * Optional.
+   */
   title?: string
+
+  /**
+   * An optional initial value to set as the selected option on load.
+   */
+  initialValue?: SelectItem | null
 
   /**
    * The error message text to display when hasError is true.
@@ -57,7 +73,7 @@ export type AppSelectProps = {
 
   /**
    * Callback function that is triggered when an option is selected.
-   * Returns the selected value as a string.
+   * Returns the selected value as a SelectItem.
    */
   onValueChange?: (value: SelectItem) => void
 
@@ -66,6 +82,7 @@ export type AppSelectProps = {
    * Takes an option object with a `value` and `index`.
    */
   renderItem?: (option: SelectItem) => React.JSX.Element | null
+
   /**
    * Flag to indicate if options are loading.
    * Default is false.
@@ -93,13 +110,14 @@ const AppSelect: React.FC<AppSelectProps> = ({
   hintText = '',
   title = '',
   className = '',
+  initialValue = null,
   isLoading = false,
   customLoader,
   onValueChange,
   renderItem,
 }) => {
   // State to manage selected value and bottom sheet visibility
-  const [selectedValue, setSelectedValue] = useState<SelectItem | null>(null)
+  const [selectedValue, setSelectedValue] = useState<SelectItem | null>(initialValue)
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -109,6 +127,11 @@ const AppSelect: React.FC<AppSelectProps> = ({
 
   // Ref for controlling the bottom sheet modal
   const bottomSheetRef = React.useRef<BottomSheetModal>(null)
+
+  // Effect to update selected value when initialValue changes
+  useEffect(() => {
+    setSelectedValue(initialValue)
+  }, [initialValue])
 
   // Opens the bottom sheet if the select state is not 'disabled'
   const handleOpenBottomSheet = useCallback(() => {
@@ -206,6 +229,8 @@ const AppSelect: React.FC<AppSelectProps> = ({
         accessibilityLabel={label}
         accessibilityRole="button"
         accessibilityHint="Opens selection menu"
+        accessibilityState={{ disabled: state === 'disabled' }}
+        accessibilityLiveRegion="polite"
         className={`${
           hasError
             ? 'border border-light-edge-error-strong dark:border-dark-edge-error-strong'
@@ -270,14 +295,15 @@ const AppSelect: React.FC<AppSelectProps> = ({
             value={searchQuery}
             onChangeText={setSearchQuery}
             onClear={onClear}
-            className="my-lg"
+            className="mb-xs"
           />
         ) : null}
+
         {!isLoading && (
           <View className="rounded-lg bg-light-white-to-dark dark:bg-dark-white-to-dark px-lg py-sm mt-lg">
             {filteredOptions?.map((option, index) => (
               <TouchableOpacity
-                key={`${option}-${index}`}
+                key={option.value}
                 accessibilityRole="menuitem"
                 accessibilityLabel={option.label}
                 accessibilityHint={`Select ${option}`}
