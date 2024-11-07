@@ -247,6 +247,7 @@ const ListItem: React.FC<ListItemProps<LeadingOptions, TrailingOptions>> = ({
   trailingSubtitle,
   trailingIcon,
   trailingIconColor,
+  leadingIconColor,
   topMeta,
   bottomMeta,
   leadingContent,
@@ -330,10 +331,18 @@ const ListItem: React.FC<ListItemProps<LeadingOptions, TrailingOptions>> = ({
       case 'icon':
         return (
           <AppIcon
-            // name={typeof leadingContent === 'string' ? leadingContent : 'user-6-line'}
-            // color={trailingIconColor || colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
             {...(leadingComponent as AppIconProps)}
-            size={(leadingComponent as AppIconProps)?.size}
+            name={
+              typeof leadingContent === 'string'
+                ? leadingContent
+                : (leadingComponent as AppIconProps)?.name || 'user-6-line'
+            }
+            color={
+              (leadingComponent as AppIconProps)?.color ||
+              leadingIconColor ||
+              colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT
+            }
+            size={(leadingComponent as AppIconProps)?.size || '48'}
           />
         )
       case 'paymentMethod':
