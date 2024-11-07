@@ -5,10 +5,11 @@ import { View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
 import classNames from '../utilities/classnames'
 
+export type AppIconSize = '16' | '20' | '24' | '40' | '48'
 export type AppIconProps = {
   name: string
   color?: string
-  size: '16' | '20' | '24' | '40' | '48'
+  size: AppIconSize
   accessibilityLabel?: string
   accessibilityHint?: string
 }
