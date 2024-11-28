@@ -101,8 +101,9 @@ const AppInput: React.FC<AppInputProps> = ({
       outputRange: [12, 20],
     }),
   }
-  // handel clear input field
+  // handle clear input field
   const handleClear = () => {
+    onChangeText('')
     setInputValue('')
   }
 

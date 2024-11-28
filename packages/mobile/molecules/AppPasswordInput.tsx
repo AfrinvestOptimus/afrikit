@@ -92,7 +92,7 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
       outputRange: [12, 20],
     }),
   }
-  // handel toggle password visibility
+  // handle toggle password visibility
   const togglePasswordVisibility = () => setIsPasswordVisible(prev => !prev)
 
   const handleClear = useCallback(() => {
