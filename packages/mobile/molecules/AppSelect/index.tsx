@@ -141,12 +141,17 @@ const AppSelect: React.FC<AppSelectProps> = ({
     }
   }, [state])
 
+  const onClear = useCallback(() => {
+    setSearchQuery('')
+  }, [])
+
   // Handles the selection of an option
   const handleSelectOption = useCallback(
     (option: SelectItem) => {
       setSelectedValue(option)
       setIsBottomSheetOpen(false)
       onValueChange?.(option)
+      onClear()
       bottomSheetRef.current?.dismiss()
     },
     [onValueChange],
@@ -218,10 +223,6 @@ const AppSelect: React.FC<AppSelectProps> = ({
     }
     return options
   }, [options, isSearchable, searchQuery])
-
-  const onClear = useCallback(() => {
-    setSearchQuery('')
-  }, [])
 
   return (
     <View className={className}>
