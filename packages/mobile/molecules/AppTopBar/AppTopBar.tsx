@@ -3,11 +3,12 @@ import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { AppText } from '../../atoms'
-import AppIcon from '../../molecules/AppIcon'
+import AppIcon, { AppIconSize } from '../../molecules/AppIcon'
 
 type ActionObject = {
   iconName: string
-  backIconColor: string
+  iconColor: string
+  size: AppIconSize
   onPress: () => void
   accessibilityLabel?: string
   accessibilityHint?: string
@@ -164,6 +165,19 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
   const renderRightActions = () => {
     if (!actions) return null
 
+    if (!actions || actions.length === 0) {
+      // Render a placeholder with opacity 0 when no actions are provided
+      return (
+        <View style={{ opacity: 0 }}>
+          <AppIcon
+            name="close-line"
+            size="16"
+            color={colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
+          />
+        </View>
+      )
+    }
+
     return actions.map((action, index) => {
       if (isActionObject(action)) {
         // Render action as a button with icon if it's an action object
@@ -176,10 +190,8 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
             accessibilityHint={action.accessibilityHint || `Press to activate action ${index + 1}`}>
             <AppIcon
               name={action.iconName}
-              size="24"
-              color={
-                action.backIconColor || colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT
-              }
+              size={action.size}
+              color={action.iconColor || colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
               accessibilityLabel={action.accessibilityLabel || `Action ${index + 1}`}
               accessibilityHint={
                 action.accessibilityHint || `Press to activate action ${index + 1}`
