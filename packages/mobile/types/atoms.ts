@@ -33,12 +33,12 @@ export type AppTitleAtomProps = {
   spacing?: 1 | 2 | 3
 } & (
   | {
-      subtitle: never
+      subtitle?: never
       titlePosition: never
       spacing: never
     }
   | {
-      subtitle: string
+      subtitle?: string
       titlePosition?: 'top' | 'bottom'
       spacing?: 1 | 2 | 3
     }
