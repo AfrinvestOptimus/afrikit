@@ -41,7 +41,7 @@ Default.args = {
 // With Custom Back Button
 export const WithCustomBackButton = Template.bind({})
 WithCustomBackButton.args = {
-  title: 'Title',
+  title: 'Top Bar with Title',
   customBackButton: <AppIcon name="close-line" size="24" color={colors.light.type.gray.DEFAULT} />,
   onBackPress: () => Alert.alert('Custom Back Pressed'),
   actions: [{ iconName: 'search-line', onPress: () => Alert.alert('Search Pressed') }],
@@ -130,4 +130,13 @@ WithLeftTitleAndSubtitle.args = {
   leftSubtitle: 'This is a supporting text for this title',
   accessibilityLabel: 'Top Bar with Left Title and Subtitle',
   accessibilityHint: 'This top bar features a left title and subtitle.',
+}
+
+// With Left Title and Subtitle
+export const WithBackIconAndTitle = Template.bind({})
+WithBackIconAndTitle.args = {
+  title: 'Title',
+  onBackPress: () => Alert.alert('Back Pressed'),
+  accessibilityLabel: 'Top Bar with Title',
+  accessibilityHint: 'This top bar title and bak icon.',
 }
