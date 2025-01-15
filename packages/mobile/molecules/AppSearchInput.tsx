@@ -80,6 +80,7 @@ const AppSearchInput: React.FC<AppInputProps> = ({
 
   // handle Clear Input
   const handleClear = React.useCallback(() => {
+    onChangeTextProp?.('')
     setInputValue('')
     onClear?.()
   }, [])
