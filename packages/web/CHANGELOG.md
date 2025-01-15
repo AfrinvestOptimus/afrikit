@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.73 (2025-01-15)
+
+**Note:** Version bump only for package afrikit-web
+
 ## 1.0.72 (2024-12-06)
 
 **Note:** Version bump only for package afrikit-web
