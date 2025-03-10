@@ -7,8 +7,8 @@ import AppIcon, { AppIconSize } from '../../molecules/AppIcon'
 
 type ActionObject = {
   iconName: string
-  iconColor: string
-  size: AppIconSize
+  iconColor?: string
+  size?: AppIconSize
   onPress: () => void
   accessibilityLabel?: string
   accessibilityHint?: string
