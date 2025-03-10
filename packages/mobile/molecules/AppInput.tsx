@@ -22,6 +22,7 @@ const AppInput: React.FC<AppInputProps> = ({
   onBlur,
   floatingLabel = true,
   onFocus,
+  onClear,
   error,
   multiline,
   type,
@@ -64,19 +65,19 @@ const AppInput: React.FC<AppInputProps> = ({
   )
 
   // handle input not focused state
-  const handleBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+  const handleBlur = React.useCallback((e: NativeSyntheticEvent<TextInputFocusEventData>) => {
     if (type) {
       AppInputBlur(localValue, onChangeText, false)
     }
     onBlur?.(e)
     setFocused(false)
-  }
+  }, [])
 
   // handle focus state for input field
-  const handleFocus = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+  const handleFocus = React.useCallback((e: NativeSyntheticEvent<TextInputFocusEventData>) => {
     onFocus?.(e)
     setFocused(true)
-  }
+  }, [])
 
   // collate all props
   const addedProps = {
@@ -101,13 +102,14 @@ const AppInput: React.FC<AppInputProps> = ({
       outputRange: [12, 20],
     }),
   }
-  // handle clear input field
-  const handleClear = () => {
-    onChangeText('')
+  // handel clear input field
+  const handleClear = React.useCallback(() => {
     setInputValue('')
-  }
+    onChangeText('')
+    onClear?.()
+  }, [onChangeText, onClear])
 
-  const getBorderStyle = () => {
+  const getBorderStyle = React.useCallback(() => {
     if (focused) {
       return error
         ? 'border-b-2 border-light-red9 dark:border-dark-red9 rounded-t-md' // show red bottom border when the input isn't valued
@@ -116,7 +118,7 @@ const AppInput: React.FC<AppInputProps> = ({
     return error
       ? 'border-2 border-light-red9 dark:border-dark-red9 rounded-md' // show red border when the input isn't valued and the field isn't in a focused state
       : 'border-0 border-transparent rounded-md' // defaulting to rounded input when there's neither a focused state or error state on the input field
-  }
+  }, [focused, error])
 
   return (
     <View className={className}>
