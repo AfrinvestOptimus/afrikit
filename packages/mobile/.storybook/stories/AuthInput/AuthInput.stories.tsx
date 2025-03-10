@@ -70,6 +70,22 @@ export const ErrorMessage: Story = {
     actionLabel: 'Retry',
     isLoading: false,
   },
+  render: args => {
+    const [error, setError] = React.useState(args.isError)
+    const [errorMessage, setErrorMessage] = React.useState(args.errorMessage)
+
+    return (
+      <AuthInput
+        {...args}
+        isError={error}
+        errorMessage={errorMessage}
+        onActionPress={() => {
+          setError(false)
+          setErrorMessage('')
+        }}
+      />
+    )
+  },
 }
 
 export const LoadingState: Story = {
