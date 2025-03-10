@@ -2,7 +2,7 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { KeyboardAvoidingView, Platform, TouchableOpacity, View } from 'react-native'
 import AppText from '../../atoms/AppText'
 import AppSearchInput from '../../molecules/AppSearchInput'
 import AppBottomSheet from '../AppBottomSheet'
@@ -277,56 +277,58 @@ const AppSelect: React.FC<AppSelectProps> = ({
         showModal={isBottomSheetOpen}
         setShowModal={setIsBottomSheetOpen}
         isDetached={false}>
-        {title ? (
-          <AppText
-            size={3}
-            weight="bold"
-            color="gray"
-            highContrast
-            align="center"
-            className="mt-xs mb-lg">
-            {title}
-          </AppText>
-        ) : null}
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          {title ? (
+            <AppText
+              size={3}
+              weight="bold"
+              color="gray"
+              highContrast
+              align="center"
+              className="mt-xs mb-lg">
+              {title}
+            </AppText>
+          ) : null}
 
-        {isSearchable ? (
-          <AppSearchInput
-            type="text"
-            placeholder="Search"
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-            onClear={onClear}
-            className="mb-xs"
-          />
-        ) : null}
+          {isSearchable ? (
+            <AppSearchInput
+              type="text"
+              placeholder="Search"
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              onClear={onClear}
+              className="mb-xs"
+            />
+          ) : null}
 
-        {!isLoading && (
-          <View className="rounded-lg bg-light-white-to-dark dark:bg-dark-white-to-dark px-lg py-sm mt-lg">
-            {filteredOptions?.map((option, index) => (
-              <TouchableOpacity
-                key={option.value}
-                accessibilityRole="menuitem"
-                accessibilityLabel={option.label}
-                accessibilityHint={`Select ${option}`}
-                onPress={() => handleSelectOption(option)}
-                className="py-lg">
-                {renderItem ? renderItem(option) : renderDefaultItem(option)}
-              </TouchableOpacity>
-            ))}
-          </View>
-        )}
+          {!isLoading && (
+            <View className="rounded-lg bg-light-white-to-dark dark:bg-dark-white-to-dark px-lg py-sm mt-lg">
+              {filteredOptions?.map((option, index) => (
+                <TouchableOpacity
+                  key={option.value}
+                  accessibilityRole="menuitem"
+                  accessibilityLabel={option.label}
+                  accessibilityHint={`Select ${option}`}
+                  onPress={() => handleSelectOption(option)}
+                  className="py-lg">
+                  {renderItem ? renderItem(option) : renderDefaultItem(option)}
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
 
-        {isLoading && (
-          <View className="rounded-lg bg-light-white-to-dark dark:bg-dark-white-to-dark px-lg py-sm mt-lg h-[280px] flex-row items-center justify-center">
-            {customLoader ? (
-              customLoader
-            ) : (
-              <AppText align="center" size={2} color="gray" highContrast weight="medium">
-                Loading ....
-              </AppText>
-            )}
-          </View>
-        )}
+          {isLoading && (
+            <View className="rounded-lg bg-light-white-to-dark dark:bg-dark-white-to-dark px-lg py-sm mt-lg h-[280px] flex-row items-center justify-center">
+              {customLoader ? (
+                customLoader
+              ) : (
+                <AppText align="center" size={2} color="gray" highContrast weight="medium">
+                  Loading ....
+                </AppText>
+              )}
+            </View>
+          )}
+        </KeyboardAvoidingView>
       </AppBottomSheet>
     </View>
   )
