@@ -224,6 +224,8 @@ const AppSelect: React.FC<AppSelectProps> = ({
     return options
   }, [options, isSearchable, searchQuery])
 
+  const behaviour = useMemo(() => (Platform.OS === 'android' ? 'height' : 'padding'), [])
+
   return (
     <View className={className}>
       <TouchableOpacity
@@ -277,7 +279,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
         showModal={isBottomSheetOpen}
         setShowModal={setIsBottomSheetOpen}
         isDetached={false}>
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <KeyboardAvoidingView behavior={behaviour}>
           {title ? (
             <AppText
               size={3}
