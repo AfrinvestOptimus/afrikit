@@ -1,6 +1,6 @@
 import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { AppText } from '../../atoms'
 import AppIcon, { AppIconSize } from '../../molecules/AppIcon'
@@ -162,8 +162,8 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
   }
 
   // Render action buttons on the right
-  const renderRightActions = () => {
-    if (!actions) return null
+  const renderRightActions = useCallback(() => {
+    // if (!actions) return null
 
     if (!actions || actions.length === 0) {
       // Render a placeholder with opacity 0 when no actions are provided
@@ -178,7 +178,7 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
       )
     }
 
-    return actions.map((action, index) => {
+    return actions?.map((action, index) => {
       if (isActionObject(action)) {
         // Render action as a button with icon if it's an action object
         return (
@@ -190,7 +190,7 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
             accessibilityHint={action.accessibilityHint || `Press to activate action ${index + 1}`}>
             <AppIcon
               name={action.iconName}
-              size={action.size}
+              size={action.size || 16}
               color={action.iconColor || colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
               accessibilityLabel={action.accessibilityLabel || `Action ${index + 1}`}
               accessibilityHint={
@@ -205,7 +205,7 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
       }
       return null
     })
-  }
+  }, [actions])
 
   return (
     <View

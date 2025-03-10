@@ -76,7 +76,7 @@ export const CustomColor = Template.bind({})
 CustomColor.args = {
   name: 'heart-fill',
   color: '#ff0000',
-  size: '24',
+  size: 80,
   isRemixIcon: true,
   accessibilityLabel: 'Red heart icon',
 }
