@@ -18,6 +18,7 @@ export type AppDateInputProps = {
    * The label to display above the date input field.
    */
   label: string
+  className: string
 
   /**
    * The current state of the date input.
@@ -72,6 +73,7 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
   onDateChange,
   renderConfirmButton,
   selectedDate,
+  className,
 }) => {
   // Internal state for the date, using selectedDate or initialDate as initial value
   const [internalSelectedDate, setInternalSelectedDate] = useState<Date | null>(
@@ -146,7 +148,7 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
 
   return (
     <>
-      <View>
+      <View className={className}>
         <TouchableOpacity
           className={`${
             hasError
