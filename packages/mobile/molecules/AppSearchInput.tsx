@@ -16,7 +16,10 @@ import { useSharedValue } from 'react-native-reanimated'
 import RemixIcon from 'react-native-remix-icon'
 import { AppInputProps } from '../types/atoms'
 
-const AppSearchInput: React.FC<AppInputProps> = ({
+interface AppSearchInputProps extends AppInputProps {
+  defaultValue?: string
+}
+const AppSearchInput: React.FC<AppSearchInputProps> = ({
   onBlur,
   floatingLabel = true,
   onFocus,
@@ -24,13 +27,17 @@ const AppSearchInput: React.FC<AppInputProps> = ({
   onChangeText: onChangeTextProp,
   onClear,
   value = '',
+  defaultValue = '',
   ...props
 }) => {
   const textInputRef = React.useRef<TextInput>(null)
   const { colorScheme } = useColorScheme()
   const [values, setValues] = React.useState<string>('')
   const [focused, setFocused] = React.useState<boolean>(false)
-  const [inputValue, setInputValue] = React.useState<string>(value)
+
+  const initialValue = value !== undefined ? value : defaultValue
+
+  const [inputValue, setInputValue] = React.useState<string>(initialValue)
   const animatedIsFocused = React.useRef(new Animated.Value(value ? 1 : 0)).current
 
   const isDarkMode = colorScheme === 'dark'
