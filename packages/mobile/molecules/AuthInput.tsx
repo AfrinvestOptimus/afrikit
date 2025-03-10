@@ -18,6 +18,7 @@ export type AuthInputProps = {
   customValue?: string
   keypad?: KeyboardType
   actionLabel?: string
+  onClear?: () => void
 }
 
 const AuthInput: FC<AuthInputProps> = ({
@@ -30,6 +31,7 @@ const AuthInput: FC<AuthInputProps> = ({
   keypad = 'Native',
   actionLabel,
   onActionPress,
+  onClear,
 }) => {
   const [value, setValue] = useState('')
   const [codeKeys, setCodeKeys] = useState<string[] | undefined>(undefined)
@@ -65,6 +67,24 @@ const AuthInput: FC<AuthInputProps> = ({
     onValueChange?.(updateEmptyIndex?.join('') || '')
   }
 
+  const clearInput = () => {
+    setValue('')
+    setCodeKeys(Array(count).fill(''))
+    onValueChange?.('')
+    onClear?.()
+
+    if (keypad === 'Native') {
+      KeyboardRef?.current?.focus()
+    }
+  }
+
+  // useEffect(() => {
+  //   if (onClear) {
+  //     const originalOnClear = onClear
+  //     ;(onClear as any).clear = clearInput
+  //   }
+  // }, [onClear])
+
   const styles = getDesignClasses()
 
   const handlePress = () => {
@@ -81,7 +101,7 @@ const AuthInput: FC<AuthInputProps> = ({
         </>
       ) : (
         <>
-          <TextInput className="hidden" onChangeText={onChange} ref={KeyboardRef} />
+          <TextInput className="hidden" onChangeText={onChange} ref={KeyboardRef} value={value} />
           <Pressable className="flex justify-center" onPress={handlePress}>
             <View
               className={`flex items-center justify-between w-fit h-[40] flex-row p-lg rounded-xs-max ${isError ? `${styles.backgroundError}` : `${styles.backgroundDefault}`}`}>
@@ -98,7 +118,7 @@ const AuthInput: FC<AuthInputProps> = ({
           {isError ? (
             <View className="flex-row items-center gap-sm justify-center">
               <AppHintText text={errorMessage as string} type="error" />
-              <View className="w-xs h-xs rounded-full bg-light-background-neutral-transparent-pressed bg-li" />
+              <View className="w-xs h-xs rounded-full bg-light-background-neutral-transparent-pressed dark:bg-dark-background-neutral-transparent-pressed" />
               <AppText size={2} weight="semibold" color="accent" onPress={onActionPress}>
                 {actionLabel}
               </AppText>
