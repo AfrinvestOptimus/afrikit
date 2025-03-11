@@ -78,12 +78,14 @@ const AuthInput: FC<AuthInputProps> = ({
     }
   }
 
-  // useEffect(() => {
-  //   if (onClear) {
-  //     const originalOnClear = onClear
-  //     ;(onClear as any).clear = clearInput
-  //   }
-  // }, [onClear])
+  /* eslint-disable */
+  useEffect(() => {
+    if (onClear) {
+      const originalOnClear = onClear
+      ;(onClear as any).clear = clearInput
+    }
+  }, [onClear])
+  /* eslint-disable */
 
   const styles = getDesignClasses()
 
