@@ -1,4 +1,5 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import type { AndroidNativeProps, IOSNativeProps } from '@react-native-community/datetimepicker'
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker'
 import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
@@ -10,6 +11,7 @@ import AppButton from '../AppButton'
 import AppHintText from '../AppHintText'
 import IconTemp from '../AppIcon'
 
+type DateTimePickerProps = AndroidNativeProps & IOSNativeProps
 /**
  * Props for the AppDateInput component.
  */
@@ -62,6 +64,10 @@ export type AppDateInputProps = {
    * This is optional and only used for the initial value.
    */
   selectedDate?: Date
+  /**
+   * Date picker props.
+   */
+  dateTimePickerProps?: Omit<DateTimePickerProps, 'value' | 'onChange'>
 }
 
 const AppDateInput: React.FC<AppDateInputProps> = ({
@@ -74,6 +80,7 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
   renderConfirmButton,
   selectedDate,
   className,
+  dateTimePickerProps = {},
 }) => {
   // Internal state for the date, using selectedDate or initialDate as initial value
   const [internalSelectedDate, setInternalSelectedDate] = useState<Date | null>(
@@ -210,6 +217,7 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
                   themeVariant={isDarkMode ? 'dark' : 'light'}
                   accessibilityLabel="Date Picker"
                   accessibilityHint="Swipe up or down to adjust date"
+                  {...dateTimePickerProps}
                 />
 
                 {renderConfirmButton ? (
