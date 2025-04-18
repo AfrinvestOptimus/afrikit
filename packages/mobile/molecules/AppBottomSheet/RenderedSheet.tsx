@@ -1,9 +1,9 @@
 import { BottomSheetView } from '@gorhom/bottom-sheet'
-import React, { isValidElement, memo } from 'react'
+import { isValidElement, memo } from 'react'
 import { Animated, ScrollView, Text, View } from 'react-native'
 import { DetachedProps, RegularProps } from '../../types/molecules'
-import AppButton from '../AppButton'
 import classNames from '../../utilities/classnames'
+import AppButton from '../AppButton'
 
 function RenderedSheet({
   isDetached,
@@ -62,7 +62,10 @@ function RenderedSheet({
         <ScrollView
           className="w-full px-md"
           contentContainerStyle={{ flexGrow: 1 }}
-          showsVerticalScrollIndicator={false}>
+          showsVerticalScrollIndicator={true}
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="on-drag"
+          bounces={false}>
           {title && (
             <View
               className={classNames(

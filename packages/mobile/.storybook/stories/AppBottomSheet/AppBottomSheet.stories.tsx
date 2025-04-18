@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Icon from 'react-native-remix-icon'
-import AppBottomSheet from '../../../molecules/AppBottomSheet'
+import { AppBottomSheet, AppListItem, AppSearchInput } from '../../../molecules'
 import AppButton from '../../../molecules/AppButton'
 import { AppBottomSheetProps } from '../../../types/molecules'
 
@@ -160,6 +160,70 @@ export const SheetWithSubtitle: Story = {
       <Text className={'text-light-type-accent dark:text-dark-type-accent-bold'}>
         Content with a title and subtitle.
       </Text>
+    ),
+  },
+}
+
+const ListWithSearchBottomSheet = () => {
+  const [showModal, setShowModal] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const items = [
+    { title: 'Item 1', subtitle: 'Description for item 1' },
+    { title: 'Item 2', subtitle: 'Description for item 2' },
+    { title: 'Item 3', subtitle: 'Description for item 3' },
+  ]
+  const filteredItems = items.filter(
+    item =>
+      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.subtitle.toLowerCase().includes(searchQuery.toLowerCase()),
+  )
+  return (
+    <AppBottomSheet
+      isDetached={false}
+      showModal={showModal}
+      setShowModal={setShowModal}
+      backdropClose
+      index={3}
+      title={{ text: 'Searchable List', align: 'center' }}>
+      <View className="px-lg">
+        <AppSearchInput
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          placeholder="Search items..."
+          onClear={() => setSearchQuery('')}
+        />
+        <View className="mt-lg">
+          {filteredItems.map((item, index) => (
+            <AppListItem
+              key={index}
+              title={item.title}
+              subtitle={item.subtitle}
+              variant="2-line"
+              leading="icon"
+              trailing="icon"
+              trailingIcon="arrow-right-s-line"
+              separator={index !== filteredItems.length - 1}
+            />
+          ))}
+        </View>
+      </View>
+    </AppBottomSheet>
+  )
+}
+export const WithListAndSearch: Story = {
+  render: () => <ListWithSearchBottomSheet />,
+}
+export const Basic: Story = {
+  args: {
+    isDetached: false,
+    showModal: true,
+    backdropClose: true,
+    index: 3,
+    title: { text: 'Basic Bottom Sheet', align: 'center' },
+    children: (
+      <View className="p-lg">
+        <AppListItem title="Basic List Item" />
+      </View>
     ),
   },
 }
