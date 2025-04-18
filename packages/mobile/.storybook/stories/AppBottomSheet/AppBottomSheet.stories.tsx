@@ -212,28 +212,28 @@ const ListWithSearchBottomSheet = () => {
         setShowModal={setShowModal}
         backdropClose
         index={3}
-        title={{ text: 'Searchable List', align: 'center' }}>
-        <View className="px-lg">
+        title={{ text: 'Searchable List', align: 'center' }}
+        fixedHeader={
           <AppSearchInput
             value={searchQuery}
             onChangeText={setSearchQuery}
             placeholder="Search items..."
             onClear={() => setSearchQuery('')}
           />
-          <View className="mt-lg">
-            {filteredItems.map((item, index) => (
-              <AppListItem
-                key={index}
-                title={item.title}
-                subtitle={item.subtitle}
-                variant="2-line"
-                leading="icon"
-                trailing="icon"
-                trailingIcon="arrow-right-s-line"
-                separator={index !== filteredItems.length - 1}
-              />
-            ))}
-          </View>
+        }>
+        <View className="mt-lg">
+          {filteredItems.map((item, index) => (
+            <AppListItem
+              key={index}
+              title={item.title}
+              subtitle={item.subtitle}
+              variant="2-line"
+              leading="icon"
+              trailing="icon"
+              trailingIcon="arrow-right-s-line"
+              separator={index !== filteredItems.length - 1}
+            />
+          ))}
         </View>
       </AppBottomSheet>
     </>

@@ -56,16 +56,11 @@ function RenderedSheet({
       </BottomSheetView>
     )
   } else {
-    const { title, children, actionButton } = checkedProps as RegularProps
+    const { title, children, actionButton, fixedHeader } = checkedProps as RegularProps
     return (
       <BottomSheetView style={{ height }}>
-        <ScrollView
-          className="w-full px-md"
-          contentContainerStyle={{ flexGrow: 1 }}
-          showsVerticalScrollIndicator={true}
-          keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="on-drag"
-          bounces={false}>
+        <View className="w-full px-md">
+          {/* Title Section */}
           {title && (
             <View
               className={classNames(
@@ -90,6 +85,17 @@ function RenderedSheet({
               )}
             </View>
           )}
+          {/* Fixed Header Section */}
+          {fixedHeader && <>{fixedHeader}</>}
+        </View>
+        {/* Scrollable Content */}
+        <ScrollView
+          className="w-full px-md"
+          contentContainerStyle={{ flexGrow: 1 }}
+          showsVerticalScrollIndicator={true}
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="on-drag"
+          bounces={false}>
           <View className="flex-1">{children}</View>
         </ScrollView>
         {actionButton && (
