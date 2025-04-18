@@ -1,4 +1,7 @@
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import {
+  BottomSheetModalProvider as AppBottomSheetModalProvider,
+  BottomSheetModalProvider,
+} from '@gorhom/bottom-sheet'
 import type { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
@@ -11,6 +14,15 @@ import { AppBottomSheetProps } from '../../../types/molecules'
 const meta: Meta<typeof AppBottomSheet> = {
   title: 'AppBottomSheet',
   component: AppBottomSheet,
+  decorators: [
+    Story => (
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <AppBottomSheetModalProvider>
+          <Story />
+        </AppBottomSheetModalProvider>
+      </GestureHandlerRootView>
+    ),
+  ],
   argTypes: {
     isDetached: {
       control: 'boolean',
@@ -168,9 +180,16 @@ const ListWithSearchBottomSheet = () => {
   const [showModal, setShowModal] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const items = [
-    { title: 'Item 1', subtitle: 'Description for item 1' },
-    { title: 'Item 2', subtitle: 'Description for item 2' },
-    { title: 'Item 3', subtitle: 'Description for item 3' },
+    { id: '1', title: 'Item 1', subtitle: 'Description for item 1' },
+    { id: '2', title: 'Item 2', subtitle: 'Description for item 2' },
+    { id: '3', title: 'Item 3', subtitle: 'Description for item 3' },
+    { id: '4', title: 'Item 4', subtitle: 'Description for item 4' },
+    { id: '5', title: 'Item 5', subtitle: 'Description for item 5' },
+    { id: '6', title: 'Item 6', subtitle: 'Description for item 6' },
+    { id: '7', title: 'Item 7', subtitle: 'Description for item 7' },
+    { id: '8', title: 'Item 8', subtitle: 'Description for item 8' },
+    { id: '9', title: 'Item 9', subtitle: 'Description for item 9' },
+    { id: '10', title: 'Item 10', subtitle: 'Description for item 10' },
   ]
   const filteredItems = items.filter(
     item =>
@@ -178,36 +197,46 @@ const ListWithSearchBottomSheet = () => {
       item.subtitle.toLowerCase().includes(searchQuery.toLowerCase()),
   )
   return (
-    <AppBottomSheet
-      isDetached={false}
-      showModal={showModal}
-      setShowModal={setShowModal}
-      backdropClose
-      index={3}
-      title={{ text: 'Searchable List', align: 'center' }}>
-      <View className="px-lg">
-        <AppSearchInput
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-          placeholder="Search items..."
-          onClear={() => setSearchQuery('')}
-        />
-        <View className="mt-lg">
-          {filteredItems.map((item, index) => (
-            <AppListItem
-              key={index}
-              title={item.title}
-              subtitle={item.subtitle}
-              variant="2-line"
-              leading="icon"
-              trailing="icon"
-              trailingIcon="arrow-right-s-line"
-              separator={index !== filteredItems.length - 1}
-            />
-          ))}
+    <>
+      <AppButton
+        size={4}
+        text={'Open Bottom Sheet'}
+        color={'neutral'}
+        variant={'solid'}
+        highContrast
+        onPress={() => setShowModal(true)}
+      />
+      <AppBottomSheet
+        isDetached={false}
+        showModal={showModal}
+        setShowModal={setShowModal}
+        backdropClose
+        index={3}
+        title={{ text: 'Searchable List', align: 'center' }}>
+        <View className="px-lg">
+          <AppSearchInput
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            placeholder="Search items..."
+            onClear={() => setSearchQuery('')}
+          />
+          <View className="mt-lg">
+            {filteredItems.map((item, index) => (
+              <AppListItem
+                key={index}
+                title={item.title}
+                subtitle={item.subtitle}
+                variant="2-line"
+                leading="icon"
+                trailing="icon"
+                trailingIcon="arrow-right-s-line"
+                separator={index !== filteredItems.length - 1}
+              />
+            ))}
+          </View>
         </View>
-      </View>
-    </AppBottomSheet>
+      </AppBottomSheet>
+    </>
   )
 }
 export const WithListAndSearch: Story = {
