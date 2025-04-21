@@ -221,7 +221,7 @@ const ListWithSearchBottomSheet = () => {
             onClear={() => setSearchQuery('')}
           />
         }>
-        <View className="mt-lg">
+        <View className="mt-lg pb-2xl flex-1">
           {filteredItems.map((item, index) => (
             <AppListItem
               key={index}

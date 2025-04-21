@@ -1,6 +1,7 @@
 import { BottomSheetView } from '@gorhom/bottom-sheet'
 import { isValidElement, memo } from 'react'
-import { Animated, ScrollView, Text, View } from 'react-native'
+import { Animated, Text, View } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 import { DetachedProps, RegularProps } from '../../types/molecules'
 import classNames from '../../utilities/classnames'
 import AppButton from '../AppButton'
