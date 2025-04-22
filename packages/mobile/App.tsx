@@ -15,17 +15,10 @@ import StorybookUIRoot from './.storybook'
 import AppText from './atoms/AppText'
 import AppTitle from './atoms/AppTitle'
 import './global.css'
-import {
-  AppBadge,
-  AppButton,
-  AppInput,
-  AppListItem,
-  AppModalLoader,
-  AppToastBase,
-  GlobalWrapper,
-} from './molecules'
+import { AppInput, AppListItem, AppModalLoader, AppToastBase, GlobalWrapper } from './molecules'
 import AppBottomSheet from './molecules/AppBottomSheet'
 import AppIcon from './molecules/AppIcon'
+import { AppInputHandle } from './molecules/AppInput'
 import AppPasswordInput from './molecules/AppPasswordInput'
 import { FormData } from './types/atoms'
 
@@ -38,6 +31,8 @@ export default function App() {
     Manrope600: Manrope_600SemiBold,
     Manrope700: Manrope_700Bold,
   })
+  const inputRef = React.useRef<AppInputHandle>(null)
+
   const [code, setCode] = useState('')
   const {
     formState: { errors },
@@ -99,6 +94,20 @@ export default function App() {
                 onPress={() => console.log('AppText pressed')}>
                 Small bold text involved
               </AppText>
+              <AppText
+                size={2}
+                color={'accent'}
+                weight={'regular'}
+                align={'left'}
+                className={'mb-2xl'}
+                onPress={() => {
+                  // Set value
+                  // inputRef.current?.setValue('new value')
+                  // Clear value
+                  inputRef.current?.clear()
+                }}>
+                Test REF
+              </AppText>
               <View className="flex-1 items-center justify-center">
                 <Pressable
                   onPress={handleOpenLoaderModal}
@@ -134,9 +143,10 @@ export default function App() {
                         render={({ field: { onChange, onBlur, value = 'Default' } }) => (
                           <>
                             <AppInput
-                              value={value || 'Default'}
+                              value={value}
                               label={item?.label + value}
                               autoFocus={false}
+                              ref={inputRef}
                               onBlur={onBlur}
                               onChangeText={onChange}
                               hintText="my hint"
