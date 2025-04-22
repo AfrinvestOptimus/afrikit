@@ -6,6 +6,7 @@ import * as React from 'react'
 import {
   Animated,
   NativeSyntheticEvent,
+  Platform,
   TextInput,
   TextInputFocusEventData,
   TouchableOpacity,
@@ -155,11 +156,11 @@ const AppInput = React.forwardRef<AppInputHandle, AppInputProps>(
           }}>
           <View
             className={`px-sm items-center w-full flex-row bg-light-surface-gray dark:bg-dark-surface-gray h-[56px] ${getBorderStyle()} ${containerStyle}`}>
-            <View className="flex-1 px-xs ">
+            <View className={`flex-1 px-xs ${Platform.OS === 'android' ? 'py-lg' : ''}`}>
               {floatingLabel && (
                 <Animated.Text
                   style={[floatLabelStyle]}
-                  className="gap-xs  dark:text-dark-type-gray-muted text-light-type-gray-muted text-sm-title"
+                  className="gap-xs dark:text-dark-type-gray-muted text-light-type-gray-muted text-sm-title"
                   allowFontScaling={false}>
                   {label}
                 </Animated.Text>
