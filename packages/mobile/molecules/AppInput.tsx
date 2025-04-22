@@ -38,10 +38,17 @@ const AppInput: React.FC<AppInputProps> = ({
   const textInputRef = React.useRef<TextInput>(null)
   const [localValue, setLocalValue] = React.useState<string>('')
   const [focused, setFocused] = React.useState<boolean>(false)
-  const [inputValue, setInputValue] = React.useState<string>(value)
+  const [inputValue, setInputValue] = React.useState<string>(value || '')
+
   const animatedIsFocused = React.useRef(new Animated.Value(value ? 1 : 0)).current
   const { colorScheme } = useColorScheme()
   const isDarkMode = colorScheme === 'dark'
+
+  React.useEffect(() => {
+    if (value !== undefined) {
+      setInputValue(value)
+    }
+  }, [value])
 
   React.useEffect(() => {
     Animated.timing(animatedIsFocused, {

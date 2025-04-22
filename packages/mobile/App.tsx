@@ -131,16 +131,16 @@ export default function App() {
                         }}
                         control={control}
                         key={item.key}
-                        render={({ field: { onChange, onBlur, value } }) => (
+                        render={({ field: { onChange, onBlur, value = 'Default' } }) => (
                           <>
                             <AppInput
-                              value={value}
-                              label={item?.label}
+                              value={value || 'Default'}
+                              label={item?.label + value}
                               autoFocus={false}
                               onBlur={onBlur}
                               onChangeText={onChange}
                               hintText="my hint"
-                              error={`${item?.key}  compatible with the format on our system`}
+                              error={`${item?.key} ::: compatible with the format on our system`}
                             />
 
                             <AppPasswordInput
