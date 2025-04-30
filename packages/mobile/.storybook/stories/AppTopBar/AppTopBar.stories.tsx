@@ -24,6 +24,10 @@ export default {
     actions: { control: 'array' },
     accessibilityLabel: { control: 'text' },
     accessibilityHint: { control: 'text' },
+    titleProps: { control: 'object' },
+    subtitleProps: { control: 'object' },
+    leftTitleProps: { control: 'object' },
+    leftSubtitleProps: { control: 'object' },
   },
 } as Meta
 
@@ -139,4 +143,26 @@ WithBackIconAndTitle.args = {
   onBackPress: () => Alert.alert('Back Pressed'),
   accessibilityLabel: 'Top Bar with Title',
   accessibilityHint: 'This top bar title and bak icon.',
+}
+
+export const WithCustomTextProps = Template.bind({})
+WithCustomTextProps.args = {
+  title: 'Profile',
+  subtitle: 'Your information',
+  leftTitle: 'Settings plan',
+  leftSubtitle: 'manage your account',
+  onBackPress: () => Alert.alert('Back Pressed'),
+  titleProps: { color: 'primary', weight: 'bold', size: 5 },
+  subtitleProps: { color: 'gray', size: 3 },
+  leftTitleProps: { color: 'error', weight: 'medium', size: 4, className: 'capitalize' },
+  leftSubtitleProps: { color: 'accent', size: 2, className: 'capitalize' },
+  actions: [
+    {
+      iconName: 'search-line',
+      onPress: () => Alert.alert('Edit Pressed'),
+      iconColor: colors.light.type.accent.DEFAULT,
+    },
+  ],
+  accessibilityLabel: 'Top Bar with Custom Text Props',
+  accessibilityHint: 'This top bar uses custom styling for all text elements.',
 }
