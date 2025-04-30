@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
+import { View } from 'react-native'
 import AppText from '../../../atoms/AppText'
-import { ListItemProps, AppListItem } from '../../../molecules'
+import { AppListItem, ListItemProps } from '../../../molecules'
 
 const meta: Meta<ListItemProps> = {
   title: 'ListItem',
@@ -211,4 +212,67 @@ export const WithLinkAndSubTrigger: Story = {
     subTrigger: true,
     activity: 'system',
   },
+}
+
+export const WithProductIcons: Story = {
+  render: () => (
+    <View className="mx-lg">
+      <AppListItem
+        title="OptiLock"
+        subtitle="Fixed savings"
+        leading="productIcon"
+        product="OptiLock"
+        trailing="text"
+        trailingTitle="₦500,000"
+      />
+      <AppListItem
+        title="OptiFlex"
+        subtitle="Flexible savings"
+        leading="productIcon"
+        product="OptiFlex"
+        trailing="text"
+        trailingTitle="₦300,000"
+      />
+      <AppListItem
+        title="OptiTarget"
+        subtitle="Flexible savings"
+        leading="productIcon"
+        product="OptiTarget"
+        trailing="text"
+        trailingTitle="₦300,000"
+      />
+      <AppListItem
+        title="US Stocks"
+        subtitle="Invest in global markets"
+        leading="productIcon"
+        product="USStocks"
+        trailing="text"
+        trailingTitle="$1,200"
+      />
+      <AppListItem
+        title="Mutual Funds"
+        subtitle="Diversified investment"
+        leading="productIcon"
+        product="MutualFunds"
+        trailing="text"
+        trailingTitle="₦700,000"
+      />
+      <AppListItem
+        title="Commercial Papers"
+        subtitle="Short-term corporate debt"
+        leading="productIcon"
+        product="CommercialPaper"
+        trailing="text"
+        trailingTitle="₦950,000"
+      />
+      <AppListItem
+        title="Treasury Bills"
+        subtitle="Low risk savings"
+        leading="productIcon"
+        product="TreasuryBill"
+        trailing="text"
+        trailingTitle="₦1,000,000"
+      />
+    </View>
+  ),
 }
