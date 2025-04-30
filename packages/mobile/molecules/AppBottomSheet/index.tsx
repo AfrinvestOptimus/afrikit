@@ -91,7 +91,8 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
         style={[
           props.style,
           {
-            backgroundColor: colorScheme === 'dark' ? colors.dark.slateA8 : colors.light.slateA8,
+            // backgroundColor: colorScheme === 'dark' ? colors.dark.slateA8 : colors.light.slateA8,
+            backgroundColor: 'rgba(0,0,0,0.6)',
           },
         ]}
       />
