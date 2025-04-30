@@ -3,6 +3,7 @@ import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { KeyboardAvoidingView, Platform, TouchableOpacity, View } from 'react-native'
+import { BottomSheetIndex } from 'types/molecules'
 import AppText from '../../atoms/AppText'
 import AppSearchInput from '../../molecules/AppSearchInput'
 import AppBottomSheet from '../AppBottomSheet'
@@ -88,6 +89,8 @@ export type AppSelectProps = {
    * Default is false.
    */
   isLoading?: boolean
+  isSwipeable?: boolean
+  bottomSheetIndex?: BottomSheetIndex
 
   /**
    * Optional custom loader component that is displayed when isLoading is true.
@@ -115,6 +118,8 @@ const AppSelect: React.FC<AppSelectProps> = ({
   customLoader,
   onValueChange,
   renderItem,
+  isSwipeable,
+  bottomSheetIndex = 3,
 }) => {
   // State to manage selected value and bottom sheet visibility
   const [selectedValue, setSelectedValue] = useState<SelectItem | null>(initialValue)
@@ -275,7 +280,8 @@ const AppSelect: React.FC<AppSelectProps> = ({
 
       <AppBottomSheet
         backdropClose
-        index={3}
+        index={bottomSheetIndex}
+        isSwipeable={isSwipeable}
         showModal={isBottomSheetOpen}
         setShowModal={setIsBottomSheetOpen}
         isDetached={false}>
