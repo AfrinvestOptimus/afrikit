@@ -91,7 +91,8 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
         style={[
           props.style,
           {
-            backgroundColor: colorScheme === 'dark' ? colors.dark.slateA8 : colors.light.slateA8,
+            // backgroundColor: colorScheme === 'dark' ? colors.dark.slateA8 : colors.light.slateA8,
+            backgroundColor: 'rgba(0,0,0,0.6)',
           },
         ]}
       />
@@ -115,6 +116,10 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
       enablePanDownToClose={!isDetached}
       backdropComponent={renderBackdrop}
       enableDynamicSizing={isDetached}
+      android_keyboardInputMode="adjustResize"
+      keyboardBehavior="extend"
+      keyboardBlurBehavior="restore"
+      handleComponent={null}
       backgroundStyle={[
         {
           backgroundColor:
@@ -142,8 +147,7 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
       bottomInset={isDetached ? 50 : 0}
       animateOnMount={true}
       stackBehavior={'replace'}
-      keyboardBehavior={'interactive'}
-      keyboardBlurBehavior={'restore'}
+      //
       onDismiss={() => setShowModal(false)}>
       {
         <RenderedSheet

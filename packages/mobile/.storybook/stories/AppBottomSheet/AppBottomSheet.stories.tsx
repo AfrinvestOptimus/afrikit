@@ -1,16 +1,28 @@
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import {
+  BottomSheetModalProvider as AppBottomSheetModalProvider,
+  BottomSheetModalProvider,
+} from '@gorhom/bottom-sheet'
 import type { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Icon from 'react-native-remix-icon'
-import AppBottomSheet from '../../../molecules/AppBottomSheet'
+import { AppBottomSheet, AppListItem, AppSearchInput } from '../../../molecules'
 import AppButton from '../../../molecules/AppButton'
 import { AppBottomSheetProps } from '../../../types/molecules'
 
 const meta: Meta<typeof AppBottomSheet> = {
   title: 'AppBottomSheet',
   component: AppBottomSheet,
+  decorators: [
+    Story => (
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <AppBottomSheetModalProvider>
+          <Story />
+        </AppBottomSheetModalProvider>
+      </GestureHandlerRootView>
+    ),
+  ],
   argTypes: {
     isDetached: {
       control: 'boolean',
@@ -160,6 +172,87 @@ export const SheetWithSubtitle: Story = {
       <Text className={'text-light-type-accent dark:text-dark-type-accent-bold'}>
         Content with a title and subtitle.
       </Text>
+    ),
+  },
+}
+
+const ListWithSearchBottomSheet = () => {
+  const [showModal, setShowModal] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const items = [
+    { id: '1', title: 'Item 1', subtitle: 'Description for item 1' },
+    { id: '2', title: 'Item 2', subtitle: 'Description for item 2' },
+    { id: '3', title: 'Item 3', subtitle: 'Description for item 3' },
+    { id: '4', title: 'Item 4', subtitle: 'Description for item 4' },
+    { id: '5', title: 'Item 5', subtitle: 'Description for item 5' },
+    { id: '6', title: 'Item 6', subtitle: 'Description for item 6' },
+    { id: '7', title: 'Item 7', subtitle: 'Description for item 7' },
+    { id: '8', title: 'Item 8', subtitle: 'Description for item 8' },
+    { id: '9', title: 'Item 9', subtitle: 'Description for item 9' },
+    { id: '10', title: 'Item 10', subtitle: 'Description for item 10' },
+  ]
+  const filteredItems = items.filter(
+    item =>
+      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.subtitle.toLowerCase().includes(searchQuery.toLowerCase()),
+  )
+  return (
+    <>
+      <AppButton
+        size={4}
+        text={'Open Bottom Sheet'}
+        color={'neutral'}
+        variant={'solid'}
+        highContrast
+        onPress={() => setShowModal(true)}
+      />
+      <AppBottomSheet
+        isDetached={false}
+        showModal={showModal}
+        setShowModal={setShowModal}
+        backdropClose
+        index={3}
+        title={{ text: 'Searchable List', align: 'center' }}
+        fixedHeader={
+          <AppSearchInput
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            placeholder="Search items..."
+            onClear={() => setSearchQuery('')}
+          />
+        }>
+        <View className="mt-lg pb-2xl flex-1">
+          {filteredItems.map((item, index) => (
+            <AppListItem
+              key={index}
+              title={item.title}
+              subtitle={item.subtitle}
+              variant="2-line"
+              leading="icon"
+              trailing="icon"
+              trailingIcon="arrow-right-s-line"
+              separator={index !== filteredItems.length - 1}
+            />
+          ))}
+        </View>
+      </AppBottomSheet>
+    </>
+  )
+}
+export const WithListAndSearch: Story = {
+  render: () => <ListWithSearchBottomSheet />,
+}
+export const Basic: Story = {
+  args: {
+    isDetached: false,
+    showModal: true,
+    backdropClose: true,
+    index: 3,
+    title: { text: 'Basic Bottom Sheet', align: 'center' },
+    children: (
+      <View className="p-lg">
+        <AppListItem title="Basic List Item" />
+      </View>
     ),
   },
 }

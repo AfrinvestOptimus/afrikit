@@ -1,9 +1,10 @@
 import { BottomSheetView } from '@gorhom/bottom-sheet'
-import React, { isValidElement, memo } from 'react'
-import { Animated, ScrollView, Text, View } from 'react-native'
+import { isValidElement, memo } from 'react'
+import { Animated, Text, View } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 import { DetachedProps, RegularProps } from '../../types/molecules'
-import AppButton from '../AppButton'
 import classNames from '../../utilities/classnames'
+import AppButton from '../AppButton'
 
 function RenderedSheet({
   isDetached,
@@ -56,13 +57,11 @@ function RenderedSheet({
       </BottomSheetView>
     )
   } else {
-    const { title, children, actionButton } = checkedProps as RegularProps
+    const { title, children, actionButton, fixedHeader } = checkedProps as RegularProps
     return (
       <BottomSheetView style={{ height }}>
-        <ScrollView
-          className="w-full px-md"
-          contentContainerStyle={{ flexGrow: 1 }}
-          showsVerticalScrollIndicator={false}>
+        <View className="w-full px-md">
+          {/* Title Section */}
           {title && (
             <View
               className={classNames(
@@ -87,6 +86,17 @@ function RenderedSheet({
               )}
             </View>
           )}
+          {/* Fixed Header Section */}
+          {fixedHeader && <>{fixedHeader}</>}
+        </View>
+        {/* Scrollable Content */}
+        <ScrollView
+          className="w-full px-md"
+          contentContainerStyle={{ flexGrow: 1 }}
+          showsVerticalScrollIndicator={true}
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="on-drag"
+          bounces={false}>
           <View className="flex-1">{children}</View>
         </ScrollView>
         {actionButton && (

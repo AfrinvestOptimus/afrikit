@@ -439,7 +439,7 @@ const ListItem: React.FC<ListItemProps<LeadingOptions, TrailingOptions>> = ({
           <Switch
             value={_isChecked}
             onValueChange={val => {
-              setIsChecked(prev => !prev)
+              handlePress()
             }}
             trackColor={{
               false: colors.light.background.disable1,

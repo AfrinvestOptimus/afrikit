@@ -35,6 +35,7 @@ export type AppBottomSheetProps<T extends boolean> = CommonProps & {
         }
         content?: string
         isSwipeable?: boolean
+        fixedHeader?: ReactNode // Component to be fixed at the top
         children: ReactNode
       } & ({ index: BottomSheetIndex; height?: never } | { index?: never; height: number }))
 
