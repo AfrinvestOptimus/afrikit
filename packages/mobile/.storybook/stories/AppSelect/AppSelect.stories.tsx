@@ -58,6 +58,16 @@ export default {
       control: null,
       description: 'Custom render function for each option',
     },
+    isSwipeable: {
+      control: 'boolean',
+      description: 'Allows the bottom sheet to be swipe-dismissable',
+      defaultValue: false,
+    },
+    bottomSheetIndex: {
+      control: 'number',
+      description: 'The snap point index of the bottom sheet to open with',
+      defaultValue: 3,
+    },
   },
 } as Meta
 
@@ -134,4 +144,30 @@ CustomRenderer.args = {
       </View>
     </View>
   ),
+}
+
+export const SwipeableWithCustomIndex = Template.bind({})
+SwipeableWithCustomIndex.args = {
+  label: 'Swipeable Select',
+  options: [
+    { label: 'Swipe Option 1', value: 'swipe1' },
+    { label: 'Swipe Option 2', value: 'swipe2' },
+    { label: 'Swipe Option 3', value: 'swipe3' },
+  ],
+  isSwipeable: true,
+  bottomSheetIndex: 4,
+  hintText: 'Try swiping down to dismiss',
+}
+
+export const NonSwipeableSelectCustomIndex = Template.bind({})
+NonSwipeableSelectCustomIndex.args = {
+  label: 'Not Swipeable Select',
+  options: [
+    { label: 'Swipe Option 1', value: 'swipe1' },
+    { label: 'Swipe Option 2', value: 'swipe2' },
+    { label: 'Swipe Option 3', value: 'swipe3' },
+  ],
+  isSwipeable: false,
+  bottomSheetIndex: 5,
+  hintText: 'Click outside to dismiss',
 }
