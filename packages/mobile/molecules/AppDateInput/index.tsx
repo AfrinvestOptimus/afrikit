@@ -20,7 +20,7 @@ export type AppDateInputProps = {
    * The label to display above the date input field.
    */
   label: string
-  className: string
+  className?: string
 
   /**
    * The current state of the date input.
