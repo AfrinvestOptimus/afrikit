@@ -64,6 +64,12 @@ const AppSearchInput: React.FC<AppSearchInputProps> = ({
     [_text],
   )
 
+  React.useEffect(() => {
+    if (value !== undefined) {
+      setInputValue(value)
+    }
+  }, [value])
+
   // handle input not focused state
   const handleBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
     onBlur?.(e)
