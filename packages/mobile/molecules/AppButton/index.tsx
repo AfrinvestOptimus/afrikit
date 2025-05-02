@@ -1,5 +1,4 @@
 import colors from 'afrikit-shared/dist/colors'
-import AppIcon from 'molecules/AppIcon'
 import { useColorScheme } from 'nativewind'
 import React, { useCallback, useMemo } from 'react'
 import {
@@ -9,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import AppIcon from '../AppIcon'
 import {
   buttonActiveStateColors,
   ButtonColor,
