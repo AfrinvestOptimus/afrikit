@@ -35,7 +35,7 @@ jobs:
       - name: Build project
         run: yarn build
 
-      # Step 7: Use Lerna to version and publish all updated packages to npm
+      # Step 6: Use Lerna to version and publish all updated packages to npm
       - name: Publish packages with Lerna
         run: |
           git config --global user.email "developers@afrinvest.com"
@@ -66,3 +66,41 @@ jobs:
           git push --tags
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
+
+      # Step 9: Draft GitHub Release Notes
+      - name: Draft GitHub Release Notes
+        id: release_drafter
+        uses: release-drafter/release-drafter@v5
+        with:
+          config-name: release-drafter.yml
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      # Step 10: Extract new version from package.json
+      - name: Extract new version from package.json
+        id: get_version
+        run: |
+          VERSION=$(node -p -e "require('./packages/mobile/package.json').version")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      # Step 11: Create GitHub Release
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          tag_name: v${{ env.VERSION }}
+          release_name: v${{ env.VERSION }}
+          body: ${{ steps.release_drafter.outputs.body }}
+          draft: false
+          prerelease: false
+
+      # Step 12: Update CHANGELOG.md
+      - name: Update CHANGELOG.md
+        run: |
+          echo -e "## v${{ env.VERSION }}\n\n${{ steps.release_drafter.outputs.body }}\n\n$(cat CHANGELOG.md)" > CHANGELOG.md
+          git add CHANGELOG.md
+          git commit -m "chore: update CHANGELOG.md for v${{ env.VERSION }}"
+          git push origin main
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
