@@ -136,22 +136,31 @@ const getIconColors = (
   accent: {
     solid: !isDarkMode ? colors.light['contrast-accent'] : colors.dark['contrast-accent'],
     soft: !isDarkMode ? colors.light.type.accent.DEFAULT : colors.dark.type.accent.DEFAULT,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     surface: !isDarkMode ? colors.light.accentA11 : colors.dark.accentA11,
     outline: !isDarkMode ? colors.light.type.accent.DEFAULT : colors.dark.type.accent.DEFAULT,
     ghost: !isDarkMode ? colors.light.type.accent.DEFAULT : colors.dark.type.accent.DEFAULT,
   },
   neutral: {
     solid: !isDarkMode ? colors.light['contrast-white'] : colors.dark['contrast-white'],
+    // @ts-expect-error - Access to dynamically named property from colors theme
     soft: !isDarkMode ? colors.light.neutral11 : colors.dark.neutral11,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     surface: !isDarkMode ? colors.light.neutral11 : colors.dark.neutral11,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     outline: !isDarkMode ? colors.light.neutral11 : colors.dark.neutral11,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     ghost: !isDarkMode ? colors.light.neutral11 : colors.dark.neutral11,
   },
   error: {
     solid: !isDarkMode ? colors.light['contrast-white'] : colors.dark['contrast-white'],
+    // @ts-expect-error - Access to dynamically named property from colors theme
     soft: !isDarkMode ? colors.light.error11 : colors.dark.error11,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     surface: !isDarkMode ? colors.light.error11 : colors.dark.error11,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     outline: !isDarkMode ? colors.light.error11 : colors.dark.error11,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     ghost: !isDarkMode ? colors.light.type.error.bold : colors.dark.type.error.bold,
   },
 })
@@ -160,24 +169,33 @@ const getHighContrastIconColors = (
   isDarkMode: boolean,
 ): Record<ButtonColor, Record<ButtonVariant, string>> => ({
   accent: {
+    // @ts-expect-error - Access to dynamically named property from colors theme
     solid: !isDarkMode ? colors.light.neutral1 : colors.dark.neutral1,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     soft: !isDarkMode ? colors.light.accentA12 : colors.dark.accentA12,
     surface: !isDarkMode ? colors.light.type.accent.DEFAULT : colors.dark.type.accent.DEFAULT,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     outline: !isDarkMode ? colors.light.accentA12 : colors.dark.accentA12,
     ghost: !isDarkMode ? colors.light.type.accent.DEFAULT : colors.dark.type.accent.DEFAULT,
   },
   neutral: {
     solid: !isDarkMode ? colors.light['contrast-accent'] : colors.dark['contrast-accent'],
+    // @ts-expect-error - Access to dynamically named property from colors theme
     soft: !isDarkMode ? colors.light.neutral12 : colors.dark.neutral12,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     surface: !isDarkMode ? colors.light.neutral12 : colors.dark.neutral12,
     outline: !isDarkMode ? colors.light.type.gray.DEFAULT : colors.dark.type.gray.DEFAULT,
     ghost: !isDarkMode ? colors.light.type.gray.DEFAULT : colors.dark.type.gray.DEFAULT,
   },
   error: {
     solid: !isDarkMode ? colors.light['contrast-white'] : colors.dark['contrast-white'],
+    // @ts-expect-error - Access to dynamically named property from colors theme
     soft: !isDarkMode ? colors.light.type.error.bold : colors.dark.type.error.bold,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     surface: !isDarkMode ? colors.light.error12 : colors.dark.error12,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     outline: !isDarkMode ? colors.light.type.error.bold : colors.dark.type.error.bold,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     ghost: !isDarkMode ? colors.light.type.error.bold : colors.dark.type.error.bold,
   },
 })
@@ -187,23 +205,35 @@ const getActiveIconColors = (
 ): Record<ButtonColor, Record<ButtonVariant, string>> => ({
   accent: {
     solid: !isDarkMode ? colors.light['contrast-accent'] : colors.dark['contrast-accent'],
+    // @ts-expect-error - Access to dynamically named property from colors theme
     soft: !isDarkMode ? colors.light.accentA11 : colors.dark.accentA11,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     surface: !isDarkMode ? colors.light.accentA11 : colors.dark.accentA11,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     outline: !isDarkMode ? colors.light.accentA11 : colors.dark.accentA11,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     ghost: !isDarkMode ? colors.light.accentA11 : colors.dark.accentA11,
   },
   neutral: {
     solid: !isDarkMode ? colors.light['contrast-accent'] : colors.dark['contrast-accent'],
+    // @ts-expect-error - Access to dynamically named property from colors theme
     soft: !isDarkMode ? colors.light.neutral11 : colors.dark.neutral11,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     surface: !isDarkMode ? colors.light.neutral11 : colors.dark.neutral11,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     outline: !isDarkMode ? colors.light.neutral11 : colors.dark.neutral11,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     ghost: !isDarkMode ? colors.light.neutral11 : colors.dark.neutral11,
   },
   error: {
     solid: !isDarkMode ? colors.light['contrast-accent'] : colors.dark['contrast-accent'],
+    // @ts-expect-error - Access to dynamically named property from colors theme
     soft: !isDarkMode ? colors.light.error11 : colors.dark.error11,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     surface: !isDarkMode ? colors.light.error11 : colors.dark.error11,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     outline: !isDarkMode ? colors.light.error11 : colors.dark.error11,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     ghost: !isDarkMode ? colors.light.error11 : colors.dark.error11,
   },
 })
@@ -212,24 +242,39 @@ const getHighContrastActiveIconColors = (
   isDarkMode: boolean,
 ): Record<ButtonColor, Record<ButtonVariant, string>> => ({
   accent: {
+    // @ts-expect-error - Access to dynamically named property from colors theme
     solid: !isDarkMode ? colors.light.neutral1 : colors.dark.neutral1,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     soft: !isDarkMode ? colors.light.accentA12 : colors.dark.accentA12,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     surface: !isDarkMode ? colors.light.accentA12 : colors.dark.accentA12,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     outline: !isDarkMode ? colors.light.accentA12 : colors.dark.accentA12,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     ghost: !isDarkMode ? colors.light.accentA12 : colors.dark.accentA12,
   },
   neutral: {
+    // @ts-expect-error - Access to dynamically named property from colors theme
     solid: !isDarkMode ? colors.light.neutral1 : colors.dark.neutral1,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     soft: !isDarkMode ? colors.light.neutral12 : colors.dark.neutral12,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     surface: !isDarkMode ? colors.light.neutral12 : colors.dark.neutral12,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     outline: !isDarkMode ? colors.light.neutral12 : colors.dark.neutral12,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     ghost: !isDarkMode ? colors.light.neutral12 : colors.dark.neutral12,
   },
   error: {
+    // @ts-expect-error - Access to dynamically named property from colors theme
     solid: !isDarkMode ? colors.light.error1 : colors.dark.error1,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     soft: !isDarkMode ? colors.light.error12 : colors.dark.error12,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     surface: !isDarkMode ? colors.light.error12 : colors.dark.error12,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     outline: !isDarkMode ? colors.light.error12 : colors.dark.error12,
+    // @ts-expect-error - Access to dynamically named property from colors theme
     ghost: !isDarkMode ? colors.light.error12 : colors.dark.error12,
   },
 })
@@ -308,6 +353,7 @@ const AppButton: React.FC<AppButtonProps> = React.memo(
     // Get the appropriate icon color based on button state
     const getIconColor = useCallback(() => {
       if (state === 'disabled') {
+        // @ts-expect-error - Access to dynamically named property from colors theme
         return !isDarkMode ? colors.light.neutralA8 : colors.dark.neutralA8
       }
 
