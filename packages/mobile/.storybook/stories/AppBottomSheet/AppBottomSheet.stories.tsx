@@ -137,7 +137,7 @@ export const CustomHeightSheet: Story = {
     backdropClose: true,
     height: 400,
     title: { text: 'Custom Height Sheet', align: 'left' },
-    isSwipeable: false,
+    isSwipeable: true,
     children: (
       <Text className={'text-light-type-accent dark:text-dark-type-accent-bold'}>
         This bottom sheet has a custom height of 400.
