@@ -46,7 +46,7 @@ function RenderedSheet({
               text={actionButton.text}
               color={actionButton.color || 'neutral'}
               variant={actionButton.variant || 'solid'}
-              highContrast={actionButton.highContrast || false}
+              highContrast={actionButton.highContrast || true}
               {...(actionButton.iconStart && { iconStart: actionButton.iconStart })}
               {...(actionButton.iconEnd && { iconEnd: actionButton.iconEnd })}
               onPress={actionButton.action}
