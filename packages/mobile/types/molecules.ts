@@ -12,6 +12,11 @@ export type ActionButtonProps = {
   highContrast?: boolean
   iconStart?: string
   iconEnd?: string
+  className?: string
+  accessibilityLabel?: string
+  accessibilityHint?: string
+  isLoading?: boolean
+  textClassName?: string
 }
 
 export type BottomSheetIndex = 0 | 1 | 2 | 3 | 4 | 5

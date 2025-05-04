@@ -47,6 +47,11 @@ function RenderedSheet({
               color={actionButton.color || 'neutral'}
               variant={actionButton.variant || 'solid'}
               highContrast={actionButton.highContrast || true}
+              className={actionButton.className}
+              accessibilityHint={actionButton.accessibilityHint}
+              accessibilityLabel={actionButton.accessibilityLabel}
+              textClassName={actionButton.textClassName}
+              isLoading={actionButton.isLoading}
               {...(actionButton.iconStart && { iconStart: actionButton.iconStart })}
               {...(actionButton.iconEnd && { iconEnd: actionButton.iconEnd })}
               onPress={actionButton.action}
@@ -57,6 +62,11 @@ function RenderedSheet({
                 text={secondaryActionButton.text}
                 color={secondaryActionButton.color || 'neutral'}
                 variant={secondaryActionButton.variant || 'soft'}
+                className={actionButton.className}
+                accessibilityHint={actionButton.accessibilityHint}
+                accessibilityLabel={actionButton.accessibilityLabel}
+                isLoading={actionButton.isLoading}
+                textClassName={actionButton.textClassName}
                 {...(secondaryActionButton.iconStart && {
                   iconStart: secondaryActionButton.iconStart,
                 })}
@@ -125,6 +135,11 @@ function RenderedSheet({
               color={actionButton.color || 'neutral'}
               variant={actionButton.variant || 'solid'}
               highContrast={actionButton.highContrast || true}
+              className={actionButton.className}
+              accessibilityHint={actionButton.accessibilityHint}
+              accessibilityLabel={actionButton.accessibilityLabel}
+              isLoading={actionButton.isLoading}
+              textClassName={actionButton.textClassName}
               {...(actionButton.iconStart && { iconStart: actionButton.iconStart })}
               {...(actionButton.iconEnd && { iconEnd: actionButton.iconEnd })}
               onPress={actionButton.action}
