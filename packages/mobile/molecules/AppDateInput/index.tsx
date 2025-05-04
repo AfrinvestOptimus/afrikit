@@ -65,6 +65,17 @@ export type AppDateInputProps = {
    * This is optional and only used for the initial value.
    */
   selectedDate?: Date
+
+  /**
+   * Minimum selectable date.
+   */
+  minimumDate?: Date
+
+  /**
+   * Maximum selectable date.
+   */
+  maximumDate?: Date
+
   /**
    * Date picker props.
    */
@@ -88,6 +99,8 @@ const AppDateInput: React.FC<AppDateInputProps> = memo(
     onDateChange,
     renderConfirmButton,
     selectedDate,
+    minimumDate,
+    maximumDate,
     className,
     dateTimePickerProps = {},
   }) => {
@@ -217,6 +230,13 @@ const AppDateInput: React.FC<AppDateInputProps> = memo(
       )
     }
 
+    // Combine props for DateTimePicker
+    const datePickerProps = {
+      ...dateTimePickerProps,
+      minimumDate,
+      maximumDate,
+    }
+
     // Render Android DatePicker directly if showing
     if (!isIOS && showPicker) {
       return (
@@ -229,6 +249,8 @@ const AppDateInput: React.FC<AppDateInputProps> = memo(
           themeVariant={isDarkMode ? 'dark' : 'light'}
           accessibilityLabel="Date Picker"
           accessibilityHint="Select date"
+          minimumDate={minimumDate}
+          maximumDate={maximumDate}
           {...dateTimePickerProps}
         />
       )
@@ -294,6 +316,8 @@ const AppDateInput: React.FC<AppDateInputProps> = memo(
                     themeVariant={isDarkMode ? 'dark' : 'light'}
                     accessibilityLabel="Date Picker"
                     accessibilityHint="Swipe up or down to adjust date"
+                    minimumDate={minimumDate}
+                    maximumDate={maximumDate}
                     {...dateTimePickerProps}
                   />
 
