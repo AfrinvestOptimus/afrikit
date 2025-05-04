@@ -62,11 +62,11 @@ function RenderedSheet({
                 text={secondaryActionButton.text}
                 color={secondaryActionButton.color || 'neutral'}
                 variant={secondaryActionButton.variant || 'soft'}
-                className={actionButton.className}
-                accessibilityHint={actionButton.accessibilityHint}
-                accessibilityLabel={actionButton.accessibilityLabel}
-                isLoading={actionButton.isLoading}
-                textClassName={actionButton.textClassName}
+                className={secondaryActionButton.className}
+                accessibilityHint={secondaryActionButton.accessibilityHint}
+                accessibilityLabel={secondaryActionButton.accessibilityLabel}
+                isLoading={secondaryActionButton.isLoading}
+                textClassName={secondaryActionButton.textClassName}
                 {...(secondaryActionButton.iconStart && {
                   iconStart: secondaryActionButton.iconStart,
                 })}
