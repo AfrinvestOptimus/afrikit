@@ -49,6 +49,14 @@ export default {
       description: 'Hint text for the input component',
       defaultValue: 'Select your date of birth',
     },
+    minimumDate: {
+      control: 'date',
+      description: 'Minimum selectable date',
+    },
+    maximumDate: {
+      control: 'date',
+      description: 'Maximum selectable date',
+    },
     onDateChange: {
       action: 'dateChanged',
       description: 'Callback function when the date is changed',
@@ -91,4 +99,33 @@ WithError.args = {
   state: 'default',
   hasError: true,
   errorText: 'Invalid date selected',
+}
+
+// Date Range story with minimum and maximum dates
+export const WithDateRange = Template.bind({})
+WithDateRange.args = {
+  label: 'Select a date within range',
+  state: 'default',
+  hintText: 'Date must be between 6 months ago and today',
+  minimumDate: new Date(new Date().setMonth(new Date().getMonth() - 6)), // 6 months ago
+  maximumDate: new Date(), // Today
+}
+
+// Date Range story with future dates only
+export const FutureDatesOnly = Template.bind({})
+FutureDatesOnly.args = {
+  label: 'Select a future date',
+  state: 'default',
+  hintText: 'Select a date between tomorrow and 1 year from now',
+  minimumDate: new Date(new Date().setDate(new Date().getDate() + 1)), // Tomorrow
+  maximumDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)), // 1 year from now
+}
+
+// Date Range story with past dates only
+export const PastDatesOnly = Template.bind({})
+PastDatesOnly.args = {
+  label: 'Select birth date',
+  state: 'default',
+  hintText: 'Must be at least 18 years old',
+  maximumDate: new Date(new Date().setFullYear(new Date().getFullYear() - 18)), // 18 years ago
 }
