@@ -142,7 +142,7 @@ const getIconColors = (
     ghost: !isDarkMode ? colors.light.type.accent.DEFAULT : colors.dark.type.accent.DEFAULT,
   },
   neutral: {
-    solid: !isDarkMode ? colors.light['contrast-white'] : colors.dark['contrast-white'],
+    solid: !isDarkMode ? colors.light['contrast-accent'] : colors.dark['contrast-accent'],
     // @ts-expect-error - Access to dynamically named property from colors theme
     soft: !isDarkMode ? colors.light.neutral11 : colors.dark.neutral11,
     // @ts-expect-error - Access to dynamically named property from colors theme
@@ -179,7 +179,8 @@ const getHighContrastIconColors = (
     ghost: !isDarkMode ? colors.light.type.accent.DEFAULT : colors.dark.type.accent.DEFAULT,
   },
   neutral: {
-    solid: !isDarkMode ? colors.light['contrast-accent'] : colors.dark['contrast-accent'],
+    // @ts-expect-error - Access to dynamically named property from colors theme
+    solid: !isDarkMode ? colors.light.neutral1 : colors.dark.neutral1,
     // @ts-expect-error - Access to dynamically named property from colors theme
     soft: !isDarkMode ? colors.light.neutral12 : colors.dark.neutral12,
     // @ts-expect-error - Access to dynamically named property from colors theme
