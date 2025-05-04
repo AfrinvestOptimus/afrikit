@@ -1,7 +1,8 @@
 import { BottomSheetView } from '@gorhom/bottom-sheet'
 import { isValidElement, memo } from 'react'
-import { Animated, Text, View } from 'react-native'
+import { Animated, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import { AppText } from '../../atoms'
 import { DetachedProps, RegularProps } from '../../types/molecules'
 import classNames from '../../utilities/classnames'
 import AppButton from '../AppButton'
@@ -18,19 +19,24 @@ function RenderedSheet({
   btnTranslateY: Animated.AnimatedInterpolation<number | string>
 }) {
   if (isDetached) {
-    const { title, icon, content, secondaryActionButton, actionButton } =
+    const { title, icon, content, titleProps, subtitleProps, secondaryActionButton, actionButton } =
       checkedProps as DetachedProps
     return (
       <BottomSheetView className={'px-md w-full flex-col justify-between pt-xl'}>
         {icon && isValidElement(icon) && <View className="mb-xl items-center">{icon}</View>}
         <View className="px-md items-center gap-y-sm">
-          <Text className="text-center text-2xl-bold text-light-type-gray dark:text-dark-type-gray">
+          <AppText
+            highContrast
+            className="text-center text-2xl-bold text-light-type-gray dark:text-dark-type-gray"
+            {...titleProps}>
             {title}
-          </Text>
+          </AppText>
           {content && (
-            <Text className="text-center text-sm-body text-light-type-gray-muted dark:text-dark-type-gray-muted">
+            <AppText
+              className="text-center text-sm-body text-light-type-gray-muted dark:text-dark-type-gray-muted"
+              {...subtitleProps}>
               {content}
-            </Text>
+            </AppText>
           )}
         </View>
         {actionButton && (
@@ -38,17 +44,23 @@ function RenderedSheet({
             <AppButton
               size={4}
               text={actionButton.text}
-              color={'neutral'}
-              variant={'solid'}
-              highContrast
+              color={actionButton.color || 'neutral'}
+              variant={actionButton.variant || 'solid'}
+              highContrast={actionButton.highContrast || false}
+              {...(actionButton.iconStart && { iconStart: actionButton.iconStart })}
+              {...(actionButton.iconEnd && { iconEnd: actionButton.iconEnd })}
               onPress={actionButton.action}
             />
             {secondaryActionButton && (
               <AppButton
                 size={4}
                 text={secondaryActionButton.text}
-                color={'neutral'}
-                variant={'soft'}
+                color={secondaryActionButton.color || 'neutral'}
+                variant={secondaryActionButton.variant || 'soft'}
+                {...(secondaryActionButton.iconStart && {
+                  iconStart: secondaryActionButton.iconStart,
+                })}
+                {...(secondaryActionButton.iconEnd && { iconEnd: secondaryActionButton.iconEnd })}
                 onPress={secondaryActionButton.action}
               />
             )}
@@ -68,21 +80,23 @@ function RenderedSheet({
                 'pt-sm pb-lg gap-y-xs',
                 title.align === 'center' ? 'items-center' : '',
               )}>
-              <Text
+              <AppText
                 className={classNames(
                   'text-left text-lg-bold text-light-type-gray dark:text-dark-type-gray',
                   title.align === 'center' ? 'text-center' : 'text-left',
-                )}>
+                )}
+                {...title.titleProps}>
                 {title.text}
-              </Text>
+              </AppText>
               {title.subtitle && (
-                <Text
+                <AppText
                   className={classNames(
                     'text-left text-sm-body text-light-type-gray-muted dark:text-dark-type-gray-muted',
                     title.align === 'center' ? 'text-center' : 'text-left',
-                  )}>
+                  )}
+                  {...title.subtitleProps}>
                   {title.subtitle}
-                </Text>
+                </AppText>
               )}
             </View>
           )}
@@ -108,9 +122,11 @@ function RenderedSheet({
             <AppButton
               size={4}
               text={actionButton.text}
-              color={'neutral'}
-              variant={'solid'}
-              highContrast
+              color={actionButton.color || 'neutral'}
+              variant={actionButton.variant || 'solid'}
+              highContrast={actionButton.highContrast || true}
+              {...(actionButton.iconStart && { iconStart: actionButton.iconStart })}
+              {...(actionButton.iconEnd && { iconEnd: actionButton.iconEnd })}
               onPress={actionButton.action}
             />
           </Animated.View>
