@@ -119,7 +119,6 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
       android_keyboardInputMode="adjustResize"
       keyboardBehavior="extend"
       keyboardBlurBehavior="restore"
-      handleComponent={null}
       backgroundStyle={[
         {
           backgroundColor:
