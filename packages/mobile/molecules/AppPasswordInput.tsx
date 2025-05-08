@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
   Animated,
   NativeSyntheticEvent,
+  Platform,
   TextInput,
   TextInputFocusEventData,
   TouchableOpacity,
@@ -81,7 +82,8 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
   const floatLabelStyle = {
     top: animatedIsFocused.interpolate({
       inputRange: [0, 1],
-      outputRange: [10, 0],
+      // outputRange: [10, 0],
+      outputRange: [Platform.select({ ios: 10, android: 56 * 0.3, default: 56 * 0.2 }), 0],
     }),
     fontSize: animatedIsFocused.interpolate({
       inputRange: [0, 1],

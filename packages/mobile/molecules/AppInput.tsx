@@ -6,7 +6,6 @@ import * as React from 'react'
 import {
   Animated,
   NativeSyntheticEvent,
-  Platform,
   TextInput,
   TextInputFocusEventData,
   TouchableOpacity,
@@ -117,7 +116,7 @@ const AppInput = React.forwardRef<AppInputHandle, AppInputProps>(
     const floatLabelStyle = {
       top: animatedIsFocused.interpolate({
         inputRange: [0, 1],
-        outputRange: [10, 0],
+        outputRange: [56 * 0.4, 0],
       }),
       fontSize: animatedIsFocused.interpolate({
         inputRange: [0, 1],
@@ -156,7 +155,7 @@ const AppInput = React.forwardRef<AppInputHandle, AppInputProps>(
           }}>
           <View
             className={`px-sm items-center w-full flex-row bg-light-surface-gray dark:bg-dark-surface-gray h-[56px] ${getBorderStyle()} ${containerStyle}`}>
-            <View className={`flex-1 px-xs ${Platform.OS === 'android' ? 'py-lg' : ''}`}>
+            <View className={`flex-1 px-xs h-[100%] ${focused ? 'justify-evenly' : ''} `}>
               {floatingLabel && (
                 <Animated.Text
                   style={[floatLabelStyle]}
