@@ -217,7 +217,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
         ) : null}
       </View>
     ),
-    [selectedValue],
+    [selectedValue, isDarkMode],
   )
 
   const filteredOptions = useMemo(() => {
@@ -283,6 +283,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
         index={bottomSheetIndex}
         isSwipeable={isSwipeable}
         showModal={isBottomSheetOpen}
+        contentContainerStyle={{ paddingBottom: 100 }}
         setShowModal={setIsBottomSheetOpen}
         isDetached={false}>
         <KeyboardAvoidingView behavior={behaviour}>
@@ -310,13 +311,15 @@ const AppSelect: React.FC<AppSelectProps> = ({
           ) : null}
 
           {!isLoading && (
-            <View className="rounded-lg bg-light-white-to-dark dark:bg-dark-white-to-dark px-lg py-sm mt-lg">
+            <View
+              className="rounded-lg bg-light-white-to-dark dark:bg-dark-white-to-dark px-lg py-sm mt-lg mb-5xl"
+              style={{ paddingBottom: 24 }}>
               {filteredOptions?.map((option, index) => (
                 <TouchableOpacity
                   key={option.value}
                   accessibilityRole="menuitem"
                   accessibilityLabel={option.label}
-                  accessibilityHint={`Select ${option}`}
+                  accessibilityHint={`Select ${option.label}`}
                   onPress={() => handleSelectOption(option)}
                   className="py-lg">
                   {renderItem ? renderItem(option) : renderDefaultItem(option)}

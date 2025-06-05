@@ -26,6 +26,7 @@ export type CommonProps = {
   setShowModal: (showModal: boolean) => void
   backdropClose?: boolean
   actionButton?: ActionButtonProps
+  contentContainerStyle?: StyleProp<ViewStyle>
   backgroundStyle?: StyleProp<Omit<ViewStyle, 'position' | 'top' | 'left' | 'bottom' | 'right'>>
 }
 

@@ -79,7 +79,8 @@ function RenderedSheet({
       </BottomSheetView>
     )
   } else {
-    const { title, children, actionButton, fixedHeader } = checkedProps as RegularProps
+    const { title, children, actionButton, fixedHeader, contentContainerStyle } =
+      checkedProps as RegularProps
     return (
       <BottomSheetView style={{ height }}>
         <View className="w-full px-md">
@@ -116,8 +117,8 @@ function RenderedSheet({
         {/* Scrollable Content */}
         <ScrollView
           className="w-full px-md"
-          contentContainerStyle={{ flexGrow: 1 }}
-          showsVerticalScrollIndicator={true}
+          contentContainerStyle={[{ flexGrow: 1 }, contentContainerStyle]}
+          showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="on-drag"
           bounces={false}>
