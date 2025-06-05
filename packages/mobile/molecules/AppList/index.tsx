@@ -130,7 +130,7 @@ const densitySpacing = {
 }
 type Density = keyof typeof densitySpacing
 type ActivityStatus = keyof typeof activityStatusIcons
-type ProductType = keyof typeof productIcons
+export type ProductType = keyof typeof productIcons
 
 cssInterop(RemixIcon, {
   className: {
@@ -532,7 +532,7 @@ const ListItem: React.FC<ListItemProps<LeadingOptions, TrailingOptions>> = ({
           <RemixIcon
             name="arrow-right-wide-fill"
             color={colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
-            size={24}
+            size={16}
           />
         </View>
       )}
