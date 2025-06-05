@@ -1,11 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-import { FC, useEffect, useMemo, useRef, useState } from 'react'
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { Pressable, TextInput, View } from 'react-native'
 import { AppText } from '../atoms'
 import Loader from '../atoms/Loader'
 import classNames from '../utilities/classnames'
 import AppHintText from './AppHintText'
+
+export type AuthInputRef = {
+  clearInput: () => void
+  focus: () => void
+}
 
 export type KeyboardType = 'Custom' | 'Native'
 export type AuthInputProps = {
@@ -18,119 +23,140 @@ export type AuthInputProps = {
   customValue?: string
   keypad?: KeyboardType
   actionLabel?: string
-  onClear?: () => void
 }
 
-const AuthInput: FC<AuthInputProps> = ({
-  count,
-  isError,
-  errorMessage,
-  onValueChange,
-  isLoading,
-  customValue,
-  keypad = 'Native',
-  actionLabel,
-  onActionPress,
-  onClear,
-}) => {
-  const [value, setValue] = useState('')
-  const [codeKeys, setCodeKeys] = useState<string[] | undefined>(undefined)
+const AuthInput = forwardRef<AuthInputRef, AuthInputProps>(
+  (
+    {
+      count,
+      isError,
+      errorMessage,
+      onValueChange,
+      isLoading,
+      customValue,
+      keypad = 'Native',
+      actionLabel,
+      onActionPress,
+    },
+    ref,
+  ) => {
+    const [value, setValue] = useState('')
+    const [codeKeys, setCodeKeys] = useState<string[]>([])
 
-  const KeyboardRef = useRef<TextInput>(null)
+    const KeyboardRef = useRef<TextInput>(null)
 
-  useEffect(() => {
-    if (customValue !== undefined) {
-      onChange(customValue)
-    }
-  }, [customValue])
+    useEffect(() => {
+      setCodeKeys(Array(count).fill(''))
+    }, [count])
 
-  useEffect(() => {
-    if (keypad === 'Native') {
-      KeyboardRef?.current?.focus()
-    }
-  }, [keypad])
-
-  useMemo(() => {
-    setCodeKeys(Array(count).fill(''))
-  }, [count])
-
-  const onChange = (code: string) => {
-    const updateEmptyIndex = codeKeys?.map(function (num, index) {
-      if (num === '' && index === code.length - 1) {
-        return code.length > 1 ? code.slice(-1) : code
+    useEffect(() => {
+      if (customValue !== undefined && customValue !== value) {
+        setValue(customValue)
+        const updatedCodeKeys = Array(count).fill('')
+        customValue.split('').forEach((char, index) => {
+          if (index < count) {
+            updatedCodeKeys[index] = char
+          }
+        })
+        setCodeKeys(updatedCodeKeys)
+        onValueChange?.(customValue)
+      } else if (customValue === '' && value !== '') {
+        // Case for clearing customValue
+        setValue('')
+        setCodeKeys(Array(count).fill(''))
+        onValueChange?.('')
       }
-      return code.length > index ? num : ''
-    })
+    }, [customValue, count, value])
 
-    setValue(code)
-    setCodeKeys(updateEmptyIndex)
-    onValueChange?.(updateEmptyIndex?.join('') || '')
-  }
+    useEffect(() => {
+      if (keypad === 'Native') {
+        KeyboardRef?.current?.focus()
+      }
+    }, [keypad])
 
-  const clearInput = () => {
-    setValue('')
-    setCodeKeys(Array(count).fill(''))
-    onValueChange?.('')
-    onClear?.()
+    const onChange = (code: string) => {
+      // Ensure codeKeys is initialized before mapping
+      const currentCodeKeys = codeKeys || Array(count).fill('')
+      console.log({ currentCodeKeys })
 
-    if (keypad === 'Native') {
-      KeyboardRef?.current?.focus()
+      const updateEmptyIndex = currentCodeKeys.map((num, index) => {
+        if (num === '' && index === code.length - 1) {
+          return code.length > 1 ? code.slice(-1) : code
+        }
+        return code.length > index ? code[index] : ''
+      })
+
+      setValue(code)
+      setCodeKeys(updateEmptyIndex)
+      onValueChange?.(updateEmptyIndex.join('') || '')
     }
-  }
 
-  /* eslint-disable */
-  useEffect(() => {
-    if (onClear) {
-      const originalOnClear = onClear
-      ;(onClear as any).clear = clearInput
+    const clearInput = () => {
+      setValue('')
+      setCodeKeys(Array(count).fill(''))
+      onValueChange?.('')
+      if (keypad === 'Native') {
+        KeyboardRef?.current?.focus()
+      }
     }
-  }, [onClear])
-  /* eslint-disable */
 
-  const styles = getDesignClasses()
+    useImperativeHandle(ref, () => ({
+      clearInput,
+      focus: () => KeyboardRef?.current?.focus(),
+    }))
 
-  const handlePress = () => {
-    if (keypad === 'Native') {
-      KeyboardRef?.current?.focus()
+    const styles = getDesignClasses()
+
+    const handlePress = () => {
+      if (keypad === 'Native') {
+        KeyboardRef?.current?.focus()
+      }
     }
-  }
 
-  return (
-    <>
-      {isLoading ? (
-        <>
-          <Loader />
-        </>
-      ) : (
-        <>
-          <TextInput className="hidden" onChangeText={onChange} ref={KeyboardRef} value={value} />
-          <Pressable className="flex justify-center" onPress={handlePress}>
-            <View
-              className={`flex items-center justify-between w-fit h-[40] flex-row p-lg rounded-xs-max ${isError ? `${styles.backgroundError}` : `${styles.backgroundDefault}`}`}>
-              {codeKeys?.map((row, rowIndex) => (
-                <View
-                  key={`${rowIndex + 1}`}
-                  className={classNames(
-                    `w-sm h-sm rounded-sm-max ${rowIndex == codeKeys.length - 1 ? 'mr-none' : 'mr-md'}`,
-                    `${row !== '' ? `${styles.pinBackgroundFilled}` : isError ? `${styles.pinBackgroundError}` : `${styles.pinBackgroundDefault}`}`,
-                  )}></View>
-              ))}
-            </View>
-          </Pressable>
-          {isError ? (
-            <View className="flex-row items-center gap-sm justify-center">
-              <AppHintText text={errorMessage as string} type="error" />
-              <View className="w-xs h-xs rounded-full bg-light-background-neutral-transparent-pressed dark:bg-dark-background-neutral-transparent-pressed" />
-              <AppText size={2} weight="semibold" color="accent" onPress={onActionPress}>
-                {actionLabel}
-              </AppText>
-            </View>
-          ) : null}
-        </>
-      )}
-    </>
-  )
-}
+    return (
+      <>
+        {isLoading ? (
+          <>
+            <Loader />
+          </>
+        ) : (
+          <>
+            <TextInput
+              className="hidden"
+              onChangeText={onChange}
+              ref={KeyboardRef}
+              value={value}
+              keyboardType="number-pad"
+              maxLength={count}
+            />
+            <Pressable className="flex justify-center" onPress={handlePress}>
+              <View
+                className={`flex items-center justify-between w-fit h-[40] flex-row p-lg rounded-xs-max ${isError ? `${styles.backgroundError}` : `${styles.backgroundDefault}`}`}>
+                {codeKeys?.map((row, rowIndex) => (
+                  <View
+                    key={`${rowIndex + 1}`}
+                    className={classNames(
+                      `w-sm h-sm rounded-sm-max ${rowIndex === codeKeys.length - 1 ? 'mr-none' : 'mr-md'}`,
+                      `${row !== '' ? `${styles.pinBackgroundFilled}` : isError ? `${styles.pinBackgroundError}` : `${styles.pinBackgroundDefault}`}`,
+                    )}></View>
+                ))}
+              </View>
+            </Pressable>
+            {isError ? (
+              <View className="flex-row items-center gap-sm justify-center">
+                <AppHintText text={errorMessage as string} type="error" />
+                <View className="w-xs h-xs rounded-full bg-light-background-neutral-transparent-pressed dark:bg-dark-background-neutral-transparent-pressed" />
+                <AppText size={2} weight="semibold" color="accent" onPress={onActionPress}>
+                  {actionLabel}
+                </AppText>
+              </View>
+            ) : null}
+          </>
+        )}
+      </>
+    )
+  },
+)
 
 export default AuthInput
 
