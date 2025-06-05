@@ -143,12 +143,12 @@ const AuthInput = forwardRef<AuthInputRef, AuthInputProps>(
               </View>
             </Pressable>
             {isError ? (
-              <View className="flex-col items-center justify-center mt-sm">
-                <View className="w-full">
+              <View className="flex-row items-center justify-center mt-sm gap-sm w-[80%]">
+                <View>
                   <AppHintText text={errorMessage as string} type="error" className="text-center" />
                 </View>
                 {actionLabel && (
-                  <View className="flex-row items-center gap-sm mt-xs">
+                  <View className="flex-row items-center gap-sm">
                     <View className="w-xs h-xs rounded-full bg-light-background-neutral-transparent-pressed dark:bg-dark-background-neutral-transparent-pressed" />
                     <AppText size={2} weight="semibold" color="accent" onPress={onActionPress}>
                       {actionLabel}
