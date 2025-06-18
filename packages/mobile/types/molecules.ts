@@ -41,3 +41,8 @@ export type AppBottomSheetProps<T extends boolean> = CommonProps & {
 
 export type DetachedProps = AppBottomSheetProps<true>
 export type RegularProps = AppBottomSheetProps<false>
+
+export interface AppInputHandle {
+  setValue: (value: string) => void
+  clear: () => void
+}

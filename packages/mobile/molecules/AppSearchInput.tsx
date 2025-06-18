@@ -14,12 +14,8 @@ import {
 } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import RemixIcon from 'react-native-remix-icon'
+import { AppInputHandle } from 'types/molecules'
 import { AppInputProps } from '../types/atoms'
-
-export interface AppInputHandle {
-  setValue: (value: string) => void
-  clear: () => void
-}
 
 interface AppSearchInputProps extends AppInputProps {
   defaultValue?: string
