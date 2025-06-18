@@ -19,6 +19,11 @@ import { AppPhoneInputProps } from '../types/atoms'
 import { AppInputBlur } from '../utilities/validation'
 import AppHintText from './AppHintText'
 
+export interface AppInputHandle {
+  setValue: (value: string) => void
+  clear: () => void
+}
+
 const AppPhoneInput: React.FC<AppPhoneInputProps> = ({
   onBlur,
   floatingLabel = true,
@@ -38,6 +43,7 @@ const AppPhoneInput: React.FC<AppPhoneInputProps> = ({
   ...props
 }) => {
   const textInputRef = React.useRef<TextInput>(null)
+  const componentRef = React.useRef(null) // Add a ref for imperative handle
   const [localValue, setLocalValue] = React.useState<string>('')
   const [focused, setFocused] = React.useState<boolean>(false)
   const [inputValue, setInputValue] = React.useState<string>(value)
@@ -128,8 +134,19 @@ const AppPhoneInput: React.FC<AppPhoneInputProps> = ({
       : 'border-0 border-transparent rounded-r-md' // defaulting to rounded input when there's neither a focused state or error state on the input field
   }
 
+  React.useImperativeHandle(componentRef, () => ({
+    setValue: (newValue: string) => {
+      setInputValue(newValue)
+      onChangeTextProp?.(newValue)
+    },
+    clear: () => {
+      setInputValue('')
+      onChangeTextProp?.('')
+    },
+  }))
+
   return (
-    <View>
+    <View ref={componentRef}>
       <View className={'flex-row'}>
         <Pressable
           onPress={handlePress}

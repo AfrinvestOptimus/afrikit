@@ -1,6 +1,6 @@
 import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import {
   Animated,
   NativeSyntheticEvent,
@@ -15,6 +15,11 @@ import { useSharedValue } from 'react-native-reanimated'
 import RemixIcon from 'react-native-remix-icon'
 import { AppInputProps } from '../types/atoms'
 import AppHintText from './AppHintText'
+
+export interface AppInputHandle {
+  setValue: (value: string) => void
+  clear: () => void
+}
 
 const AppPasswordInput: React.FC<AppInputProps> = ({
   onBlur,
@@ -31,6 +36,7 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
   ...props
 }) => {
   const textInputRef = useRef<TextInput>(null)
+  const componentRef = useRef(null) // Add a ref for imperative handle
   const [values, setValues] = useState<string>('')
   const [focused, setFocused] = useState<boolean>(false)
   const [inputValue, setInputValue] = useState<string>(value)
@@ -126,8 +132,19 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
     [passwordVisible, isDarkMode],
   )
 
+  useImperativeHandle(componentRef, () => ({
+    setValue: (newValue: string) => {
+      setInputValue(newValue)
+      onChangeTextProp?.(newValue)
+    },
+    clear: () => {
+      setInputValue('')
+      onChangeTextProp?.('')
+    },
+  }))
+
   return (
-    <View className={className}>
+    <View ref={componentRef} className={className}>
       <TouchableWithoutFeedback onPress={() => textInputRef.current?.focus()}>
         <View
           className={`px-sm items-center w-full flex-row bg-light-surface-gray dark:bg-dark-surface-gray h-[56px] ${getBorderStyle()}`}>
@@ -179,4 +196,5 @@ const AppPasswordInput: React.FC<AppInputProps> = ({
     </View>
   )
 }
+
 export default AppPasswordInput

@@ -16,6 +16,11 @@ import { useSharedValue } from 'react-native-reanimated'
 import RemixIcon from 'react-native-remix-icon'
 import { AppInputProps } from '../types/atoms'
 
+export interface AppInputHandle {
+  setValue: (value: string) => void
+  clear: () => void
+}
+
 interface AppSearchInputProps extends AppInputProps {
   defaultValue?: string
 }
@@ -31,6 +36,7 @@ const AppSearchInput: React.FC<AppSearchInputProps> = ({
   ...props
 }) => {
   const textInputRef = React.useRef<TextInput>(null)
+  const componentRef = React.useRef(null) // Add a ref for imperative handle
   const { colorScheme } = useColorScheme()
   const [values, setValues] = React.useState<string>('')
   const [focused, setFocused] = React.useState<boolean>(false)
@@ -103,8 +109,19 @@ const AppSearchInput: React.FC<AppSearchInputProps> = ({
     </TouchableOpacity>
   )
 
+  React.useImperativeHandle(componentRef, () => ({
+    setValue: (newValue: string) => {
+      setInputValue(newValue)
+      onChangeTextProp?.(newValue)
+    },
+    clear: () => {
+      setInputValue('')
+      onChangeTextProp?.('')
+    },
+  }))
+
   return (
-    <View>
+    <View ref={componentRef}>
       <TouchableWithoutFeedback
         onPress={() => {
           textInputRef.current?.focus()
