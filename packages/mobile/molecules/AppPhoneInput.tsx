@@ -58,6 +58,17 @@ const AppPhoneInput = React.forwardRef<AppInputHandle, AppPhoneInputProps>(
       flag: '🇳🇬',
     })
 
+    React.useImperativeHandle(ref, () => ({
+      setValue: (newValue: string) => {
+        setInputValue(newValue)
+        onChangeTextProp?.(newValue)
+      },
+      clear: () => {
+        setInputValue('')
+        onChangeTextProp?.('')
+      },
+    }))
+
     React.useEffect(() => {
       if (selectedCountry?.code && selectedCountry?.code !== localSelectedCountry?.code) {
         setLocalSelectedCountry(selectedCountry)
@@ -137,17 +148,6 @@ const AppPhoneInput = React.forwardRef<AppInputHandle, AppPhoneInputProps>(
         ? 'border-2 border-light-red9 dark:border-dark-red9 rounded-r-md' // show red border when the input isn't valued and the field isn't in a focused state
         : 'border-0 border-transparent rounded-r-md' // defaulting to rounded input when there's neither a focused state or error state on the input field
     }
-
-    React.useImperativeHandle(ref, () => ({
-      setValue: (newValue: string) => {
-        setInputValue(newValue)
-        onChangeTextProp?.(newValue)
-      },
-      clear: () => {
-        setInputValue('')
-        onChangeTextProp?.('')
-      },
-    }))
 
     return (
       <View ref={componentRef}>
