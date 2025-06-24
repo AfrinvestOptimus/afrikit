@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { ReactNode } from 'react'
-import { StyleProp, ViewStyle } from 'react-native'
+import { StyleProp, TextInput, ViewStyle } from 'react-native'
 
 export type ActionButtonProps = {
   text: string
@@ -42,7 +42,7 @@ export type AppBottomSheetProps<T extends boolean> = CommonProps & {
 export type DetachedProps = AppBottomSheetProps<true>
 export type RegularProps = AppBottomSheetProps<false>
 
-export interface AppInputHandle {
+export interface AppInputHandle extends Partial<TextInput> {
   setValue: (value: string) => void
   clear: () => void
 }
