@@ -2,7 +2,7 @@ import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
 import React, { useCallback } from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import { AppText } from '../../atoms'
+import { AppText, AppTextAtomProps } from '../../atoms'
 import AppIcon, { AppIconSize } from '../../molecules/AppIcon'
 
 type ActionObject = {
@@ -89,6 +89,10 @@ export interface AppTopBarProps {
    * Accessibility hint for the entire top bar. Defaults to `Navigation bar at the top of the screen`.
    */
   accessibilityHint?: string
+  titleProps?: AppTextAtomProps
+  subtitleProps?: AppTextAtomProps
+  leftTitleProps?: AppTextAtomProps
+  leftSubtitleProps?: AppTextAtomProps
 }
 
 export const AppTopBar: React.FC<AppTopBarProps> = ({
@@ -106,6 +110,10 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
   customBackButton,
   accessibilityLabel = 'Top Bar',
   accessibilityHint = 'Navigation bar at the top of the screen',
+  titleProps,
+  subtitleProps,
+  leftTitleProps,
+  leftSubtitleProps,
 }) => {
   const { colorScheme } = useColorScheme()
   const isDarkMode = colorScheme === 'dark'
@@ -146,11 +154,11 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
     if (leftTitle || leftSubtitle) {
       return (
         <View>
-          <AppText size={4} weight="bold" color="gray" align="left">
+          <AppText size={4} weight="bold" color="gray" align="left" {...leftTitleProps}>
             {leftTitle}
           </AppText>
           {leftSubtitle ? (
-            <AppText size={2} weight="regular" color="gray" align="left">
+            <AppText size={2} weight="regular" color="gray" align="left" {...leftSubtitleProps}>
               {leftSubtitle}
             </AppText>
           ) : null}
@@ -221,11 +229,11 @@ export const AppTopBar: React.FC<AppTopBarProps> = ({
         renderCenter()
       ) : (
         <View style={styles.center}>
-          <AppText size={4} weight="bold" color="gray" align="center" highContrast>
+          <AppText size={4} weight="bold" color="gray" align="center" highContrast {...titleProps}>
             {title}
           </AppText>
           {subtitle && (
-            <AppText size={2} weight="regular" color="gray" align="center">
+            <AppText size={2} weight="regular" color="gray" align="center" {...subtitleProps}>
               {subtitle}
             </AppText>
           )}

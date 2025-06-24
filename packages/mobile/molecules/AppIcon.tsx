@@ -56,7 +56,7 @@ const AppIcon: FC<AppIconProps> = ({
         />
       </View>
     )
-  }, [isDarkMode, isRemixIcon, size])
+  }, [isDarkMode, isRemixIcon, size, color, name, accessibilityLabel, accessibilityHint])
 
   return <>{renderIcon()}</>
 }

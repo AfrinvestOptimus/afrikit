@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { KeyboardAvoidingView, Platform, TouchableOpacity, View } from 'react-native'
 import AppText from '../../atoms/AppText'
 import AppSearchInput from '../../molecules/AppSearchInput'
+import { BottomSheetIndex } from '../../types/molecules'
 import AppBottomSheet from '../AppBottomSheet'
 import AppHintText from '../AppHintText'
 import IconTemp from '../AppIcon'
@@ -88,6 +89,8 @@ export type AppSelectProps = {
    * Default is false.
    */
   isLoading?: boolean
+  isSwipeable?: boolean
+  bottomSheetIndex?: BottomSheetIndex
 
   /**
    * Optional custom loader component that is displayed when isLoading is true.
@@ -115,6 +118,8 @@ const AppSelect: React.FC<AppSelectProps> = ({
   customLoader,
   onValueChange,
   renderItem,
+  isSwipeable,
+  bottomSheetIndex = 3,
 }) => {
   // State to manage selected value and bottom sheet visibility
   const [selectedValue, setSelectedValue] = useState<SelectItem | null>(initialValue)
@@ -212,7 +217,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
         ) : null}
       </View>
     ),
-    [selectedValue],
+    [selectedValue, isDarkMode],
   )
 
   const filteredOptions = useMemo(() => {
@@ -275,8 +280,10 @@ const AppSelect: React.FC<AppSelectProps> = ({
 
       <AppBottomSheet
         backdropClose
-        index={3}
+        index={bottomSheetIndex}
+        isSwipeable={isSwipeable}
         showModal={isBottomSheetOpen}
+        contentContainerStyle={{ paddingBottom: 100 }}
         setShowModal={setIsBottomSheetOpen}
         isDetached={false}>
         <KeyboardAvoidingView behavior={behaviour}>
@@ -304,13 +311,15 @@ const AppSelect: React.FC<AppSelectProps> = ({
           ) : null}
 
           {!isLoading && (
-            <View className="rounded-lg bg-light-white-to-dark dark:bg-dark-white-to-dark px-lg py-sm mt-lg">
+            <View
+              className="rounded-lg bg-light-white-to-dark dark:bg-dark-white-to-dark px-lg py-sm mt-lg mb-5xl"
+              style={{ paddingBottom: 24 }}>
               {filteredOptions?.map((option, index) => (
                 <TouchableOpacity
                   key={option.value}
                   accessibilityRole="menuitem"
                   accessibilityLabel={option.label}
-                  accessibilityHint={`Select ${option}`}
+                  accessibilityHint={`Select ${option.label}`}
                   onPress={() => handleSelectOption(option)}
                   className="py-lg">
                   {renderItem ? renderItem(option) : renderDefaultItem(option)}

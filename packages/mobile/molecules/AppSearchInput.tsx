@@ -48,6 +48,12 @@ const AppSearchInput = React.forwardRef<AppInputHandle, AppSearchInputProps>(
 
     const isDarkMode = colorScheme === 'dark'
 
+    React.useEffect(() => {
+      if (value !== undefined) {
+        setInputValue(value)
+      }
+    }, [value])
+
     React.useImperativeHandle(ref, () => ({
       setValue: (newValue: string) => {
         setInputValue(newValue)

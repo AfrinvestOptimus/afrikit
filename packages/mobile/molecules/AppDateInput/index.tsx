@@ -3,8 +3,8 @@ import type { AndroidNativeProps, IOSNativeProps } from '@react-native-community
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker'
 import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Platform, TouchableOpacity, View } from 'react-native'
 import AppText from '../../atoms/AppText'
 import AppBottomSheet from '../AppBottomSheet'
 import AppButton from '../AppButton'
@@ -12,6 +12,7 @@ import AppHintText from '../AppHintText'
 import IconTemp from '../AppIcon'
 
 type DateTimePickerProps = AndroidNativeProps & IOSNativeProps
+
 /**
  * Props for the AppDateInput component.
  */
@@ -20,7 +21,7 @@ export type AppDateInputProps = {
    * The label to display above the date input field.
    */
   label: string
-  className: string
+  className?: string
 
   /**
    * The current state of the date input.
@@ -55,7 +56,7 @@ export type AppDateInputProps = {
 
   /**
    * Optional function to render a custom confirm button.
-   * If not provided, a default confirm button will be rendered.
+   * If not provided, a default confirm button will be rendered (on iOS only).
    */
   renderConfirmButton?: () => React.ReactNode
 
@@ -64,77 +65,134 @@ export type AppDateInputProps = {
    * This is optional and only used for the initial value.
    */
   selectedDate?: Date
+
+  /**
+   * Minimum selectable date.
+   */
+  minimumDate?: Date
+
+  /**
+   * Maximum selectable date.
+   */
+  maximumDate?: Date
+
   /**
    * Date picker props.
    */
   dateTimePickerProps?: Omit<DateTimePickerProps, 'value' | 'onChange'>
 }
 
-const AppDateInput: React.FC<AppDateInputProps> = ({
-  label,
-  state = 'default',
-  hasError = false,
-  errorText = '',
-  hintText = '',
-  onDateChange,
-  renderConfirmButton,
-  selectedDate,
-  className,
-  dateTimePickerProps = {},
-}) => {
-  // Internal state for the date, using selectedDate or initialDate as initial value
-  const [internalSelectedDate, setInternalSelectedDate] = useState<Date | null>(
-    selectedDate || null,
-  )
+const isIOS = Platform.OS === 'ios'
 
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
-  const [showPicker, setShowPicker] = useState(false)
+/**
+ * A date input component that displays a date picker.
+ * On iOS: Shows in a bottom sheet with a confirm button to finalize selection.
+ * On Android: Shows native date picker directly without bottom sheet or confirm button.
+ */
+const AppDateInput: React.FC<AppDateInputProps> = memo(
+  ({
+    label,
+    state = 'default',
+    hasError = false,
+    errorText = '',
+    hintText = '',
+    onDateChange,
+    renderConfirmButton,
+    selectedDate,
+    minimumDate,
+    maximumDate,
+    className,
+    dateTimePickerProps = {},
+  }) => {
+    // Internal state for the date, using selectedDate or initialDate as initial value
+    const [internalSelectedDate, setInternalSelectedDate] = useState<Date | null>(
+      selectedDate || null,
+    )
+    const [tempDate, setTempDate] = useState<Date | null>(null)
+    const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
+    const [showPicker, setShowPicker] = useState(false)
 
-  const bottomSheetRef = useRef<BottomSheetModal>(null)
-  const { colorScheme } = useColorScheme()
-  const isDarkMode = colorScheme === 'dark'
+    const bottomSheetRef = useRef<BottomSheetModal>(null)
+    const { colorScheme } = useColorScheme()
+    const isDarkMode = colorScheme === 'dark'
 
-  useEffect(() => {
     // Update internal state if selectedDate prop changes
-    if (selectedDate) {
-      setInternalSelectedDate(selectedDate)
-    }
-  }, [selectedDate])
+    useEffect(() => {
+      if (selectedDate) {
+        setInternalSelectedDate(selectedDate)
+        if (isIOS) {
+          setTempDate(selectedDate)
+        }
+      }
+    }, [selectedDate])
 
-  const handleOpenBottomSheet = useCallback(() => {
-    if (state !== 'disabled') {
-      setIsBottomSheetOpen(true)
-      bottomSheetRef.current?.present()
-      setShowPicker(true)
-    }
-  }, [state])
+    // Clean up when component unmounts or modal closes
+    useEffect(() => {
+      if (!isBottomSheetOpen && isIOS) {
+        // If modal is closed, we don't need tempDate anymore
+        setTempDate(null)
+      } else if (isBottomSheetOpen && isIOS) {
+        // When opening, initialize tempDate with current selection
+        setTempDate(internalSelectedDate || new Date())
+      }
+    }, [isBottomSheetOpen, internalSelectedDate])
 
-  const handleConfirmDate = useCallback(() => {
-    setIsBottomSheetOpen(false)
-    bottomSheetRef.current?.dismiss()
-    setShowPicker(false)
-  }, [])
+    const handleOpenPicker = useCallback(() => {
+      if (state === 'disabled') return
 
-  const handleDateChange = useCallback(
-    (event: DateTimePickerEvent, date?: Date) => {
-      setInternalSelectedDate(date || new Date())
-      onDateChange?.(date || new Date())
-    },
-    [onDateChange],
-  )
+      if (isIOS) {
+        // iOS uses bottom sheet
+        setIsBottomSheetOpen(true)
+        bottomSheetRef.current?.present()
+        setShowPicker(true)
+      } else {
+        // Android shows native picker directly
+        setShowPicker(true)
+      }
+    }, [state])
 
-  const getBackgroundStyles = useCallback(
-    (state: string) => {
+    const handleConfirmDate = useCallback(() => {
+      // Only called on iOS - update the final date from temp date
+      if (tempDate) {
+        setInternalSelectedDate(tempDate)
+        onDateChange?.(tempDate)
+      }
+      setIsBottomSheetOpen(false)
+      bottomSheetRef.current?.dismiss()
+      setShowPicker(false)
+    }, [tempDate, onDateChange])
+
+    const handleCloseBottomSheet = useCallback(() => {
+      setIsBottomSheetOpen(false)
+      bottomSheetRef.current?.dismiss()
+      setShowPicker(false)
+    }, [])
+
+    const handleDateChange = useCallback(
+      (event: DateTimePickerEvent, date?: Date) => {
+        if (!date) return
+
+        if (isIOS) {
+          // On iOS, store date temporarily until confirmed
+          setTempDate(date)
+        } else {
+          // On Android, update immediately and close picker
+          setInternalSelectedDate(date)
+          onDateChange?.(date)
+          setShowPicker(false) // Close Android native picker
+        }
+      },
+      [onDateChange],
+    )
+
+    const backgroundStyles = useMemo(() => {
       if (state === 'disabled') {
         return 'bg-light-background-disable1 dark:bg-dark-background-disable1 text-light-type-gray-disabled'
       }
       return 'bg-light-surface-gray dark:bg-dark-surface-gray'
-    },
-    [state],
-  )
+    }, [state])
 
-  const getTextStyles = useCallback(
-    (state: string) => {
+    const textStyles = useMemo(() => {
       if (state === 'disabled') {
         return {
           label: 'text-light-type-gray-disabled dark:text-dark-type-gray-disabled',
@@ -145,44 +203,84 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
         label: 'text-light-type-gray-muted dark:text-dark-type-gray-muted',
         selectedValue: 'text-light-type-gray dark:text-dark-type-gray',
       }
-    },
-    [state],
-  )
+    }, [state])
 
-  const getIconColor = useCallback(() => {
-    return isDarkMode ? colors.dark.type.gray.DEFAULT : colors.light.type.gray.DEFAULT
-  }, [isDarkMode])
+    const iconColor = useMemo(() => {
+      return isDarkMode ? colors.dark.type.gray.DEFAULT : colors.light.type.gray.DEFAULT
+    }, [isDarkMode])
 
-  return (
-    <>
+    // Only render confirm button on iOS
+    const renderConfirmSectionIfNeeded = () => {
+      if (!isIOS) return null
+
+      return renderConfirmButton ? (
+        renderConfirmButton()
+      ) : (
+        <AppButton
+          text="Confirm"
+          accessibilityLabel="Confirm Button"
+          accessibilityHint="Press to confirm selected date"
+          size={4}
+          variant="solid"
+          color="neutral"
+          highContrast
+          className="mt-3xl"
+          onPress={handleConfirmDate}
+        />
+      )
+    }
+
+    // Combine props for DateTimePicker
+    const datePickerProps = {
+      ...dateTimePickerProps,
+      minimumDate,
+      maximumDate,
+    }
+
+    // Render Android DatePicker directly if showing
+    if (!isIOS && showPicker) {
+      return (
+        <DateTimePicker
+          value={internalSelectedDate || new Date()}
+          mode="date"
+          display="spinner"
+          onChange={handleDateChange}
+          disabled={state === 'disabled'}
+          themeVariant={isDarkMode ? 'dark' : 'light'}
+          accessibilityLabel="Date Picker"
+          accessibilityHint="Select date"
+          minimumDate={minimumDate}
+          maximumDate={maximumDate}
+          {...dateTimePickerProps}
+        />
+      )
+    }
+
+    return (
       <View className={className}>
         <TouchableOpacity
           className={`${
             hasError
               ? 'border border-light-edge-error-strong dark:border-dark-edge-error-strong'
               : 'border-none'
-          }  p-md rounded-md flex-row justify-between items-center h-[56px] ${getBackgroundStyles(
-            state,
-          )}`}
+          }  p-md rounded-md flex-row justify-between items-center h-[56px] ${backgroundStyles}`}
           accessibilityLabel={label}
           accessibilityState={{ disabled: state === 'disabled' }}
           accessibilityRole="button"
           accessibilityHint="Double tap to open date picker"
-          onPress={handleOpenBottomSheet}
+          onPress={handleOpenPicker}
           disabled={state === 'disabled'}>
           <View className="flex justify-center">
-            <AppText className={`text-xs font-regular ${getTextStyles(state).label}`}>
-              {label}
-            </AppText>
+            <AppText className={`text-xs font-regular ${textStyles.label}`}>{label}</AppText>
             {!!internalSelectedDate && (
-              <AppText className={`text-sm font-semibold ${getTextStyles(state).selectedValue}`}>
+              <AppText className={`text-sm font-semibold ${textStyles.selectedValue}`}>
                 {internalSelectedDate.toDateString()}
               </AppText>
             )}
           </View>
 
           <View className="flex justify-center items-center">
-            <IconTemp name="calendar-line" size="24" color={getIconColor()} />
+            <IconTemp name="calendar-line" size="24" color={iconColor} />
           </View>
         </TouchableOpacity>
 
@@ -199,49 +297,39 @@ const AppDateInput: React.FC<AppDateInputProps> = ({
           <AppHintText text={hintText} className="mt-sm" accessibilityHintText={hintText} />
         ) : null}
 
-        <AppBottomSheet
-          backdropClose
-          index={3}
-          isDetached={false}
-          showModal={isBottomSheetOpen}
-          setShowModal={setIsBottomSheetOpen}>
-          {showPicker && (
-            <View className="flex justify-center mt-md">
-              <View>
-                <DateTimePicker
-                  value={internalSelectedDate || new Date()}
-                  mode="date"
-                  display="spinner"
-                  onChange={handleDateChange}
-                  disabled={state === 'disabled'}
-                  themeVariant={isDarkMode ? 'dark' : 'light'}
-                  accessibilityLabel="Date Picker"
-                  accessibilityHint="Swipe up or down to adjust date"
-                  {...dateTimePickerProps}
-                />
-
-                {renderConfirmButton ? (
-                  renderConfirmButton()
-                ) : (
-                  <AppButton
-                    text="Confirm"
-                    accessibilityLabel="Confirm Button"
-                    accessibilityHint="Press to confirm selected date"
-                    size={4}
-                    variant="solid"
-                    color="neutral"
-                    highContrast
-                    className="mt-3xl"
-                    onPress={handleConfirmDate}
+        {isIOS && (
+          <AppBottomSheet
+            backdropClose
+            index={3}
+            isDetached={false}
+            showModal={isBottomSheetOpen}
+            setShowModal={setIsBottomSheetOpen}>
+            {showPicker && (
+              <View className="flex justify-center mt-md">
+                <View>
+                  <DateTimePicker
+                    value={tempDate || new Date()}
+                    mode="date"
+                    display="spinner"
+                    onChange={handleDateChange}
+                    disabled={state === 'disabled'}
+                    themeVariant={isDarkMode ? 'dark' : 'light'}
+                    accessibilityLabel="Date Picker"
+                    accessibilityHint="Swipe up or down to adjust date"
+                    minimumDate={minimumDate}
+                    maximumDate={maximumDate}
+                    {...dateTimePickerProps}
                   />
-                )}
+
+                  {renderConfirmSectionIfNeeded()}
+                </View>
               </View>
-            </View>
-          )}
-        </AppBottomSheet>
+            )}
+          </AppBottomSheet>
+        )}
       </View>
-    </>
-  )
-}
+    )
+  },
+)
 
 export default AppDateInput

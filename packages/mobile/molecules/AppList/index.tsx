@@ -3,10 +3,15 @@ import { cssInterop, useColorScheme } from 'nativewind'
 import React from 'react'
 import { Image, Switch, Text, TouchableOpacity, View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
+import ProductCommercialPaper from '../../assets/product-commercial-paper.png'
 import ProductEarn from '../../assets/product-earn.png'
-import ProductFlex from '../../assets/product-flex.png'
-import ProductLock from '../../assets/product-lock.png'
-import ProductTarget from '../../assets/product-target.png'
+import ProductFixedDeposit from '../../assets/product-fixed-deposit.png'
+import ProductMutualFunds from '../../assets/product-mutual-funds.png'
+import ProductFlex from '../../assets/product-optiflex.png'
+import ProductLock from '../../assets/product-optilock.png'
+import ProductTarget from '../../assets/product-optitarget.png'
+import ProductTreasuryBill from '../../assets/product-treasury-bill.png'
+import ProductUSStocks from '../../assets/product-us-stock.png'
 import AppText from '../../atoms/AppText'
 import { AppTextAtomProps } from '../../types/atoms'
 import {
@@ -111,6 +116,11 @@ const productIcons = {
   OptiLock: ProductLock,
   OptiTarget: ProductTarget,
   Earn: ProductEarn,
+  MutualFunds: ProductMutualFunds,
+  USStocks: ProductUSStocks,
+  FixedDeposit: ProductFixedDeposit,
+  TreasuryBill: ProductTreasuryBill,
+  CommercialPaper: ProductCommercialPaper,
 }
 
 const densitySpacing = {
@@ -120,7 +130,7 @@ const densitySpacing = {
 }
 type Density = keyof typeof densitySpacing
 type ActivityStatus = keyof typeof activityStatusIcons
-type ProductType = keyof typeof productIcons
+export type ProductType = keyof typeof productIcons
 
 cssInterop(RemixIcon, {
   className: {
@@ -522,7 +532,7 @@ const ListItem: React.FC<ListItemProps<LeadingOptions, TrailingOptions>> = ({
           <RemixIcon
             name="arrow-right-wide-fill"
             color={colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
-            size={24}
+            size={16}
           />
         </View>
       )}

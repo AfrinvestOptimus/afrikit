@@ -7,6 +7,7 @@ import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Icon from 'react-native-remix-icon'
+import { AppText } from '../../../atoms'
 import { AppBottomSheet, AppListItem, AppSearchInput } from '../../../molecules'
 import AppButton from '../../../molecules/AppButton'
 import { AppBottomSheetProps } from '../../../types/molecules'
@@ -86,12 +87,16 @@ export const Default: Story = {
     isDetached: false,
     backdropClose: true,
     index: 2,
-    title: { text: 'Default Bottom Sheet', align: 'center' },
+    title: {
+      text: 'Default Bottom Sheet',
+      align: 'center',
+      titleProps: { color: 'error', className: '!text-light-accent' },
+    },
     isSwipeable: true,
     children: (
-      <Text className={'text-light-type-gray-muted dark:text-dark-type-gray-muted'}>
+      <AppText className={'text-light-type-gray-muted dark:text-dark-type-gray-muted'}>
         This is the content of the bottom sheet.
-      </Text>
+      </AppText>
     ),
     actionButton: {
       text: 'Close',
@@ -107,11 +112,16 @@ export const DetachedSheet: Story = {
     backdropClose: true,
     height: 300,
     title: 'Detached Bottom Sheet',
+    titleProps: { size: 2, className: '!text-lg', highContrast: true, weight: 'bold' },
     content: 'This is a detached bottom sheet with fixed content.',
     icon: <Icon name={'search-line'} size="76" color="#000" />,
     actionButton: {
       text: 'Confirm',
       action: () => {},
+      color: 'error',
+      variant: 'soft',
+      highContrast: false,
+      iconStart: 'settings-line',
     },
     secondaryActionButton: {
       text: 'Cancel',

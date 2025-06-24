@@ -3,6 +3,29 @@ import React from 'react'
 import { View } from 'react-native'
 import AppButton, { AppButtonProps } from '../../../molecules/AppButton'
 
+const REMIX_ICON_OPTIONS = [
+  '',
+  'arrow-left-wide-line',
+  'arrow-right-wide-line',
+  'check-line',
+  'close-line',
+  'add-line',
+  'delete-bin-line',
+  'settings-line',
+  'user-line',
+  'information-line',
+  'error-warning-line',
+  'heart-line',
+  'bookmark-line',
+  'home-line',
+  'search-line',
+  'download-line',
+  'upload-line',
+  'share-line',
+  'notification-line',
+  'more-line',
+]
+
 export default {
   title: 'AppButton',
   component: AppButton,
@@ -20,11 +43,20 @@ export default {
     color: { control: 'select', options: ['accent', 'neutral', 'error'] },
     state: { control: 'select', options: ['default', 'active', 'disabled'] },
     highContrast: { control: 'boolean' },
-    iconStart: { control: 'boolean' },
-    iconEnd: { control: 'boolean' },
+    iconStart: {
+      control: 'select',
+      options: REMIX_ICON_OPTIONS,
+      description: 'Select a RemixIcon for the start of button',
+    },
+    iconEnd: {
+      control: 'select',
+      options: REMIX_ICON_OPTIONS,
+      description: 'Select a RemixIcon for the end of button',
+    },
     text: { control: 'text' },
     accessibilityLabel: { control: 'text' },
     accessibilityHint: { control: 'text' },
+    isLoading: { control: 'boolean' },
   },
 } as Meta
 
@@ -213,30 +245,56 @@ ErrorGhostVariant.args = {
   accessibilityHint: 'Press to select the error ghost button',
 }
 
-// Button with icons stories to be added after remix icon configurations
+export const WithIconStart = Template.bind({})
+WithIconStart.args = {
+  size: 3,
+  variant: 'solid',
+  color: 'accent',
+  highContrast: false,
+  state: 'default',
+  iconStart: 'arrow-left-wide-line',
+  text: 'Button with Icon Start',
+  accessibilityLabel: 'Button with Icon Start',
+  accessibilityHint: 'Press to go back to previous screen',
+}
 
-// export const WithIconStart = Template.bind({});
-// WithIconStart.args = {
-//   size: 2,
-//   variant: 'solid',
-//   color: 'accent',
-//   highContrast: false,
-//   state: 'default',
-//   iconStart: true,
-//   text: 'Button with Icon Start',
-//   accessibilityLabel: 'Button with Icon Start',
-//   accessibilityHint: 'Press to select the button with icon start',
-// };
+export const WithIconEnd = Template.bind({})
+WithIconEnd.args = {
+  size: 3,
+  variant: 'solid',
+  color: 'accent',
+  highContrast: false,
+  state: 'default',
+  iconEnd: 'arrow-right-wide-line',
+  text: 'Button with Icon End',
+  accessibilityLabel: 'Button with Icon End',
+  accessibilityHint: 'Press to go to next screen',
+}
 
-// export const WithIconEnd = Template.bind({});
-// WithIconEnd.args = {
-//   size: 2,
-//   variant: 'solid',
-//   color: 'accent',
-//   highContrast: false,
-//   state: 'default',
-//   iconEnd: true,
-//   text: 'Button with Icon End',
-//   accessibilityLabel: 'Button with Icon End',
-//   accessibilityHint: 'Press to select the button with icon end',
-// };
+export const WithBothIcons = Template.bind({})
+WithBothIcons.args = {
+  size: 3,
+  variant: 'solid',
+  color: 'accent',
+  highContrast: false,
+  state: 'default',
+  iconStart: 'arrow-left-wide-line',
+  iconEnd: 'arrow-right-wide-line',
+  text: 'Button with Both Icons',
+  accessibilityLabel: 'Button with Both Icons',
+  accessibilityHint: 'Press to access settings with additional information',
+}
+
+export const LoadingState = Template.bind({})
+LoadingState.args = {
+  size: 3,
+  variant: 'solid',
+  color: 'accent',
+  highContrast: false,
+  state: 'default',
+  text: 'Loading Button',
+  isLoading: true,
+  accessibilityLabel: 'Loading Button',
+  accessibilityHint: 'Button is currently processing your request',
+  className: 'w-[70%]',
+}

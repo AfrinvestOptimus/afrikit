@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { View } from 'react-native'
-import AuthInput from '../../../molecules/AuthInput'
+import AuthInput, { AuthInputRef } from '../../../molecules/AuthInput'
 
 const AuthInputMeta: Meta<typeof AuthInput> = {
   title: 'AuthInput',
@@ -22,10 +22,16 @@ const AuthInputMeta: Meta<typeof AuthInput> = {
       control: 'boolean',
     },
     onValueChange: {
-      action: 'pressed the button',
+      action: 'value changed',
     },
     errorMessage: {
       control: 'text',
+    },
+    actionLabel: {
+      control: 'text',
+    },
+    onActionPress: {
+      action: 'action button pressed',
     },
   },
   decorators: [
@@ -48,6 +54,11 @@ export const Basic: Story = {
     keypad: 'Native',
     errorMessage: '',
     isLoading: false,
+    actionLabel: 'Forgot PIN?',
+  },
+  render: args => {
+    const [value, setValue] = useState('')
+    return <AuthInput {...args} customValue={value} onValueChange={setValue} />
   },
 }
 
@@ -58,31 +69,48 @@ export const CustomKeypad: Story = {
     keypad: 'Custom',
     errorMessage: '',
     isLoading: false,
+    actionLabel: 'Forgot PIN?',
+  },
+  render: args => {
+    const [value, setValue] = useState('')
+    return <AuthInput {...args} customValue={value} onValueChange={setValue} />
   },
 }
 
-export const ErrorMessage: Story = {
+export const ErrorMessageWithRetry: Story = {
   args: {
     count: 4,
     isError: true,
-    keypad: 'Native',
+    keypad: 'Custom',
     errorMessage: 'Mismatch',
     actionLabel: 'Retry',
     isLoading: false,
   },
   render: args => {
-    const [error, setError] = React.useState(args.isError)
-    const [errorMessage, setErrorMessage] = React.useState(args.errorMessage)
+    const [error, setError] = useState(args.isError)
+    const [errorMessage, setErrorMessage] = useState(args.errorMessage)
+    const [value, setValue] = useState('1234')
+    const authInputRef = useRef<AuthInputRef>(null)
+
+    const handleRetry = () => {
+      setError(false)
+      setErrorMessage('')
+      setValue('')
+      authInputRef.current?.clearInput()
+      authInputRef.current?.focus()
+    }
 
     return (
       <AuthInput
+        ref={authInputRef}
         {...args}
         isError={error}
         errorMessage={errorMessage}
-        onActionPress={() => {
-          setError(false)
-          setErrorMessage('')
-        }}
+        actionLabel={args.actionLabel}
+        onActionPress={handleRetry}
+        customValue={value}
+        count={4}
+        onValueChange={setValue}
       />
     )
   },
