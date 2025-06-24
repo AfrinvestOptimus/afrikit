@@ -57,6 +57,14 @@ const AppInput = React.forwardRef<AppInputHandle, AppInputProps>(
         setInputValue('')
         onChangeTextProp?.('')
       },
+      focus: () => {
+        textInputRef.current?.focus()
+      },
+      blur: () => {
+        textInputRef.current?.blur()
+      },
+      isFocused: () => textInputRef.current?.isFocused() || false,
+      getValue: () => inputValue,
     }))
 
     React.useEffect(() => {
