@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import colors from 'afrikit-shared/dist/colors'
-import { AppInputHandle } from 'molecules'
 import { useColorScheme } from 'nativewind'
 import * as React from 'react'
 import {
@@ -16,6 +15,7 @@ import {
 import { useSharedValue } from 'react-native-reanimated'
 import RemixIcon from 'react-native-remix-icon'
 import { AppInputProps } from '../types/atoms'
+import { AppInputHandle } from '../types/molecules'
 import { AppInputBlur } from '../utilities/validation'
 import AppHintText from './AppHintText'
 
