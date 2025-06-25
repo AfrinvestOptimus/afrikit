@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import colors from 'afrikit-shared/dist/colors'
+import { AppInputHandle } from 'molecules'
 import { useColorScheme } from 'nativewind'
 import * as React from 'react'
 import {
@@ -17,10 +18,6 @@ import RemixIcon from 'react-native-remix-icon'
 import { AppInputProps } from '../types/atoms'
 import { AppInputBlur } from '../utilities/validation'
 import AppHintText from './AppHintText'
-export interface AppInputHandle {
-  setValue: (value: string) => void
-  clear: () => void
-}
 
 const AppInput = React.forwardRef<AppInputHandle, AppInputProps>(
   (
@@ -60,6 +57,14 @@ const AppInput = React.forwardRef<AppInputHandle, AppInputProps>(
         setInputValue('')
         onChangeTextProp?.('')
       },
+      focus: () => {
+        textInputRef.current?.focus()
+      },
+      blur: () => {
+        textInputRef.current?.blur()
+      },
+      isFocused: () => textInputRef.current?.isFocused() || false,
+      getValue: () => inputValue,
     }))
 
     React.useEffect(() => {

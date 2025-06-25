@@ -1,7 +1,7 @@
 import { ButtonColor, ButtonVariant } from './../molecules/AppButton/button'
 /* eslint-disable no-unused-vars */
 import { ReactNode } from 'react'
-import { StyleProp, ViewStyle } from 'react-native'
+import { StyleProp, TextInput, ViewStyle } from 'react-native'
 import { AppTextAtomProps } from './atoms'
 
 export type ActionButtonProps = {
@@ -58,3 +58,8 @@ export type AppBottomSheetProps<T extends boolean> = CommonProps & {
 
 export type DetachedProps = AppBottomSheetProps<true>
 export type RegularProps = AppBottomSheetProps<false>
+
+export interface AppInputHandle extends Partial<TextInput> {
+  setValue: (value: string) => void
+  clear: () => void
+}
