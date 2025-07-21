@@ -80,7 +80,7 @@ const KeyPad = forwardRef<KeyPadRef, KeyPadProps>(
               <TouchableOpacity
                 key={'key' + keyIndex}
                 onPress={() => handleKeyPress(key)}
-                className={`w-[32%] h-5xl p-lg rounded-full justify-center items-center bg-['transparent']`}>
+                className={`w-[33%] h-auto justify-center items-center bg-['transparent']`}>
                 {key === KEY_BIO ? (
                   <Icon name="fingerprint-fill" color={colors.dark.type.accent.DEFAULT} size={20} />
                 ) : key === KEY_BACKSPACE ? (
