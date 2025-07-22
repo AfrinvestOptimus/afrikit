@@ -86,7 +86,7 @@ const KeyPad = forwardRef<KeyPadRef, KeyPadProps>(
     return (
       <View
         style={[{ maxHeight: h(296) }, containerStyle]}
-        className={`p-xs ${containerClassName}`}>
+        className={`justify-between h-[296] items-center ${containerClassName}`}>
         {keys.map((row, rowIndex) => (
           <View key={rowIndex} className="flex-row w-full justify-between mb-btn-hg-1">
             {row.map((key, keyIndex) => (
