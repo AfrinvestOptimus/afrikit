@@ -2,8 +2,9 @@
 import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
 import { forwardRef, useImperativeHandle, useState } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View, ViewStyle } from 'react-native'
 import Icon from 'react-native-remix-icon'
+import { h } from 'utilities/scaling'
 export type KeyPadInputType = 'decimal' | 'nondecimal' | 'biometric'
 export type KeyPadProps = {
   type: KeyPadInputType
@@ -13,6 +14,7 @@ export type KeyPadProps = {
   onDone?: (value: string) => void
   onChange?: (value: string) => void
   containerClassName?: string
+  containerStyle?: ViewStyle
 }
 export type KeyPadRef = {
   clear: () => void
@@ -23,7 +25,16 @@ const KEY_DECIMAL = '.'
 const KEY_BACKSPACE = '←'
 const KeyPad = forwardRef<KeyPadRef, KeyPadProps>(
   (
-    { type, onKeyPress, onBiometric, onChange, onDone, textLength = 4, containerClassName },
+    {
+      type,
+      onKeyPress,
+      onBiometric,
+      onChange,
+      onDone,
+      textLength = 4,
+      containerClassName,
+      containerStyle,
+    },
     ref,
   ) => {
     const [value, setValue] = useState('')
@@ -73,7 +84,9 @@ const KeyPad = forwardRef<KeyPadRef, KeyPadProps>(
       }
     }
     return (
-      <View className={`p-xs ${containerClassName}`}>
+      <View
+        style={[{ maxHeight: h(296) }, containerStyle]}
+        className={`p-xs ${containerClassName}`}>
         {keys.map((row, rowIndex) => (
           <View key={rowIndex} className="flex-row w-full justify-between mb-btn-hg-1">
             {row.map((key, keyIndex) => (
