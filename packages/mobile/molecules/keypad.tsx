@@ -88,9 +88,7 @@ const KeyPad = forwardRef<KeyPadRef, KeyPadProps>(
         style={[{ maxHeight: h(296) }, containerStyle]}
         className={`justify-between h-[296] items-center ${containerClassName}`}>
         {keys.map((row, rowIndex) => (
-          <View
-            key={rowIndex}
-            className="flex-row w-full justify-between flex-grow h-auto">
+          <View key={rowIndex} className="flex-row w-full justify-between flex-grow h-auto">
             {row.map((key, keyIndex) => (
               <TouchableOpacity
                 key={'key' + keyIndex}
