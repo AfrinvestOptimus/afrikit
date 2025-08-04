@@ -432,7 +432,7 @@ const ListItem: React.FC<ListItemProps<LeadingOptions, TrailingOptions>> = ({
             <AppText
               size={2}
               align="right"
-              className={'mt-xs dark:text-dark-type-gray-muted'}
+              className={'mt-xs text-light-type-gray-muted dark:text-dark-type-gray-muted'}
               {...trailingSubtitleProps}>
               {trailingSubtitle}
             </AppText>

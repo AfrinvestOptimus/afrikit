@@ -18,6 +18,7 @@ import './global.css'
 import {
   AppInput,
   AppInputHandle,
+  AppKeypad,
   AppListItem,
   AppModalLoader,
   AppToastBase,
@@ -78,19 +79,6 @@ export default function App() {
         <GlobalWrapper showFloatingButton={true}>
           <SafeAreaView className="flex-1 bg-light-optiblue4 dark:bg-dark-optiblue4">
             <ScrollView>
-              {/* <AppTopBar
-                variant="small"
-                title="Products"
-                subtitle="Choose from a variety of products in our store"
-                showLeftIcon={true}
-                showRightIcon1={true}
-                showRightIcon2={false}
-                showRightIcon3={false}
-                onLeftIconPress={handleLeftIconPress}
-                onRightIconPress1={handleRightIconPress1}
-                onRightIconPress2={handleRightIconPress2}
-                onRightIconPress3={handleRightIconPress3}
-              /> */}
               <AppText
                 size={2}
                 color={'accent'}
@@ -114,6 +102,13 @@ export default function App() {
                 }}>
                 Test REF
               </AppText>
+              <AppKeypad
+                type="decimal"
+                onChange={val => {
+                  console.log('val', val)
+                }}
+                textLength={10}
+              />
               <View className="flex-1 items-center justify-center">
                 <Pressable
                   onPress={handleOpenLoaderModal}
