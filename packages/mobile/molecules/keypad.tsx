@@ -4,7 +4,7 @@ import { useColorScheme } from 'nativewind'
 import { forwardRef, useImperativeHandle, useState } from 'react'
 import { Text, TouchableOpacity, View, ViewStyle } from 'react-native'
 import Icon from 'react-native-remix-icon'
-import { h } from 'utilities/scaling'
+import { h } from '../utilities/scaling'
 export type KeyPadInputType = 'decimal' | 'nondecimal' | 'biometric'
 export type KeyPadProps = {
   type: KeyPadInputType
