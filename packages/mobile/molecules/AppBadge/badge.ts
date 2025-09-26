@@ -13,6 +13,11 @@ export const textSizes: Record<BadgeSize, string> = {
   2: 'text-sm-head',
 }
 
+export const iconSizes: Record<BadgeSize, number> = {
+  1: 12,
+  2: 16,
+}
+
 export const badgeColors: Record<BadgeColor, Record<BadgeVariant, string>> = {
   accent: {
     solid: 'bg-light-background-accent-base dark:bg-dark-background-accent-base',

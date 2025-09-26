@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import { GestureResponderEvent, Pressable, Text, View } from 'react-native'
+import AppIcon from '../AppIcon'
 import {
   BadgeColor,
   badgeColors,
@@ -10,6 +11,7 @@ import {
   BadgeVariant,
   highContrastBadgeColors,
   highContrastTextColors,
+  iconSizes,
   textColors,
   textSizes,
   textStates,
@@ -21,8 +23,8 @@ export interface AppBadgeProps {
   color?: BadgeColor
   highContrast?: boolean
   state?: BadgeState
-  iconStart?: boolean
-  iconEnd?: boolean
+  iconStart?: string
+  iconEnd?: string
   iconName?: string
   className?: string
   text: string
@@ -38,8 +40,8 @@ const AppBadge: React.FC<AppBadgeProps> = ({
   color = 'accent',
   highContrast = false,
   state = 'default',
-  iconStart = false,
-  iconEnd = false,
+  iconStart = '',
+  iconEnd = '',
   className,
   text,
   onPress,
@@ -73,6 +75,11 @@ const AppBadge: React.FC<AppBadgeProps> = ({
     [textStyle, textSize, textStateStyle],
   )
 
+  // Icon size: use iconSizes for badge icons (should match AppButton)
+  const iconSize = iconSizes[size]
+  // Icon color: use textStyle for badge icons
+  const iconColor = textStyle
+
   return (
     <Pressable
       onPress={onPress}
@@ -82,18 +89,30 @@ const AppBadge: React.FC<AppBadgeProps> = ({
       accessibilityHint={accessibilityHint}
       disabled={state === 'disabled'}
       accessibilityState={{ disabled: state === 'disabled' }}>
-      <View className="flex items-center">
+      <View className="flex items-center flex-row">
         {iconStart && (
-          <View className="mr-2 ">
-            {' '}
-            {/* Icon Component - Will add the icon here after the remix icon setup */}{' '}
+          <View className="mr-md">
+            <AppIcon
+              name={iconStart}
+              size={iconSize}
+              isRemixIcon
+              color={iconColor}
+              accessibilityLabel={`${iconStart} icon`}
+              accessibilityHint={`Badge starts with ${iconStart} icon`}
+            />
           </View>
         )}
         <Text className={`font-semibold ${combinedTextStyle}`}>{text}</Text>
         {iconEnd && (
-          <View className="ml-2">
-            {' '}
-            {/* Icon Component - Will add the icon here after the remix icon setup */}{' '}
+          <View className="ml-md">
+            <AppIcon
+              name={iconEnd}
+              size={iconSize}
+              isRemixIcon
+              color={iconColor}
+              accessibilityLabel={`${iconEnd} icon`}
+              accessibilityHint={`Badge ends with ${iconEnd} icon`}
+            />
           </View>
         )}
       </View>
