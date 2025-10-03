@@ -1,11 +1,28 @@
 import { BottomSheetView } from '@gorhom/bottom-sheet'
-import { isValidElement, memo } from 'react'
+import { isValidElement, memo, ReactNode } from 'react'
 import { Animated, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { AppText } from '../../atoms'
+import { AppText, AppTextAtomProps } from '../../atoms'
 import { DetachedProps, RegularProps } from '../../types/molecules'
 import classNames from '../../utilities/classnames'
 import AppButton from '../AppButton'
+
+// Helper function to render content that can be either string or ReactNode
+const renderContent = (
+  content: string | ReactNode,
+  isString: boolean,
+  textProps?: AppTextAtomProps,
+  className?: string,
+) => {
+  if (isString && typeof content === 'string') {
+    return (
+      <AppText className={className} {...textProps}>
+        {content}
+      </AppText>
+    )
+  }
+  return content
+}
 
 function RenderedSheet({
   isDetached,
@@ -25,19 +42,22 @@ function RenderedSheet({
       <BottomSheetView className={'px-md w-full flex-col justify-between pt-xl'}>
         {icon && isValidElement(icon) && <View className="mb-xl items-center">{icon}</View>}
         <View className="px-md items-center gap-y-sm">
-          <AppText
-            highContrast
-            className="text-center text-2xl-bold text-light-type-gray dark:text-dark-type-gray"
-            {...titleProps}>
-            {title}
-          </AppText>
-          {content && (
-            <AppText
-              className="text-center text-sm-body text-light-type-gray-muted dark:text-dark-type-gray-muted"
-              {...subtitleProps}>
-              {content}
-            </AppText>
+          {renderContent(
+            title,
+            typeof title === 'string',
+            {
+              highContrast: true,
+              ...titleProps,
+            },
+            'text-center text-2xl-bold text-light-type-gray dark:text-dark-type-gray',
           )}
+          {content &&
+            renderContent(
+              content,
+              typeof content === 'string',
+              subtitleProps,
+              'text-center text-sm-body text-light-type-gray-muted dark:text-dark-type-gray-muted',
+            )}
         </View>
         {actionButton && (
           <Animated.View className="w-full px-md mt-2xl mb-xl gap-y-md">
@@ -91,24 +111,25 @@ function RenderedSheet({
                 'pt-sm pb-lg gap-y-xs',
                 title.align === 'center' ? 'items-center' : '',
               )}>
-              <AppText
-                className={classNames(
+              {renderContent(
+                title.text,
+                typeof title.text === 'string',
+                title.titleProps,
+                classNames(
                   'text-left text-lg-bold text-light-type-gray dark:text-dark-type-gray',
                   title.align === 'center' ? 'text-center' : 'text-left',
-                )}
-                {...title.titleProps}>
-                {title.text}
-              </AppText>
-              {title.subtitle && (
-                <AppText
-                  className={classNames(
+                ),
+              )}
+              {title.subtitle &&
+                renderContent(
+                  title.subtitle,
+                  typeof title.subtitle === 'string',
+                  title.subtitleProps,
+                  classNames(
                     'text-left text-sm-body text-light-type-gray-muted dark:text-dark-type-gray-muted',
                     title.align === 'center' ? 'text-center' : 'text-left',
-                  )}
-                  {...title.subtitleProps}>
-                  {title.subtitle}
-                </AppText>
-              )}
+                  ),
+                )}
             </View>
           )}
           {/* Fixed Header Section */}
