@@ -34,9 +34,9 @@ export type AppBottomSheetProps<T extends boolean> = CommonProps & {
   isDetached: T
 } & (T extends true
     ? {
-        title: string
+        title: string | ReactNode
         icon?: ReactNode | null
-        content: string
+        content: string | ReactNode
         titleProps?: AppTextAtomProps
         subtitleProps?: AppTextAtomProps
         isSwipeable?: never
@@ -44,13 +44,13 @@ export type AppBottomSheetProps<T extends boolean> = CommonProps & {
       } & ({ index: 0; height?: never } | { index?: never; height: number })
     : {
         title?: {
-          text: string
+          text: string | ReactNode
           align?: 'center' | 'left'
-          subtitle?: string
+          subtitle?: string | ReactNode
           titleProps?: AppTextAtomProps
           subtitleProps?: AppTextAtomProps
         }
-        content?: string
+        content?: string | ReactNode
         isSwipeable?: boolean
         fixedHeader?: ReactNode // Component to be fixed at the top
         children: ReactNode
