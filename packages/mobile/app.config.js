@@ -1,42 +1,44 @@
 /* eslint-disable */
 module.exports = {
   expo: {
-    name: "afrikit-mobile",
-    slug: "afrikit-mobile",
-    version: "1.0.0",
-    orientation: "portrait",
-    owner: "afrinvest",
-    icon: "./assets/icon.png",
-    userInterfaceStyle: "automatic",
+    name: 'afrikit-mobile',
+    slug: 'afrikit-mobile',
+    version: '1.0.0',
+    orientation: 'portrait',
+    owner: 'afrinvest',
+    icon: './assets/icon.png',
+    userInterfaceStyle: 'automatic',
     splash: {
-      image: "./assets/splash.png",
-      resizeMode: "contain",
-      backgroundColor: "#ffffff",
+      image: './assets/splash.png',
+      resizeMode: 'contain',
+      backgroundColor: '#ffffff',
     },
     ios: {
+      bundleIdentifier: 'com.afrinvest.afrikitmobile',
       supportsTablet: true,
     },
     android: {
+      package: 'com.afrinvest.afrikitmobile',
       adaptiveIcon: {
-        foregroundImage: "./assets/adaptive-icon.png",
-        backgroundColor: "#ffffff",
+        foregroundImage: './assets/adaptive-icon.png',
+        backgroundColor: '#ffffff',
       },
     },
-    plugins: ["expo-font"],
+    plugins: ['expo-font'],
     web: {
-      favicon: "./assets/favicon.png",
+      favicon: './assets/favicon.png',
     },
     extra: {
       eas: {
-        projectId: "bc56fb0d-8c4f-4512-9e32-f2a75d227cd1",
+        projectId: 'bc56fb0d-8c4f-4512-9e32-f2a75d227cd1',
       },
       storybookEnabled: process.env.STORYBOOK_ENABLED,
     },
     updates: {
-      url: "https://u.expo.dev/bc56fb0d-8c4f-4512-9e32-f2a75d227cd1",
+      url: 'https://u.expo.dev/bc56fb0d-8c4f-4512-9e32-f2a75d227cd1',
     },
     runtimeVersion: {
-      policy: "appVersion",
+      policy: 'appVersion',
     },
   },
-};
+}
