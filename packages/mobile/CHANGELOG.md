@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.119 (2025-11-18)
+
+### Bug Fixes
+
+- **AppSearchInput:** allow custom placeholder text in search input ([ef77734](https://github.com/AfrinvestOptimus/afrikit/commit/ef77734455878981f0a741c8c29de8aa0c212a23))
+
 ## 1.0.118 (2025-10-24)
 
 **Note:** Version bump only for package afrikit-mobile
