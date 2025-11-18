@@ -152,7 +152,7 @@ const AppSearchInput = React.forwardRef<AppInputHandle, AppSearchInputProps>(
                 returnKeyType="done"
                 autoFocus={focused}
                 value={inputValue}
-                placeholder="Search"
+                placeholder={props.placeholder || 'Search'}
                 className="text-sm-head text-light-type-gray dark:text-dark-type-gray"
               />
             </View>
