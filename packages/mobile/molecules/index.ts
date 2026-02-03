@@ -10,7 +10,16 @@ export { default as AppDateInput, type AppDateInputProps } from './AppDateInput'
 export { default as AppHintText, type AppHintTextProps } from './AppHintText'
 export { default as AppIcon, AppIconSize, type AppIconProps } from './AppIcon'
 export { default as AppInput } from './AppInput'
-export { default as AppListItem, type ListItemProps } from './AppList'
+export {
+  default as AppListItem,
+  type ListItemProps,
+  type AddonConfig,
+  type LeadingOptions,
+  type TrailingOptions,
+  type Density,
+  type ActivityStatus,
+  type ProductType,
+} from './AppList'
 export { AppModalLoader, type AppModalLoaderProps } from './AppModalLoader'
 export { default as AppPasswordInput } from './AppPasswordInput'
 export { default as AppPhoneInput } from './AppPhoneInput'
