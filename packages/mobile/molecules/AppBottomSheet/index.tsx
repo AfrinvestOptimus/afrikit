@@ -13,7 +13,7 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
   // ref
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const screenHeight = Dimensions.get('window').height
-  const [contentHeight, setContentHeight] = useState(screenHeight)
+  const [contentHeight, setContentHeight] = useState<number | undefined>(undefined)
   const buttonAnimation = useRef(new Animated.Value(0)).current
   const { colorScheme } = useColorScheme()
 
@@ -115,7 +115,7 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
       }
       enablePanDownToClose={!isDetached}
       backdropComponent={renderBackdrop}
-      enableDynamicSizing={isDetached}
+      enableDynamicSizing
       android_keyboardInputMode="adjustResize"
       keyboardBehavior="extend"
       keyboardBlurBehavior="restore"

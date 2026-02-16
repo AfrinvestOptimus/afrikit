@@ -1,7 +1,6 @@
-import { BottomSheetView } from '@gorhom/bottom-sheet'
+import { BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet'
 import { isValidElement, memo, ReactNode } from 'react'
 import { Animated, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
 import { AppText, AppTextAtomProps } from '../../atoms'
 import { DetachedProps, RegularProps } from '../../types/molecules'
 import classNames from '../../utilities/classnames'
@@ -32,7 +31,7 @@ function RenderedSheet({
 }: {
   isDetached: boolean
   checkedProps: DetachedProps | RegularProps
-  height: number
+  height?: number
   btnTranslateY: Animated.AnimatedInterpolation<number | string>
 }) {
   if (isDetached) {
@@ -136,7 +135,7 @@ function RenderedSheet({
           {fixedHeader && <>{fixedHeader}</>}
         </View>
         {/* Scrollable Content */}
-        <ScrollView
+        <BottomSheetScrollView
           className="w-full px-md"
           contentContainerStyle={[{ flexGrow: 1 }, contentContainerStyle]}
           showsVerticalScrollIndicator={false}
@@ -144,7 +143,7 @@ function RenderedSheet({
           keyboardDismissMode="on-drag"
           bounces={false}>
           <View className="flex-1">{children}</View>
-        </ScrollView>
+        </BottomSheetScrollView>
         {actionButton && (
           <Animated.View
             className="w-full px-md mb-5xl pb-4xl"
