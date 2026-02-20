@@ -364,7 +364,6 @@ IconOnlyCircularWithoutSpacing.args = {
   highContrast: false,
   state: 'default',
   iconStart: 'settings-line',
-  disableIconSpacing: true,
   isCircular: true,
   text: '',
   accessibilityLabel: 'Settings',
