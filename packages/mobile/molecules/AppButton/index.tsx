@@ -96,7 +96,7 @@ export interface AppButtonProps {
 
   /**
    * The text to be displayed inside the button.
-   * This is a required prop.
+   * This is a required prop, but can be an empty string for icon-only buttons.
    */
   text: string
 
@@ -134,12 +134,16 @@ export interface AppButtonProps {
   /**
    * Optional custom classes for the start icon wrapper.
    * Defaults to 'mr-md'. Pass an empty string to remove spacing.
+   * Applied only when icon spacing is enabled
+   * (i.e., spacing is not disabled, button is not circular, and text is present).
    */
   iconStartClassName?: string
 
   /**
    * Optional custom classes for the end icon wrapper.
    * Defaults to 'ml-md'. Pass an empty string to remove spacing.
+   * Applied only when icon spacing is enabled
+   * (i.e., spacing is not disabled, button is not circular, and text is present).
    */
   iconEndClassName?: string
 
@@ -385,7 +389,8 @@ const AppButton: React.FC<AppButtonProps> = React.memo(
       [textStyle, textSize, textClassName],
     )
 
-    const hasText = useMemo(() => text.trim().length > 0, [text])
+    const hasText = useMemo(() => (text ?? '').trim().length > 0, [text])
+    // Icon spacing applies only when spacing isn't disabled, button isn't circular, and text exists.
     const shouldApplyIconSpacing = useMemo(
       () => !disableIconSpacing && !isCircular && hasText,
       [disableIconSpacing, isCircular, hasText],
