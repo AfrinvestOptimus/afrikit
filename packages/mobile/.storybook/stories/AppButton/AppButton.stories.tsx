@@ -62,7 +62,8 @@ export default {
     },
     disableIconSpacing: {
       control: 'boolean',
-      description: 'Remove spacing on both icon wrappers',
+      description:
+        'Remove spacing on both icon wrappers. Note: spacing is also suppressed automatically when isCircular is true.',
     },
     isCircular: {
       control: 'boolean',
