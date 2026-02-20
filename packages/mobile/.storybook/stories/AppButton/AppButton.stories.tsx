@@ -1,5 +1,4 @@
 import { Meta, Story } from '@storybook/react'
-import React from 'react'
 import { View } from 'react-native'
 import AppButton, { AppButtonProps } from '../../../molecules/AppButton'
 
@@ -52,6 +51,23 @@ export default {
       control: 'select',
       options: REMIX_ICON_OPTIONS,
       description: 'Select a RemixIcon for the end of button',
+    },
+    iconStartClassName: {
+      control: 'text',
+      description: 'Custom className for the start icon wrapper',
+    },
+    iconEndClassName: {
+      control: 'text',
+      description: 'Custom className for the end icon wrapper',
+    },
+    disableIconSpacing: {
+      control: 'boolean',
+      description: 'Remove spacing on both icon wrappers',
+    },
+    isCircular: {
+      control: 'boolean',
+      description:
+        'Make button circular. In circular mode, icon-only buttons keep the icon centered and ignore icon spacing margins.',
     },
     text: { control: 'text' },
     accessibilityLabel: { control: 'text' },
@@ -297,4 +313,60 @@ LoadingState.args = {
   accessibilityLabel: 'Loading Button',
   accessibilityHint: 'Button is currently processing your request',
   className: 'w-[70%]',
+}
+export const WithoutIconSpacing = Template.bind({})
+WithoutIconSpacing.args = {
+  size: 3,
+  variant: 'solid',
+  color: 'accent',
+  highContrast: false,
+  state: 'default',
+  iconStart: 'arrow-left-wide-line',
+  iconEnd: 'arrow-right-wide-line',
+  disableIconSpacing: true,
+  text: 'Button without Icon Spacing',
+  accessibilityLabel: 'Button without Icon Spacing',
+  accessibilityHint: 'Press to view button icons without spacing',
+}
+
+export const IconOnlyWithoutSpacing = Template.bind({})
+IconOnlyWithoutSpacing.args = {
+  size: 3,
+  variant: 'solid',
+  color: 'accent',
+  highContrast: false,
+  state: 'default',
+  iconStart: 'settings-line',
+  disableIconSpacing: true,
+  text: '',
+  accessibilityLabel: 'Settings',
+  accessibilityHint: 'Press to open settings',
+}
+
+export const IconOnlyWithDefaultSpacing = Template.bind({})
+IconOnlyWithDefaultSpacing.args = {
+  size: 3,
+  variant: 'solid',
+  color: 'accent',
+  highContrast: false,
+  state: 'default',
+  iconStart: 'settings-line',
+  text: '',
+  accessibilityLabel: 'Settings',
+  accessibilityHint: 'Press to open settings with default icon spacing',
+}
+
+export const IconOnlyCircularWithoutSpacing = Template.bind({})
+IconOnlyCircularWithoutSpacing.args = {
+  size: 3,
+  variant: 'solid',
+  color: 'accent',
+  highContrast: false,
+  state: 'default',
+  iconStart: 'settings-line',
+  disableIconSpacing: true,
+  isCircular: true,
+  text: '',
+  accessibilityLabel: 'Settings',
+  accessibilityHint: 'Press to open settings in a circular icon-only button',
 }
