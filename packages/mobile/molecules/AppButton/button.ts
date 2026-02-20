@@ -11,6 +11,13 @@ export const buttonSizes: Record<ButtonSize, string> = {
   4: 'h-4xl rounded-xs-max px-2xl',
 }
 
+export const circularButtonSizes: Record<ButtonSize, string> = {
+  1: 'h-xl w-xl rounded-full p-0',
+  2: 'h-2xl w-2xl rounded-full p-0',
+  3: 'h-3xl w-3xl rounded-full p-0',
+  4: 'h-4xl w-4xl rounded-full p-0',
+}
+
 export const iconSizes: Record<ButtonSize, number> = {
   1: 16,
   2: 16,
