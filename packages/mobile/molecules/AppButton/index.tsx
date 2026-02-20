@@ -18,6 +18,7 @@ import {
   buttonSizes,
   ButtonState,
   ButtonVariant,
+  circularButtonSizes,
   disabledColors,
   highContrastButtonActiveStateColors,
   highContrastButtonColors,
@@ -147,6 +148,13 @@ export interface AppButtonProps {
    * Default is false.
    */
   disableIconSpacing?: boolean
+
+  /**
+   * Makes the button circular when true.
+   * Keeps existing behavior unchanged when false.
+   * Default is false.
+   */
+  isCircular?: boolean
 }
 
 const getIconColors = (
@@ -316,13 +324,17 @@ const AppButton: React.FC<AppButtonProps> = React.memo(
     iconStartClassName = 'mr-md',
     iconEndClassName = 'ml-md',
     disableIconSpacing = false,
+    isCircular = false,
     accessibilityLabel,
     accessibilityHint,
   }) => {
     const { colorScheme } = useColorScheme()
     const isDarkMode = colorScheme === 'dark'
 
-    const sizeStyle = useMemo(() => buttonSizes[size], [size])
+    const sizeStyle = useMemo(
+      () => (isCircular ? circularButtonSizes[size] : buttonSizes[size]),
+      [size, isCircular],
+    )
     const textSize = useMemo(() => textSizes[size], [size])
     const iconSize = useMemo(() => iconSizes[size], [size])
 
@@ -371,6 +383,12 @@ const AppButton: React.FC<AppButtonProps> = React.memo(
     const combinedTextStyle = useMemo(
       () => `font-semibold ${textStyle} ${textSize} ${textClassName}`,
       [textStyle, textSize, textClassName],
+    )
+
+    const hasText = useMemo(() => text.trim().length > 0, [text])
+    const shouldApplyIconSpacing = useMemo(
+      () => !disableIconSpacing && !isCircular && hasText,
+      [disableIconSpacing, isCircular, hasText],
     )
 
     // Get the appropriate icon color based on button state
@@ -434,7 +452,7 @@ const AppButton: React.FC<AppButtonProps> = React.memo(
           ) : (
             <>
               {iconStart && (
-                <View className={disableIconSpacing ? '' : iconStartClassName}>
+                <View className={shouldApplyIconSpacing ? iconStartClassName : ''}>
                   <AppIcon
                     name={iconStart}
                     size={iconSize}
@@ -446,10 +464,10 @@ const AppButton: React.FC<AppButtonProps> = React.memo(
                 </View>
               )}
 
-              <Text className={combinedTextStyle}>{text}</Text>
+              {hasText && <Text className={combinedTextStyle}>{text}</Text>}
 
               {iconEnd && (
-                <View className={disableIconSpacing ? '' : iconEndClassName}>
+                <View className={shouldApplyIconSpacing ? iconEndClassName : ''}>
                   <AppIcon
                     name={iconEnd}
                     size={iconSize}
