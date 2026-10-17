@@ -52,6 +52,15 @@ export type AppBottomSheetProps<T extends boolean> = CommonProps & {
         }
         content?: string | ReactNode
         isSwipeable?: boolean
+        /**
+         * Whether the sheet wraps `children` in a BottomSheetScrollView.
+         * Defaults to true.
+         *
+         * Set to false when `children` already provide their own scrolling -
+         * a BottomSheetFlatList, for example. Nesting a VirtualizedList inside
+         * a ScrollView defeats virtualization and makes React Native warn.
+         */
+        scrollable?: boolean
         fixedHeader?: ReactNode // Component to be fixed at the top
         children: ReactNode
       } & ({ index: BottomSheetIndex; height?: never } | { index?: never; height: number }))

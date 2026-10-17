@@ -98,8 +98,14 @@ function RenderedSheet({
       </BottomSheetView>
     )
   } else {
-    const { title, children, actionButton, fixedHeader, contentContainerStyle } =
-      checkedProps as RegularProps
+    const {
+      title,
+      children,
+      actionButton,
+      fixedHeader,
+      contentContainerStyle,
+      scrollable = true,
+    } = checkedProps as RegularProps
     return (
       <BottomSheetView style={{ height }}>
         <View className="w-full px-md">
@@ -135,15 +141,27 @@ function RenderedSheet({
           {fixedHeader && <>{fixedHeader}</>}
         </View>
         {/* Scrollable Content */}
-        <BottomSheetScrollView
-          className="w-full px-md"
-          contentContainerStyle={[{ flexGrow: 1 }, contentContainerStyle]}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="on-drag"
-          bounces={false}>
-          <View className="flex-1">{children}</View>
-        </BottomSheetScrollView>
+        {/*
+          `children` that scroll themselves (a BottomSheetFlatList, say) must not
+          be nested in a ScrollView: that defeats virtualization and makes React
+          Native warn. `scrollable={false}` hands them a plain View with the same
+          padding and flex behaviour instead.
+        */}
+        {scrollable ? (
+          <BottomSheetScrollView
+            className="w-full px-md"
+            contentContainerStyle={[{ flexGrow: 1 }, contentContainerStyle]}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
+            bounces={false}>
+            <View className="flex-1">{children}</View>
+          </BottomSheetScrollView>
+        ) : (
+          <View className="w-full px-md flex-1" style={contentContainerStyle}>
+            <View className="flex-1">{children}</View>
+          </View>
+        )}
         {actionButton && (
           <Animated.View
             className="w-full px-md mb-5xl pb-4xl"
