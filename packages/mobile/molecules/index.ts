@@ -26,7 +26,12 @@ export { default as AppPhoneInput } from './AppPhoneInput'
 export { default as AppSearchInput } from './AppSearchInput'
 export { default as AppSelect, type AppSelectProps } from './AppSelect'
 export { AppTopBar, type AppTopBarProps } from './AppTopBar'
-export { default as AuthInput, type AuthInputProps, type KeyboardType } from './AuthInput'
+export {
+  default as AuthInput,
+  type AuthInputProps,
+  type AuthInputRef,
+  type KeyboardType,
+} from './AuthInput'
 export { default as CodeInput, type OTPInputProps } from './CodeInput'
 export { GlobalWrapper, type GlobalWrapperProps } from './GlobalWrapper'
 export { default as AppKeypad, type KeyPadInputType, type KeyPadProps, type KeyPadRef } from './keypad'
