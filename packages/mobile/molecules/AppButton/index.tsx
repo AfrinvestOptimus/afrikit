@@ -1,6 +1,7 @@
 import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
 import React, { useCallback, useMemo } from 'react'
+import type { TouchableOpacityProps } from 'react-native'
 import {
   ActivityIndicator,
   GestureResponderEvent,
@@ -17,6 +18,7 @@ import {
   buttonSizes,
   ButtonState,
   ButtonVariant,
+  circularButtonSizes,
   disabledColors,
   highContrastButtonActiveStateColors,
   highContrastButtonColors,
@@ -94,7 +96,7 @@ export interface AppButtonProps {
 
   /**
    * The text to be displayed inside the button.
-   * This is a required prop.
+   * This is a required prop, but can be an empty string for icon-only buttons.
    */
   text: string
 
@@ -102,7 +104,7 @@ export interface AppButtonProps {
    * Optional function to be called when the button is pressed.
    * Receives a GestureResponderEvent as a parameter.
    */
-  onPress?: (event: GestureResponderEvent) => void
+  onPress?: TouchableOpacityProps['onPress']
 
   /**
    * Accessibility label for the button, providing a description for screen readers.
@@ -128,6 +130,35 @@ export interface AppButtonProps {
    * Optional custom classes for text styling.
    */
   textClassName?: string
+
+  /**
+   * Optional custom classes for the start icon wrapper.
+   * Defaults to 'mr-md'. Pass an empty string to remove spacing.
+   * Applied only when icon spacing is enabled
+   * (i.e., spacing is not disabled, button is not circular, and text is present).
+   */
+  iconStartClassName?: string
+
+  /**
+   * Optional custom classes for the end icon wrapper.
+   * Defaults to 'ml-md'. Pass an empty string to remove spacing.
+   * Applied only when icon spacing is enabled
+   * (i.e., spacing is not disabled, button is not circular, and text is present).
+   */
+  iconEndClassName?: string
+
+  /**
+   * Removes spacing on both icon wrappers when true.
+   * Default is false.
+   */
+  disableIconSpacing?: boolean
+
+  /**
+   * Makes the button circular when true.
+   * Keeps existing behavior unchanged when false.
+   * Default is false.
+   */
+  isCircular?: boolean
 }
 
 const getIconColors = (
@@ -294,13 +325,20 @@ const AppButton: React.FC<AppButtonProps> = React.memo(
     text,
     onPress,
     textClassName = '',
+    iconStartClassName = 'mr-md',
+    iconEndClassName = 'ml-md',
+    disableIconSpacing = false,
+    isCircular = false,
     accessibilityLabel,
     accessibilityHint,
   }) => {
     const { colorScheme } = useColorScheme()
     const isDarkMode = colorScheme === 'dark'
 
-    const sizeStyle = useMemo(() => buttonSizes[size], [size])
+    const sizeStyle = useMemo(
+      () => (isCircular ? circularButtonSizes[size] : buttonSizes[size]),
+      [size, isCircular],
+    )
     const textSize = useMemo(() => textSizes[size], [size])
     const iconSize = useMemo(() => iconSizes[size], [size])
 
@@ -349,6 +387,13 @@ const AppButton: React.FC<AppButtonProps> = React.memo(
     const combinedTextStyle = useMemo(
       () => `font-semibold ${textStyle} ${textSize} ${textClassName}`,
       [textStyle, textSize, textClassName],
+    )
+
+    const hasText = useMemo(() => (text ?? '').trim().length > 0, [text])
+    // Icon spacing applies only when spacing isn't disabled, button isn't circular, and text exists.
+    const shouldApplyIconSpacing = useMemo(
+      () => !disableIconSpacing && !isCircular && hasText,
+      [disableIconSpacing, isCircular, hasText],
     )
 
     // Get the appropriate icon color based on button state
@@ -412,7 +457,7 @@ const AppButton: React.FC<AppButtonProps> = React.memo(
           ) : (
             <>
               {iconStart && (
-                <View className="mr-md">
+                <View className={shouldApplyIconSpacing ? iconStartClassName : ''}>
                   <AppIcon
                     name={iconStart}
                     size={iconSize}
@@ -424,10 +469,10 @@ const AppButton: React.FC<AppButtonProps> = React.memo(
                 </View>
               )}
 
-              <Text className={combinedTextStyle}>{text}</Text>
+              {hasText && <Text className={combinedTextStyle}>{text}</Text>}
 
               {iconEnd && (
-                <View className="ml-md">
+                <View className={shouldApplyIconSpacing ? iconEndClassName : ''}>
                   <AppIcon
                     name={iconEnd}
                     size={iconSize}
