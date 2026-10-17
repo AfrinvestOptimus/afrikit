@@ -48,7 +48,7 @@ const Loader: React.FC<LoaderTypes> = ({ size = 40 }) => {
           </SvgLinearGradient>
           <Mask id="mask">
             <Icon
-              name="ri-loader-5-line"
+              name="loader-5-line"
               size={40}
               color={colors[isDarkMode ? 'dark' : 'light']['contrast-white']}
             />

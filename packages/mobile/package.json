@@ -23,7 +23,7 @@
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.2.3",
     "afrikit-shared": "^1.0.23",
-    "react-native-remix-icon": "https://github.com/AfrinvestOptimus/react-native-remix-icon.git#upgrade-remix"
+    "react-native-remix-icon": "^4.7.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.25.6",
