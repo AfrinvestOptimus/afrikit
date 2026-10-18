@@ -1,0 +1,148 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+      - 'release/*'
+
+# A newer push to the same PR makes the in-flight run redundant.
+concurrency:
+  group: pr-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Lint, typecheck and build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: yarn
+
+      # --frozen-lockfile so a PR cannot silently resolve different versions
+      # than the lockfile records. This installs from a clean tree: the build
+      # breakages this workflow exists to catch were invisible locally,
+      # because existing checkouts carried a stale node_modules.
+      - name: Install
+        run: yarn install --frozen-lockfile
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Typecheck library
+        working-directory: packages/mobile
+        run: npx tsc --noEmit -p tsconfig.json
+
+      - name: Typecheck Storybook harness
+        working-directory: packages/storybook
+        run: npx tsc --noEmit
+
+      - name: Build library
+        working-directory: packages/mobile
+        run: yarn build
+
+      # afrikit-mobile shipped with zero type declarations for an unknown
+      # period, because tsconfig extended a base that sets noEmit. Consumers
+      # silently fell back to implicit `any`. A build that emits only
+      # JavaScript is a failed build.
+      - name: Assert type declarations were emitted
+        working-directory: packages/mobile
+        run: |
+          count=$(find dist -name '*.d.ts' | wc -l)
+          echo "Found $count .d.ts files"
+          if [ "$count" -lt 20 ]; then
+            echo "::error::Build emitted $count .d.ts files; expected the full set. Consumers would get no types."
+            exit 1
+          fi
+
+      - name: Assert the harness is not shipped to consumers
+        working-directory: packages/mobile
+        run: |
+          for leaked in dist/App.js dist/.storybook; do
+            if [ -e "$leaked" ]; then
+              echo "::error::$leaked is in the published build output."
+              exit 1
+            fi
+          done
+
+  package:
+    name: Package smoke test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: yarn
+
+      - name: Install
+        run: yarn install --frozen-lockfile
+
+      - name: Build and pack
+        working-directory: packages/mobile
+        run: |
+          yarn build
+          npm pack --silent
+
+      # Installing the tarball the way a consumer does is the only check that
+      # exercises `main`, the `files` whitelist and the emitted types together.
+      # `main` once pointed at a file `files` never published, so the installed
+      # package was empty; nothing in the repo could have caught that.
+      - name: Install the tarball into a scratch project
+        run: |
+          tarball=$(ls packages/mobile/afrikit-mobile-*.tgz)
+          echo "Testing $tarball"
+          mkdir -p /tmp/consumer && cd /tmp/consumer
+          npm init -y >/dev/null
+          npm install --no-audit --no-fund \
+            "$GITHUB_WORKSPACE/$tarball" \
+            react@18.2.0 react-native@0.74.5 typescript@~5.3.3
+
+      - name: Assert the installed package resolves and has types
+        run: |
+          cd /tmp/consumer
+          main=$(node -p "require('afrikit-mobile/package.json').main")
+          test -f "node_modules/afrikit-mobile/$main" \
+            || { echo "::error::main ($main) is missing from the published package."; exit 1; }
+          types=$(node -p "require('afrikit-mobile/package.json').types")
+          test -f "node_modules/afrikit-mobile/$types" \
+            || { echo "::error::types ($types) is missing from the published package."; exit 1; }
+          echo "main and types both present"
+
+      # Resolving the type declarations is the part that regressed before, so
+      # assert on it directly rather than on a full React Native typecheck,
+      # which would need the whole peer stack installed.
+      - name: Typecheck an import of the package
+        run: |
+          cd /tmp/consumer
+          cat > check.ts <<'TS'
+          import type { AppButtonProps, AppBottomSheetProps } from 'afrikit-mobile'
+
+          const button: Pick<AppButtonProps, 'text'> = { text: 'ok' }
+          type SheetIndex = AppBottomSheetProps<false>['index']
+
+          export { button }
+          export type { SheetIndex }
+          TS
+          cat > tsconfig.json <<'JSON'
+          {
+            "compilerOptions": {
+              "strict": true,
+              "noEmit": true,
+              "jsx": "react-jsx",
+              "moduleResolution": "node",
+              "esModuleInterop": true,
+              "skipLibCheck": true,
+              "types": []
+            },
+            "files": ["check.ts"]
+          }
+          JSON
+          npx tsc -p tsconfig.json
