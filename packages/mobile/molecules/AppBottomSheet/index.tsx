@@ -36,6 +36,14 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
       }
 
       const currentSnapPoint = snapPoints[index]
+
+      // The sheet can report an index the provided array does not cover, so
+      // bail out rather than driving the content container to an undefined
+      // height.
+      if (currentSnapPoint === undefined) {
+        return
+      }
+
       let newHeight: number
 
       if (typeof currentSnapPoint === 'string') {
@@ -142,7 +150,12 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
       }
       enablePanDownToClose={!isDetached}
       backdropComponent={renderBackdrop}
-      enableDynamicSizing
+      // Detached sheets only. For a regular sheet v5 inserts a measured-content
+      // detent into the normalized list and re-sorts it, which shifts every
+      // index above it: with six snap points and content under ~600dp,
+      // `index={4}` resolves to 50% rather than 70%. `index` is a public prop,
+      // so that silently moves existing callers' sheets.
+      enableDynamicSizing={isDetached}
       android_keyboardInputMode="adjustResize"
       keyboardBehavior="extend"
       keyboardBlurBehavior="restore"
