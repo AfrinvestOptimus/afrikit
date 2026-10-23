@@ -2,7 +2,7 @@ import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types'
 import colors from 'afrikit-shared/dist/colors'
 import { useColorScheme } from 'nativewind'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Animated, Dimensions } from 'react-native'
 import { AppBottomSheetProps } from '../../types/molecules'
 import checkBottomSheetProps from './checkBottomSheetProps'
@@ -13,7 +13,7 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
   // ref
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const screenHeight = Dimensions.get('window').height
-  const [contentHeight, setContentHeight] = useState(screenHeight)
+  const [contentHeight, setContentHeight] = useState<number | undefined>(undefined)
   const buttonAnimation = useRef(new Animated.Value(0)).current
   const { colorScheme } = useColorScheme()
 
@@ -36,6 +36,14 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
       }
 
       const currentSnapPoint = snapPoints[index]
+
+      // The sheet can report an index the provided array does not cover, so
+      // bail out rather than driving the content container to an undefined
+      // height.
+      if (currentSnapPoint === undefined) {
+        return
+      }
+
       let newHeight: number
 
       if (typeof currentSnapPoint === 'string') {
@@ -69,11 +77,38 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
     outputRange: [50, 0], // Adjust these values to control the slide distance
   })
 
+  /**
+   * Tracks whether this sheet has actually been presented at least once.
+   *
+   * @gorhom/bottom-sheet v5 must NOT receive `dismiss()` before its first
+   * `present()`. In v5 `handleDismiss()` has no early-exit for a sheet that has
+   * never been presented, so it sets the modal's internal status to
+   * `MODAL_STATUS.DISMISSING` and calls `forceClose()`. Because the sheet was
+   * never mounted, `forceClose()` is a no-op and no `onClose` ever fires, so
+   * nothing resets that status. `handlePortalRender()` then bails out for good:
+   *
+   *     if ([MODAL_STATUS.DISMISSING].includes(statusRef.current)) return
+   *
+   * The portal silently refuses to render from then on: `present()` appears to
+   * succeed, but `onChange` never fires, nothing enters the view hierarchy and
+   * no error is thrown. v4 was immune because its `handleDismiss()` early-exited
+   * while `currentIndexRef` was still -1.
+   */
+  const isPresented = useRef(false)
+
   // effects
-  useEffect(() => {
+  // Layout effect so the sheet is presented in the same commit that set
+  // `showModal`; v5 can miss a `present()` scheduled from a passive effect.
+  useLayoutEffect(() => {
     if (showModal) {
+      isPresented.current = true
       bottomSheetRef.current?.present()
-    } else {
+    } else if (isPresented.current) {
+      // Only ever dismiss a sheet we actually presented, and only once: after a
+      // full dismissal v5 resets its status to INITIAL, so a stray second
+      // `dismiss()` would poison the modal for the *next* open in exactly the
+      // same way. `onDismiss` below clears the flag when the sheet closes itself.
+      isPresented.current = false
       bottomSheetRef.current?.dismiss()
     }
   }, [showModal])
@@ -115,6 +150,11 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
       }
       enablePanDownToClose={!isDetached}
       backdropComponent={renderBackdrop}
+      // Detached sheets only. For a regular sheet v5 inserts a measured-content
+      // detent into the normalized list and re-sorts it, which shifts every
+      // index above it: with six snap points and content under ~600dp,
+      // `index={4}` resolves to 50% rather than 70%. `index` is a public prop,
+      // so that silently moves existing callers' sheets.
       enableDynamicSizing={isDetached}
       android_keyboardInputMode="adjustResize"
       keyboardBehavior="extend"
@@ -147,7 +187,10 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
       animateOnMount={true}
       stackBehavior={'replace'}
       //
-      onDismiss={() => setShowModal(false)}>
+      onDismiss={() => {
+        isPresented.current = false
+        setShowModal(false)
+      }}>
       {
         <RenderedSheet
           isDetached={isDetached}

@@ -1,7 +1,6 @@
-import { BottomSheetView } from '@gorhom/bottom-sheet'
+import { BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet'
 import { isValidElement, memo, ReactNode } from 'react'
 import { Animated, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
 import { AppText, AppTextAtomProps } from '../../atoms'
 import { DetachedProps, RegularProps } from '../../types/molecules'
 import classNames from '../../utilities/classnames'
@@ -32,7 +31,7 @@ function RenderedSheet({
 }: {
   isDetached: boolean
   checkedProps: DetachedProps | RegularProps
-  height: number
+  height?: number
   btnTranslateY: Animated.AnimatedInterpolation<number | string>
 }) {
   if (isDetached) {
@@ -99,8 +98,14 @@ function RenderedSheet({
       </BottomSheetView>
     )
   } else {
-    const { title, children, actionButton, fixedHeader, contentContainerStyle } =
-      checkedProps as RegularProps
+    const {
+      title,
+      children,
+      actionButton,
+      fixedHeader,
+      contentContainerStyle,
+      scrollable = true,
+    } = checkedProps as RegularProps
     return (
       <BottomSheetView style={{ height }}>
         <View className="w-full px-md">
@@ -136,15 +141,27 @@ function RenderedSheet({
           {fixedHeader && <>{fixedHeader}</>}
         </View>
         {/* Scrollable Content */}
-        <ScrollView
-          className="w-full px-md"
-          contentContainerStyle={[{ flexGrow: 1 }, contentContainerStyle]}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="on-drag"
-          bounces={false}>
-          <View className="flex-1">{children}</View>
-        </ScrollView>
+        {/*
+          `children` that scroll themselves (a BottomSheetFlatList, say) must not
+          be nested in a ScrollView: that defeats virtualization and makes React
+          Native warn. `scrollable={false}` hands them a plain View with the same
+          padding and flex behaviour instead.
+        */}
+        {scrollable ? (
+          <BottomSheetScrollView
+            className="w-full px-md"
+            contentContainerStyle={[{ flexGrow: 1 }, contentContainerStyle]}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
+            bounces={false}>
+            <View className="flex-1">{children}</View>
+          </BottomSheetScrollView>
+        ) : (
+          <View className="w-full px-md flex-1" style={contentContainerStyle}>
+            <View className="flex-1">{children}</View>
+          </View>
+        )}
         {actionButton && (
           <Animated.View
             className="w-full px-md mb-5xl pb-4xl"

@@ -12,7 +12,6 @@ module.exports = {
   ],
   presets: [require('nativewind/preset')],
   theme: {
-    ...afrikitConfig.default.theme,
     fontFamily: {
       regular: ['Manrope400', 'sans-serif'],
       medium: ['Manrope500', 'sans-serif'],
@@ -53,7 +52,9 @@ module.exports = {
       '4xl': '-0.16px',
       '5xl': '-0.4px',
     },
-    extend: {},
+    extend: {
+      ...afrikitConfig.default.theme,
+    },
   },
   plugins: [
     function ({ addUtilities, theme }) {

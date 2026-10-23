@@ -32,11 +32,5 @@ module.exports = {
       },
       storybookEnabled: process.env.STORYBOOK_ENABLED,
     },
-    updates: {
-      url: "https://u.expo.dev/bc56fb0d-8c4f-4512-9e32-f2a75d227cd1",
-    },
-    runtimeVersion: {
-      policy: "appVersion",
-    },
   },
 };
