@@ -1,0 +1,23 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "types": ["nativewind/types"],
+    "baseUrl": "./",
+    "paths": {
+      "afrikit-mobile": ["../mobile/index.ts"]
+    }
+  },
+  "include": [
+    "App.tsx",
+    "index.ts",
+    ".storybook/**/*",
+    "declaration.d.ts",
+    "nativewind-env.d.ts"
+  ],
+  "exclude": ["node_modules"]
+}
