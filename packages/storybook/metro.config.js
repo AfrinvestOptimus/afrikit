@@ -38,6 +38,29 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
   return context.resolveRequest(context, moduleName, platform)
 }
 
+/**
+ * React must be a single instance across the bundle.
+ *
+ * The harness, the library source and the hoisted dependencies sit at different
+ * depths, so hierarchical lookup can hand them different copies of React if the
+ * workspace ever installs more than one — which produces "Invalid hook call" at
+ * render time while Metro still bundles successfully. The versions are aligned
+ * so only one copy exists; this pins the resolution too, so drift fails loudly
+ * here rather than silently at runtime.
+ *
+ * react-native is deliberately left to normal resolution: it is not duplicated,
+ * and Metro needs its own platform-extension handling for it.
+ */
+config.resolver.resolveRequest = ((inner) => (context, moduleName, platform) => {
+  if (moduleName === 'react' || moduleName.startsWith('react/')) {
+    return {
+      filePath: require.resolve(moduleName, { paths: [projectRoot] }),
+      type: 'sourceFile',
+    }
+  }
+  return inner(context, moduleName, platform)
+})(config.resolver.resolveRequest)
+
 config.resolver.assetExts = [
   ...config.resolver.assetExts,
   'png',

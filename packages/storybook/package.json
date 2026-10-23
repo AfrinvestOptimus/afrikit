@@ -8,6 +8,9 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
+    "storybook": "STORYBOOK_ENABLED=1 expo start",
+    "storybook:ios": "STORYBOOK_ENABLED=1 expo start --ios",
+    "storybook:android": "STORYBOOK_ENABLED=1 expo start --android",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -24,6 +27,7 @@
     "afrikit-mobile": "1.1.1",
     "afrikit-shared": "^1.0.23",
     "expo": "~51.0.28",
+    "expo-constants": "~16.0.2",
     "expo-font": "~12.0.9",
     "expo-status-bar": "~1.12.1",
     "nativewind": "^4.2.1",

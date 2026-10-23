@@ -16,6 +16,7 @@ import StorybookUIRoot from './.storybook'
 
 
 import './global.css'
+import Constants from 'expo-constants'
 
 // Shape of the demo form below. Local to the harness: the library has no
 // opinion about consumers' form data.
@@ -60,7 +61,11 @@ export default function App() {
     return null
   }
 
-  const SHOW_STORYBOOK = false
+  // Boot into Storybook instead of the demo screen when STORYBOOK_ENABLED is set.
+  // app.config.js surfaces that env var as extra.storybookEnabled, which nothing
+  // read until now. This used to be a hardcoded constant, so switching modes meant
+  // editing source and left a stray diff in the working tree.
+  const SHOW_STORYBOOK = Boolean(Constants.expoConfig?.extra?.storybookEnabled)
   if (SHOW_STORYBOOK) {
     return <StorybookUIRoot />
   }
