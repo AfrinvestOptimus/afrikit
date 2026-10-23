@@ -1,5 +1,41 @@
 # Afrikit Tailwind CSS Configuration
 
+## Repository layout
+
+| Path | Package | What it is |
+| --- | --- | --- |
+| `packages/mobile` | `afrikit-mobile` | The published component library. Pure JS/TS, no native code. |
+| `packages/storybook` | `afrikit-storybook` (private) | Expo app hosting Storybook, used to develop and review components. |
+| `shared/` | `afrikit-shared` | Design tokens: colours, spacing, typography, radius. |
+
+## Developing
+
+Components are developed against the Storybook harness, which consumes the
+library the same way a consuming app does:
+
+```bash
+yarn install
+cd packages/storybook
+yarn storybook:ios      # or storybook:android
+```
+
+Metro resolves `afrikit-mobile` to the library's source, so edits under
+`packages/mobile` reload without rebuilding.
+
+`yarn ios` / `yarn android` boot the demo screen instead of Storybook. The mode
+is controlled by `STORYBOOK_ENABLED`, not by editing source.
+
+## Building the library
+
+```bash
+cd packages/mobile
+yarn build
+```
+
+This runs `tsc`, `tsc-alias`, Babel and the asset copy. It must emit `.d.ts`
+files; a build that produces only JavaScript means consumers get no types.
+
+
 This package provides a custom Tailwind CSS configuration with an extended color palette, custom spacing, and additional utilities.
 
 ## Usage

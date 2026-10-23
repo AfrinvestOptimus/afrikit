@@ -50,11 +50,6 @@ export type InputBlurProps = {
   onChangeText: (input: string) => void
 }
 
-export type FormData = {
-  email: string
-  name: string
-}
-
 export interface AppInputProps extends Omit<TextInputProps, 'placeholderTextColor' | 'style'> {
   label?: string
   placeholder?: string
