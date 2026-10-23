@@ -4,6 +4,7 @@ import { FC, useCallback } from 'react'
 import { View } from 'react-native'
 import RemixIcon from 'react-native-remix-icon'
 import classNames from '../utilities/classnames'
+import type { RemixIconName } from '../types/icon'
 
 export type AppIconSize = '16' | '20' | '24' | '40' | '48' | number
 export type AppIconProps = {
@@ -31,7 +32,7 @@ const AppIcon: FC<AppIconProps> = ({
     if (isRemixIcon) {
       return (
         <RemixIcon
-          name={name}
+          name={name as RemixIconName}
           size={size}
           color={color || defaultColor}
           accessibilityLabel={accessibilityLabel}
@@ -48,7 +49,7 @@ const AppIcon: FC<AppIconProps> = ({
           size === '40' ? 'w-3xl p-sm' : size === '48' ? 'w-4xl p-md' : '',
         )}>
         <RemixIcon
-          name={name}
+          name={name as RemixIconName}
           size={getIconSize(size.toString())}
           color={color || defaultColor}
           accessibilityLabel={accessibilityLabel}

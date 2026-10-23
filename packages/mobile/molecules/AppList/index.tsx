@@ -14,6 +14,7 @@ import ProductTreasuryBill from '../../assets/product-treasury-bill.png'
 import ProductUSStocks from '../../assets/product-us-stock.png'
 import AppText from '../../atoms/AppText'
 import { AppTextAtomProps } from '../../types/atoms'
+import type { RemixIconName } from '../../types/icon'
 import {
   AppAvatar,
   AppAvatarProps,
@@ -615,7 +616,7 @@ const ListItem: React.FC<ListItemProps<LeadingOptions, TrailingOptions>> = ({
       if (icon) {
         const iconElement = (
           <RemixIcon
-            name={icon}
+            name={icon as RemixIconName}
             size={iconSize}
             color={
               iconColor || defaultColor || colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT
@@ -722,7 +723,7 @@ const ListItem: React.FC<ListItemProps<LeadingOptions, TrailingOptions>> = ({
               />
             ) : (
               <RemixIcon
-                name={activityStatusIcons[activity] || activityStatusIcons.default}
+                name={(activityStatusIcons[activity] || activityStatusIcons.default) as RemixIconName}
                 color={
                   activity === 'system'
                     ? colors.light.type.accent.DEFAULT
@@ -872,7 +873,7 @@ const ListItem: React.FC<ListItemProps<LeadingOptions, TrailingOptions>> = ({
       case 'icon':
         return (
           <RemixIcon
-            name={trailingIcon || 'inner-shadow'}
+            name={(trailingIcon || 'inner-shadow') as RemixIconName}
             color={trailingIconColor || colors[isDarkMode ? 'dark' : 'light'].type.gray.DEFAULT}
             size={24}
           />
