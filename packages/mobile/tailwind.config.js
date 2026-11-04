@@ -2,13 +2,13 @@
 /** @type {import('tailwindcss').Config} */
 const afrikitConfig = require('afrikit-shared/dist')
 module.exports = {
+  // Consumers extend this preset and supply their own `content`; these paths let
+  // the library's own classes be generated when it is scanned directly.
   content: [
-    './App.{js,jsx,ts,tsx}',
     'atoms/**/*.{js,jsx,ts,tsx}',
     'molecules/**/*.{js,jsx,ts,tsx}',
     'organisms/**/*.{js,jsx,ts,tsx}',
-    'templates/**/*.{js,jsx,ts,tsx}',
-    '.storybook/**/*.{js,jsx,ts,tsx}',
+    'components/**/*.{js,jsx,ts,tsx}',
   ],
   presets: [require('nativewind/preset')],
   theme: {
