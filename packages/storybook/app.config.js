@@ -30,7 +30,11 @@ module.exports = {
       eas: {
         projectId: "bc56fb0d-8c4f-4512-9e32-f2a75d227cd1",
       },
-      storybookEnabled: process.env.STORYBOOK_ENABLED,
+      // Normalised here so every consumer of extra.storybookEnabled gets a real
+      // boolean. Env vars arrive as strings, and Boolean("false") is true.
+      storybookEnabled: ['1', 'true'].includes(
+        String(process.env.STORYBOOK_ENABLED).toLowerCase(),
+      ),
     },
   },
 };

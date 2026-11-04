@@ -1,5 +1,7 @@
 # Afrikit Tailwind CSS Configuration
 
+This package provides a custom Tailwind CSS configuration with an extended color palette, custom spacing, and additional utilities.
+
 ## Repository layout
 
 | Path | Package | What it is |
@@ -10,8 +12,8 @@
 
 ## Developing
 
-Components are developed against the Storybook harness, which consumes the
-library the same way a consuming app does:
+Components are developed against the Storybook harness, which imports the
+library by its package name (`afrikit-mobile`) like a consuming app would:
 
 ```bash
 yarn install
@@ -34,9 +36,6 @@ yarn build
 
 This runs `tsc`, `tsc-alias`, Babel and the asset copy. It must emit `.d.ts`
 files; a build that produces only JavaScript means consumers get no types.
-
-
-This package provides a custom Tailwind CSS configuration with an extended color palette, custom spacing, and additional utilities.
 
 ## Usage
 

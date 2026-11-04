@@ -11,7 +11,7 @@
       "**/afrikit-shared/**"
     ]
   },
-  "private": "true",
+  "private": true,
   "files": [
     "dist"
   ],

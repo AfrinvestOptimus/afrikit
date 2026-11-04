@@ -62,10 +62,10 @@ export default function App() {
   }
 
   // Boot into Storybook instead of the demo screen when STORYBOOK_ENABLED is set.
-  // app.config.js surfaces that env var as extra.storybookEnabled, which nothing
-  // read until now. This used to be a hardcoded constant, so switching modes meant
-  // editing source and left a stray diff in the working tree.
-  const SHOW_STORYBOOK = Boolean(Constants.expoConfig?.extra?.storybookEnabled)
+  // app.config.js surfaces that env var as extra.storybookEnabled, already
+  // normalised to a boolean. This used to be a hardcoded constant, so switching
+  // modes meant editing source and left a stray diff in the working tree.
+  const SHOW_STORYBOOK = Constants.expoConfig?.extra?.storybookEnabled === true
   if (SHOW_STORYBOOK) {
     return <StorybookUIRoot />
   }
