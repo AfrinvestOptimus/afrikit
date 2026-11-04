@@ -5,11 +5,18 @@ on:
     branches:
       - main
       - 'release/*'
+  # Lets the checks be run on demand, including on a branch that does not
+  # target main yet.
+  workflow_dispatch:
 
 # A newer push to the same PR makes the in-flight run redundant.
 concurrency:
   group: pr-checks-${{ github.ref }}
   cancel-in-progress: true
+
+# Nothing here needs write access; the repo default may be read/write.
+permissions:
+  contents: read
 
 jobs:
   verify:
@@ -53,10 +60,14 @@ jobs:
       - name: Assert type declarations were emitted
         working-directory: packages/mobile
         run: |
+          test -f dist/index.d.ts \
+            || { echo "::error::dist/index.d.ts is missing. Consumers would get no types."; exit 1; }
+          # Secondary sanity check: the build currently emits 46 .d.ts files, so
+          # a sharp drop means whole directories stopped emitting declarations.
           count=$(find dist -name '*.d.ts' | wc -l)
           echo "Found $count .d.ts files"
           if [ "$count" -lt 20 ]; then
-            echo "::error::Build emitted $count .d.ts files; expected the full set. Consumers would get no types."
+            echo "::error::Build emitted only $count .d.ts files; expected roughly 46."
             exit 1
           fi
 
@@ -99,15 +110,22 @@ jobs:
         run: |
           tarball=$(ls packages/mobile/afrikit-mobile-*.tgz)
           echo "Testing $tarball"
-          mkdir -p /tmp/consumer && cd /tmp/consumer
+          mkdir -p "$RUNNER_TEMP/consumer" && cd "$RUNNER_TEMP/consumer"
           npm init -y >/dev/null
-          npm install --no-audit --no-fund \
+          # --legacy-peer-deps because afrikit-mobile declares open-ended peers
+          # (react-native-reanimated: *, tailwindcss: *). npm 7+ would
+          # auto-install the latest of each, which conflicts with the pinned
+          # react-native below and makes the result depend on what upstream
+          # published that day. This check only needs the package's own
+          # declarations plus react-native for the types it imports, and
+          # check.ts uses skipLibCheck.
+          npm install --no-audit --no-fund --legacy-peer-deps \
             "$GITHUB_WORKSPACE/$tarball" \
             react@18.2.0 react-native@0.74.5 typescript@~5.3.3
 
       - name: Assert the installed package resolves and has types
         run: |
-          cd /tmp/consumer
+          cd "$RUNNER_TEMP/consumer"
           main=$(node -p "require('afrikit-mobile/package.json').main")
           test -f "node_modules/afrikit-mobile/$main" \
             || { echo "::error::main ($main) is missing from the published package."; exit 1; }
@@ -121,7 +139,7 @@ jobs:
       # which would need the whole peer stack installed.
       - name: Typecheck an import of the package
         run: |
-          cd /tmp/consumer
+          cd "$RUNNER_TEMP/consumer"
           cat > check.ts <<'TS'
           import type { AppButtonProps, AppBottomSheetProps } from 'afrikit-mobile'
 
