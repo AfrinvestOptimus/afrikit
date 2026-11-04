@@ -5,6 +5,7 @@ import RemixIcon from 'react-native-remix-icon'
 import colors from 'afrikit-shared/dist/colors';
 import fontSizes from 'afrikit-shared/dist/fontSizes'
 import React from 'react'
+import type { RemixIconName } from '../types/icon'
 
 export const showErrorMessage = (message: string = 'Something went wrong ') => {
   showMessage({
@@ -74,7 +75,11 @@ export const showToastMessage = ({
       !!icon || showIcon
         ? () => (
             <View style={{ backgroundColor: 'transparent' }}>
-              <RemixIcon name={iconName} color={colors.light['white-to-dark']} size="20" />
+              <RemixIcon
+                name={iconName as RemixIconName}
+                color={colors.light['white-to-dark']}
+                size="20"
+              />
             </View>
           )
         : showIcon

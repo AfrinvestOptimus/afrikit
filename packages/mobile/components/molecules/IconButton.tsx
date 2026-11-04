@@ -1,6 +1,7 @@
 import React from 'react'
 import { Pressable, PressableProps, StyleSheet } from 'react-native'
 import Icon from 'react-native-remix-icon'
+import type { RemixIconName } from '../../types/icon'
 
 interface IconButtonProps extends PressableProps {
   iconName: string
@@ -16,7 +17,7 @@ const IconButton: React.FC<IconButtonProps> = ({
 }) => {
   return (
     <Pressable style={styles.button} className={`flex-col justify-center items-center`} {...props}>
-      <Icon name={iconName} size={iconSize} color={iconColor} />
+      <Icon name={iconName as RemixIconName} size={iconSize} color={iconColor} />
     </Pressable>
   )
 }
