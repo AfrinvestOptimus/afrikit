@@ -54,6 +54,10 @@ const meta: Meta<typeof AppBottomSheet> = {
       control: 'boolean',
       if: { arg: 'isDetached', truthy: false },
     },
+    isContentSwipeable: {
+      control: 'boolean',
+      if: { arg: 'isDetached', truthy: false },
+    },
   },
 }
 
@@ -227,6 +231,39 @@ export const NonSwipeableSheet: Story = {
       text: 'Close',
       action: () => {},
     },
+  },
+}
+
+/**
+ * The sheet claims every vertical drag on its content, so a long list cannot
+ * be scrolled to its last item while content panning is on. Turning
+ * `isContentSwipeable` off frees the list; `isSwipeable` stays on, so the
+ * handle can still resize the sheet or pull it down to close.
+ *
+ * Compare with `NonSwipeableSheet`, where `isSwipeable: false` freezes both.
+ */
+export const ScrollableContentSheet: Story = {
+  render: args => <BottomSheetWrapper {...args} />,
+  args: {
+    isDetached: false,
+    backdropClose: true,
+    index: 2,
+    title: { text: 'Scroll the list, drag the handle', align: 'center' },
+    isSwipeable: true,
+    isContentSwipeable: false,
+    children: (
+      <View className="mt-lg pb-2xl flex-1">
+        {Array.from({ length: 30 }, (_, index) => (
+          <AppListItem
+            key={index}
+            title={`Option ${index + 1}`}
+            subtitle={index === 29 ? 'Last item - reachable by scrolling' : undefined}
+            variant={index === 29 ? '2-line' : '1-line'}
+            separator={index !== 29}
+          />
+        ))}
+      </View>
+    ),
   },
 }
 
