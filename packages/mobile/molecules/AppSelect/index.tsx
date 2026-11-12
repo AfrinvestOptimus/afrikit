@@ -90,6 +90,14 @@ export type AppSelectProps = {
    */
   isLoading?: boolean
   isSwipeable?: boolean
+  /**
+   * Whether dragging the option list moves the sheet. Defaults to
+   * `isSwipeable`.
+   *
+   * Set to false so long option lists can be scrolled to their last item
+   * while the sheet's handle still works.
+   */
+  isContentSwipeable?: boolean
   bottomSheetIndex?: BottomSheetIndex
 
   /**
@@ -119,6 +127,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
   onValueChange,
   renderItem,
   isSwipeable,
+  isContentSwipeable,
   bottomSheetIndex = 3,
 }) => {
   // State to manage selected value and bottom sheet visibility
@@ -282,6 +291,7 @@ const AppSelect: React.FC<AppSelectProps> = ({
         backdropClose
         index={bottomSheetIndex}
         isSwipeable={isSwipeable}
+        isContentSwipeable={isContentSwipeable}
         showModal={isBottomSheetOpen}
         contentContainerStyle={{ paddingBottom: 100 }}
         setShowModal={setIsBottomSheetOpen}

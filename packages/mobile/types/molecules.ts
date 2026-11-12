@@ -40,6 +40,7 @@ export type AppBottomSheetProps<T extends boolean> = CommonProps & {
         titleProps?: AppTextAtomProps
         subtitleProps?: AppTextAtomProps
         isSwipeable?: never
+        isContentSwipeable?: never
         secondaryActionButton?: ActionButtonProps
       } & ({ index: 0; height?: never } | { index?: never; height: number })
     : {
@@ -51,7 +52,26 @@ export type AppBottomSheetProps<T extends boolean> = CommonProps & {
           subtitleProps?: AppTextAtomProps
         }
         content?: string | ReactNode
+        /**
+         * Whether the sheet can be dragged. Defaults to true.
+         *
+         * This controls the handle. It is also the fallback for content
+         * panning, so setting it alone keeps the previous all-or-nothing
+         * behaviour.
+         */
         isSwipeable?: boolean
+        /**
+         * Whether dragging the sheet's *content* moves the sheet.
+         * Defaults to `isSwipeable`, so existing callers are unaffected.
+         *
+         * Set to false when `children` scroll: @gorhom/bottom-sheet claims
+         * every vertical drag on the content for the sheet, so a
+         * BottomSheetScrollView or BottomSheetFlatList never reaches its last
+         * items. Turning this off while leaving `isSwipeable` on lets the
+         * content scroll and still allows the handle to resize or close the
+         * sheet.
+         */
+        isContentSwipeable?: boolean
         /**
          * Whether the sheet wraps `children` in a BottomSheetScrollView.
          * Defaults to true.

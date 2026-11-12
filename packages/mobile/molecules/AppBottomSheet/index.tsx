@@ -19,6 +19,22 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
 
   const { isDetached, showModal, setShowModal, backdropClose, height } = checkedProps
 
+  /**
+   * The handle and the content are panned separately.
+   *
+   * Both used to be tied to `isSwipeable`. Turning content panning off is the
+   * only way to let a scrollable child actually scroll, because the sheet
+   * claims every vertical drag on its content -- but doing so also froze the
+   * handle, leaving a sheet that could not be resized or pulled down to close.
+   *
+   * `??` rather than an `in` check: callers forward `isSwipeable={undefined}`
+   * freely, and the key is then present with an undefined value, which an `in`
+   * check reads as "explicitly set".
+   */
+  const isSwipeable = 'isSwipeable' in checkedProps ? checkedProps.isSwipeable : undefined
+  const isContentSwipeable =
+    'isContentSwipeable' in checkedProps ? checkedProps.isContentSwipeable : undefined
+
   // variables
   const snapPoints = useMemo(() => {
     if (isDetached) {
@@ -142,12 +158,8 @@ const AppBottomSheet = <T extends boolean>(props: AppBottomSheetProps<T>) => {
       snapPoints={!isDetached ? snapPoints : undefined}
       onChange={handleSheetChanges}
       enableOverDrag={!isDetached}
-      enableContentPanningGesture={
-        !isDetached && ('isSwipeable' in checkedProps ? checkedProps.isSwipeable : true)
-      }
-      enableHandlePanningGesture={
-        !isDetached && ('isSwipeable' in checkedProps ? checkedProps.isSwipeable : true)
-      }
+      enableContentPanningGesture={!isDetached && (isContentSwipeable ?? isSwipeable ?? true)}
+      enableHandlePanningGesture={!isDetached && (isSwipeable ?? true)}
       enablePanDownToClose={!isDetached}
       backdropComponent={renderBackdrop}
       // Detached sheets only. For a regular sheet v5 inserts a measured-content
