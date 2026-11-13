@@ -39,35 +39,42 @@ files; a build that produces only JavaScript means consumers get no types.
 
 ## Usage
 
-To use this configuration in your Tailwind CSS project, follow these steps:
-
-1. Install this package in your project:
+`afrikit-mobile` is the published component library. It ships the Tailwind
+preset alongside the components, so installing it is enough:
 
 ```bash
-npm i afrikit
+npm i afrikit-mobile
 ```
 
+Install `afrikit-shared` directly only if you want the raw design tokens
+without the components.
 
-2. In your tailwind.config.js file, import and spread the custom config:
+Extend the library's config from your own `tailwind.config.js` and supply your
+own `content` paths:
 
 ```js
-const customConfig = require('@afrinvest/afrikit');
+/** @type {import('tailwindcss').Config} */
+const afrikitConfig = require('afrikit-mobile/tailwind.config')
 
 module.exports = {
-  ...customConfig,
-  // You can override or extend the custom config here
-  theme: {
-    ...customConfig.theme,
-    // Add your own theme customizations
-  },
-  // Add your own plugins or extend the existing ones
-  plugins: [
-    ...customConfig.plugins,
-    // Your additional plugins
+  ...afrikitConfig,
+  content: [
+    './App.{js,jsx,ts,tsx}',
+    './screens/**/*.{js,jsx,ts,tsx}',
+    './components/**/*.{js,jsx,ts,tsx}',
+    // Required: the library's own class names live in its source, which
+    // Tailwind must scan for those utilities to be generated.
+    './node_modules/afrikit-mobile/dist/**/*.js',
   ],
+  theme: {
+    ...afrikitConfig.theme,
+    extend: {
+      ...afrikitConfig.theme.extend,
+      // Your own additions here
+    },
+  },
 }
 ```
-
 
 ## Features
 
@@ -76,40 +83,44 @@ module.exports = {
 This config includes an extensive color palette with light and dark variants, as well as alpha (transparent) versions. Colors are organized into categories such as accent, neutral, success, error, warning, and info.
 
 Example usage:
-```html
-<div class="bg-accent-9 text-neutral-12">
-  Accent background with neutral text
-</div>
+```jsx
+<View className="bg-light-accent9 dark:bg-dark-accent9">
+  <Text className="text-light-type-gray dark:text-dark-type-gray">
+    Accent background with gray type
+  </Text>
+</View>
 ```
 
 ### Dark Mode
 This configuration supports dark mode out of the box. It uses Tailwind's dark mode feature, which can be triggered by adding a dark class to the html or body tag, or by using the prefers-color-scheme media query.
 
 Example usage:
-```html
-<div class="bg-white dark:bg-neutral-900 text-black dark:text-white">
-    This div will have a white background and black text in light mode,
-    and a dark background with white text in dark mode.
-</div>
+```jsx
+<View className="bg-light-page-bg dark:bg-dark-page-bg">
+  <Text className="text-light-type-gray dark:text-dark-type-gray">
+    Light page background and dark type in light mode, and the reverse in
+    dark mode.
+  </Text>
+</View>
 ```
 
 ### Custom Spacing
 The config provides a custom spacing scale, including additional sizes beyond Tailwind's defaults.
 
 Example usage:
-```html
-<div class="p-md mb-xl">
-  Custom padding and margin
-</div>
+```jsx
+<View className="p-md mb-xl">
+  <Text>Custom padding and margin</Text>
+</View>
 ```
 
 ### Typography
 Custom font sizes and line heights are included, with descriptive names for different text styles.
 
 Example usage:
-```html
-<h2 class="text-h2">Heading 2</h2>
-<p class="text-body1">Body text</p>
+```jsx
+<Text className="text-3xl-head">Heading</Text>
+<Text className="text-base-body">Body text</Text>
 ```
 
 ### Border Radius
@@ -117,18 +128,16 @@ Example usage:
 Extended border radius options are available, including maximum values for each size.
 
 Example usage:
-```html
-<div class="rounded-md-max">
-  Rounded corners with maximum medium radius
-</div>
+```jsx
+<View className="rounded-md-max">
+  <Text>Rounded corners with maximum medium radius</Text>
+</View>
 ```
 
 ### Shadows
-```html
-<div class="shadow-md">
-    Medium shadow
-</div>
-```
+
+There are no afrikit shadow tokens; Tailwind's own shadow utilities apply, and
+their support on React Native is limited.
 
 ### Customization
 You can further customize the configuration by extending or overriding values in your own tailwind.config.js file. Refer to the Tailwind CSS documentation for more information on customization.
@@ -136,69 +145,120 @@ You can further customize the configuration by extending or overriding values in
 
 ## Setting up with React Native Expo and NativeWind
 
-To use this custom Tailwind configuration with React Native Expo and NativeWind, follow these steps:
+These steps match the configuration the Storybook harness in
+`packages/storybook` actually uses, which is the reference for a working setup.
 
-1. Create a new Expo project (if you haven't already):
+1. Create an Expo project, if you do not have one:
 
 ```bash
 npx create-expo-app MyApp
 cd MyApp
 ```
-2. Install NativeWind and its dependencies:
+
+2. Install the library and its NativeWind toolchain:
 
 ```bash
-npm install nativewind
-npm install --dev tailwindcss
+npm i afrikit-mobile nativewind
+npm i -D tailwindcss@^3.4.0
 ```
 
-3. Install this custom Tailwind config package:
+NativeWind 4 requires Tailwind 3. Tailwind 4 is not supported.
 
-```bash
-npm install @your-org/custom-tailwind-config
+3. Add `tailwind.config.js` as shown under [Usage](#usage).
+
+4. Create `global.css`:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 ```
 
-4. Create a tailwind.config.js file in your project root and add the following content:
+5. Set up `babel.config.js`. In NativeWind 4 this is a **preset**, not a plugin:
+
 ```js
-const customConfig = require('@afrinvest/afrikit');
-
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  ...customConfig,
-  content: [
-    "./App.{js,jsx,ts,tsx}",
-    "./screens/**/*.{js,jsx,ts,tsx}",
-    "./components/**/*.{js,jsx,ts,tsx}"
-  ],
-  theme: {
-    ...customConfig.theme,
-    // Add any additional theme customizations here
-  },
-  plugins: [
-    ...customConfig.plugins,
-    // Add any additional plugins here
-  ],
+module.exports = function (api) {
+  api.cache(true)
+  return {
+    presets: [['babel-preset-expo', { jsxImportSource: 'react' }], 'nativewind/babel'],
+  }
 }
 ```
 
-5. Create a babel.config.js file in your project root (or modify the existing one) with the following content:
+6. Set up `metro.config.js`, which NativeWind 4 needs in order to compile the
+   stylesheet:
 
 ```js
-module.exports = function(api) {
-  api.cache(true);
-  return {
-    presets: ['babel-preset-expo'],
-    plugins: ["nativewind/babel"],
-  };
-};
+const { getDefaultConfig } = require('expo/metro-config')
+const { withNativeWind } = require('nativewind/metro')
+
+const config = getDefaultConfig(__dirname)
+
+module.exports = withNativeWind(config, { input: './global.css' })
 ```
 
-6. Now you can use Tailwind CSS classes in your React Native components, leveraging the custom configuration provided by this package. Remember to use the className prop instead of style when applying Tailwind classes to your components.
+7. Wrap your root component. The providers and the Manrope fonts are both
+   required — components reference the font families by name, so text renders
+   with the wrong face if they are missing:
 
-Example usage:
+```tsx
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import { GlobalWrapper, AppToastBase } from 'afrikit-mobile'
+import {
+  useFonts,
+  Manrope_400Regular,
+  Manrope_500Medium,
+  Manrope_600SemiBold,
+  Manrope_700Bold,
+} from '@expo-google-fonts/manrope'
+import './global.css'
+
+export default function App() {
+  const [fontsLoaded] = useFonts({
+    Manrope400: Manrope_400Regular,
+    Manrope500: Manrope_500Medium,
+    Manrope600: Manrope_600SemiBold,
+    Manrope700: Manrope_700Bold,
+  })
+
+  if (!fontsLoaded) return null
+
+  return (
+    <GestureHandlerRootView className="flex-1">
+      <BottomSheetModalProvider>
+        <GlobalWrapper>
+          {/* App content */}
+          <AppToastBase position="top" />
+        </GlobalWrapper>
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
+  )
+}
+```
+
+8. Use the utilities via `className`:
+
 ```jsx
-<View className="bg-neutral-100 dark:bg-neutral-900 p-md">
-  <Text className="text-body1 text-accent-11 dark:text-accent-dark-11">
-    This text uses custom colors and typography from the configuration.
+<View className="bg-light-page-bg dark:bg-dark-page-bg p-md">
+  <Text className="text-base-body text-light-type-accent dark:text-dark-type-accent">
+    Themed text using the afrikit tokens
   </Text>
 </View>
 ```
+
+### Class naming
+
+The token classes are namespaced by colour scheme, which is easy to get wrong:
+
+| Kind | Pattern | Example |
+| --- | --- | --- |
+| Backgrounds | `bg-{light\|dark}-{color}{1-12}` | `bg-light-accent9` |
+| Page background | `bg-{light\|dark}-page-bg` | `bg-dark-page-bg` |
+| Type colours | `text-{light\|dark}-type-{name}` | `text-light-type-error` |
+| Text styles | `text-{xs..5xl}-{body\|title\|head\|bold}` | `text-base-body` |
+| Spacing | `{p\|m}-{xs..3xl}` | `p-md` |
+| Radius | `rounded-{xs\|sm\|md\|lg}[-max]` | `rounded-md-max` |
+
+Type colour names are `gray`, `accent`, `success`, `error`, `warning`, `info`,
+`tomato`, `violet` and `cyan` — there is no `type-neutral`.
