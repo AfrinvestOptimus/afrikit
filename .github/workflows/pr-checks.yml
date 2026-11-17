@@ -38,6 +38,22 @@ jobs:
       - name: Install
         run: yarn install --frozen-lockfile
 
+      # Must run before the lint/typecheck/build steps below. afrikit-shared is a
+      # workspace now rather than a registry download, so its dist/ does not
+      # exist until it is compiled -- and packages/mobile imports
+      # `afrikit-shared/dist/colors` for types and requires `afrikit-shared/dist`
+      # in its tailwind config. It was outside the workspace until now and
+      # nothing ever compiled it in CI; `yarn build` in shared/ exited 127 for
+      # want of a local typescript.
+      - name: Build shared tokens
+        working-directory: shared
+        run: |
+          yarn build
+          test -f dist/index.js \
+            || { echo "::error::shared/dist/index.js is missing; the published tarball would be empty."; exit 1; }
+          test -f dist/index.d.ts \
+            || { echo "::error::shared/dist/index.d.ts is missing; consumers would get no token types."; exit 1; }
+
       - name: Lint
         run: yarn lint
 
@@ -48,6 +64,7 @@ jobs:
       - name: Typecheck Storybook harness
         working-directory: packages/storybook
         run: npx tsc --noEmit
+
 
       - name: Build library
         working-directory: packages/mobile
@@ -97,10 +114,10 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build and pack
-        working-directory: packages/mobile
         run: |
-          yarn build
-          npm pack --silent
+          yarn workspace afrikit-shared build
+          (cd shared && npm pack --silent)
+          (cd packages/mobile && yarn build && npm pack --silent)
 
       # Installing the tarball the way a consumer does is the only check that
       # exercises `main`, the `files` whitelist and the emitted types together.
@@ -109,7 +126,8 @@ jobs:
       - name: Install the tarball into a scratch project
         run: |
           tarball=$(ls packages/mobile/afrikit-mobile-*.tgz)
-          echo "Testing $tarball"
+          shared_tarball=$(ls shared/afrikit-shared-*.tgz)
+          echo "Testing $tarball against $shared_tarball"
           mkdir -p "$RUNNER_TEMP/consumer" && cd "$RUNNER_TEMP/consumer"
           npm init -y >/dev/null
           # --legacy-peer-deps because afrikit-mobile declares open-ended peers
@@ -119,7 +137,12 @@ jobs:
           # published that day. This check only needs the package's own
           # declarations plus react-native for the types it imports, and
           # check.ts uses skipLibCheck.
+          # Both tarballs together. afrikit-mobile depends on the afrikit-shared
+          # version built in this same run, which is by definition not on the
+          # registry yet, so resolving it from npm would fail with ETARGET. A
+          # release publishes the two in dependency order for the same reason.
           npm install --no-audit --no-fund --legacy-peer-deps \
+            "$GITHUB_WORKSPACE/$shared_tarball" \
             "$GITHUB_WORKSPACE/$tarball" \
             react@18.2.0 react-native@0.74.5 typescript@~5.3.3
 
@@ -164,3 +187,23 @@ jobs:
           }
           JSON
           npx tsc -p tsconfig.json
+
+      # afrikit-shared ships the design tokens that consumers import directly
+      # (`afrikit-shared/dist/colors`). The registry served 1.0.33 while the
+      # repo said 1.0.18, so nothing here had ever verified its tarball.
+      - name: Install the shared tarball and read a token through it
+        run: |
+          tarball=$(ls shared/afrikit-shared-*.tgz)
+          echo "Testing $tarball"
+          mkdir -p "$RUNNER_TEMP/shared-consumer" && cd "$RUNNER_TEMP/shared-consumer"
+          npm init -y >/dev/null
+          npm install --no-audit --no-fund "$GITHUB_WORKSPACE/$tarball"
+          main=$(node -p "require('afrikit-shared/package.json').main")
+          test -f "node_modules/afrikit-shared/$main" \
+            || { echo "::error::main ($main) is missing from the published package."; exit 1; }
+          node -e "
+            const c = require('afrikit-shared/dist')
+            const accent = c.default.theme.colors.light.accent9
+            if (!accent) { console.error('::error::colors.light.accent9 did not survive packing'); process.exit(1) }
+            console.log('afrikit-shared resolves; colors.light.accent9 =', accent)
+          "

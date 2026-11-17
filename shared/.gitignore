@@ -1,0 +1,3 @@
+# Build output. Published via the `files` whitelist, never committed.
+dist/
+*.tgz

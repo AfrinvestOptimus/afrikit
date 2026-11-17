@@ -4,11 +4,8 @@
   "description": "Afrinvest Design System",
   "workspaces": {
     "packages": [
-      "packages/*"
-    ],
-    "nohoist": [
-      "**/afrikit-shared",
-      "**/afrikit-shared/**"
+      "packages/*",
+      "shared"
     ]
   },
   "private": true,
@@ -53,7 +50,7 @@
     "webpack": "^5.94.0"
   },
   "scripts": {
-    "build": "tsc && tsc-alias",
+    "build": "yarn workspace afrikit-shared build && tsc && tsc-alias",
     "start": "lerna run start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . ",
