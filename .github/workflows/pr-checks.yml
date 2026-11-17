@@ -38,6 +38,22 @@ jobs:
       - name: Install
         run: yarn install --frozen-lockfile
 
+      # Must run before the lint/typecheck/build steps below. afrikit-shared is a
+      # workspace now rather than a registry download, so its dist/ does not
+      # exist until it is compiled -- and packages/mobile imports
+      # `afrikit-shared/dist/colors` for types and requires `afrikit-shared/dist`
+      # in its tailwind config. It was outside the workspace until now and
+      # nothing ever compiled it in CI; `yarn build` in shared/ exited 127 for
+      # want of a local typescript.
+      - name: Build shared tokens
+        working-directory: shared
+        run: |
+          yarn build
+          test -f dist/index.js \
+            || { echo "::error::shared/dist/index.js is missing; the published tarball would be empty."; exit 1; }
+          test -f dist/index.d.ts \
+            || { echo "::error::shared/dist/index.d.ts is missing; consumers would get no token types."; exit 1; }
+
       - name: Lint
         run: yarn lint
 
@@ -49,18 +65,6 @@ jobs:
         working-directory: packages/storybook
         run: npx tsc --noEmit
 
-      # afrikit-shared is published too, and packages/mobile's tailwind config
-      # requires afrikit-shared/dist at build time, so it has to build first.
-      # It was outside the workspace until now and nothing ever compiled it in
-      # CI; `yarn build` in shared/ exited 127 for want of a local typescript.
-      - name: Build shared tokens
-        working-directory: shared
-        run: |
-          yarn build
-          test -f dist/index.js \
-            || { echo "::error::shared/dist/index.js is missing; the published tarball would be empty."; exit 1; }
-          test -f dist/index.d.ts \
-            || { echo "::error::shared/dist/index.d.ts is missing; consumers would get no token types."; exit 1; }
 
       - name: Build library
         working-directory: packages/mobile
@@ -122,7 +126,8 @@ jobs:
       - name: Install the tarball into a scratch project
         run: |
           tarball=$(ls packages/mobile/afrikit-mobile-*.tgz)
-          echo "Testing $tarball"
+          shared_tarball=$(ls shared/afrikit-shared-*.tgz)
+          echo "Testing $tarball against $shared_tarball"
           mkdir -p "$RUNNER_TEMP/consumer" && cd "$RUNNER_TEMP/consumer"
           npm init -y >/dev/null
           # --legacy-peer-deps because afrikit-mobile declares open-ended peers
@@ -132,7 +137,12 @@ jobs:
           # published that day. This check only needs the package's own
           # declarations plus react-native for the types it imports, and
           # check.ts uses skipLibCheck.
+          # Both tarballs together. afrikit-mobile depends on the afrikit-shared
+          # version built in this same run, which is by definition not on the
+          # registry yet, so resolving it from npm would fail with ETARGET. A
+          # release publishes the two in dependency order for the same reason.
           npm install --no-audit --no-fund --legacy-peer-deps \
+            "$GITHUB_WORKSPACE/$shared_tarball" \
             "$GITHUB_WORKSPACE/$tarball" \
             react@18.2.0 react-native@0.74.5 typescript@~5.3.3
 
