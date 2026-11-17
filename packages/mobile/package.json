@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@expo-google-fonts/manrope": "^0.2.3",
-    "afrikit-shared": "^1.0.23",
+    "afrikit-shared": "^1.0.34",
     "react-native-remix-icon": "^4.7.0"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "afrikit-shared",
-  "version": "1.0.18",
+  "version": "1.0.34",
   "description": "Houses all shared files",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,6 +13,9 @@
   ],
   "author": "afrinvest",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "tailwindcss": "^3.0.0"
   },
@@ -38,6 +41,5 @@
   "bugs": {
     "url": "https://github.com/AfrinvestOptimus/afrikit/issues"
   },
-  "homepage": "https://github.com/AfrinvestOptimus/afrikit#readme",
-  "gitHead": "0275b21d794e11ed31db4e99b546fc805efbe41e"
+  "homepage": "https://github.com/AfrinvestOptimus/afrikit#readme"
 }
